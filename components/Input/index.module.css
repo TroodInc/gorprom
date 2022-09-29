@@ -1,0 +1,91 @@
+.root {
+  position: relative;
+  border: 1px solid var(--trood-border);
+  border-radius: var(--trood-border-radius);
+  background-color: var(--trood-white);
+  display: flex;
+  align-items: stretch;
+  min-height: 38px;
+  padding: 8px 10px;
+}
+
+.root.active {
+  border-color: var(--trood-blue);
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
+}
+
+.error {
+  border-color: var(--trood-red);
+}
+
+.active {
+  border: 1px solid var(--trood-blue);
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
+}
+
+.label {
+  margin-bottom: 10px;
+}
+
+.phoneCode {
+  margin-right: 0.2rem;
+  color: var(--trood-gray-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  font-size: inherit;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  resize: none;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  background-color: inherit;
+}
+
+.input::-webkit-input-placeholder {
+  color: var(--trood-gray-dark);
+}
+
+.input::-moz-placeholder {
+  color: var(--trood-gray-dark);
+}
+
+.input:-moz-placeholder {
+  color: var(--trood-gray-dark);
+}
+
+.input:-ms-input-placeholder {
+  color: var(--trood-gray-dark);
+}
+
+.textarea {
+  composes: input;
+}
+
+.root .disabled {
+  color: var(--trood-text-gray);
+}
+
+.shadow {
+  composes: input;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  position: absolute;
+}
+
+.errorText {
+  margin-top: 5px;
+  color: var(--trood-red);
+  font-size: 12px;
+}
+
+.colorRepresentation {
+  width: 40px;
+  height: 40px;
+}

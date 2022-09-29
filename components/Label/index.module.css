@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  align-self: flex-start;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: var(--trood-text-gray);
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

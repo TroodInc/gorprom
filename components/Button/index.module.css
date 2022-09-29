@@ -1,0 +1,267 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+  max-width: 100%;
+  min-width: 68px;
+  min-height: 38px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 1.33;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  border-radius: var(--trood-border-radius);
+}
+
+.thin {
+  font-size: 10px;
+}
+
+.icon {
+  min-width: auto;
+  min-height: auto;
+  width: 40px;
+  height: 40px;
+  color: var(--trood-gray-medium-dark) !important;
+  background-color: var(--trood-white) !important;
+  border: none;
+}
+
+.add,
+.arrow,
+.minus,
+.delete {
+  min-width: auto;
+  min-height: auto;
+  padding: 0;
+}
+
+.attach {
+  composes: add;
+}
+
+.arrowLeft,
+.arrowRight {
+  composes: arrow;
+}
+
+.arrow {
+  color: var(--trood-gray) !important;
+}
+
+.arrow:hover svg {
+  fill: var(--trood-blue) !important;
+}
+
+.disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  cursor: inherit;
+  z-index: 10;
+}
+
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  cursor: inherit;
+  z-index: 10;
+}
+
+.labelContainer {
+  display: flex;
+  align-items: center;
+}
+
+.specialLabelIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.thin .specialLabelIcon {
+  width: 16px;
+  height: 16px;
+}
+
+input.button {
+  top: -40px;
+  height: calc(100% + 40px);
+}
+
+.label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: inherit;
+}
+
+.specialLabelIcon + .label {
+  margin-left: 7px;
+}
+
+.thin .specialLabelIcon + .label {
+  margin-left: 3px;
+}
+
+.red {
+  color: var(--trood-red);
+  background-color: var(--trood-red);
+}
+
+.red:not(.disabled):hover {
+  color: var(--trood-red-hover);
+  background-color: var(--trood-red-hover);
+}
+
+.blue {
+  color: var(--trood-white);
+  background-color: var(--trood-blue);
+}
+
+.blue.border {
+  color: var(--trood-black);
+  border-color: var(--trood-blue);
+}
+
+.blue:not(.disabled):hover {
+  color: var(--trood-blue);
+  background-color: var(--trood-blue-hover);
+}
+
+.gray {
+  color: var(--trood-white);
+  background-color: var(--trood-gray-medium-dark);
+}
+
+.gray:not(.disabled):hover {
+  color: var(--trood-white);
+  background-color: var(--trood-gray-dark);
+}
+
+.orange {
+  color: var(--trood-white);
+  background-color: var(--trood-orange);
+}
+
+.orange:not(.disabled):hover {
+  color: var(--trood-white);
+  background-color: var(--trood-orange-hover);
+}
+
+.green {
+  color: var(--trood-white);
+  background-color: var(--trood-green);
+}
+
+.green:not(.disabled):hover {
+  color: var(--trood-white);
+  background-color: var(--trood-green-hover);
+}
+
+.fill,
+.fill:not(.disabled):hover {
+  color: var(--trood-white);
+}
+
+.border {
+  border: 2px solid var(--trood-border);
+  background-color: var(--trood-white);
+}
+
+.border:not(.disabled):hover {
+  background-color: var(--trood-white);
+  border-color: var(--trood-border);
+}
+
+.white {
+  color: var(--trood-blue);
+  background-color: var(--trood-white);
+}
+
+.white:not(.disabled):hover {
+  color: var(--trood-blue);
+  background-color: var(--trood-gray-light);
+}
+
+.text {
+  background-color: transparent !important;
+}
+
+.border.gray,
+.text.gray {
+  color: var(--trood-gray-medium-dark);
+}
+
+.border.gray:not(.disabled):hover,
+.text.gray:not(.disabled):hover {
+  color: var(--trood-gray-dark);
+}
+
+.border.white,
+.text.white {
+  color: var(--trood-white);
+}
+
+.border.white:not(.disabled):hover,
+.text.white:not(.disabled):hover {
+  color: var(--trood-gray-light);
+}
+
+.border.orange,
+.text.orange {
+  border-color: var(--trood-orange);
+  color: var(--trood-orange);
+}
+
+.border.blue,
+.text.blue {
+  border-color: var(--trood-blue);
+  color: var(--trood-blue);
+}
+
+.border.orange:not(.disabled):hover,
+.text.orange:not(.disabled):hover {
+  color: var(--trood-orange-hover);
+}
+
+.add,
+.add:not(.disabled):hover {
+  background-color: transparent;
+  color: var(--trood-blue);
+}
+
+.gray.add,
+.gray.add:not(.disabled):hover {
+  font-size: 12px;
+  background-color: transparent;
+  color: var(--trood-gray-dark);
+}
+
+.delete,
+.delete:not(.disabled):hover {
+  background-color: rgba(235, 98, 88, 0.2);
+}
+
+.minus,
+.minus:not(.disabled):hover {
+  background-color: transparent;
+}

@@ -1,0 +1,14 @@
+.root {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100px;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+}
+
+.menu {
+  border-bottom: 1px solid var(--trood-border);
+  margin-bottom: 10px;
+  background-color: var(--trood-white);
+}
