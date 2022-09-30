@@ -290,13 +290,13 @@ class Input extends PureComponent {
     if (include) {
       let targetValueArray = [...targetValue]
       if (Array.isArray(include)) {
-        targetValueArray = targetValueArray.map((char) => {
+        targetValueArray = targetValueArray.map(char => {
           if (!include.includes(char)) return ''
           return char
         })
       }
       if (include instanceof RegExp) {
-        targetValueArray = targetValueArray.map((char) => {
+        targetValueArray = targetValueArray.map(char => {
           if (!include.test(char)) return ''
           return char
         })
@@ -306,13 +306,13 @@ class Input extends PureComponent {
     if (exclude) {
       let targetValueArray = [...targetValue]
       if (Array.isArray(exclude)) {
-        targetValueArray = targetValueArray.map((char) => {
+        targetValueArray = targetValueArray.map(char => {
           if (exclude.includes(char)) return ''
           return char
         })
       }
       if (exclude instanceof RegExp) {
-        targetValueArray = targetValueArray.map((char) => {
+        targetValueArray = targetValueArray.map(char => {
           if (exclude.test(char)) return ''
           return char
         })
