@@ -11,7 +11,7 @@
 
 .root.active {
   border-color: var(--trood-blue);
-  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3); */
 }
 
 .error {
@@ -19,8 +19,8 @@
 }
 
 .active {
-  border: 1px solid var(--trood-blue);
-  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
+  border: 2px solid var( --trood-border-active);
+  /* box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3); */
 }
 
 .label {
