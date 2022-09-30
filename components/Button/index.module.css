@@ -7,7 +7,7 @@
   max-height: 100%;
   max-width: 100%;
   min-width: 68px;
-  min-height: 38px;
+  min-height: 50px;
   padding: 0 14px;
   box-sizing: border-box;
   font-size: 14px;
@@ -15,7 +15,7 @@
   overflow: hidden;
   cursor: pointer;
   user-select: none;
-  border-radius: var(--trood-border-radius);
+  border-radius: 0;
 }
 
 .thin {
