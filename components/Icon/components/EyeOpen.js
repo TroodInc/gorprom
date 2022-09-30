@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from "react";
+import React from "react"
 
 const EyeOpen = () => (
   <svg
@@ -17,6 +17,6 @@ const EyeOpen = () => (
       fill-opacity="0.6"
     />
   </svg>
-);
+)
 
-export default EyeOpen;
+export default EyeOpen
