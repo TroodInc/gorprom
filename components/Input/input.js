@@ -1,17 +1,17 @@
-import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
-import classNames from "classnames"
-import throttle from "lodash/throttle"
-import debounce from "lodash/debounce"
-import objectHash from "object-hash"
-import deepEqual from "deep-equal"
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import throttle from 'lodash/throttle'
+import debounce from 'lodash/debounce'
+import objectHash from 'object-hash'
+import deepEqual from 'deep-equal'
 
 import {
   KEY_CODES,
   NAVIGATION_KEYS,
   DISPATCH_DEBOUNCE,
   SEARCH_DEBOUNCE,
-} from "../internal/constants"
+} from '../internal/constants'
 import {
   INPUT_TYPES,
   ROW_HEIGHT,
@@ -19,27 +19,18 @@ import {
   DEFAULT_MAX_ROWS,
   FULL_ZERO_TIME,
   checkTime,
-} from "./constants"
+} from './constants'
 
-import Icon, { ICONS_TYPES } from "../Icon"
-import Label from "../Label"
-import WysiwygEditor from "../internal/Wysiwyg"
+import Icon, { ICONS_TYPES } from '../Icon'
+import Label from '../Label'
+import WysiwygEditor from '../internal/Wysiwyg'
 
-import style from "./index.module.css"
+import style from './index.module.css'
 
 const noopFunc = () => {}
 
-const numberTypes = [
-  INPUT_TYPES.moneyNumber,
-  INPUT_TYPES.money,
-  INPUT_TYPES.int,
-  INPUT_TYPES.float,
-]
-const decimalTypes = [
-  INPUT_TYPES.moneyNumber,
-  INPUT_TYPES.money,
-  INPUT_TYPES.float,
-]
+const numberTypes = [INPUT_TYPES.moneyNumber, INPUT_TYPES.money, INPUT_TYPES.int, INPUT_TYPES.float]
+const decimalTypes = [INPUT_TYPES.moneyNumber, INPUT_TYPES.money, INPUT_TYPES.float]
 
 class Input extends PureComponent {
   static propTypes = {
@@ -47,7 +38,10 @@ class Input extends PureComponent {
     className: PropTypes.string,
     labelClassName: PropTypes.string,
     inputClassName: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     label: PropTypes.node,
     placeholder: PropTypes.string,
     autoFocus: PropTypes.bool,
@@ -97,7 +91,7 @@ class Input extends PureComponent {
 
   static defaultProps = {
     type: INPUT_TYPES.text,
-    value: "",
+    value: '',
     showTextErrors: true,
     onChange: noopFunc,
     onValid: noopFunc,
@@ -129,17 +123,17 @@ class Input extends PureComponent {
     }
     if (formattedValue === state.prevPropsFormattedValue) return null
     if (numberTypes.includes(type)) {
-      stateFormatedValue = stateFormatedValue || "0"
+      stateFormatedValue = stateFormatedValue || '0'
       if (
-        stateFormatedValue.indexOf("-") === 0 &&
-        formattedValue.indexOf("-") !== 0
+        stateFormatedValue.indexOf('-') === 0 &&
+        formattedValue.indexOf('-') !== 0
       ) {
         formattedValue = stateFormatedValue // don`t state change on minus zero
       }
       const parts = stateFormatedValue.split(/\u002c|\u002e/)
-      const fraction = +(parts[1] || "0")
+      const fraction = +(parts[1] || '0')
       if (!fraction) stateFormatedValue = parts[0] // don`t state change on zero fraction
-      stateFormatedValue = stateFormatedValue.replace(/^[0\s]*/g, "") || "0"
+      stateFormatedValue = stateFormatedValue.replace(/^[0\s]*/g, '') || '0'
     }
     if (formattedValue !== stateFormatedValue) {
       return {
@@ -246,11 +240,11 @@ class Input extends PureComponent {
     // Required validation, overrides all other errors
     if (required) {
       if (/^\s*$/.test(value)) {
-        return [requiredError || "Обязательное значение"] // TODO i18n
+        return [requiredError || 'Обязательное значение'] // TODO i18n
       }
       if (numberTypes.includes(type) && !zeroIsValue) {
-        if (value === 0 || value === "0") {
-          return [requiredError || "Обязательное значение"] // TODO i18n
+        if (value === 0 || value === '0') {
+          return [requiredError || 'Обязательное значение'] // TODO i18n
         }
       }
     }
@@ -259,7 +253,7 @@ class Input extends PureComponent {
 
     const regexpToMatch = (format && format.regexp) || format
     if (value && regexpToMatch && !regexpToMatch.test(value)) {
-      errors.push(format.error || "Некорректный формат") // TODO i18n
+      errors.push(format.error || 'Некорректный формат') // TODO i18n
     }
 
     if (maxLen && value.length > maxLen) {
@@ -297,33 +291,33 @@ class Input extends PureComponent {
       let targetValueArray = [...targetValue]
       if (Array.isArray(include)) {
         targetValueArray = targetValueArray.map((char) => {
-          if (!include.includes(char)) return ""
+          if (!include.includes(char)) return ''
           return char
         })
       }
       if (include instanceof RegExp) {
         targetValueArray = targetValueArray.map((char) => {
-          if (!include.test(char)) return ""
+          if (!include.test(char)) return ''
           return char
         })
       }
-      targetValue = targetValueArray.join("")
+      targetValue = targetValueArray.join('')
     }
     if (exclude) {
       let targetValueArray = [...targetValue]
       if (Array.isArray(exclude)) {
         targetValueArray = targetValueArray.map((char) => {
-          if (exclude.includes(char)) return ""
+          if (exclude.includes(char)) return ''
           return char
         })
       }
       if (exclude instanceof RegExp) {
         targetValueArray = targetValueArray.map((char) => {
-          if (exclude.test(char)) return ""
+          if (exclude.test(char)) return ''
           return char
         })
       }
-      targetValue = targetValueArray.join("")
+      targetValue = targetValueArray.join('')
     }
     let newFormattedValue = formatValue(targetValue)
     if (type === INPUT_TYPES.time) {
@@ -334,9 +328,9 @@ class Input extends PureComponent {
       }
     }
     if (decimalTypes.includes(type)) {
-      const formatedValueAbs = formattedValue.replace("-", "")
-      const newFormatedValueAbs = +(newFormattedValue.replace(/\D/g, "") || 0)
-      if (formatedValueAbs === "0") {
+      const formatedValueAbs = formattedValue.replace('-', '')
+      const newFormatedValueAbs = +(newFormattedValue.replace(/\D/g, '') || 0)
+      if (formatedValueAbs === '0') {
         newFormattedValue = newFormattedValue.replace(
           /\d+/,
           newFormatedValueAbs
@@ -350,7 +344,7 @@ class Input extends PureComponent {
       },
       () => {
         let newValue
-        if (newFormattedValue !== "") {
+        if (newFormattedValue !== '') {
           newValue = getValue(newFormattedValue)
         }
         this.throttledOnChangeEvent(newValue)
@@ -369,7 +363,7 @@ class Input extends PureComponent {
     }
   }
 
-  changeSelection(delta = 0, additional = "") {
+  changeSelection(delta = 0, additional = '') {
     const { formattedValue } = this.state
     const {
       type,
@@ -418,11 +412,11 @@ class Input extends PureComponent {
 
   handleInput(e) {
     if (
-      ((e.inputType === "insertLineBreak" || e.key === KEY_CODES.enter) &&
+      ((e.inputType === 'insertLineBreak' || e.key === KEY_CODES.enter) &&
         this.props.type === INPUT_TYPES.multi) ||
       e.data
     ) {
-      const char = e.data || "\r"
+      const char = e.data || '\r'
       const {
         type,
         settings: { include, exclude, getValue, formatValue },
@@ -431,16 +425,16 @@ class Input extends PureComponent {
       let shouldPreventDefault = false
       if (numberTypes.includes(type)) {
         shouldPreventDefault =
-          char === "-" &&
-          (this.selectionStart !== 0 || formattedValue.includes("-"))
+          char === '-' &&
+          (this.selectionStart !== 0 || formattedValue.includes('-'))
         shouldPreventDefault +=
-          (char === "." || char === ",") && formattedValue.includes(",")
+          (char === '.' || char === ',') && formattedValue.includes(',')
         const roundValue = Math.floor(getValue(formattedValue)).toString()
         const roundFormattedValue = formatValue(roundValue)
         shouldPreventDefault +=
           roundValue.length >= Number.MAX_SAFE_INTEGER.toString().length - 1 &&
           this.selectionStart === this.selectionEnd &&
-          !(char === "." || char === ",") &&
+          !(char === '.' || char === ',') &&
           this.selectionStart <= roundFormattedValue.length
       }
       if (include) {
@@ -463,7 +457,7 @@ class Input extends PureComponent {
         this.changeSelection(0, char)
       }
     } else if (
-      e.inputType === "deleteContentBackward" ||
+      e.inputType === 'deleteContentBackward' ||
       e.key === KEY_CODES.backspace
     ) {
       const delta = +(this.selectionStart === this.selectionEnd)
@@ -472,7 +466,7 @@ class Input extends PureComponent {
   }
 
   handlePaste(e) {
-    const pastedText = e.clipboardData.getData("text")
+    const pastedText = e.clipboardData.getData('text')
     this.changeSelection(0, pastedText)
   }
 
@@ -532,7 +526,7 @@ class Input extends PureComponent {
     const inputProps = {
       ref: (node) => {
         if (!this.input && node) {
-          node.addEventListener("input", this.handleInput)
+          node.addEventListener('input', this.handleInput)
           // props onPress call it with short event argument
         }
         this.input = node
@@ -543,7 +537,7 @@ class Input extends PureComponent {
           node.setSelectionRange(caretPosition, caretPosition)
         }
       },
-      "data-cy": label || placeholder,
+      'data-cy': label || placeholder,
       placeholder,
       disabled,
       autoFocus,

@@ -97,7 +97,7 @@
   cursor: pointer;
 }
 
-.input[type="password"]::-ms-reveal {
+.input[type='password']::-ms-reveal {
   display: none;
 }
 
