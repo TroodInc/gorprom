@@ -89,3 +89,8 @@
   width: 40px;
   height: 40px;
 }
+
+.btn {
+  background: transparent;
+  border: none;
+}

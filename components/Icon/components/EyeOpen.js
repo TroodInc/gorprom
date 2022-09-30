@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React from "react";
 
-const EyeOpened = () => (
+const EyeOpen = () => (
   <svg
     width="24"
     height="24"
@@ -19,4 +19,4 @@ const EyeOpened = () => (
   </svg>
 );
 
-export default EyeOpened;
+export default EyeOpen;

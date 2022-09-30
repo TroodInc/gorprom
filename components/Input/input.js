@@ -579,13 +579,15 @@ class Input extends PureComponent {
                   ...inputProps,
                 }}
               />
-              <Icon
-                {...{
-                  className: style.phoneCode,
-                  type: ICONS_TYPES.eyeClosed,
-                  size: 20,
-                }}
-              />
+              <button className={style.btn}>
+                <Icon
+                  {...{
+                    className: style.phoneCode,
+                    type: ICONS_TYPES.eyeOpen,
+                    size: 20,
+                  }}
+                />
+              </button>
             </>
           );
         default:
