@@ -583,7 +583,8 @@ class Input extends PureComponent {
           );
         case INPUT_TYPES.password:
           return (
-            <>
+            <fieldset className={style.fieldset}>
+             <legend>Пароль</legend>
               <input
                 {...{
                   type: this.state.isPasswordShown
@@ -607,7 +608,7 @@ class Input extends PureComponent {
                   }}
                 />
               </button>
-            </>
+            </fieldset>
           );
         default:
           return (
@@ -624,7 +625,7 @@ class Input extends PureComponent {
 
     return (
       <div ref={innerRef} className={classNames(style.rootWrapper, className)}>
-        {label && (
+        {/* {label && (
           <Label
             {...{
               className: classNames(labelClassName, style.label),
@@ -632,7 +633,7 @@ class Input extends PureComponent {
               label,
             }}
           />
-        )}
+        )} */}
         <div
           {...dataAttributes}
           className={classNames(style.root, inputClassName, {

@@ -6,10 +6,10 @@
   display: flex;
   align-items: stretch;
   min-height: 38px;
-  padding: 8px 10px;
+  /* padding: 8px 10px; */
 }
 
-.root.active {
+.root.fieldset {
   border-color: var(--trood-blue);
   /* box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3); */
 }
@@ -19,7 +19,13 @@
 }
 
 .active {
-  border: 2px solid var( --trood-border-active);
+  border: none;
+}
+
+.active .fieldset {
+  border: 2px solid var(--trood-blue);
+  color: var(--trood-blue);
+  /* border: none; */
   /* box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3); */
 }
 
@@ -96,6 +102,12 @@
   cursor: pointer;
 }
 
-.input[type=password]::-ms-reveal {
+.input[type="password"]::-ms-reveal {
   display: none;
+}
+
+.fieldset {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
