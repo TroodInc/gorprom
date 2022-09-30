@@ -486,9 +486,18 @@ class Input extends PureComponent {
   }
 
   showPassword = () => {
-    this.setState({ isPasswordShown: !this.state.isPasswordShown });
-    console.log('ck')
-  }
+    this.setState((state, props) => ({
+      isPasswordShown: !state.isPasswordShown,
+    }));
+
+    const time = setTimeout(() => {
+      this.setState({ isPasswordShown: false });
+    }, 3000);
+
+    if (this.state.isPasswordShown) {
+      clearTimeout(time);
+    }
+  };
 
   render() {
     const {
