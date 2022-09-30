@@ -1,0 +1,53 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000000;
+  overflow: auto;
+}
+
+.overlay.center {
+  display: flex;
+  padding: 32px 0;
+}
+
+.modal {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100px;
+  background-color: var(--trood-white);
+  padding: 40px;
+  border-radius: 5px;
+}
+
+.modal:focus {
+  outline: none;
+}
+
+.modal.center {
+  margin: auto;
+}
+
+.modal.left {
+  margin: 0 auto 0 0;
+}
+
+.modal.right {
+  margin: 0 0 0 auto;
+}
+
+.modal.full {
+  margin: 0;
+}
+
+.modal.left,
+.modal.right,
+.modal.full {
+  border-radius: 0;
+  min-height: 100vh;
+}

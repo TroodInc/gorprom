@@ -1,0 +1,10 @@
+.modalTitle {
+    font-size: 24px;
+}
+
+.modalFooter {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
