@@ -165,6 +165,7 @@ class Input extends PureComponent {
       formattedValue: formatValue(value.toString()),
       height: props.minRows * ROW_HEIGHT,
       isPasswordShown: false,
+      isLegendShow: false,
     };
 
     this.heightChange = this.heightChange.bind(this);
@@ -499,6 +500,14 @@ class Input extends PureComponent {
     }
   };
 
+  showLegend = () => {
+    this.setState({ isLegendShow: true });
+  };
+
+  hideLegend = () => {
+    this.setState({ isLegendShow: false });
+  };
+
   render() {
     const {
       innerRef,
@@ -583,8 +592,12 @@ class Input extends PureComponent {
           );
         case INPUT_TYPES.password:
           return (
-            <fieldset className={style.fieldset}>
-             <legend>Пароль</legend>
+            <fieldset
+              className={style.fieldset}
+              onFocus={this.showLegend}
+              onBlur={this.hideLegend}
+            >
+              {this.state.isLegendShow ? <legend>Пароль</legend> : null}
               <input
                 {...{
                   type: this.state.isPasswordShown
@@ -612,13 +625,23 @@ class Input extends PureComponent {
           );
         default:
           return (
-            <input
-              {...{
-                type: INNER_INPUT_TYPES[type],
-                className: classNames(style.input, disabled && style.disabled),
-                ...inputProps,
-              }}
-            />
+            <fieldset
+              className={style.fieldset}
+              onFocus={this.showLegend}
+              onBlur={this.hideLegend}
+            >
+              {this.state.isLegendShow ? <legend>ФИО</legend> : null}
+              <input
+                {...{
+                  type: INNER_INPUT_TYPES[type],
+                  className: classNames(
+                    style.input,
+                    disabled && style.disabled
+                  ),
+                  ...inputProps,
+                }}
+              />
+            </fieldset>
           );
       }
     };
