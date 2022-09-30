@@ -214,11 +214,11 @@ class Input extends PureComponent {
     // Required validation, overrides all other errors
     if (required) {
       if (/^\s*$/.test(value)) {
-        return [requiredError || 'Value is required'] // TODO i18n
+        return [requiredError || 'Обязательное значение'] // TODO i18n
       }
       if (numberTypes.includes(type) && !zeroIsValue) {
         if (value === 0 || value === '0') {
-          return [requiredError || 'Value is required'] // TODO i18n
+          return [requiredError || 'Обязательное значение'] // TODO i18n
         }
       }
     }
@@ -227,15 +227,15 @@ class Input extends PureComponent {
 
     const regexpToMatch = (format && format.regexp) || format
     if (value && regexpToMatch && !regexpToMatch.test(value)) {
-      errors.push(format.error || 'Incorrect format') // TODO i18n
+      errors.push(format.error || 'Некорректный формат') // TODO i18n
     }
 
     if (maxLen && value.length > maxLen) {
-      errors.push(`Max length: ${maxLen}`) // TODO i18n
+      errors.push(`Максимальная длина: ${maxLen}`) // TODO i18n
     }
 
     if (minLen && (required || value.length > 0) && value.length < minLen) {
-      errors.push(`Min length: ${minLen}`) // TODO i18n
+      errors.push(`Минимальная длина: ${minLen}`) // TODO i18n
     }
 
     return errors
