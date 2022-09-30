@@ -93,4 +93,9 @@
 .btn {
   background: transparent;
   border: none;
+  cursor: pointer;
+}
+
+.input[type=password]::-ms-reveal {
+  display: none;
 }

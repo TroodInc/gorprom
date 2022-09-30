@@ -164,6 +164,7 @@ class Input extends PureComponent {
     this.state = {
       formattedValue: formatValue(value.toString()),
       height: props.minRows * ROW_HEIGHT,
+      isPasswordShown: false,
     };
 
     this.heightChange = this.heightChange.bind(this);
@@ -484,6 +485,11 @@ class Input extends PureComponent {
     this.props.onBlur();
   }
 
+  showPassword = () => {
+    this.setState({ isPasswordShown: !this.state.isPasswordShown });
+    console.log('ck')
+  }
+
   render() {
     const {
       innerRef,
@@ -571,7 +577,9 @@ class Input extends PureComponent {
             <>
               <input
                 {...{
-                  type: INNER_INPUT_TYPES.password,
+                  type: this.state.isPasswordShown
+                    ? INNER_INPUT_TYPES.text
+                    : INNER_INPUT_TYPES.password,
                   className: classNames(
                     style.input,
                     disabled && style.disabled
@@ -579,11 +587,13 @@ class Input extends PureComponent {
                   ...inputProps,
                 }}
               />
-              <button className={style.btn}>
+              <button className={style.btn} onClick={this.showPassword}>
                 <Icon
                   {...{
                     className: style.phoneCode,
-                    type: ICONS_TYPES.eyeOpen,
+                    type: this.state.isPasswordShown
+                      ? ICONS_TYPES.eyeClose
+                      : ICONS_TYPES.eyeOpen,
                     size: 20,
                   }}
                 />
