@@ -571,12 +571,19 @@ class Input extends PureComponent {
             <>
               <input
                 {...{
-                  type: INNER_INPUT_TYPES[type],
+                  type: INNER_INPUT_TYPES.password,
                   className: classNames(
                     style.input,
                     disabled && style.disabled
                   ),
                   ...inputProps,
+                }}
+              />
+              <Icon
+                {...{
+                  className: style.phoneCode,
+                  type: ICONS_TYPES.eyeClosed,
+                  size: 20,
                 }}
               />
             </>
