@@ -4,10 +4,12 @@ import Input from '../components/Input'
 import Modal from '../components/Modal'
 import PasswordCheck from '../components/PasswordCheck'
 import { getPageAllow, getRules, getAbacContext } from '../helpers/abac'
+import { useState } from 'react'
 
 import styles from './index.module.css'
 
 export default function Home() {
+  const [val, setVal] = useState('');
   return (
     <div>
       <Head>
@@ -16,8 +18,8 @@ export default function Home() {
       <Modal control={<Button label="Open Modal" />}>
         <div className={styles.modalTitle}>Создать аккаунт</div>
         <Input label="Логин" type="mail" />
-        <Input label="Пароль" type="password" />
-        <PasswordCheck />
+        <Input label="Пароль" type="password"  onChange={() => setVal(document.querySelector('Input[type="password"]').value)}/>
+        <PasswordCheck password={val} />
         <Button label="Продолжить" />
         <div className={styles.modalFooter}>
           <div>Уже есть аккаунт?</div>
