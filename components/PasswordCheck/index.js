@@ -45,7 +45,6 @@ const PasswordCheck = ({
         {title: 'Числа (0-9)', icn: ICONS_TYPES.clear, style: styles.clear} :
         {title: 'Числа (0-9)', icn: ICONS_TYPES.confirm, style: styles.check}
       arr.push(numErr)
-
       
     }, [errors])
 
@@ -53,15 +52,16 @@ const PasswordCheck = ({
   useEffect(() => {
     // on password change - validate it and call callback with string array of errors
     onValidate(errors)
+    errors = errors.slice(0, 4)
     const returnErrs = () => setErrorsArr([...errors])
     returnErrs()
-  }, [password, errorsArr])
+  }, [password])
 
   
   const renderErrors = (arr) => {
-    return arr.map(({title, icn, style}) => {
+    return arr.map(({title, icn, style}, i) => {
       return (
-        <div className={styles.item}>
+        <div className={styles.item} key={i}>
           <Icon type={icn} size={10} className={style}/>
           {title}
         </div>
