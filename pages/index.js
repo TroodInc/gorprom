@@ -15,7 +15,7 @@ export default function Home() {
       </Head>
       <Modal control={<Button label="Open Modal" />}>
         <div className={styles.modalTitle}>Создать аккаунт</div>
-        <Input label="Логин" type="mail" />
+        <Input label="ФИО" type="mail" />
         <Input label="Пароль" type="password" />
         <PasswordCheck />
         <Button label="Продолжить" />

@@ -443,12 +443,12 @@ class Input extends PureComponent {
 
     if(this.state.timer && this.state.isPasswordShown) {
       clearTimeout(this.state.timer)
-      this.setState({timer: null})
+      this.setState({ timer: null })
    } else {
-      const localTime = setTimeout(() => {
+      const localTimer = setTimeout(() => {
         this.setState({ isPasswordShown: false })
       }, 15000)
-      this.setState({timer: localTime})
+      this.setState({ timer: localTimer })
    }
   }
 
@@ -550,7 +550,7 @@ class Input extends PureComponent {
               onFocus={this.showLegend}
               onBlur={this.hideLegend}
             >
-              {this.state.isLegendShow ? <legend>Пароль</legend> : null}
+              {this.state.isLegendShow ? <legend>{label}</legend> : null}
               <input
                 {...{
                   type: this.state.isPasswordShown
@@ -583,7 +583,7 @@ class Input extends PureComponent {
               onFocus={this.showLegend}
               onBlur={this.hideLegend}
             >
-              {this.state.isLegendShow ? <legend>ФИО</legend> : null}
+              {this.state.isLegendShow ? <legend>{label}</legend> : null}
               <input
                 {...{
                   type: INNER_INPUT_TYPES[type],
