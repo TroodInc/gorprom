@@ -9,7 +9,7 @@ import { useState } from 'react'
 import styles from './index.module.css'
 
 export default function Home() {
-  const [val, setVal] = useState('');
+  const [val, setVal] = useState('')
   return (
     <div>
       <Head>
@@ -19,7 +19,7 @@ export default function Home() {
         <div className={styles.modalTitle}>Создать аккаунт</div>
         <Input label="Логин" type="mail" />
         <Input label="Пароль" type="password"  onChange={() => setVal(document.querySelector('Input[type="password"]').value)}/>
-        <PasswordCheck password={val} />
+        <PasswordCheck password={val} minLength={8} checkLower checkUpper checkNumber  onValidate={(arr) => {return arr}}/>
         <Button label="Продолжить" />
         <div className={styles.modalFooter}>
           <div>Уже есть аккаунт?</div>
