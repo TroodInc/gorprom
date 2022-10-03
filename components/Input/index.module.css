@@ -1,17 +1,14 @@
 .root {
   position: relative;
-  border: 1px solid var(--trood-border);
   border-radius: var(--trood-border-radius);
   background-color: var(--trood-white);
   display: flex;
   align-items: stretch;
   min-height: 38px;
-  padding: 8px 10px;
 }
 
 .root.active {
   border-color: var(--trood-blue);
-  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
 }
 
 .error {
@@ -19,8 +16,12 @@
 }
 
 .active {
-  border: 1px solid var(--trood-blue);
-  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
+  border: none;
+}
+
+.active .fieldset {
+  border: 2px solid var(--trood-blue);
+  color: var(--trood-blue);
 }
 
 .label {
@@ -88,4 +89,25 @@
 .colorRepresentation {
   width: 40px;
   height: 40px;
+}
+
+.btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.input[type='password']::-ms-reveal {
+  display: none;
+}
+
+.fieldset {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: 2px solid var(--trood-border);
+  border-radius: var(--trood-border-radius);
+  margin-bottom: 20px;
+  padding: 10px;
 }

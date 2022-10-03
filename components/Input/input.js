@@ -142,10 +142,13 @@ class Input extends PureComponent {
     } = props
 
     this.lastValid = true
+    this.timer = null
 
     this.state = {
       formattedValue: formatValue(value.toString()),
       height: props.minRows * ROW_HEIGHT,
+      isPasswordShown: false,
+      isLegendShow: false,
     }
 
     this.heightChange = this.heightChange.bind(this)
@@ -214,11 +217,11 @@ class Input extends PureComponent {
     // Required validation, overrides all other errors
     if (required) {
       if (/^\s*$/.test(value)) {
-        return [requiredError || 'Value is required'] // TODO i18n
+        return [requiredError || 'Обязательное значение'] // TODO i18n
       }
       if (numberTypes.includes(type) && !zeroIsValue) {
         if (value === 0 || value === '0') {
-          return [requiredError || 'Value is required'] // TODO i18n
+          return [requiredError || 'Обязательное значение'] // TODO i18n
         }
       }
     }
@@ -227,15 +230,15 @@ class Input extends PureComponent {
 
     const regexpToMatch = (format && format.regexp) || format
     if (value && regexpToMatch && !regexpToMatch.test(value)) {
-      errors.push(format.error || 'Incorrect format') // TODO i18n
+      errors.push(format.error || 'Некорректный формат') // TODO i18n
     }
 
     if (maxLen && value.length > maxLen) {
-      errors.push(`Max length: ${maxLen}`) // TODO i18n
+      errors.push(`Максимальная длина: ${maxLen}`) // TODO i18n
     }
 
     if (minLen && (required || value.length > 0) && value.length < minLen) {
-      errors.push(`Min length: ${minLen}`) // TODO i18n
+      errors.push(`Минимальная длина: ${minLen}`) // TODO i18n
     }
 
     return errors
@@ -432,6 +435,31 @@ class Input extends PureComponent {
     this.props.onBlur()
   }
 
+  
+  changePasswordVisibility = () => {
+    this.setState(({ isPasswordShown }) => ({
+      isPasswordShown: !isPasswordShown,
+    }))
+
+    if(this.timer && this.state.isPasswordShown) {
+      clearTimeout(this.timer)
+      this.timer = null
+   } else {
+      const localTimer = setTimeout(() => {
+        this.setState({ isPasswordShown: false })
+      }, 15000)
+      this.timer = localTimer
+   }
+  }
+
+  showLegend = () => {
+    this.setState({ isLegendShow: true })
+  }
+
+  hideLegend = () => {
+    this.setState({ isLegendShow: false })
+  }
+
   render() {
     const {
       innerRef,
@@ -515,13 +543,58 @@ class Input extends PureComponent {
               ...inputProps,
             }} />
           )
+          case INPUT_TYPES.password:
+          return (
+            <fieldset
+              className={style.fieldset}
+              onFocus={this.showLegend}
+              onBlur={this.hideLegend}
+            >
+              {this.state.isLegendShow ? <legend>{label}</legend> : null}
+              <input
+                {...{
+                  type: this.state.isPasswordShown
+                    ? INNER_INPUT_TYPES.text
+                    : INNER_INPUT_TYPES.password,
+                  className: classNames(
+                    style.input,
+                    disabled && style.disabled
+                  ),
+                  ...inputProps,
+                }}
+              />
+              <button className={style.btn} onClick={this.changePasswordVisibility}>
+                <Icon
+                  {...{
+                    className: style.phoneCode,
+                    type: this.state.isPasswordShown
+                      ? ICONS_TYPES.eyeClose
+                      : ICONS_TYPES.eyeOpen,
+                    size: 20,
+                  }}
+                />
+              </button>
+            </fieldset>
+          )
         default:
           return (
-            <input {...{
-              type: INNER_INPUT_TYPES[type],
-              className: classNames(style.input, disabled && style.disabled),
-              ...inputProps,
-            }} />
+            <fieldset
+              className={style.fieldset}
+              onFocus={this.showLegend}
+              onBlur={this.hideLegend}
+            >
+              {this.state.isLegendShow ? <legend>{label}</legend> : null}
+              <input
+                {...{
+                  type: INNER_INPUT_TYPES[type],
+                  className: classNames(
+                    style.input,
+                    disabled && style.disabled
+                  ),
+                  ...inputProps,
+                }}
+              />
+            </fieldset>
           )
       }
     }
@@ -531,14 +604,14 @@ class Input extends PureComponent {
         style.rootWrapper,
         className,
       )}>
-        {
+        {/* {
           label &&
           <Label {...{
             className: classNames(labelClassName, style.label),
             required,
             label,
           }} />
-        }
+        } */}
         <div {...dataAttributes} className={classNames(
           style.root,
           inputClassName,
