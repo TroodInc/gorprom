@@ -142,13 +142,13 @@ class Input extends PureComponent {
     } = props
 
     this.lastValid = true
+    this.timer = null
 
     this.state = {
       formattedValue: formatValue(value.toString()),
       height: props.minRows * ROW_HEIGHT,
       isPasswordShown: false,
       isLegendShow: false,
-      timer: null
     }
 
     this.heightChange = this.heightChange.bind(this)
@@ -441,14 +441,14 @@ class Input extends PureComponent {
       isPasswordShown: !isPasswordShown,
     }))
 
-    if(this.state.timer && this.state.isPasswordShown) {
-      clearTimeout(this.state.timer)
-      this.setState({ timer: null })
+    if(this.timer && this.state.isPasswordShown) {
+      clearTimeout(this.timer)
+      this.timer = null
    } else {
       const localTimer = setTimeout(() => {
         this.setState({ isPasswordShown: false })
       }, 15000)
-      this.setState({ timer: localTimer })
+      this.timer = localTimer
    }
   }
 
