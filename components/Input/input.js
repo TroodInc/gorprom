@@ -6,12 +6,7 @@ import debounce from 'lodash/debounce'
 import objectHash from 'object-hash'
 import deepEqual from 'deep-equal'
 
-import {
-  KEY_CODES,
-  NAVIGATION_KEYS,
-  DISPATCH_DEBOUNCE,
-  SEARCH_DEBOUNCE,
-} from '../internal/constants'
+import { KEY_CODES, NAVIGATION_KEYS, DISPATCH_DEBOUNCE, SEARCH_DEBOUNCE } from '../internal/constants'
 import {
   INPUT_TYPES,
   ROW_HEIGHT,
@@ -114,20 +109,13 @@ class Input extends PureComponent {
     let formattedValue = formatValue(value.toString())
     let stateFormatedValue = state.formattedValue
     if (type === INPUT_TYPES.time) {
-      formattedValue = `${formattedValue}${FULL_ZERO_TIME.substr(
-        formattedValue.length
-      )}`
-      stateFormatedValue = `${stateFormatedValue}${FULL_ZERO_TIME.substr(
-        stateFormatedValue.length
-      )}`
+      formattedValue = `${formattedValue}${FULL_ZERO_TIME.substr(formattedValue.length)}`
+      stateFormatedValue = `${stateFormatedValue}${FULL_ZERO_TIME.substr(stateFormatedValue.length)}`
     }
     if (formattedValue === state.prevPropsFormattedValue) return null
     if (numberTypes.includes(type)) {
       stateFormatedValue = stateFormatedValue || '0'
-      if (
-        stateFormatedValue.indexOf('-') === 0 &&
-        formattedValue.indexOf('-') !== 0
-      ) {
+      if (stateFormatedValue.indexOf('-') === 0 && formattedValue.indexOf('-') !== 0) {
         formattedValue = stateFormatedValue // don`t state change on minus zero
       }
       const parts = stateFormatedValue.split(/\u002c|\u002e/)
@@ -164,10 +152,7 @@ class Input extends PureComponent {
 
     this.heightChange = this.heightChange.bind(this)
     this.validate = this.validate.bind(this)
-    this.handleValidate = debounce(
-      this.handleValidate.bind(this),
-      DISPATCH_DEBOUNCE
-    )
+    this.handleValidate = debounce(this.handleValidate.bind(this), DISPATCH_DEBOUNCE)
     this.handleChange = this.handleChange.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.changeSelection = this.changeSelection.bind(this)
@@ -177,14 +162,8 @@ class Input extends PureComponent {
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
 
-    this.throttledOnChangeEvent = throttle(
-      (...args) => this.props.onChange(...args),
-      DISPATCH_DEBOUNCE
-    )
-    this.debouncedOnSearchEvent = debounce(
-      (...args) => this.props.onSearch(...args),
-      SEARCH_DEBOUNCE
-    )
+    this.throttledOnChangeEvent = throttle((...args) => this.props.onChange(...args), DISPATCH_DEBOUNCE)
+    this.debouncedOnSearchEvent = debounce((...args) => this.props.onSearch(...args), SEARCH_DEBOUNCE)
   }
 
   componentDidMount() {
@@ -192,10 +171,7 @@ class Input extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      this.props.value !== prevProps.value ||
-      objectHash(this.props.settings) !== objectHash(prevProps.settings)
-    ) {
+    if (this.props.value !== prevProps.value || objectHash(this.props.settings) !== objectHash(prevProps.settings)) {
       this.handleValidate()
     }
   }
@@ -268,7 +244,12 @@ class Input extends PureComponent {
   }
 
   handleValidate() {
-    const { value, errors, onValid, onInvalid } = this.props
+    const {
+      value,
+      errors,
+      onValid,
+      onInvalid,
+    } = this.props
     const validateErrors = this.validate(value)
     if (validateErrors && validateErrors.length) {
       this.lastValid = false
@@ -283,7 +264,12 @@ class Input extends PureComponent {
     const {
       type,
       value,
-      settings: { include, exclude, getValue, formatValue },
+      settings: {
+        include,
+        exclude,
+        getValue,
+        formatValue,
+      },
     } = this.props
     const { formattedValue } = this.state
     let { value: targetValue } = e.target
@@ -331,28 +317,22 @@ class Input extends PureComponent {
       const formatedValueAbs = formattedValue.replace('-', '')
       const newFormatedValueAbs = +(newFormattedValue.replace(/\D/g, '') || 0)
       if (formatedValueAbs === '0') {
-        newFormattedValue = newFormattedValue.replace(
-          /\d+/,
-          newFormatedValueAbs
-        )
+        newFormattedValue = newFormattedValue.replace(/\d+/, newFormatedValueAbs)
       }
     }
-    this.setState(
-      {
-        caretPosition: this.selectionStart,
-        formattedValue: newFormattedValue,
-      },
-      () => {
-        let newValue
-        if (newFormattedValue !== '') {
-          newValue = getValue(newFormattedValue)
-        }
-        this.throttledOnChangeEvent(newValue)
-        if (value !== newValue) {
-          this.debouncedOnSearchEvent(newValue)
-        }
+    this.setState({
+      caretPosition: this.selectionStart,
+      formattedValue: newFormattedValue,
+    }, () => {
+      let newValue
+      if (newFormattedValue !== '') {
+        newValue = getValue(newFormattedValue)
       }
-    )
+      this.throttledOnChangeEvent(newValue)
+      if (value !== newValue) {
+        this.debouncedOnSearchEvent(newValue)
+      }
+    })
     return true
   }
 
@@ -365,36 +345,21 @@ class Input extends PureComponent {
 
   changeSelection(delta = 0, additional = '') {
     const { formattedValue } = this.state
-    const {
-      type,
-      settings: { getValue, formatValue },
-    } = this.props
-    const splitFormattedValue = `${formattedValue.substr(
-      0,
-      this.selectionStart - delta
-    )}${additional}`
+    const { type, settings: { getValue, formatValue } } = this.props
+    const splitFormattedValue = `${formattedValue.substr(0, this.selectionStart - delta)}${additional}`
     let newSplitFormattedValue = formatValue(splitFormattedValue)
     if (numberTypes.includes(type)) {
       const splitValue = getValue(splitFormattedValue, false)
       const splitValueLength = splitValue.length
-      const newFormattedValue = formatValue(
-        `${splitFormattedValue}${formattedValue.substr(this.selectionStart)}`
-      )
+      const newFormattedValue = formatValue(`${splitFormattedValue}${formattedValue.substr(this.selectionStart)}`)
       newSplitFormattedValue = newFormattedValue.substr(0, splitValueLength)
       let i = 0
-      while (
-        getValue(newSplitFormattedValue, false).length < splitValueLength
-      ) {
+      while (getValue(newSplitFormattedValue, false).length < splitValueLength) {
         i += 1
-        newSplitFormattedValue = newFormattedValue.substr(
-          0,
-          splitValueLength + i
-        )
+        newSplitFormattedValue = newFormattedValue.substr(0, splitValueLength + i)
       }
-      const lastOfSplitFormattedValue =
-        splitFormattedValue[splitFormattedValue.length - 1]
-      if (/[\u002c\u002e]/.test(lastOfSplitFormattedValue))
-        newSplitFormattedValue += lastOfSplitFormattedValue
+      const lastOfSplitFormattedValue = splitFormattedValue[splitFormattedValue.length - 1]
+      if (/[\u002c\u002e]/.test(lastOfSplitFormattedValue)) newSplitFormattedValue += lastOfSplitFormattedValue
     }
     this.selectionStart = newSplitFormattedValue.length
     this.selectionEnd = newSplitFormattedValue.length
@@ -411,55 +376,44 @@ class Input extends PureComponent {
   }
 
   handleInput(e) {
-    if (
-      ((e.inputType === 'insertLineBreak' || e.key === KEY_CODES.enter) &&
-        this.props.type === INPUT_TYPES.multi) ||
-      e.data
-    ) {
+    if (((e.inputType === 'insertLineBreak' || e.key === KEY_CODES.enter) && this.props.type === INPUT_TYPES.multi)
+      || e.data) {
       const char = e.data || '\r'
       const {
         type,
-        settings: { include, exclude, getValue, formatValue },
+        settings: {
+          include,
+          exclude,
+          getValue,
+          formatValue,
+        },
       } = this.props
       const { formattedValue } = this.state
       let shouldPreventDefault = false
       if (numberTypes.includes(type)) {
-        shouldPreventDefault =
-          char === '-' &&
-          (this.selectionStart !== 0 || formattedValue.includes('-'))
-        shouldPreventDefault +=
-          (char === '.' || char === ',') && formattedValue.includes(',')
+        shouldPreventDefault = char === '-' && (this.selectionStart !== 0 || formattedValue.includes('-'))
+        shouldPreventDefault += (char === '.' || char === ',') && formattedValue.includes(',')
         const roundValue = Math.floor(getValue(formattedValue)).toString()
         const roundFormattedValue = formatValue(roundValue)
-        shouldPreventDefault +=
-          roundValue.length >= Number.MAX_SAFE_INTEGER.toString().length - 1 &&
+        shouldPreventDefault += roundValue.length >= Number.MAX_SAFE_INTEGER.toString().length - 1 &&
           this.selectionStart === this.selectionEnd &&
           !(char === '.' || char === ',') &&
           this.selectionStart <= roundFormattedValue.length
       }
       if (include) {
-        shouldPreventDefault += Array.isArray(include)
-          ? !include.includes(char)
-          : !include.test(char)
+        shouldPreventDefault += (Array.isArray(include) ? !include.includes(char) : !include.test(char))
         if (exclude) {
-          shouldPreventDefault += Array.isArray(exclude)
-            ? exclude.includes(char)
-            : exclude.test(char)
+          shouldPreventDefault += (Array.isArray(exclude) ? exclude.includes(char) : exclude.test(char))
         }
       } else if (exclude) {
-        shouldPreventDefault += Array.isArray(exclude)
-          ? exclude.includes(char)
-          : exclude.test(char)
+        shouldPreventDefault += (Array.isArray(exclude) ? exclude.includes(char) : exclude.test(char))
       }
       if (shouldPreventDefault) {
         e.preventDefault()
       } else {
         this.changeSelection(0, char)
       }
-    } else if (
-      e.inputType === 'deleteContentBackward' ||
-      e.key === KEY_CODES.backspace
-    ) {
+    } else if (e.inputType === 'deleteContentBackward' || e.key === KEY_CODES.backspace) {
       const delta = +(this.selectionStart === this.selectionEnd)
       this.changeSelection(delta)
     }
@@ -517,11 +471,19 @@ class Input extends PureComponent {
       errors,
       showTextErrors,
       children,
-      settings: { required, checkOnBlur },
+      settings: {
+        required,
+        checkOnBlur,
+      },
     } = this.props
 
-    const { formattedValue, height, wasBlured, active, caretPosition } =
-      this.state
+    const {
+      formattedValue,
+      height,
+      wasBlured,
+      active,
+      caretPosition,
+    } = this.state
 
     const inputProps = {
       ref: (node) => {
@@ -561,30 +523,23 @@ class Input extends PureComponent {
       switch (type) {
         case INPUT_TYPES.wysiwyg:
           return (
-            <WysiwygEditor
-              {...{
-                ...inputProps,
-                ref: undefined,
-              }}
-            />
+            <WysiwygEditor {...{
+              ...inputProps,
+              ref: undefined,
+            }} />
           )
         case INPUT_TYPES.multi:
           return (
-            <textarea
-              {...{
-                className: classNames(
-                  style.textarea,
-                  disabled && style.disabled
-                ),
-                style: {
-                  lineHeight: `${ROW_HEIGHT}px`,
-                  height,
-                },
-                ...inputProps,
-              }}
-            />
+            <textarea {...{
+              className: classNames(style.textarea, disabled && style.disabled),
+              style: {
+                lineHeight: `${ROW_HEIGHT}px`,
+                height,
+              },
+              ...inputProps,
+            }} />
           )
-        case INPUT_TYPES.password:
+          case INPUT_TYPES.password:
           return (
             <fieldset
               className={style.fieldset}
@@ -641,62 +596,65 @@ class Input extends PureComponent {
     }
 
     return (
-      <div ref={innerRef} className={classNames(style.rootWrapper, className)}>
-        {/* {label && (
-          <Label
-            {...{
-              className: classNames(labelClassName, style.label),
-              required,
-              label,
-            }}
-          />
-        )} */}
-        <div
-          {...dataAttributes}
-          className={classNames(style.root, inputClassName, {
+      <div ref={innerRef} className={classNames(
+        style.rootWrapper,
+        className,
+      )}>
+        {/* {
+          label &&
+          <Label {...{
+            className: classNames(labelClassName, style.label),
+            required,
+            label,
+          }} />
+        } */}
+        <div {...dataAttributes} className={classNames(
+          style.root,
+          inputClassName,
+          {
             [style.error]: currentErrors.length > 0,
             [style.active]: active,
-          })}
-        >
-          {(type === INPUT_TYPES.phone ||
-            type === INPUT_TYPES.phoneWithExt) && (
+          },
+        )}>
+          {
+            (type === INPUT_TYPES.phone || type === INPUT_TYPES.phoneWithExt) &&
             <span className={style.phoneCode}>+</span>
-          )}
-          {type === INPUT_TYPES.search && (
-            <Icon
-              {...{
-                className: style.phoneCode,
-                type: ICONS_TYPES.search,
-                size: 20,
-              }}
-            />
-          )}
-          {type === INPUT_TYPES.url && (
+          }
+          {
+            type === INPUT_TYPES.search &&
+            <Icon {...{
+              className: style.phoneCode,
+              type: ICONS_TYPES.search,
+              size: 20,
+            }} />
+          }
+          {
+            type === INPUT_TYPES.url &&
             <span className={style.phoneCode}>http://</span>
-          )}
-          {type === INPUT_TYPES.multi && (
-            <textarea
-              {...{
-                ref: (node) => {
-                  this.shadow = node
-                  this.heightChange()
-                },
-                className: style.shadow,
-                style: {
-                  height: 0,
-                  width: this.inputWidth,
-                  lineHeight: `${ROW_HEIGHT}px`,
-                },
-                value: formattedValue,
-                tabIndex: -1,
-                readOnly: true,
-              }}
-            />
-          )}
+          }
+          {
+            type === INPUT_TYPES.multi &&
+            <textarea {...{
+              ref: (node) => {
+                this.shadow = node
+                this.heightChange()
+              },
+              className: style.shadow,
+              style: {
+                height: 0,
+                width: this.inputWidth,
+                lineHeight: `${ROW_HEIGHT}px`,
+              },
+              value: formattedValue,
+              tabIndex: -1,
+              readOnly: true,
+            }} />
+          }
           {getInputComp()}
           {children}
         </div>
-        {showTextErrors && (
+        {
+          showTextErrors &&
           <div className={style.errors}>
             {currentErrors.map((error, index) => (
               <div className={style.errorText} key={index}>
@@ -704,7 +662,7 @@ class Input extends PureComponent {
               </div>
             ))}
           </div>
-        )}
+        }
       </div>
     )
   }
