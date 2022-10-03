@@ -1,1 +1,38 @@
-.root {}
+.root {
+    border: 1px solid var(--trood-border);
+    margin: 20px 0 20px 0;
+    padding: 15px 0 0 15px;
+}
+
+.label {
+    margin-bottom: 10px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    color: var(--trood-gray-dark);
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.clear, .check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:15px;
+    width: 15px;
+    background-color:  var(--trood-red);
+    color:  var(--trood-white);
+    border-radius: 100%;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+.clear {
+    background-color:  var(--trood-red);
+}
+
+.check {
+    background-color:  var(--trood-green);
+}
