@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './index.module.css'
 import Icon, { ICONS_TYPES } from '../Icon'
 
@@ -13,46 +13,57 @@ const PasswordCheck = ({
   onValidate, // function, callback
 }) => {
 
-  const errors = []
-  const passed = []
+  const errorsArr = []
 
   if(minLength) {
-    password.length < minLength ? 
-      errors.push(`Как мин. ${minLength} символов`) :
-      passed.push(`Как мин. ${minLength} символов`)
+    const lengthErr = password.length < minLength ? 
+      {title: `Как мин. ${minLength} символов`, icn: ICONS_TYPES.clear, style: styles.clear} :
+      {title: `Как мин. ${minLength} символов`, icn: ICONS_TYPES.confirm, style: styles.check} 
+
+    errorsArr.push(lengthErr)
   }
 
   if(checkLower) {
-    /[a-z]/g.test(password) ? 
-      passed.push('Маленькие буквы (a-z)') :
-      errors.push('Маленькие буквы (a-z)')
+    const lowerErr = /[a-z]/g.test(password) ? 
+      {title: 'Маленькие буквы (a-z)', icn: ICONS_TYPES.confirm, style: styles.check} :
+      {title: 'Маленькие буквы (a-z)', icn: ICONS_TYPES.clear, style: styles.clear}
+
+    errorsArr.push(lowerErr);
   }
 
   if(checkUpper) {
-     /[A-Z]/g.test(password) ? 
-      passed.push('Заглавные буквы (A-Z)') :
-      errors.push('Заглавные буквы (A-Z)')
+    const upperErr = /[A-Z]/g.test(password) ? 
+      {title: 'Заглавные буквы (A-Z)', icn: ICONS_TYPES.confirm, style: styles.check} :
+      {title: 'Заглавные буквы (A-Z)', icn: ICONS_TYPES.clear, style: styles.clear}
+
+    errorsArr.push(upperErr);
   }
 
   if(checkNumber) {
-    /[0-9]/g.test(password) ?
-      passed.push('Числа (0-9)') :
-      errors.push('Числа (0-9)')
+    const numErr = /[0-9]/g.test(password) ?
+      {title: 'Числа (0-9)', icn: ICONS_TYPES.confirm, style: styles.check} :
+      {title: 'Числа (0-9)', icn: ICONS_TYPES.clear, style: styles.clear}
+    
+    errorsArr.push(numErr);
   }
 
   if(checkSpec) {
-    /\W/g.test(password) ?
-      errors.push('Без спец. символов') :
-      passed.push('Без спец. символов')
-   
+    const specErr = /\W/g.test(password) ?
+      {title: 'Без спец. символов', icn: ICONS_TYPES.clear, style: styles.clear} :
+      {title: 'Без спец. символов', icn: ICONS_TYPES.confirm, style: styles.check}
+
+    errorsArr.push(specErr)
   }
 
   if(checkLetter) {
-    /[a-z]/gi.test(password) ?
-      passed.push('Буквы (a-z)') :
-      errors.push('Буквы (a-z)')
-  
+    const letterErr = /[a-z]/gi.test(password) ?
+      {title: 'Буквы (a-z)', icn: ICONS_TYPES.confirm, style: styles.check} :
+      {title: 'Буквы (a-z)', icn: ICONS_TYPES.clear, style: styles.clear}
+
+    errorsArr.push(letterErr)
   }
+
+  const errors = errorsArr.filter((item) => { return item.icn === ICONS_TYPES.clear}).map((item) => item.title)
       
   useEffect(() => {
     // on password change - validate it and call callback with string array of errors
@@ -61,37 +72,24 @@ const PasswordCheck = ({
 
   
   const renderErrors = (arr) => {
-    return arr.map((item, i) => {
+    return arr.map(({title, icn, style}, i) => {
       return (
         <div className={styles.item} key={i}>
-          <Icon type={ICONS_TYPES.clear} size={10} className={styles.clear}/>
-          {item}
+          <Icon type={icn} size={10} className={style}/>
+          {title}
         </div>
       )
     })
   }
 
-  const renderPassed = (arr) => {
-    return arr.map((item, i) => {
-      return (
-        <div className={styles.item} key={i}>
-          <Icon type={ICONS_TYPES.confirm} size={10} className={styles.check}/>
-          {item}
-        </div>
-      )
-    })
-  }
-
-  const errs = renderErrors(errors)
-  const pass = renderPassed(passed)
+  const elems = renderErrors(errorsArr)
 
   // render errors
   return (
     <div className={styles.root}>
       <div className={styles.label}> Ваш пароль должен содержать:</div>
-      <div className={styles.erorrs}> 
-      {errs}
-      {pass}
+      <div className={styles.erorrs}>
+      {elems}
       </div>
     </div>
   )
