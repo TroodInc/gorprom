@@ -17,7 +17,7 @@ export default function Home() {
       </Head>
       <Modal control={<Button label="Open Modal" />}>
         <div className={styles.modalTitle}>Создать аккаунт</div>
-        <Input label="ФИО" type="mail" />
+        <Input label="Логин" type="mail" />
         <Input label="Пароль" type="password"  onChange={() => setVal(document.querySelector('Input[type="password"]').value)}/>
         <PasswordCheck password={val} minLength={8} checkLower checkUpper checkNumber  onValidate={(arr) => {return arr}}/>
         <Button label="Продолжить" />
