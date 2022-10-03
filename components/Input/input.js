@@ -148,6 +148,7 @@ class Input extends PureComponent {
       height: props.minRows * ROW_HEIGHT,
       isPasswordShown: false,
       isLegendShow: false,
+      timer: null
     }
 
     this.heightChange = this.heightChange.bind(this)
@@ -434,18 +435,21 @@ class Input extends PureComponent {
     this.props.onBlur()
   }
 
-  showPassword = () => {
-    this.setState((state, props) => ({
-      isPasswordShown: !state.isPasswordShown,
+  
+  changePasswordVisibility = () => {
+    this.setState(({ isPasswordShown }) => ({
+      isPasswordShown: !isPasswordShown,
     }))
 
-    const time = setTimeout(() => {
-      this.setState({ isPasswordShown: false })
-    }, 15000)
-
-    if (this.state.isPasswordShown) {
-      clearTimeout(time)
-    }
+    if(this.state.timer && this.state.isPasswordShown) {
+      clearTimeout(this.state.timer)
+      this.setState({timer: null})
+   } else {
+      const localTime = setTimeout(() => {
+        this.setState({ isPasswordShown: false })
+      }, 15000)
+      this.setState({timer: localTime})
+   }
   }
 
   showLegend = () => {
@@ -559,7 +563,7 @@ class Input extends PureComponent {
                   ...inputProps,
                 }}
               />
-              <button className={style.btn} onClick={this.showPassword}>
+              <button className={style.btn} onClick={this.changePasswordVisibility}>
                 <Icon
                   {...{
                     className: style.phoneCode,
