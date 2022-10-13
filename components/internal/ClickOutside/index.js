@@ -51,8 +51,8 @@ class ClickOutside extends PureComponent {
       {
         ref: el => {
           this.ref = el
-          if(childElement.props?.innerRef) childElement.props?.innerRef(el)
-          if(childElement.ref) childElement.ref(el)
+          if (childElement.props?.innerRef) childElement.props?.innerRef(el)
+          if (childElement.ref) childElement.ref(el)
         },
       },
     )

@@ -23,6 +23,7 @@ const Link = ({
   }
   return (
     <NextLink href={href} {...other}>
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a className={classNames(className, linkActive && activeClassName)} >
         {children}
       </a>

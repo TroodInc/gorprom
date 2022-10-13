@@ -152,6 +152,7 @@ class Input extends PureComponent {
     const { type, value, validate } = this.props
     const properties = {
       ...validate,
+      checkOnBlur: validate.checkOnBlur === undefined ? true : validate.checkOnBlur,
       formatValue: formatToFunctions[type] || (v => v),
       getValue: formatFromFunctions[type] || (v => v),
       minLen: validate.minLen || (formatLengthFunctions[type] || (() => 0))(value),

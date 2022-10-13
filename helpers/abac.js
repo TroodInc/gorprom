@@ -1,19 +1,22 @@
 import lodashGet from 'lodash/get'
 import { isDefAndNotNull } from './def'
+import { callGetApi } from './fetch'
 
 
 const allow = 'allow'
 const any = '*'
 const defResolution = '_default_resolution'
 
-export const getAbacContext = (context) => {
-  const url = new URL(context.resolvedUrl, `http://${context.req.headers.host}`)
+export const getAbacContext = (context, account) => {
+  const url = new URL(`https://${context.ctx.req.headers.host}`)
   return {
     ctx: {
-      host: url.host,
-      path: url.pathname,
-      query: context.query,
-    }
+      host: url.hostname,
+      path: context.router.asPath,
+      route: context.router.route,
+      query: context.router.query,
+    },
+    sbj: account,
   }
 }
 
@@ -116,10 +119,9 @@ export const ruleChecker = ({
   return getSuitableRuleResult(suitableRule, defaultAccess)
 }
 
-export const getRules = async () => {
-  const abacEndpoint = process.env.AUTH_API + '/abac'
-  const resp = await fetch(abacEndpoint)
-  const data = await resp.json()
+export const getRules = async() => {
+  const abacEndpoint = process.env.NEXT_PUBLIC_AUTH_API + 'abac/'
+  const { data } = await callGetApi(abacEndpoint)
   return data?.data || {}
 }
 

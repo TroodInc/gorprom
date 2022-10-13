@@ -19,6 +19,11 @@
   border: none;
 }
 
+.error .fieldset {
+  border: 2px solid var(--trood-red);
+  color: var(--trood-red);
+}
+
 .active .fieldset {
   border: 2px solid var(--trood-blue);
   color: var(--trood-blue);
@@ -108,6 +113,9 @@
   outline: none;
   border: 2px solid var(--trood-border);
   border-radius: var(--trood-border-radius);
-  margin-bottom: 20px;
   padding: 10px;
+}
+
+.fieldset legend {
+  font-size: 12px;
 }

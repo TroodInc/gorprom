@@ -22,7 +22,12 @@ const Error = ({ statusCode }) => (
 )
 
 Error.getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404
+  let statusCode = 404
+  if (res) {
+    statusCode = res.statusCode
+  } else if (err) {
+    statusCode = err.statusCode
+  }
   return { statusCode }
 }
 

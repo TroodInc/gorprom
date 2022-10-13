@@ -1,9 +1,18 @@
-.modalTitle {
-    font-size: 24px;
+.root {
+    color: #2D333A;
+}
+
+.root > * {
     margin-bottom: 20px;
 }
 
-.modalFooter {
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.footer {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;

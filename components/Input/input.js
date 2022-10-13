@@ -17,7 +17,6 @@ import {
 } from './constants'
 
 import Icon, { ICONS_TYPES } from '../Icon'
-import Label from '../Label'
 import WysiwygEditor from '../internal/Wysiwyg'
 
 import style from './index.module.css'
@@ -148,7 +147,7 @@ class Input extends PureComponent {
       formattedValue: formatValue(value.toString()),
       height: props.minRows * ROW_HEIGHT,
       isPasswordShown: false,
-      isLegendShow: false,
+      // isLegendShow: true,
     }
 
     this.heightChange = this.heightChange.bind(this)
@@ -435,23 +434,22 @@ class Input extends PureComponent {
     this.props.onBlur()
   }
 
-  
   changePasswordVisibility = () => {
     this.setState(({ isPasswordShown }) => ({
       isPasswordShown: !isPasswordShown,
     }))
 
-    if(this.timer && this.state.isPasswordShown) {
+    if (this.timer && this.state.isPasswordShown) {
       clearTimeout(this.timer)
       this.timer = null
-   } else {
-      const localTimer = setTimeout(() => {
+    } else {
+      this.timer = setTimeout(() => {
         this.setState({ isPasswordShown: false })
       }, 15000)
-      this.timer = localTimer
-   }
+    }
   }
 
+  /*
   showLegend = () => {
     this.setState({ isLegendShow: true })
   }
@@ -459,13 +457,13 @@ class Input extends PureComponent {
   hideLegend = () => {
     this.setState({ isLegendShow: false })
   }
+  */
 
   render() {
     const {
       innerRef,
       dataAttributes,
       className,
-      labelClassName,
       inputClassName,
       type,
       disabled,
@@ -476,7 +474,6 @@ class Input extends PureComponent {
       showTextErrors,
       children,
       settings: {
-        required,
         checkOnBlur,
       },
     } = this.props
@@ -543,14 +540,14 @@ class Input extends PureComponent {
               ...inputProps,
             }} />
           )
-          case INPUT_TYPES.password:
+        case INPUT_TYPES.password:
           return (
             <fieldset
               className={style.fieldset}
-              onFocus={this.showLegend}
-              onBlur={this.hideLegend}
+              // onFocus={this.showLegend}
+              // onBlur={this.hideLegend}
             >
-              {this.state.isLegendShow ? <legend>{label}</legend> : null}
+              <legend>{label}</legend>
               <input
                 {...{
                   type: this.state.isPasswordShown
@@ -580,10 +577,10 @@ class Input extends PureComponent {
           return (
             <fieldset
               className={style.fieldset}
-              onFocus={this.showLegend}
-              onBlur={this.hideLegend}
+              // onFocus={this.showLegend}
+              // onBlur={this.hideLegend}
             >
-              {this.state.isLegendShow ? <legend>{label}</legend> : null}
+              <legend>{label}</legend>
               <input
                 {...{
                   type: INNER_INPUT_TYPES[type],
