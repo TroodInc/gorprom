@@ -47,3 +47,15 @@ export const callPatchApi = async(url, options = {}) => {
 export const callApi = async(url, options = {}) => {
   return await fetcher(url, options)
 }
+
+export const getApiPath = (host, path = '/') => {
+  try {
+    const url = new URL(path)
+    return url.toString()
+  } catch {}
+  try {
+    const url = new URL(path, host)
+    return url.toString()
+  } catch {}
+  return path
+}

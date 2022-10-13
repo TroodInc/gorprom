@@ -2,8 +2,7 @@ import { Provider, Observer } from 'mobx-react'
 
 import { useStore } from '../store'
 import { modalsComponents } from '../modals'
-import { getCookie } from '../helpers/cookie'
-import { callPostApi } from '../helpers/fetch'
+import { callPostApi, getApiPath } from '../helpers/fetch'
 import { getPageAllow, getRules, getAbacContext } from '../helpers/abac'
 
 import Error from './_error'
@@ -11,14 +10,15 @@ import '../styles/globals.css'
 import '../styles/variables.css'
 
 
-const App = ({ Component, pageProps = {}, pageAllow, statusCode, initialStore = {}, ...other }) => {
+const App = ({ Component, pageProps = {}, ...other }) => {
+  const { pageAllow, statusCode, initialStore = {} } = other
   const store = useStore(initialStore)
 
-  if (!statusCode && !pageAllow?.access) {
-    return <Error statusCode={403} />
-  }
   if (statusCode >= 400) {
     return <Error statusCode={statusCode} />
+  }
+  if (!pageAllow?.access) {
+    return <Error statusCode={403} />
   }
 
   return (
@@ -43,19 +43,31 @@ const App = ({ Component, pageProps = {}, pageAllow, statusCode, initialStore = 
           })
         }}
       </Observer>
-      <Component {...pageProps} />
+      <Component {...other} {...pageProps} />
     </Provider>
   )
 }
 
-App.getInitialProps = async({ ctx, router, res, err }) => {
-  const initProps = {}
-  const cookies = ctx.req ? ctx.req.headers.cookie : undefined
-  const token = getCookie(cookies, 'token')
+App.getInitialProps = async({ ctx, router }) => {
+  const protocol = ctx.req.headers['x-forwarded-proto'] || ctx.req.connection.encrypted ? 'https' : 'http'
+  const host = `${protocol}://${ctx.req.headers.host}`
+  const initProps = {
+    host,
+  }
+  if (ctx?.res) {
+    initProps.statusCode = ctx.res.statusCode
+  } else {
+    initProps.statusCode = ctx?.err ? ctx.err.statusCode : 404
+  }
+  if (initProps.statusCode >= 400) {
+    return initProps
+  }
+  const { token } = ctx?.req?.cookies || {}
+  const authApiPath = getApiPath(host, process.env.NEXT_PUBLIC_AUTH_API)
   if (token) {
-    const verifyEndpoint = process.env.NEXT_PUBLIC_AUTH_API + 'verify-token/'
-    const { data } = await callPostApi(verifyEndpoint, { headers: { Authorization: `Token ${token}` } })
-    if (data.status === 'OK') {
+    const verifyEndpoint = authApiPath + 'verify-token/'
+    try {
+      const { data } = await callPostApi(verifyEndpoint, { headers: { Authorization: `Token ${token}` } })
       const account = Object.entries(data?.data || {}).reduce((memo, [key, value]) => {
         if (['abac', 'token'].includes(key)) {
           return memo
@@ -69,10 +81,14 @@ App.getInitialProps = async({ ctx, router, res, err }) => {
           token,
         },
       }
-    }
+    } catch {}
   }
   if (!initProps.abacRules) {
-    initProps.abacRules = await getRules()
+    try {
+      initProps.abacRules = await getRules(authApiPath)
+    } catch {
+      initProps.abacRules = {}
+    }
   }
   const context = getAbacContext({ ctx, router }, initProps.account)
   initProps.context = context
@@ -81,12 +97,6 @@ App.getInitialProps = async({ ctx, router, res, err }) => {
     context,
     path: context.ctx.path,
   })
-
-  if (ctx?.res) {
-    initProps.statusCode = ctx.res.statusCode
-  } else {
-    initProps.statusCode = ctx?.err ? ctx.err.statusCode : 404
-  }
 
   return initProps
 }

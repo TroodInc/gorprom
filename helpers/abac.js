@@ -119,8 +119,8 @@ export const ruleChecker = ({
   return getSuitableRuleResult(suitableRule, defaultAccess)
 }
 
-export const getRules = async() => {
-  const abacEndpoint = process.env.NEXT_PUBLIC_AUTH_API + 'abac/'
+export const getRules = async(authApiPath = '/') => {
+  const abacEndpoint = authApiPath + 'abac/'
   const { data } = await callGetApi(abacEndpoint)
   return data?.data || {}
 }
