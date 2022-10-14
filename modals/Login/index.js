@@ -43,9 +43,6 @@ const Login = ({ form, ...props }) => {
             .then(({ data }) => {
               store.setAuthData(data?.data)
             })
-            .catch((error) => {
-              console.log('error', error)
-            })
         }}
       />
       <div className={styles.footer}>

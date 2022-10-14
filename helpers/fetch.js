@@ -48,7 +48,7 @@ export const callApi = async(url, options = {}) => {
   return await fetcher(url, options)
 }
 
-export const getApiPath = (host, path = '/') => {
+export const getApiPath = (path = '/', host) => {
   try {
     const url = new URL(path)
     return url.toString()

@@ -5,7 +5,7 @@ import Icon, { ICONS_TYPES } from '../../components/Icon'
 import styles from './index.module.css'
 
 
-const Header = ({ abacContext, abacRules }) => (
+const Header = () => (
   <header className={styles.root}>
     <div className={styles.container}>
       <Image className={styles.logo} alt="Горпром" url="/image/logoDark.svg" />
@@ -20,8 +20,6 @@ const Header = ({ abacContext, abacRules }) => (
           <Link
             key={link}
             href={link}
-            context={abacContext}
-            rules = {abacRules}
             hideIfNotAllowed
           >
             {label}
@@ -30,7 +28,12 @@ const Header = ({ abacContext, abacRules }) => (
       </div>
       <div className={styles.buttons}>
         <Icon size={72} type={ICONS_TYPES.search} className={styles.button} />
-        <Icon size={72} type={ICONS_TYPES.user} className={styles.button} />
+        <Link
+          href="/login"
+          hideIfNotAllowed
+        >
+          <Icon size={72} type={ICONS_TYPES.user} className={styles.button} />
+        </Link>
       </div>
     </div>
   </header>

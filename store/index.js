@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { types, applySnapshot, getSnapshot, detach } from 'mobx-state-tree'
+import { types, applySnapshot, getSnapshot, detach, isAlive } from 'mobx-state-tree'
 import set from 'lodash/set'
 
 import { callApi } from '../helpers/fetch'
@@ -64,6 +64,8 @@ const Form = types.model('Form', {
   },
 })).actions(self => ({
   set(path, value) {
+    // if (!isAlive(self)) return
+    self.errors.set('globalError', undefined)
     const pathArray = path.split('.')
     const lastKey = pathArray.pop()
     let target = self
@@ -110,6 +112,16 @@ const Form = types.model('Form', {
       body: JSON.stringify(data),
       headers,
     })
+      .catch(error => {
+        const errorData = error?.error?.data
+        if (errorData) {
+          if (errorData?.error) {
+            self.set('errors.globalError', errorData.error)
+          }
+          //TODO set other errors
+        }
+        return Promise.reject(error)
+      })
   },
 }))
 
@@ -128,11 +140,10 @@ const Store = types.model('store', {
   },
 })).actions(self => ({
   createFormStore(name, { modalComponent, form = {}, props } = {}) {
-    if (self.formStore.has(name)) {
-      return self.formStore.get(name)
-    } else {
+    if (!self.formStore.has(name)) {
       self.formStore.set(name, { modalComponent, form, props })
     }
+    return self.formStore.get(name)
   },
   deleteFormStore(name) {
     detach(self.formStore.get(name))

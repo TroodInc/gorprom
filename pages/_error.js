@@ -21,14 +21,4 @@ const Error = ({ statusCode }) => (
   </div>
 )
 
-Error.getInitialProps = ({ res, err }) => {
-  let statusCode = 404
-  if (res) {
-    statusCode = res.statusCode
-  } else if (err) {
-    statusCode = err.statusCode
-  }
-  return { statusCode }
-}
-
 export default Error

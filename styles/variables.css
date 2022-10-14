@@ -3,6 +3,7 @@
   --trood-background-dark: #2f2d2d;
 
   --trood-text: #312f2f;
+  --trood-text-gray: #2f2d2d;
   --trood-text-white: #fff;
 
   --trood-white: #fff;
@@ -13,5 +14,5 @@
   --trood-border-dark: #312f2f;
 
   --trood-orange: #e4a642;
-  --trood-orange-hover: #ff663320;
+  --trood-red: #e95c5c;
 }

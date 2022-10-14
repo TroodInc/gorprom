@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-// import { Link } from 'react-router-dom'
 import Link from '../Link'
 import classNames from 'classnames'
 
@@ -23,7 +22,7 @@ const getButtonSpecialIcons = (specialType) => {
         <Icon {...{
           type: ICONS_TYPES.arrow,
           rotate: 90,
-          className: style.specialLabelIcon,
+          className: style.icon,
         }} />
       )
     case BUTTON_SPECIAL_TYPES.arrowRight:
@@ -31,14 +30,14 @@ const getButtonSpecialIcons = (specialType) => {
         <Icon {...{
           type: ICONS_TYPES.arrow,
           rotate: 270,
-          className: style.specialLabelIcon,
+          className: style.icon,
         }} />
       )
     default:
       return (
         <Icon {...{
           type: ICONS_TYPES[specialType],
-          className: style.specialLabelIcon,
+          className: style.icon,
         }} />
       )
   }
@@ -79,7 +78,7 @@ class Button extends PureComponent {
 
   static defaultProps = {
     type: BUTTON_TYPES.fill,
-    color: BUTTON_COLORS.orange,
+    color: BUTTON_COLORS.black,
     disabled: false,
     thin: false,
     className: '',
@@ -92,7 +91,6 @@ class Button extends PureComponent {
       specialType,
       color,
       disabled,
-      thin,
       onClick,
       className,
       link,
@@ -112,8 +110,6 @@ class Button extends PureComponent {
       </div>
     )
 
-    const isOuterLink = /^https?:\/\//.test(link || '')
-
     return (
       <div {...dataAttributes} ref={innerRef} className={classNames(
         style.root,
@@ -121,7 +117,6 @@ class Button extends PureComponent {
         style[type],
         style[color],
         specialType && style[specialType],
-        thin && style.thin,
         disabled && style.disabled,
       )}>
         {!link && onClick && (
@@ -146,27 +141,14 @@ class Button extends PureComponent {
             {label}
           </>
         )}
-        {link && !isOuterLink && (
+        {link && (
           <Link {...{
-            'data-cy': this.props.label,
-            to: link,
-            className: style.link,
-            onClick: () => onClick(),
-          }}>
-            {label}
-          </Link>
-        )}
-        {link && isOuterLink && (
-          <a {...{
             'data-cy': this.props.label,
             href: link,
             className: style.link,
-            target: '_blank',
-            rel: 'noopener noreferrer',
-            onClick: () => onClick(),
           }}>
             {label}
-          </a>
+          </Link>
         )}
       </div>
     )

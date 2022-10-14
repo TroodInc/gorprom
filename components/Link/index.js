@@ -1,12 +1,13 @@
+import { useContext } from 'react'
 import classNames from 'classnames'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
+
+import AbacContext from '../../abacContext'
 import { getPageAllow } from '../../helpers/abac'
 
 
 const Link = ({
-  context = {},
-  rules = {},
   href,
   className,
   activeClassName,
@@ -14,17 +15,25 @@ const Link = ({
   hideIfNotAllowed,
   ...other
 }) => {
+  const { abacContext, abacRules } = useContext(AbacContext)
   const { asPath } = useRouter()
-  const linkActive = (new RegExp(`^${href}`)).test(asPath)
-  const pageAllow = getPageAllow({ context, rules, path: href })
   const absoluteUrl = href.startsWith('http')
-  if (!absoluteUrl && !pageAllow.access) {
-    if (hideIfNotAllowed) {
-      return null
+  let linkActive
+  if (!absoluteUrl) {
+    linkActive = (new RegExp(`^${href}`)).test(asPath)
+    const pageAllow = getPageAllow({
+      context: abacContext,
+      rules: abacRules,
+      path: href,
+    })
+    if (!pageAllow.access) {
+      if (hideIfNotAllowed) {
+        return null
+      }
+      return (
+        <div className={className} {...other}>{children}</div>
+      )
     }
-    return (
-      <div className={className} {...other}>{children}</div>
-    )
   }
   return (
     <NextLink href={href} {...other}>

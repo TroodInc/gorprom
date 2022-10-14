@@ -15,7 +15,9 @@ a {
 }
 
 a, button, div, span {
-  transition: background-color 0.2s linear 0s;
+  transition:
+          background-color 0.15s linear 0s,
+          color 0.1s linear 0s;
 }
 
 * {

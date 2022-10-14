@@ -5,7 +5,7 @@ import Icon, { ICONS_TYPES } from '../../components/Icon'
 import styles from './index.module.css'
 
 
-const Footer = ({ abacContext, abacRules }) => {
+const Footer = () => {
   return (
     <footer className={styles.root}>
       <Image className={styles.logo} alt="Горпром" url="/image/logoLight.svg" />
@@ -35,8 +35,6 @@ const Footer = ({ abacContext, abacRules }) => {
                 <Link
                   key={link}
                   href={link}
-                  context={abacContext}
-                  rules = {abacRules}
                   hideIfNotAllowed
                 >
                   {label}
@@ -57,8 +55,6 @@ const Footer = ({ abacContext, abacRules }) => {
                 <Link
                   key={link}
                   href={link}
-                  context={abacContext}
-                  rules = {abacRules}
                   hideIfNotAllowed
                 >
                   {label}
