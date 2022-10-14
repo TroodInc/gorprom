@@ -17,10 +17,6 @@ export const BUTTON_SPECIAL_TYPES = {
 }
 
 export const BUTTON_COLORS = {
-  red: 'red',
-  blue: 'blue',
-  white: 'white',
   gray: 'gray',
   orange: 'orange',
-  green: 'green',
 }

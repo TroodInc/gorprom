@@ -1,0 +1,55 @@
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 28px;
+}
+
+.container {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: space-between;
+    border: 1px solid var(--trood-border-dark);
+    border-right: none;
+    border-left: none;
+    padding: 28px 0 32px;
+}
+
+.logo {
+    width: 500px;
+    height: 96px;
+    flex: 0 0 500px;
+}
+
+.menu {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+    flex: 1 1 100%;
+    text-transform: lowercase;
+    letter-spacing: -0.035em;
+}
+
+.buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 150px;
+    flex: 0 0 150px;
+}
+
+.button {
+    background-color: var(--trood-gray);
+    border-radius: 50%;
+}
+
+.button:hover {
+    background-color: var(--trood-orange);
+}
+
+.button svg {
+    width: 55%;
+    height: 55%;
+    color: var(--trood-text-white);
+}

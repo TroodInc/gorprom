@@ -5,18 +5,22 @@ import { getPageAllow } from '../../helpers/abac'
 
 
 const Link = ({
-  context,
-  rules,
+  context = {},
+  rules = {},
   href,
   className,
   activeClassName,
   children,
+  hideIfNotAllowed,
   ...other
 }) => {
   const { asPath } = useRouter()
   const linkActive = (new RegExp(`^${href}`)).test(asPath)
   const pageAllow = getPageAllow({ context, rules, path: href })
   if (!pageAllow.access) {
+    if (hideIfNotAllowed) {
+      return null
+    }
     return (
       <div className={className} {...other}>{children}</div>
     )

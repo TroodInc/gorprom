@@ -6,6 +6,8 @@ import { callPostApi, getApiPath } from '../helpers/fetch'
 import { getPageAllow, getRules, getAbacContext } from '../helpers/abac'
 
 import Error from './_error'
+import Layout from '../Layout'
+import '../styles/fonts.css'
 import '../styles/globals.css'
 import '../styles/variables.css'
 
@@ -14,11 +16,20 @@ const App = ({ Component, pageProps = {}, ...other }) => {
   const { pageAllow, statusCode, initialStore = {} } = other
   const store = useStore(initialStore)
 
-  if (statusCode >= 400) {
-    return <Error statusCode={statusCode} />
-  }
   if (!pageAllow?.access) {
-    return <Error statusCode={403} />
+    return (
+      <Layout {...other}>
+        <Error statusCode={403} />
+      </Layout>
+    )
+  }
+
+  if (statusCode >= 400) {
+    return (
+      <Layout {...other}>
+        <Error statusCode={statusCode} />
+      </Layout>
+    )
   }
 
   return (
@@ -43,7 +54,9 @@ const App = ({ Component, pageProps = {}, ...other }) => {
           })
         }}
       </Observer>
-      <Component {...other} {...pageProps} />
+      <Layout {...other}>
+        <Component {...other} {...pageProps} />
+      </Layout>
     </Provider>
   )
 }
@@ -59,7 +72,7 @@ App.getInitialProps = async({ ctx, router }) => {
   } else {
     initProps.statusCode = ctx?.err ? ctx.err.statusCode : 404
   }
-  if (initProps.statusCode >= 400) {
+  if (initProps.statusCode >= 400 && ctx.req.headers['user-agent']?.includes('node-fetch')) {
     return initProps
   }
   const { token } = ctx?.req?.cookies || {}
@@ -68,7 +81,7 @@ App.getInitialProps = async({ ctx, router }) => {
     const verifyEndpoint = authApiPath + 'verify-token/'
     try {
       const { data } = await callPostApi(verifyEndpoint, { headers: { Authorization: `Token ${token}` } })
-      const account = Object.entries(data?.data || {}).reduce((memo, [key, value]) => {
+      initProps.account = Object.entries(data?.data || {}).reduce((memo, [key, value]) => {
         if (['abac', 'token'].includes(key)) {
           return memo
         }
@@ -77,7 +90,7 @@ App.getInitialProps = async({ ctx, router }) => {
       initProps.abacRules = data?.data?.abac
       initProps.initialStore = {
         authData: {
-          ...account,
+          ...initProps.account,
           token,
         },
       }
@@ -91,7 +104,7 @@ App.getInitialProps = async({ ctx, router }) => {
     }
   }
   const context = getAbacContext({ ctx, router }, initProps.account)
-  initProps.context = context
+  initProps.abacContext = context
   initProps.pageAllow = getPageAllow({
     rules: initProps.abacRules,
     context,

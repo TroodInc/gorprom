@@ -29,7 +29,7 @@ export const getPageResourceName = ({
   const resources = Object.keys(domainRules).filter(key => key !== defResolution)
   const resource = resources.find(res => {
     const regexStr = res.replace(/\*/g, '[^\\/]*')
-    return (new RegExp(`^${regexStr}\$`)).exec(path)
+    return (new RegExp(`^${regexStr}$`)).exec(path)
   })
   return resource || null
 }
@@ -90,8 +90,8 @@ export const ruleChecker = ({
   values = {},
 } = {}) => {
   const domainResources = rules[domain] || {}
-  const globalDefaultResolution = rules._defaultResolution
-  const domainDefaultResolution = domainResources._defaultResolution
+  const globalDefaultResolution = rules[defResolution]
+  const domainDefaultResolution = domainResources[defResolution]
   const defaultAccess = domainDefaultResolution === allow || globalDefaultResolution === allow
   const resourceKeys = Object.keys(domainResources).filter(key => {
     const regexp = new RegExp(key.replace('*', '.*'))

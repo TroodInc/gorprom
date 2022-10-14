@@ -79,7 +79,7 @@ class Button extends PureComponent {
 
   static defaultProps = {
     type: BUTTON_TYPES.fill,
-    color: BUTTON_COLORS.blue,
+    color: BUTTON_COLORS.orange,
     disabled: false,
     thin: false,
     className: '',

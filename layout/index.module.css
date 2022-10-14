@@ -1,0 +1,13 @@
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+    min-height: 100vh;
+    background-color: var(--trood-background);
+}
+
+.main {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 100%;
+    padding: 42px 128px 74px;
+}
