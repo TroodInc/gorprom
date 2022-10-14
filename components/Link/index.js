@@ -17,7 +17,8 @@ const Link = ({
   const { asPath } = useRouter()
   const linkActive = (new RegExp(`^${href}`)).test(asPath)
   const pageAllow = getPageAllow({ context, rules, path: href })
-  if (!pageAllow.access) {
+  const absoluteUrl = href.startsWith('http')
+  if (!absoluteUrl && !pageAllow.access) {
     if (hideIfNotAllowed) {
       return null
     }
@@ -28,7 +29,11 @@ const Link = ({
   return (
     <NextLink href={href} {...other}>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-      <a className={classNames(className, linkActive && activeClassName)} >
+      <a
+        target={absoluteUrl ? '_blank' : undefined}
+        rel={absoluteUrl ? 'noreferrer' : undefined}
+        className={classNames(className, linkActive && activeClassName)}
+      >
         {children}
       </a>
     </NextLink>

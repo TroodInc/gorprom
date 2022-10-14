@@ -1,5 +1,6 @@
 import Image from '../../components/Image'
 import Link from '../../components/Link'
+import Icon, { ICONS_TYPES } from '../../components/Icon'
 
 import styles from './index.module.css'
 
@@ -67,7 +68,19 @@ const Footer = ({ abacContext, abacRules }) => {
           </div>
         </div>
       </div>
-      <p>© {new Date().getFullYear()}, Built with</p>
+      <div className={styles.bottom}>
+        <div className={styles.bottomLeft}>
+          <Link href="https://vk.com">
+            <Icon size={72} type={ICONS_TYPES.vk} className={styles.button} />
+          </Link>
+          <Link href="https://t.me">
+            <Icon size={72} type={ICONS_TYPES.tg} className={styles.button} />
+          </Link>
+        </div>
+        <div className={styles.bottomRight}>
+          Copyright © {new Date().getFullYear()} Gorprom
+        </div>
+      </div>
     </footer>
   )
 }

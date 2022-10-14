@@ -78,3 +78,43 @@
     font-weight: 500;
     letter-spacing: -0.02em;
 }
+
+.bottom {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.bottomLeft {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    flex: 1 1 798px;
+    gap: 8px;
+}
+
+.button {
+    background-color: var(--trood-white);
+    color: var(--trood-text);
+    border-radius: 50%;
+}
+
+.button:hover {
+    background-color: var(--trood-orange);
+    color: var(--trood-white);
+}
+
+.button svg {
+    width: 55%;
+    height: 55%;
+}
+
+.bottomRight {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1 1 387px;
+    gap: 8px;
+    font-size: 18px;
+    padding-left: 16px;
+}

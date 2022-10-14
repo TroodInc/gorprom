@@ -41,6 +41,7 @@
 
 .button {
     background-color: var(--trood-gray);
+    color: var(--trood-text-white);
     border-radius: 50%;
 }
 
@@ -51,5 +52,4 @@
 .button svg {
     width: 55%;
     height: 55%;
-    color: var(--trood-text-white);
 }
