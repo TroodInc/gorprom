@@ -543,9 +543,12 @@ class Input extends PureComponent {
         case INPUT_TYPES.password:
           return (
             <>
-              <span className={style.label}>
-                {label}
-              </span>
+              {
+                label &&
+                  <span className={style.label}>
+                    {label}
+                  </span>
+              }
               <fieldset
                 className={style.fieldset}
               // onFocus={this.showLegend}
@@ -580,9 +583,7 @@ class Input extends PureComponent {
         default:
           return (
             <>
-              <span className={style.label}>
-                {label}
-              </span>
+              {label && <span className={style.label}>{label}</span>}
               <fieldset
                 className={style.fieldset}
               // onFocus={this.showLegend}
