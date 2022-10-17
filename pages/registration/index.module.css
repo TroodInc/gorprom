@@ -29,7 +29,7 @@
 .right {
     display: flex;
     flex-flow: column nowrap;
-    flex: 0 0 390px;
+    flex: 0 0 420px;
     margin: 0 auto;
 }
 
@@ -63,4 +63,37 @@
 
 .registerButton {
     align-self: flex-start;
+}
+
+.verificationText {
+    margin-bottom: 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 125%;
+    letter-spacing: -0.02em;
+}
+
+.confirmationText {
+    padding: 20px 0;
+    margin-bottom: 24px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 97%;
+    letter-spacing: -0.04em;
+    border-top: 1px solid #2F2D2D;
+    border-bottom: 1px solid #2F2D2D;
+}
+
+.verificationQuestion {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 125%;
+}
+
+.verificationButton {
+    width: fit-content;
+    justify-content: flex-start;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 125%;
 }
