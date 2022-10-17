@@ -542,56 +542,64 @@ class Input extends PureComponent {
           )
         case INPUT_TYPES.password:
           return (
-            <fieldset
-              className={style.fieldset}
+            <>
+              <span className={style.label}>
+                {label}
+              </span>
+              <fieldset
+                className={style.fieldset}
               // onFocus={this.showLegend}
               // onBlur={this.hideLegend}
-            >
-              <legend>{label}</legend>
-              <input
-                {...{
-                  type: this.state.isPasswordShown
-                    ? INNER_INPUT_TYPES.text
-                    : INNER_INPUT_TYPES.password,
-                  className: classNames(
-                    style.input,
-                    disabled && style.disabled
-                  ),
-                  ...inputProps,
-                }}
-              />
-              <button className={style.btn} onClick={this.changePasswordVisibility}>
-                <Icon
+              >
+                <input
                   {...{
-                    className: style.phoneCode,
                     type: this.state.isPasswordShown
-                      ? ICONS_TYPES.eyeClose
-                      : ICONS_TYPES.eyeOpen,
-                    size: 20,
+                      ? INNER_INPUT_TYPES.text
+                      : INNER_INPUT_TYPES.password,
+                    className: classNames(
+                      style.input,
+                      disabled && style.disabled
+                    ),
+                    ...inputProps,
                   }}
                 />
-              </button>
-            </fieldset>
+                <button className={style.btn} onClick={this.changePasswordVisibility}>
+                  <Icon
+                    {...{
+                      className: style.phoneCode,
+                      type: this.state.isPasswordShown
+                        ? ICONS_TYPES.eyeClose
+                        : ICONS_TYPES.eyeOpen,
+                      size: 20,
+                    }}
+                  />
+                </button>
+              </fieldset>
+            </>
           )
         default:
           return (
-            <fieldset
-              className={style.fieldset}
+            <>
+              <span className={style.label}>
+                {label}
+              </span>
+              <fieldset
+                className={style.fieldset}
               // onFocus={this.showLegend}
               // onBlur={this.hideLegend}
-            >
-              <legend>{label}</legend>
-              <input
-                {...{
-                  type: INNER_INPUT_TYPES[type],
-                  className: classNames(
-                    style.input,
-                    disabled && style.disabled
-                  ),
-                  ...inputProps,
-                }}
-              />
-            </fieldset>
+              >
+                <input
+                  {...{
+                    type: INNER_INPUT_TYPES[type],
+                    className: classNames(
+                      style.input,
+                      disabled && style.disabled
+                    ),
+                    ...inputProps,
+                  }}
+                />
+              </fieldset>
+            </>
           )
       }
     }
@@ -653,9 +661,8 @@ class Input extends PureComponent {
           }
           {getInputComp()}
           {children}
-        </div>
-        {
-          showTextErrors &&
+          {
+            showTextErrors &&
           <div className={style.errors}>
             {currentErrors.map((error, index) => (
               <div className={style.errorText} key={index}>
@@ -663,7 +670,8 @@ class Input extends PureComponent {
               </div>
             ))}
           </div>
-        }
+          }
+        </div>
       </div>
     )
   }
