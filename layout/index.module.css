@@ -9,5 +9,5 @@
     display: flex;
     flex-flow: column nowrap;
     flex: 1 1 100%;
-    padding: 42px 128px 74px;
+    padding: 24px 128px 24px;
 }
