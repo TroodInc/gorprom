@@ -1,19 +1,20 @@
 .root {
-    border: 1px solid var(--trood-border);
-    margin: 20px 0 20px 0;
-    padding: 15px 0 0 15px;
+
 }
 
 .label {
-    margin-bottom: 10px;
+    margin-bottom: 24px;
+    font-size: 24px;
+    line-height: 110%;
 }
 
 .item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     color: var(--trood-gray);
-    margin-bottom: 10px;
-    font-size: 14px;
+    margin-bottom: 18px;
+    font-size: 18px;
+    line-height: 100%;
 }
 
 .clear, .check {
@@ -26,7 +27,6 @@
     color:  var(--trood-white);
     border-radius: 100%;
     margin-right: 10px;
-    margin-top: 2px;
 }
 
 .clear {

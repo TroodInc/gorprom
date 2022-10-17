@@ -17,8 +17,8 @@ const PasswordCheck = ({
 
   if (minLength) {
     const lengthErr = password.length < minLength ?
-      { title: `Как мин. ${minLength} символов`, icn: ICONS_TYPES.clear, style: styles.clear } :
-      { title: `Как мин. ${minLength} символов`, icn: ICONS_TYPES.confirm, style: styles.check }
+      { title: `Как минимум ${minLength} символов`, icn: ICONS_TYPES.clear, style: styles.clear } :
+      { title: `Как минимум ${minLength} символов`, icn: ICONS_TYPES.confirm, style: styles.check }
 
     errorsArr.push(lengthErr)
   }
