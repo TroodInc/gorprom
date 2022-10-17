@@ -561,6 +561,7 @@ class Input extends PureComponent {
                       : INNER_INPUT_TYPES.password,
                     className: classNames(
                       style.input,
+                      style.password,
                       disabled && style.disabled
                     ),
                     ...inputProps,
@@ -573,7 +574,7 @@ class Input extends PureComponent {
                       type: this.state.isPasswordShown
                         ? ICONS_TYPES.eyeClose
                         : ICONS_TYPES.eyeOpen,
-                      size: 20,
+                      size: 28,
                     }}
                   />
                 </button>
