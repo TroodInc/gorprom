@@ -79,7 +79,7 @@ const Login = ({ host }) => {
         label="Регистрация"
         type={BUTTON_TYPES.text}
         color={BUTTON_COLORS.orange}
-        link="/register"
+        link="/registration"
       />
     </div>
   )

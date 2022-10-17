@@ -1,8 +1,36 @@
 .root {
     display: flex;
+    flex-flow: row nowrap;
+}
+
+.left {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 1 490px;
+    padding-right: 16px;
+    border-right: 1px solid var(--trood-border-dark);
+}
+
+.step {
+    font-weight: 500;
+    font-size: 28px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--trood-border-dark);
+}
+
+.step:first-child {
+    padding-top: 0;
+}
+
+.step.active {
+    color: #E4A642;
+}
+
+.right {
+    display: flex;
     flex-flow: column nowrap;
     flex: 0 0 390px;
-    margin: 18px auto;
+    margin: 0 auto;
 }
 
 .login {

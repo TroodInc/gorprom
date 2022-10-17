@@ -1,7 +1,7 @@
 .root {
     display: flex;
     flex-flow: column nowrap;
-    padding: 28px;
+    padding: 0 28px;
 }
 
 .container {
