@@ -1,0 +1,149 @@
+version: '3'
+
+services:
+
+  traefik:
+    image: traefik:v2.9
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - main
+
+  app:
+    image: registry.tools.trood.ru/gorprom:dev
+    container_name: app
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.app.loadbalancer.server.port=3000"
+      - "traefik.http.routers.app.rule=PathPrefix(`/`)"
+    expose:
+      - "3000"
+    networks:
+      - main
+
+  postgres:
+    image: postgres:12
+    container_name: postgres
+    restart: always
+    volumes:
+      - ./postgres/legal:/var/lib/postgresql/data
+    environment:
+      LC_ALL: C.UTF-8
+      POSTGRES_DB: custodian
+      POSTGRES_USER: gorprom
+      POSTGRES_PASSWORD: gorprom
+    networks:
+      - main
+
+  authorization:
+    image: registry.tools.trood.ru/auth:dev
+    container_name: authorization
+    restart: always
+    environment:
+      DATABASE_URL: "pgsql://gorprom:gorprom@postgres/auth"
+      DJANGO_CONFIGURATION: "Development"
+
+      TROOD_OAUTH_URL: "https://em.dev.trood.ru"
+      AUTHENTICATION_TYPE: "TROOD"
+
+      SERVICE_DOMAIN: "AUTHORIZATION"
+      SERVICE_AUTH_SECRET: "3dd09def9ce1945116ba915793de32ee85b7e7b36421fd0ebd745d5d4fe4bd14e2d256cf97de6cf1686fd44c94ccfd292148477cae59822c54fae58f01fe3d7f"
+
+      PROFILE_STORAGE: "CUSTODIAN"
+      CUSTODIAN_PROFILE_OBJECT: "employee"
+      CUSTODIAN_LINK: "http://custodian:8000/custodian/"
+
+#      MAILER_TYPE: "TROOD"
+#      TROOD_MAIL_SERVICE_URL: "http://mail:8000"
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.authorization.loadbalancer.server.port=8000"
+      - "traefik.http.routers.authorization.rule=PathPrefix(`/authorization`)"
+      - "traefik.http.middlewares.authorization-strip.stripprefix.prefixes=/authorization"
+      - "traefik.http.routers.authorization.middlewares=authorization-strip"
+    expose:
+      - "8000"
+    networks:
+      - main
+
+  mail:
+    image: registry.tools.trood.ru/mail:dev
+    container_name: mail
+    restart: always
+    environment:
+      DATABASE_URL: "pgsql://gorprom:gorprom@postgres/mail"
+      DJANGO_CONFIGURATION: "Development"
+
+      SERVICE_DOMAIN: "MAIL"
+      SERVICE_AUTH_SECRET: "3dd09def9ce1945116ba915793de32ee85b7e7b36421fd0ebd745d5d4fe4bd14e2d256cf97de6cf1686fd44c94ccfd292148477cae59822c54fae58f01fe3d7f"
+
+      AUTHENTICATION_TYPE: "TROOD"
+      TROOD_AUTH_SERVICE_URL: "http://authorization:8000/"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.mail.loadbalancer.server.port=8000"
+      - "traefik.http.routers.mail.rule=PathPrefix(`/mail`)"
+      - "traefik.http.middlewares.mail-strip.stripprefix.prefixes=/mail"
+      - "traefik.http.routers.mail.middlewares=mail-strip"
+    expose:
+      - "8000"
+    networks:
+      - main
+
+  n8n:
+    image: n8nio/n8n:0.153.0
+    container_name: n8n
+    restart: always
+    environment:
+      WEBHOOK_URL: "http://45.138.163.227/hook/"
+      VUE_APP_URL_BASE_API: "http://45.138.163.227/n8n/"
+      N8N_PROTOCOL: "http"
+      N8N_PORT: "8000"
+      N8N_PATH: "/api/v1.0/spaces/f7307895-f827-4471-9c5f-a0fa3b0dfb15/n8n-remote/"
+      N8N_HOST: "n8n"
+      N8N_ENCRYPTION_KEY: "4gx5bw1r649g"
+      GENERIC_TIMEZONE: "Europe/Moscow"
+      EXECUTIONS_PROCESS: "main"
+      DB_POSTGRESDB_CONNECTION_URL: "postgres://gorprom:gorprom@postgres/n8n?sslmode=disable"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.n8n.loadbalancer.server.port=8000"
+      - "traefik.http.routers.n8n.rule=PathPrefix(`/n8n`)"
+      - "traefik.http.middlewares.n8n-strip.stripprefix.prefixes=/n8n"
+      - "traefik.http.routers.n8n.middlewares=n8n-strip"
+    expose:
+      - "8000"
+    networks:
+      - main
+
+
+  custodian:
+    image: registry.tools.trood.ru/custodian:dev
+    container_name: custodian
+    restart: always
+    environment:
+      SERVICE_DOMAIN: "CUSTODIAN"
+      SERVICE_AUTH_SECRET: "3dd09def9ce1945116ba915793de32ee85b7e7b36421fd0ebd745d5d4fe4bd14e2d256cf97de6cf1686fd44c94ccfd292148477cae59822c54fae58f01fe3d7f"
+
+      DATABASE_URL: "postgres://gorprom:gorprom@postgres/custodian?sslmode=disable"
+
+      AUTHENTICATION_TYPE: "TROOD"
+      TROOD_AUTH_SERVICE_URL: "http://authorization:8000/"
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.custodian.rule=PathPrefix(`/custodian`)"
+      - "traefik.http.services.custodian.loadbalancer.server.port=8000"
+    expose:
+      - "8000"
+    networks:
+      - main
+
+networks:
+  main:
