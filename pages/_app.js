@@ -7,7 +7,7 @@ import { getPageAllow, getRules, getAbacContext } from '../helpers/abac'
 import AbacContext from '../abacContext'
 
 import Error from './_error'
-import Layout from '../Layout'
+import Layout from '../layout'
 import '../styles/fonts.css'
 import '../styles/globals.css'
 import '../styles/variables.css'
