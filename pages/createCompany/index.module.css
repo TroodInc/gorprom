@@ -1,0 +1,56 @@
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 390px;
+    margin: 18px auto;
+}
+
+.header {
+    margin-bottom: 34px;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 105%;
+}
+
+.name {
+    margin-bottom: 48px;
+}
+
+.desc {
+    margin-bottom: 24px;
+    font-weight: 500;
+}
+
+.descLabel {
+    margin-bottom: 48px;
+    font-size: 18px;
+    line-height: 125%;
+    color: var(--trood-text-gray);
+}
+
+.contactsHeader {
+    margin-bottom: 36px;
+}
+
+.email {
+    margin-bottom: 48px;
+}
+
+.phone {
+    margin-bottom: 48px;
+}
+
+.website {
+    margin-bottom: 26px;
+}
+
+.addSocialButton {
+    justify-content: flex-start;
+}
+
+.globalError {
+    font-size: 18px;
+    color: var(--trood-red);
+    margin-bottom: 24px;
+}
+
