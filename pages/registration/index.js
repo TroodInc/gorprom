@@ -34,7 +34,7 @@ const Registration = ({ host }) => {
       </Head>
       <div className={styles.left}>
         {[
-          { title: 'Регистрация', active: true },
+          { title: 'Регистрация', active: !verify },
           { title: 'Верификация', active: verify },
         ].map(({ title, active }, i) => (
           <div key={i} className={classNames(styles.step, active && styles.active)}>
@@ -43,8 +43,7 @@ const Registration = ({ host }) => {
         ))}
       </div>
       <div className={styles.right}>
-        {
-          verify ?
+        {verify &&
             <>
               <div className={styles.verificationText}>
                   Мы отправили письмо вам на почту. Перейдите по ссылке из письма чтобы завершить регистрацию.
@@ -58,8 +57,8 @@ const Registration = ({ host }) => {
                 color={BUTTON_COLORS.orange}
                 onClick={() => console.warn('Предупреждающее сообщение')}
               />
-            </>
-            :
+            </>}
+        {!verify &&
             <>
               <Input
                 className={styles.login}
@@ -115,8 +114,7 @@ const Registration = ({ host }) => {
                 color={BUTTON_COLORS.orange}
                 link="/login"
               />
-            </>
-        }
+            </>}
       </div>
     </div>
   )
