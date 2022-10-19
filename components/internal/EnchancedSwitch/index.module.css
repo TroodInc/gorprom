@@ -1,0 +1,73 @@
+.root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.root:focus {
+  outline: none;
+}
+
+.innerInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: -1;
+}
+
+.root.disabled {
+  cursor: default;
+}
+
+.label {
+  cursor: pointer;
+}
+
+.root .disabled .label {
+  color: var(--trood-text-gray);
+  cursor: default;
+}
+
+.labelRight {
+  composes: label;
+  order: 2;
+  margin-left: 5px;
+}
+
+.labelLeft {
+  composes: label;
+  order: 0;
+  margin-right: 5px;
+}
+
+.component {
+  order: 1;
+}
+
+.errors {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.errors:empty {
+  display: none;
+}
+
+.errorText {
+  color: var(--trood-red);
+  font-size: 14px;
+  font-weight: 500;
+}

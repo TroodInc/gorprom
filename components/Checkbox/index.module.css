@@ -1,0 +1,101 @@
+.root {
+  position: relative;
+}
+
+.root.checkbox {
+  height: 18px;
+  width: 18px;
+}
+
+.root.toggle {
+  height: 18px;
+  width: 30px;
+  border-radius: 16px;
+}
+
+.root.checkbox.boxRoot {
+  border-radius: 2px;
+}
+
+.root.checked {
+  background-color: var(--trood-orange);
+  border: 1px solid var(--trood-border-dark);
+}
+
+.root:not(.checked) {
+  border: 1px solid var(--trood-border-dark);
+}
+
+.toggle:before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  display: flex;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background-color: var(--trood-gray);
+}
+
+.toggle.checked:before {
+  left: auto;
+  right: 1px;
+  background-color: var(--trood-white);
+}
+
+.root.disabled {
+  background-color: var(--trood-gray);
+  border: 1px solid var(--trood-border);
+}
+
+.grayLabel {
+  color: var(--trood-gray-dark);
+}
+
+.icon {
+  justify-content: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.toggle .icon {
+  display: none;
+}
+
+.icon svg {
+  width: 80%;
+  height: 80%;
+}
+
+.boxRoot .icon {
+  color: var(--trood-white);
+}
+
+.root:not(.checked) .icon {
+  color: transparent;
+}
+
+.iconRoot .icon {
+  color: var(--trood-gray-dark);
+}
+
+.disabled .icon {
+  color: var(--trood-text-gray) !important;
+}
+
+.iconRoot.checked.orange .icon {
+  color: var(--trood-orange);
+}
+
+.iconRoot.checked.black .icon {
+  color: var(--trood-orange);
+}
+
+.iconHide {
+  composes: icon;
+  color: transparent;
+}

@@ -1,0 +1,111 @@
+.root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  height: 38px;
+  max-height: 100%;
+  border: 1px solid var(--trood-gray-border);
+  background-color: var(--trood-white);
+  border-radius: var(--trood-border-radius);
+}
+
+.root:focus {
+  border-color: var(--trood-blue);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.root.open {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.root.error {
+  border-color: var(--trood-red);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+  flex: 1 1;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.control {
+  height: 100%;
+  color: var(--trood-gray-super-dark);
+  margin-right: 7px;
+}
+
+.placeholder,
+.value {
+  font-size: 14px;
+  margin: 0 10px;
+  color: var(--trood-gray-extra-dark);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+
+.value {
+  text-align: left;
+  color: var(--trood-black);
+  flex: 1 0;
+}
+
+.root.disabled .value {
+  color: var(--trood-gray-text);
+}
+
+.content .search {
+  border: none;
+  min-height: 0;
+  height: 100%;
+  padding: 0;
+}
+
+.optionsContainer {
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% - 3px);
+  left: -1px;
+  width: calc(100% + 2px);
+  background-color: var(--trood-white);
+  box-shadow:
+    inset 0 0 0 1px var(--trood-gray-border),
+    0 6px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 3px 3px;
+}
+
+.optionsContainer.openUp {
+  top: unset;
+  bottom: calc(100% - 3px);
+  box-shadow:
+    inset 0 0 0 1px var(--trood-gray-border),
+    0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.optionsContainer.hide {
+  visibility: hidden;
+  width: 0;
+  opacity: 0;
+  z-index: -1;
+}
+
+.children {
+  padding: 5px 0;
+}
+
+.addButton {
+  width: 100%;
+  text-transform: none;
+  padding: 0 10px;
+  justify-content: flex-start;
+}
