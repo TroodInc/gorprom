@@ -8,7 +8,7 @@ class HiddenContent extends PureComponent {
   static propTypes = {
     control: PropTypes.node,
     children: PropTypes.node,
-    childrenPos: PropTypes.oneOf(Object.values(POSITION_TYPES)),
+    position: PropTypes.oneOf(Object.values(POSITION_TYPES)),
   }
 
   static defaultProps = {
@@ -36,7 +36,7 @@ class HiddenContent extends PureComponent {
     const {
       control,
       children,
-      childrenPos,
+      position,
     } = this.props
 
     const {
@@ -50,7 +50,7 @@ class HiddenContent extends PureComponent {
             {control}
           </div>
           {isVisible &&
-              <div className={styles[childrenPos]}>
+              <div className={styles[position]}>
                 {children}
               </div>}
         </div>
