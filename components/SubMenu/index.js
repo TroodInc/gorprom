@@ -7,7 +7,7 @@ const SubMenu = ({ arr }) => {
   return (
     <div className={styles.root}>
       {arr.map(({ link, title }, index) => (
-        <Link href={link} key={index} className={styles.link}>
+        <Link href={link} key={link} className={styles.link}>
           <div className={styles.title}>
             {title}
           </div>
