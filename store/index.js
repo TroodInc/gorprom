@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { types, applySnapshot, getSnapshot, detach, isAlive } from 'mobx-state-tree'
+import { types, applySnapshot, getSnapshot, detach } from 'mobx-state-tree'
 import set from 'lodash/set'
 
 import { callApi } from '../helpers/fetch'
@@ -152,6 +152,12 @@ const Store = types.model('store', {
     self.authData = data
     if (window !== undefined && data.token) {
       window.document.cookie = newCookie('token', data.token, 365)
+    }
+  },
+  clearAuthData() {
+    self.authData = {}
+    if (window !== undefined) {
+      window.document.cookie = newCookie('token', '', 0)
     }
   },
 }))

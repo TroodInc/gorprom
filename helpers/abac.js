@@ -70,6 +70,12 @@ const getSuitableRule = (actionRules = [], values = {}) => {
 }
 
 const getSuitableRuleResult = (suitableRule, defaultAccess = true) => {
+  if (process.env.NEXT_PUBLIC_SKIP_ABAC === 'true') {
+    return {
+      access: true,
+      mask: [],
+    }
+  }
   if (suitableRule) {
     return {
       access: suitableRule.result === allow,

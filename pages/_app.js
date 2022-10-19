@@ -40,6 +40,8 @@ const App = ({ Component, pageProps = {}, ...other }) => {
     )
   }
 
+  const layoutProps = Component.layoutProps ? Component.layoutProps : {}
+
   return (
     <Provider store={store}>
       <AbacContext.Provider value={other}>
@@ -63,7 +65,7 @@ const App = ({ Component, pageProps = {}, ...other }) => {
             })
           }}
         </Observer>
-        <Layout {...other}>
+        <Layout layoutProps={layoutProps} {...other}>
           <Component {...other} {...pageProps} />
         </Layout>
       </AbacContext.Provider>
