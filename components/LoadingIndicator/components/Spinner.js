@@ -28,10 +28,10 @@ const Spiner = ({
       }}>
         {
           (new Array(count)).fill(0).map((_, i) => (
-            <g {...{
-              key: i,
-              transform: `rotate(${ROUND_DEG / count * i}) translate(${(size / 2) - (r * maxScale)} 0)`,
-            }}>
+            <g
+              key={i}
+              transform={`rotate(${ROUND_DEG / count * i}) translate(${(size / 2) - (r * maxScale)} 0)`}
+            >
               <circle {...{
                 r,
                 style: {
