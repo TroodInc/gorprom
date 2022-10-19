@@ -1,0 +1,44 @@
+.root {
+    position: relative;
+}
+
+.hiddenContent {
+    position: absolute;
+}
+
+.bottomLeft {
+    composes: hiddenContent;
+    top: 100%;
+    right: 0;
+    margin-top: 24px;
+}
+
+.bottomRight {
+    composes: bottomLeft;
+    left: 0;
+}
+
+.bottomCenter {
+    composes: bottomRight;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.topLeft {
+    composes: hiddenContent;
+    top: 0;
+    right: 0;
+    transform: translateY(-100%);
+    padding-bottom: 24px;
+}
+
+.topRight {
+    composes: topLeft;
+    left: 0;
+}
+
+.topCenter {
+    composes: topRight;
+    left: 50%;
+    transform: translate(-50%, -100%);
+}
