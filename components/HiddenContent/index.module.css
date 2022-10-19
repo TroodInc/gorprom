@@ -4,6 +4,7 @@
 
 .hiddenContent {
     position: absolute;
+    z-index: 999;
 }
 
 .bottomLeft {

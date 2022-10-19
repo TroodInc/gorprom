@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import styles from './index.module.css'
 import { POSITION_TYPES } from './constants'
@@ -12,7 +13,7 @@ class HiddenContent extends PureComponent {
   }
 
   static defaultProps = {
-
+    position: POSITION_TYPES.bottomLeft,
   }
 
   constructor(props) {
@@ -34,6 +35,7 @@ class HiddenContent extends PureComponent {
 
   render() {
     const {
+      className,
       control,
       children,
       position,
@@ -45,7 +47,7 @@ class HiddenContent extends PureComponent {
 
     return (
       <ClickOutside onClick={this.handleOutsideClick}>
-        <div className={styles.root}>
+        <div className={classNames(styles.root, className)}>
           <div onClick={this.toggleContent}>
             {control}
           </div>

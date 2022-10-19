@@ -53,3 +53,20 @@
     width: 55%;
     height: 55%;
 }
+
+.userMenu {
+    display: flex;
+    flex-flow: column nowrap;
+    background: var(--trood-white);
+    border: 1px solid var(--trood-border-dark);
+    border-radius: 16px;
+    padding: 0 18px;
+}
+
+.userMenu > * {
+    padding: 20px 0;
+}
+
+.userMenu > :not(:last-child) {
+    border-bottom: 1px solid var(--trood-border-dark);
+}

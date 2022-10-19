@@ -23,7 +23,6 @@ const Home = () => {
         label="Select"
         placeholder="Select"
         items={[{ label: 'Val 1', value: 1 }, { label: 'Val 2', value: 2 }]}
-        onChange={(value) => console.log(value)}
       />
     </div>
   )
