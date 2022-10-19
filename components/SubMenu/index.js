@@ -6,7 +6,7 @@ import Link from '../Link'
 const SubMenu = ({ arr }) => {
   return (
     <div className={styles.root}>
-      {arr.map(({ link, title }, index) => (
+      {arr.map(({ link, title }) => (
         <Link href={link} key={link} className={styles.link}>
           <div className={styles.title}>
             {title}
