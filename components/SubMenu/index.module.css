@@ -1,0 +1,37 @@
+.root {
+    width: 100%;
+    display: flex;
+}
+
+.active,
+.link:hover .title {
+    color: var(--trood-orange);
+}
+
+.link:hover .border,
+.link.active .border {
+    background-color: var(--trood-orange);
+}
+
+.link {
+    width: 100%;
+}
+
+.link:not(:last-child) {
+    margin-right: 4px;
+}
+
+.title {
+    margin-bottom: 12px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 97%;
+    letter-spacing: -0.04em;
+}
+
+.border {
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--trood-gray-light);
+}
+
