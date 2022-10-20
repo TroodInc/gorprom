@@ -25,7 +25,7 @@ const Registration = ({ host }) => {
 
   const globalError = form.get('errors.globalError')
 
-  const verify = true
+  const verify = false
 
   return (
     <div className={styles.root}>
@@ -118,6 +118,10 @@ const Registration = ({ host }) => {
       </div>
     </div>
   )
+}
+
+Registration.layoutProps = {
+  authPage: true,
 }
 
 export default observer(Registration)

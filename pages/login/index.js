@@ -85,4 +85,8 @@ const Login = ({ host }) => {
   )
 }
 
+Login.layoutProps = {
+  authPage: true,
+}
+
 export default observer(Login)

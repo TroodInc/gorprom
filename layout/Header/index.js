@@ -8,7 +8,7 @@ import HiddenContent from '../../components/HiddenContent'
 import styles from './index.module.css'
 
 
-const Header = () => {
+const Header = ({ layoutProps: { authPage } = {} }) => {
   const { store } = useContext(MobXProviderContext)
 
   const isAuth = store.authData.id > 0
@@ -47,30 +47,41 @@ const Header = () => {
         </div>
         <div className={styles.buttons}>
           <Icon size={72} type={ICONS_TYPES.search} className={styles.button} />
-          <HiddenContent
-            control={(<Icon size={72} type={ICONS_TYPES.user} className={styles.button} />)}
-          >
-            <div className={styles.userMenu}>
-              {[
-                { link: '/login', label: 'Вход', show: !isAuth },
-                { link: '/registration', label: 'Регистрация', show: !isAuth },
-                { link: '/profile', label: 'Личный кабинет', show: isAuth },
-                { link: '/', label: 'Выход', show: isAuth, action: store.clearAuthData },
-              ].map(({ link, label, show, action }) => {
-                if (!show) return null
-                return (
-                  <Link
-                    key={link}
-                    href={link}
-                    hideIfNotAllowed
-                    onClick={action}
-                  >
-                    {label}
-                  </Link>
-                )
-              })}
-            </div>
-          </HiddenContent>
+          {authPage && (
+            <Link
+              href="/"
+              hideIfNotAllowed
+              onClick={store.clearAuthData}
+            >
+              <Icon size={72} type={ICONS_TYPES.clear} className={styles.button} />
+            </Link>
+          )}
+          {!authPage && (
+            <HiddenContent
+              control={(<Icon size={72} type={ICONS_TYPES.user} className={styles.button} />)}
+            >
+              <div className={styles.userMenu}>
+                {[
+                  { link: '/login', label: 'Вход', show: !isAuth },
+                  { link: '/registration', label: 'Регистрация', show: !isAuth },
+                  { link: '/profile', label: 'Личный кабинет', show: isAuth },
+                  { link: '/', label: 'Выход', show: isAuth, action: store.clearAuthData },
+                ].map(({ link, label, show, action }) => {
+                  if (!show) return null
+                  return (
+                    <Link
+                      key={link}
+                      href={link}
+                      hideIfNotAllowed
+                      onClick={action}
+                    >
+                      {label}
+                    </Link>
+                  )
+                })}
+              </div>
+            </HiddenContent>
+          )}
         </div>
       </div>
     </header>

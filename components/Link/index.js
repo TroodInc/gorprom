@@ -13,6 +13,7 @@ const Link = ({
   activeClassName,
   children,
   hideIfNotAllowed,
+  onClick,
   ...other
 }) => {
   const { abacContext, abacRules } = useContext(AbacContext)
@@ -31,7 +32,7 @@ const Link = ({
         return null
       }
       return (
-        <div className={className} {...other}>{children}</div>
+        <div className={className} onClick={onClick} {...other}>{children}</div>
       )
     }
   }
@@ -39,6 +40,7 @@ const Link = ({
     <NextLink href={href} {...other}>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a
+        onClick={onClick}
         target={absoluteUrl ? '_blank' : undefined}
         rel={absoluteUrl ? 'noreferrer' : undefined}
         className={classNames(className, linkActive && activeClassName)}
