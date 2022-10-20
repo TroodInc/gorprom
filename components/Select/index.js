@@ -7,8 +7,6 @@ import styles from './index.module.css'
 
 import { ICONS_TYPES } from '../Icon'
 
-import Label from '../Label'
-
 import { SELECT_TYPES } from './constants'
 
 import List, { LIST_ORIENTATION, LIST_TYPES } from './components/List'
@@ -154,7 +152,7 @@ class Select extends PureComponent {
     super(props)
 
     this.state = {
-      wasBlured: false,
+      wasBlured: true,
     }
 
     this.lastValid = true
@@ -229,6 +227,7 @@ class Select extends PureComponent {
         return (
           <DropDown {...{
             ...generalProps,
+            controlClassName: styles.dropDown,
           }} />
         )
     }
@@ -280,12 +279,10 @@ class Select extends PureComponent {
     return (
       <div className={classNames(className, styles.root)}>
         {
-          !!label &&
-          <Label {...{
-            className: classNames(labelClassName, styles.label),
-            required: validate.required,
-            label,
-          }} />
+          label &&
+            <div className={classNames(labelClassName, styles.label, !this.state.wasBlured && styles.labelActive)}>
+              {label}
+            </div>
         }
         {this.getSelectComponent(currentErrors)}
         {
