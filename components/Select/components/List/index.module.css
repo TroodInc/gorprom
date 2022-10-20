@@ -33,13 +33,14 @@
   overflow: hidden;
 }
 
-.itemHover {
-  color: var(--trood-blue) !important;
+.itemHover,
+.itemWrapper:hover {
+  color: var(--trood-text-white);
+  background-color: var(--trood-background-dark);
 }
 
 .empty {
   composes: itemWrapper;
-  color: var(--trood-gray-extra-dark);
   cursor: default;
 }
 
