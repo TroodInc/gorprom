@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
-import Image from '../../components/Image'
+import Image from 'next/image'
 import Link from '../../components/Link'
 import Icon, { ICONS_TYPES } from '../../components/Icon'
 import HiddenContent from '../../components/HiddenContent'
@@ -17,10 +17,16 @@ const Header = () => {
     <header className={styles.root}>
       <div className={styles.container}>
         <Link
+          className={styles.logo}
           href="/"
           hideIfNotAllowed
         >
-          <Image className={styles.logo} alt="Горпром" url="/image/logoDark.svg" />
+          <Image
+            alt="Горпром"
+            src="/image/logoDark.svg"
+            width={500}
+            height={96}
+          />
         </Link>
         <div className={styles.menu}>
           {[

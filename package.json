@@ -9,6 +9,9 @@
     "prod": "npm run build && npm run start",
     "lint": "next lint"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "dependencies": {
     "classnames": "^2.3.2",
     "country-telephone-data": "^0.6.3",

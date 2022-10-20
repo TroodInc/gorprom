@@ -1,4 +1,4 @@
-import Image from '../../components/Image'
+import Image from 'next/image'
 import Link from '../../components/Link'
 import Icon, { ICONS_TYPES } from '../../components/Icon'
 
@@ -8,7 +8,18 @@ import styles from './index.module.css'
 const Footer = () => {
   return (
     <footer className={styles.root}>
-      <Image className={styles.logo} alt="Горпром" url="/image/logoLight.svg" />
+      <Link
+        className={styles.logo}
+        href="/"
+        hideIfNotAllowed
+      >
+        <Image
+          alt="Горпром"
+          src="/image/logoLight.svg"
+          width={280}
+          height={52}
+        />
+      </Link>
       <div className={styles.main}>
         <div className={styles.mainLeft}>
           <div className={styles.address}>

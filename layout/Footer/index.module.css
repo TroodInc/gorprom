@@ -8,8 +8,7 @@
 }
 
 .logo {
-    width: 280px;
-    height: 52px;
+    align-self: flex-start;
 }
 
 .main {

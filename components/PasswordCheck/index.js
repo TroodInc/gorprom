@@ -67,6 +67,7 @@ const PasswordCheck = ({
 
   useEffect(() => {
     onValidate(errors)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [password])
 
   if (!password || !(minLength || checkLetter || checkUpper || checkLower || checkNumber || checkSpec)) {
