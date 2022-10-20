@@ -7,7 +7,7 @@ import { getPageAllow, getRules, getAbacContext } from '../helpers/abac'
 import AbacContext from '../abacContext'
 
 import Error from './_error'
-import Layout from '../layout'
+import Layout from '../layout/main'
 import '../styles/fonts.css'
 import '../styles/globals.css'
 import '../styles/variables.css'
@@ -22,25 +22,30 @@ const App = ({ Component, pageProps = {}, ...other }) => {
 
   if (!pageAllow?.access) {
     return (
-      <AbacContext.Provider value={other}>
-        <Layout {...other}>
-          <Error statusCode={403} />
-        </Layout>
-      </AbacContext.Provider>
+      <Provider store={store}>
+        <AbacContext.Provider value={other}>
+          <Layout {...other}>
+            <Error statusCode={403} />
+          </Layout>
+        </AbacContext.Provider>
+      </Provider>
     )
   }
 
   if (statusCode >= 400) {
     return (
-      <AbacContext.Provider value={other}>
-        <Layout {...other}>
-          <Error statusCode={statusCode} />
-        </Layout>
-      </AbacContext.Provider>
+      <Provider store={store}>
+        <AbacContext.Provider value={other}>
+          <Layout {...other}>
+            <Error statusCode={statusCode} />
+          </Layout>
+        </AbacContext.Provider>
+      </Provider>
     )
   }
 
   const layoutProps = Component.layoutProps ? Component.layoutProps : {}
+  const SubLayout = Component.SubLayout ? Component.SubLayout : ({ children }) => children
 
   return (
     <Provider store={store}>
@@ -66,7 +71,9 @@ const App = ({ Component, pageProps = {}, ...other }) => {
           }}
         </Observer>
         <Layout layoutProps={layoutProps} {...other}>
-          <Component {...other} {...pageProps} />
+          <SubLayout {...other}>
+            <Component {...other} {...pageProps} />
+          </SubLayout>
         </Layout>
       </AbacContext.Provider>
     </Provider>

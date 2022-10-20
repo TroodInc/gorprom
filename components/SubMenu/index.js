@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
+
 import styles from './index.module.css'
 import Link from '../Link'
 
-const SubMenu = ({ arr }) => {
+const SubMenu = ({ items, className }) => {
   return (
-    <div className={styles.root}>
-      {arr.map(({ link, title }) => (
-        <Link href={link} key={link} className={styles.link}>
+    <div className={classNames(className, styles.root)}>
+      {items.map(({ link, title }) => (
+        <Link href={link} key={link} className={styles.link} activeClassName={styles.active}>
           <div className={styles.title}>
             {title}
           </div>
@@ -19,7 +21,8 @@ const SubMenu = ({ arr }) => {
 }
 
 SubMenu.propTypes = {
-  arr: PropTypes.arrayOf(PropTypes.object),
+  className: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default SubMenu

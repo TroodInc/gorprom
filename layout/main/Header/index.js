@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
 import Image from 'next/image'
-import Link from '../../components/Link'
-import Icon, { ICONS_TYPES } from '../../components/Icon'
-import HiddenContent from '../../components/HiddenContent'
+import Link from '../../../components/Link'
+import Icon, { ICONS_TYPES } from '../../../components/Icon'
+import HiddenContent from '../../../components/HiddenContent'
 
 import styles from './index.module.css'
 
@@ -11,7 +11,7 @@ import styles from './index.module.css'
 const Header = ({ layoutProps: { authPage } = {} }) => {
   const { store } = useContext(MobXProviderContext)
 
-  const isAuth = store.authData.id > 0
+  const isAuth = store?.authData.id > 0
 
   return (
     <header className={styles.root}>

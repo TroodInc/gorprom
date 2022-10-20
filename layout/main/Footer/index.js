@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Link from '../../components/Link'
-import Icon, { ICONS_TYPES } from '../../components/Icon'
+import Link from '../../../components/Link'
+import Icon, { ICONS_TYPES } from '../../../components/Icon'
 
 import styles from './index.module.css'
 
@@ -26,12 +26,12 @@ const Footer = () => {
             Plot No 82, Institutional Area,
             Sector 32, Москва, Россия 122001
           </div>
-          <div className={styles.email}>
+          <a href="mailto: gor@prom.com" className={styles.email}>
             gor@prom.com
-          </div>
-          <div className={styles.phone}>
+          </a>
+          <a href="tel: +79284332233" className={styles.phone}>
             +7 928 433 2233
-          </div>
+          </a>
         </div>
         <div className={styles.mainRight}>
           <div className={styles.block}>
