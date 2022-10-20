@@ -11,6 +11,7 @@ import Layout from '../layout/main'
 import '../styles/fonts.css'
 import '../styles/globals.css'
 import '../styles/variables.css'
+import Head from 'next/head'
 
 
 const App = ({ Component, pageProps = {}, ...other }) => {
@@ -70,6 +71,9 @@ const App = ({ Component, pageProps = {}, ...other }) => {
             })
           }}
         </Observer>
+        <Head>
+          <title>Горпром</title>
+        </Head>
         <Layout layoutProps={layoutProps} {...other}>
           <SubLayout {...other}>
             <Component {...other} {...pageProps} />

@@ -1,4 +1,5 @@
 import styles from '../styles/error.module.css'
+import Head from 'next/head'
 
 const errors = {
   400: 'Некорректный запрос',
@@ -12,6 +13,9 @@ const errors = {
 
 const Error = ({ statusCode }) => (
   <div className={styles.error}>
+    <Head>
+      <title>Горпром | Ошибка {statusCode}</title>
+    </Head>
     <div className={styles.errorCode}>
       {statusCode}
     </div>
