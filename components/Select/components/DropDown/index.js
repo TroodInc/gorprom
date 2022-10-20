@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { KEY_CODES } from '../../../internal/constants'
 
 import ClickOutside from '../../../internal/ClickOutside'
-import Icon, { ROTATE_TYPES, ICONS_TYPES } from '../../../Icon'
+import Icon, { ROTATE_TYPES } from '../../../Icon'
 import Button, { BUTTON_SPECIAL_TYPES } from '../../../Button'
 import Input from '../../../Input'
 
@@ -194,7 +194,8 @@ class DropDown extends PureComponent {
           value: innerSearch,
           onSearch: this.handleSearch,
           onChange: this.handleChangeSearchValue,
-        }} />
+        }}
+        />
       )
     }
     if (!values.length && placeholder) return placeholder
@@ -260,6 +261,7 @@ class DropDown extends PureComponent {
             errors.length && styles.error,
             disabled && styles.disabled,
             open && styles.open,
+            !showSearch && styles.defaultDropDown
           ),
           onKeyDown: this.handleKeyDown,
         }}>
@@ -272,15 +274,29 @@ class DropDown extends PureComponent {
               {this.renderDisplayValue()}
             </span>
           </span>
-          <Icon {...{
-            size: 8,
-            type: ICONS_TYPES.triangleArrow,
-            rotate: open ? ROTATE_TYPES.up : ROTATE_TYPES.down,
-            onClick: () => this.toggleOpen(),
-            ...iconProps,
-            className: classNames(styles.control, iconProps.className),
-          }} />
-          <div className={classNames(styles.optionsContainer, openUp && styles.openUp, !open && styles.hide)}>
+          <Icon
+            svgNodes={
+              <path
+                d="M16 9H12.1677L7.98403 2.97675L3.8004 9H0L6.38723 0L9.58084 0L16 9Z"
+                className={styles.arrow}
+              />
+            }
+            svgViewBox={[16, 9]}
+            {...{
+              size: 16,
+              // type: ICONS_TYPES.arrow,
+              rotate: open ? ROTATE_TYPES.up : ROTATE_TYPES.down,
+              onClick: () => this.toggleOpen(),
+              ...iconProps,
+              className: classNames(styles.control, iconProps.className),
+            }} />
+          <div className={
+            classNames(
+              styles.optionsContainer,
+              openUp && styles.openUp,
+              !open && styles.hide,
+            )}
+          >
             <List {...{
               ...this.props,
               focusedItem,
@@ -288,6 +304,8 @@ class DropDown extends PureComponent {
               type,
               items,
               onChange: this.handleChange,
+              className: styles.list,
+              itemClassName: styles.listItem,
             }} />
             {
               !!children &&
