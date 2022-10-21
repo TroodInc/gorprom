@@ -1,27 +1,38 @@
 const fetcher = async(url, options) => {
-  const resp = await fetch(url, options)
-  const contentType = resp.headers.get('content-type') || ''
-  const mainType = contentType.split(';')[0]
-  let data
-  switch (mainType) {
-    case 'application/json':
-      data = await resp.json()
-      break
-    case 'text/html':
-      data = await resp.text()
-      break
-    case 'application/octet-stream':
-      data = await resp.blob()
-      break
-    default:
-      data = await resp.text()
-  }
+  try {
+    const resp = await fetch(url, options)
+    const contentType = resp.headers.get('content-type') || ''
+    const mainType = contentType.split(';')[0]
+    let data
+    switch (mainType) {
+      case 'application/json':
+        data = await resp.json()
+        break
+      case 'text/html':
+        data = await resp.text()
+        break
+      case 'application/octet-stream':
+        data = await resp.blob()
+        break
+      default:
+        data = await resp.text()
+    }
 
-  const error = resp.status >= 400
-  if (error) {
-    return Promise.reject({ status: resp.status, error: data })
+    const error = resp.status >= 400
+    if (error) {
+      return Promise.reject({ status: resp.status, error: data })
+    }
+    return { status: resp.status, data }
+  } catch {
+    return Promise.reject({
+      status: 0,
+      error: {
+        data: {
+          error: 'Connection error',
+        },
+      },
+    })
   }
-  return { status: resp.status, data }
 }
 
 export const callGetApi = async(url, options = {}) => {

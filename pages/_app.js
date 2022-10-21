@@ -84,7 +84,8 @@ const App = ({ Component, pageProps = {}, ...other }) => {
   )
 }
 
-App.getInitialProps = async({ ctx, router }) => {
+App.getInitialProps = async({ ctx, router, Component }) => {
+  const { getInitialProps = () => ({}) } = Component
   if (!process.browser) {
     const protocol = ctx.req.headers['x-forwarded-proto'] || ctx.req.connection.encrypted ? 'https' : 'http'
     const host = `${protocol}://${ctx.req.headers.host}`
@@ -97,7 +98,10 @@ App.getInitialProps = async({ ctx, router }) => {
       initProps.statusCode = ctx?.err ? ctx.err.statusCode : 404
     }
     if (ctx.req.headers['user-agent']?.includes('node-fetch')) {
-      return initProps
+      return {
+        ...getInitialProps({ ctx, router }, initProps),
+        ...initProps,
+      }
     }
     const { token } = ctx?.req?.cookies || {}
     const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
@@ -135,7 +139,19 @@ App.getInitialProps = async({ ctx, router }) => {
       path: context.ctx.route,
     })
 
-    return initProps
+    const redirect = '/registration'
+    if (initProps.account?.id && !initProps.account?.active && context.ctx.route !== redirect) {
+      ctx.res.writeHead(302, {
+        Location: redirect,
+        'Content-Type': 'text/html; charset=utf-8',
+      })
+      ctx.res.end()
+    }
+
+    return {
+      ...getInitialProps({ ctx, router }, initProps),
+      ...initProps,
+    }
   } else {
     const newContext = {
       sbj: window.cacheInitProps.abacContext.sbj,
@@ -147,7 +163,7 @@ App.getInitialProps = async({ ctx, router }) => {
       },
     }
 
-    return {
+    const initProps = {
       abacContext: newContext,
       abacRules: window.cacheInitProps.abacRules,
       account: window.cacheInitProps.account,
@@ -156,6 +172,16 @@ App.getInitialProps = async({ ctx, router }) => {
         context: newContext,
         path: newContext.ctx.route,
       }),
+    }
+
+    const redirect = '/registration'
+    if (initProps.account?.id && !initProps.account?.active && ctx.asPath !== redirect) {
+      router.replace(redirect)
+    }
+
+    return {
+      ...getInitialProps({ ctx, router }, initProps),
+      ...initProps,
     }
   }
 }

@@ -89,4 +89,24 @@ Login.layoutProps = {
   authPage: true,
 }
 
+Login.getInitialProps = async({ ctx, router }, { account }) => {
+  if (account?.id) {
+    const redirect = '/profile'
+    if (!process.browser) {
+      ctx.res.writeHead(302, {
+        Location: redirect,
+        'Content-Type': 'text/html; charset=utf-8',
+      })
+      ctx.res.end()
+    } else {
+      if (window.location.pathname === redirect) {
+        router.reload()
+      } else {
+        router.replace(redirect)
+      }
+    }
+  }
+  return {}
+}
+
 export default observer(Login)

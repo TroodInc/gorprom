@@ -18,14 +18,27 @@ const Registration = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const router = useRouter()
 
-  const formStore = store.createFormStore(formStoreName)
+  const { authData } = store
+
+  const formStore = store.createFormStore(
+    formStoreName,
+    {
+      form: {
+        data: {
+          profile: {
+            role: 'USER',
+          },
+        },
+      },
+    },
+  )
   const { form } = formStore
 
   const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
 
   const globalError = form.get('errors.globalError')
 
-  const verify = false
+  const verify = authData.id
 
   return (
     <div className={styles.root}>
@@ -67,7 +80,10 @@ const Registration = ({ host }) => {
                 value={form.get('data.login')}
                 errors={form.get('errors.login')}
                 validate={{ required: true }}
-                onChange={(value) => form.set('data.login', value)}
+                onChange={(value) => {
+                  form.set('data.login', value)
+                  form.set('data.profile.mail', value)
+                }}
                 onInvalid={(value) => form.set('errors.login', value)}
                 onValid={() => form.set('errors.login', [])}
               />
@@ -122,6 +138,26 @@ const Registration = ({ host }) => {
 
 Registration.layoutProps = {
   authPage: true,
+}
+
+Registration.getInitialProps = async({ ctx, router }, { account }) => {
+  if (account?.active) {
+    const redirect = '/profile'
+    if (!process.browser) {
+      ctx.res.writeHead(302, {
+        Location: redirect,
+        'Content-Type': 'text/html; charset=utf-8',
+      })
+      ctx.res.end()
+    } else {
+      if (window.location.pathname === redirect) {
+        router.reload()
+      } else {
+        router.replace(redirect)
+      }
+    }
+  }
+  return {}
 }
 
 export default observer(Registration)

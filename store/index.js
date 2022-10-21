@@ -113,13 +113,19 @@ const Form = types.model('Form', {
       headers,
     })
       .catch(error => {
+        let globalError = error
+        while (globalError && typeof globalError === 'object') {
+          globalError = globalError.error || globalError.data
+        }
+        if (globalError) {
+          self.set('errors.globalError', globalError)
+        }
+        /*
         const errorData = error?.error?.data
         if (errorData) {
-          if (errorData?.error) {
-            self.set('errors.globalError', errorData.error)
-          }
           //TODO set other errors
         }
+        */
         return Promise.reject(error)
       })
   },
