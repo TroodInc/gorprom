@@ -1,15 +1,15 @@
 .root {
   display: flex;
   align-items: center;
-  color: var(--trood-gray-dark);
+  color: currentColor;
   cursor: pointer;
 }
 
 .root:hover,
 .root.selected {
-  color: var(--trood-black);
+
 }
 
 .root.disabled {
-  color: var(--trood-gray-text);
 }
+

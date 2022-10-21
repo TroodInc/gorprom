@@ -12,10 +12,11 @@ const TextListItem = ({
   onChange,
 }) => {
   return (
-    <div {...{
-      className: classNames(styles.root, className, value && styles.selected, disabled && styles.disabled),
-      onClick: disabled ? undefined : () => onChange(),
-    }}>
+    <div
+      {...{
+        onClick: disabled ? undefined : () => onChange(),
+        className: classNames(styles.root, className, value && styles.selected, disabled && styles.disabled),
+      }}>
       {label}
     </div>
   )
