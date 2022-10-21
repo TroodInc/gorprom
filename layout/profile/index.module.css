@@ -5,5 +5,7 @@
 }
 
 .menu {
-    margin: 74px 0 56px;
+    padding: 74px 0 56px;
+    border-bottom: 1px solid var(--trood-border-dark);
+    margin-bottom: 24px;
 }

@@ -62,7 +62,12 @@
 }
 
 .userMenu > * {
+    white-space: nowrap;
     padding: 20px 0;
+}
+
+.userMenu > :hover {
+    color: var(--trood-orange);
 }
 
 .userMenu > :not(:last-child) {

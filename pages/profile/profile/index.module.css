@@ -1,0 +1,38 @@
+.root {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.column {
+    display: flex;
+    flex: 1 1 100%;
+    flex-flow: column nowrap;
+    padding: 24px 16px;
+    gap: 40px;
+}
+
+.column.left {
+    align-items: center;
+    border-right: 1px solid var(--trood-border-dark);
+}
+
+.block {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.block .title {
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.block .value {
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.block .value:empty:after {
+    content: '--------------------';
+    letter-spacing: -0.15em;
+}
