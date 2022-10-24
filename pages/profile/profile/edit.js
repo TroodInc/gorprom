@@ -8,8 +8,9 @@ import ProfileLayout from '../../../layout/profile'
 import styles from './index.module.css'
 import Input, { INPUT_TYPES } from '../../../components/Input'
 import Select, { SELECT_TYPES } from '../../../components/Select'
-import Button, { BUTTON_TYPES, BUTTON_COLORS } from '../../../components/Button'
-import { getApiPath, callGetApi } from '../../../helpers/fetch'
+import Button, { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SPECIAL_TYPES } from '../../../components/Button'
+import FileInput from '../../../components/FileInput'
+import { getApiPath } from '../../../helpers/fetch'
 
 
 const formStoreName = 'account'
@@ -31,6 +32,7 @@ const Profile = ({ host }) => {
 
   const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
+  const fileApiPath = getApiPath(process.env.NEXT_PUBLIC_FILE_API, host)
 
   const companies = store.callHttpQuery(custodianApiPath + 'company', {
     params: {
@@ -38,7 +40,7 @@ const Profile = ({ host }) => {
     },
   })
 
-  const loaded = companies.loaded
+  //const loaded = companies.loaded
   const companiesArray = companies.get('data.data.data') || []
 
   return (
@@ -54,6 +56,16 @@ const Profile = ({ host }) => {
               borderRadius: '50%',
             }}
           />
+          <FileInput
+            endpoint={fileApiPath + 'files/'}
+          >
+            <Button
+              type={BUTTON_TYPES.text}
+              specialType={BUTTON_SPECIAL_TYPES.upload}
+              color={BUTTON_COLORS.orange}
+              label="Заменить"
+            />
+          </FileInput>
         </div>
         <div className={styles.column}>
           <Input
@@ -87,6 +99,12 @@ const Profile = ({ host }) => {
             onChange={(value) => form.set('data.profile.position', value)}
             onInvalid={(value) => form.set('errors.profile.position', value)}
             onValid={() => form.set('errors.profile.position', [])}
+          />
+          <Button
+            type={BUTTON_TYPES.text}
+            color={BUTTON_COLORS.orange}
+            label={form.get('data.profile.subscribe') ? 'Отписаться от рассылки' : 'Подписаться на рассылку'}
+            onClick={() => form.set('data.profile.subscribe', !form.get('data.profile.subscribe'))}
           />
         </div>
         <div className={styles.column}>

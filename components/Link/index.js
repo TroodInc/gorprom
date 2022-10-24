@@ -9,6 +9,7 @@ import { getPageAllow } from '../../helpers/abac'
 
 const Link = ({
   href,
+  ssr,
   className,
   activeClassName,
   children,
@@ -35,6 +36,20 @@ const Link = ({
         <div className={className} onClick={onClick} {...other}>{children}</div>
       )
     }
+  }
+  if (ssr) {
+    return (
+      // eslint-disable-next-line react/jsx-no-target-blank
+      <a
+        href={href}
+        onClick={onClick}
+        className={classNames(className, linkActive && activeClassName)}
+        target={absoluteUrl ? '_blank' : undefined}
+        rel={absoluteUrl ? 'noreferrer' : undefined}
+      >
+        {children}
+      </a>
+    )
   }
   return (
     <NextLink href={href} {...other}>

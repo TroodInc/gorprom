@@ -71,8 +71,8 @@ const Header = ({
                   { link: '/registration', label: 'Регистрация', show: !isAuth },
                   { link: '/profile/profile', label: 'Личный кабинет', show: isAuth && !profilePage },
                   { link: '/profile/profile/edit', label: 'Редактировать профиль', show: isAuth && profilePage },
-                  { link: '/', label: 'Выход', show: isAuth, action: store.clearAuthData },
-                ].map(({ link, label, show, action }) => {
+                  { link: '/', label: 'Выход', action: store.clearAuthData, ssr: true, show: isAuth },
+                ].map(({ link, label, show, action, ...other }) => {
                   if (!show) return null
                   return (
                     <Link
@@ -80,6 +80,7 @@ const Header = ({
                       href={link}
                       hideIfNotAllowed
                       onClick={action}
+                      {...other}
                     >
                       {label}
                     </Link>
