@@ -194,7 +194,7 @@ class List extends PureComponent {
           <li
             className={classNames(
               type === LIST_TYPES.tile ? styles.tileItemWrapper : styles.itemWrapper,
-              i === focusedItem && styles.itemHover)}
+              (i === focusedItem || isSelected(item)) && styles.itemHover)}
             key={item.value || `${item.value}`}
             ref={(node) => {
               this[`option${item.value}`] = node

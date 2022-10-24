@@ -543,65 +543,43 @@ class Input extends PureComponent {
         case INPUT_TYPES.password:
           return (
             <>
-              {
-                label &&
-                  <span className={style.label}>
-                    {label}
-                  </span>
-              }
-              <fieldset
-                className={style.fieldset}
-              // onFocus={this.showLegend}
-              // onBlur={this.hideLegend}
-              >
-                <input
+              <input
+                {...{
+                  type: this.state.isPasswordShown
+                    ? INNER_INPUT_TYPES.text
+                    : INNER_INPUT_TYPES.password,
+                  className: classNames(
+                    style.input,
+                    disabled && style.disabled
+                  ),
+                  ...inputProps,
+                }}
+              />
+              <button className={style.btn} onClick={this.changePasswordVisibility}>
+                <Icon
                   {...{
+                    className: style.phoneCode,
                     type: this.state.isPasswordShown
-                      ? INNER_INPUT_TYPES.text
-                      : INNER_INPUT_TYPES.password,
-                    className: classNames(
-                      style.input,
-                      style.password,
-                      disabled && style.disabled
-                    ),
-                    ...inputProps,
+                      ? ICONS_TYPES.eyeClose
+                      : ICONS_TYPES.eyeOpen,
+                    size: 28,
                   }}
                 />
-                <button className={style.btn} onClick={this.changePasswordVisibility}>
-                  <Icon
-                    {...{
-                      className: style.phoneCode,
-                      type: this.state.isPasswordShown
-                        ? ICONS_TYPES.eyeClose
-                        : ICONS_TYPES.eyeOpen,
-                      size: 28,
-                    }}
-                  />
-                </button>
-              </fieldset>
+              </button>
             </>
           )
         default:
           return (
-            <>
-              {label && <span className={style.label}>{label}</span>}
-              <fieldset
-                className={style.fieldset}
-              // onFocus={this.showLegend}
-              // onBlur={this.hideLegend}
-              >
-                <input
-                  {...{
-                    type: INNER_INPUT_TYPES[type],
-                    className: classNames(
-                      style.input,
-                      disabled && style.disabled
-                    ),
-                    ...inputProps,
-                  }}
-                />
-              </fieldset>
-            </>
+            <input
+              {...{
+                type: INNER_INPUT_TYPES[type],
+                className: classNames(
+                  style.input,
+                  disabled && style.disabled
+                ),
+                ...inputProps,
+              }}
+            />
           )
       }
     }
@@ -611,14 +589,7 @@ class Input extends PureComponent {
         style.rootWrapper,
         className,
       )}>
-        {/* {
-          label &&
-          <Label {...{
-            className: classNames(labelClassName, style.label),
-            required,
-            label,
-          }} />
-        } */}
+        {label && <span className={style.label}>{label}</span>}
         <div {...dataAttributes} className={classNames(
           style.root,
           inputClassName,
@@ -627,41 +598,43 @@ class Input extends PureComponent {
             [style.active]: active,
           },
         )}>
-          {
-            (type === INPUT_TYPES.phone || type === INPUT_TYPES.phoneWithExt) &&
-            <span className={style.phoneCode}>+</span>
-          }
-          {
-            type === INPUT_TYPES.search &&
-            <Icon {...{
-              className: style.phoneCode,
-              type: ICONS_TYPES.search,
-              size: 20,
-            }} />
-          }
-          {
-            type === INPUT_TYPES.url &&
-            <span className={style.phoneCode}>http://</span>
-          }
-          {
-            type === INPUT_TYPES.multi &&
-            <textarea {...{
-              ref: (node) => {
-                this.shadow = node
-                this.heightChange()
-              },
-              className: style.shadow,
-              style: {
-                height: 0,
-                width: this.inputWidth,
-                lineHeight: `${ROW_HEIGHT}px`,
-              },
-              value: formattedValue,
-              tabIndex: -1,
-              readOnly: true,
-            }} />
-          }
-          {getInputComp()}
+          <fieldset className={style.fieldset}>
+            {
+              (type === INPUT_TYPES.phone || type === INPUT_TYPES.phoneWithExt) &&
+              <span className={style.phoneCode}>+</span>
+            }
+            {
+              type === INPUT_TYPES.search &&
+              <Icon {...{
+                className: style.phoneCode,
+                type: ICONS_TYPES.search,
+                size: 20,
+              }} />
+            }
+            {
+              type === INPUT_TYPES.url &&
+              <span className={style.phoneCode}>http://</span>
+            }
+            {
+              type === INPUT_TYPES.multi &&
+              <textarea {...{
+                ref: (node) => {
+                  this.shadow = node
+                  this.heightChange()
+                },
+                className: style.shadow,
+                style: {
+                  height: 0,
+                  width: this.inputWidth,
+                  lineHeight: `${ROW_HEIGHT}px`,
+                },
+                value: formattedValue,
+                tabIndex: -1,
+                readOnly: true,
+              }} />
+            }
+            {getInputComp()}
+          </fieldset>
           {children}
           {
             showTextErrors &&

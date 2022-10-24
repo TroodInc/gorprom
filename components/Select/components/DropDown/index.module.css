@@ -5,7 +5,7 @@
   justify-content: space-between;
   width: 100%;
   cursor: pointer;
-  height: 72px;
+  height: 70px;
   border-top: 1px solid var(--trood-gray-dark);
   border-bottom: 1px solid var(--trood-gray-dark);
 }
@@ -85,7 +85,7 @@
 .optionsContainer {
   width: 110%;
   position: absolute;
-  z-index: 1;
+  z-index: 99;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
@@ -97,7 +97,6 @@
 
 .defaultDropDown {
   width: 100%;
-  border-top: none;
 }
 
 .defaultDropDown .value,

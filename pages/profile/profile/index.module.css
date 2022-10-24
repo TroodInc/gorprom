@@ -7,7 +7,7 @@
     display: flex;
     flex: 1 1 100%;
     flex-flow: column nowrap;
-    padding: 24px 16px;
+    padding: 0 16px 24px;
     gap: 40px;
 }
 
@@ -35,4 +35,13 @@
 .block .value:empty:after {
     content: '--------------------';
     letter-spacing: -0.15em;
+}
+
+.controls {
+    margin-top: 24px;
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 56px;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 24px;
 }

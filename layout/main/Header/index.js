@@ -8,10 +8,15 @@ import HiddenContent from '../../../components/HiddenContent'
 import styles from './index.module.css'
 
 
-const Header = ({ layoutProps: { authPage } = {} }) => {
+const Header = ({
+  layoutProps: {
+    authPage,
+    profilePage,
+  } = {},
+}) => {
   const { store } = useContext(MobXProviderContext)
 
-  const isAuth = store?.authData.id > 0
+  const isAuth = store.authData.id > 0
 
   return (
     <header className={styles.root}>
@@ -64,7 +69,8 @@ const Header = ({ layoutProps: { authPage } = {} }) => {
                 {[
                   { link: '/login', label: 'Вход', show: !isAuth },
                   { link: '/registration', label: 'Регистрация', show: !isAuth },
-                  { link: '/profile', label: 'Личный кабинет', show: isAuth },
+                  { link: '/profile/profile', label: 'Личный кабинет', show: isAuth && !profilePage },
+                  { link: '/profile/profile/edit', label: 'Редактировать профиль', show: isAuth && profilePage },
                   { link: '/', label: 'Выход', show: isAuth, action: store.clearAuthData },
                 ].map(({ link, label, show, action }) => {
                   if (!show) return null

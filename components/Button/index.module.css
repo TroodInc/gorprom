@@ -79,9 +79,7 @@
 
 .border {
   padding: 18px 24px;
-  font-weight: 400;
-  font-size: 18px;
-  text-transform: uppercase;
+  text-transform: lowercase;
   border-radius: 16px;
   border: 1px solid currentColor;
 }

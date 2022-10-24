@@ -38,6 +38,37 @@ const getDeepMap = (deep = 0) => {
   )
 }
 
+const HttpQuery = types.model('GetQuery', {
+  callTime: types.number,
+  response: getDeepMap(10),
+  loaded: types.boolean,
+}).views(self => ({
+  get(path) {
+    const pathArray = path.split('.')
+    const value = pathArray.reduce((memo, key, i) => {
+      if (!i) return memo
+      if (typeof memo?.get === 'function') return memo.get(key)
+      if ((memo || {})[key]) return memo[key]
+      return undefined
+    }, self.response)
+    try {
+      return getSnapshot(value)
+    } catch {
+      return value || undefined
+    }
+  },
+})).actions(self => ({
+  setLoaded(loaded) {
+    self.loaded = loaded
+  },
+  setCallTime(callTime) {
+    self.callTime = callTime
+  },
+  setResponse(response) {
+    self.response = response
+  }
+}))
+
 const Form = types.model('Form', {
   data: types.map(getDeepMap(5)),
   errors: types.map(getDeepMap(5)),
@@ -54,9 +85,9 @@ const Form = types.model('Form', {
       if (toJSON) {
         return getSnapshot(value)
       }
-      return value
+      return value || undefined
     } catch {
-      return value
+      return value || undefined
     }
   },
   get hasErrors() {
@@ -138,6 +169,7 @@ const FormStore = types.model('FormStore', {
 })
 
 const Store = types.model('store', {
+  httpQuery: types.map(HttpQuery),
   formStore: types.map(FormStore),
   authData: types.frozen({}),
 }).views(self => ({
@@ -155,9 +187,13 @@ const Store = types.model('store', {
     detach(self.formStore.get(name))
   },
   setAuthData(data) {
-    self.authData = data
-    if (window !== undefined && data.token) {
-      window.document.cookie = newCookie('token', data.token, 365)
+    const { token } = store
+    self.authData = {
+      ...data,
+      token: data.token || token,
+    }
+    if (window !== undefined && self.authData.token) {
+      window.document.cookie = newCookie('token', self.authData.token, 365)
     }
   },
   clearAuthData() {
@@ -165,6 +201,58 @@ const Store = types.model('store', {
     if (window !== undefined) {
       window.document.cookie = newCookie('token', '', 0)
     }
+  },
+  callHttpQuery(tmpURL, { params, headers, cacheTime = 1000, method = 'GET', ...options }) {
+    const urlObj = new URL(tmpURL)
+    const searchParams = new URLSearchParams()
+    Object.entries(params).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach(item => searchParams.append(key, item))
+      } else {
+        searchParams.append(key, value)
+      }
+    })
+    urlObj.search = searchParams.toString()
+
+    const url = urlObj.toString()
+
+    if (self.httpQuery.has(url)) {
+      const prev = self.httpQuery.get(url)
+      if (prev.callTime - Date.now() <= cacheTime) {
+        return prev
+      }
+    } else {
+      self.httpQuery.set(url, {
+        callTime: Date.now(),
+        response: {},
+        loaded: false,
+      })
+    }
+
+    const httpQuery = self.httpQuery.get(url)
+
+    httpQuery.setCallTime(Date.now())
+    httpQuery.setLoaded(false)
+
+    const { token } = self
+    const myHeaders = {
+      ...headers,
+    }
+    if (token) {
+      myHeaders.Authorization = `Token ${token}`
+    }
+
+    callApi(url, {
+      ...options,
+      method,
+      headers: myHeaders,
+    })
+      .then(response => {
+        httpQuery.setLoaded(true)
+        httpQuery.setResponse(response)
+      })
+
+    return httpQuery
   },
 }))
 
