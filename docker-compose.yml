@@ -96,6 +96,48 @@ services:
     networks:
       - main
 
+  fileservice:
+    image: registry.tools.trood.ru/files:dev
+    container_name: fileservice
+    restart: always
+    environment:
+      DATABASE_URL: "pgsql://gorprom:gorprom@postgres/fileservice"
+      DJANGO_CONFIGURATION: "Development"
+
+      SERVICE_DOMAIN: "FILESERVICE"
+      SERVICE_AUTH_SECRET: "3dd09def9ce1945116ba915793de32ee85b7e7b36421fd0ebd745d5d4fe4bd14e2d256cf97de6cf1686fd44c94ccfd292148477cae59822c54fae58f01fe3d7f"
+
+      AUTHENTICATION_TYPE: "TROOD"
+      TROOD_AUTH_SERVICE_URL: "http://authorization:8000/"
+      FILES_BASE_URL: "http://45.138.163.227/media/"
+    volumes:
+      - ./media:/home/src/media
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.fileservice.loadbalancer.server.port=8000"
+      - "traefik.http.routers.fileservice.rule=PathPrefix(`/fileservice`)"
+      - "traefik.http.middlewares.fileservice-strip.stripprefix.prefixes=/fileservice"
+      - "traefik.http.routers.fileservice.middlewares=fileservice-strip"
+      - "traefik.http.middlewares.limit.buffering.memRequestBodyBytes=200000000"
+    expose:
+      - "8000"
+    networks:
+      - main
+
+  media:
+    image: nginx
+    container_name: media
+    volumes:
+      - ./media:/usr/share/nginx/html/media
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.media.loadbalancer.server.port=80"
+      - "traefik.http.routers.media.rule=PathPrefix(`/media`)"
+    expose:
+      - "80"
+    networks:
+      - main
+
   n8n:
     image: n8nio/n8n:0.153.0
     container_name: n8n
