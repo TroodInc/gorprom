@@ -45,6 +45,8 @@ const Header = ({
               key={link}
               href={link}
               hideIfNotAllowed
+              className={styles.link}
+              activeClassName={styles.active}
             >
               {label}
             </Link>

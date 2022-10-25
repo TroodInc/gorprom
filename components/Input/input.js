@@ -636,16 +636,15 @@ class Input extends PureComponent {
             {getInputComp()}
           </fieldset>
           {children}
-          {
-            showTextErrors &&
-          <div className={style.errors}>
-            {currentErrors.map((error, index) => (
-              <div className={style.errorText} key={index}>
-                {error}
-              </div>
-            ))}
-          </div>
-          }
+          {showTextErrors && !!currentErrors.length && (
+            <div className={style.errors}>
+              {currentErrors.map((error, index) => (
+                <div className={style.errorText} key={index}>
+                  {error}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     )

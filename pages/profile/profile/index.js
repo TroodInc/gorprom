@@ -20,8 +20,9 @@ const Profile = ({ host }) => {
     },
   })
 
-  const companyName = company &&
-    (company.get('data.data.data.ownership_type.name') + ' ' + company.get('data.data.data.name'))
+  const companyName = company?.loaded ?
+    ((company.get('data.data.ownership_type.name') || '') + ' ' + (company.get('data.data.name') || '')).trim() :
+    undefined
 
   return (
     <div className={styles.root}>

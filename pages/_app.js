@@ -16,7 +16,11 @@ import Head from 'next/head'
 
 const App = ({ Component, pageProps = {}, ...other }) => {
   const { pageAllow, statusCode, initialStore } = other
-  const store = useStore(initialStore)
+  const initData = {
+    ...initialStore,
+    ...pageProps.initialStore,
+  }
+  const store = useStore(initData)
   if (typeof window !== 'undefined') {
     window.cacheInitProps = other
   }

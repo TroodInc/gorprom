@@ -29,6 +29,10 @@
     letter-spacing: -0.035em;
 }
 
+.link.active {
+    color: var(--trood-orange);
+}
+
 .buttons {
     display: flex;
     flex-flow: row nowrap;

@@ -19,6 +19,11 @@ const Link = ({
 }) => {
   const { abacContext, abacRules } = useContext(AbacContext)
   const { asPath } = useRouter()
+
+  if (!href) {
+    return <div className={className} onClick={onClick} {...other}>{children}</div>
+  }
+
   const absoluteUrl = href.startsWith('http')
   let linkActive
   if (!absoluteUrl) {

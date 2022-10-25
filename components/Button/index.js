@@ -144,7 +144,7 @@ class Button extends PureComponent {
         {link && (
           <Link {...{
             'data-cy': this.props.label,
-            href: link,
+            href: disabled ? undefined : link,
             className: style.link,
           }}>
             {label}

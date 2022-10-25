@@ -1,0 +1,58 @@
+.root {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 16px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--trood-border-dark);
+}
+
+.left {
+    flex: 0 0 190px;
+}
+
+.center {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.05;
+    max-height: 2em;
+    letter-spacing: -0.02em;
+    overflow: hidden;
+}
+
+.company .title {
+    max-height: 1em;
+}
+
+.footer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.companyName,
+.type {
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--trood-text-light-gray);
+}
+
+.right {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    flex: 0 0 150px;
+}
+
+.button {
+    height: 46px;
+    align-self: center;
+    font-weight: 450;
+    font-size: 18px;
+}

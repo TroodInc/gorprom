@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { types, applySnapshot, getSnapshot, detach } from 'mobx-state-tree'
 import set from 'lodash/set'
 
-import { callApi } from '../helpers/fetch'
+import { callApi, getFullUrl } from '../helpers/fetch'
 import { newCookie } from '../helpers/cookie'
 
 
@@ -43,14 +43,13 @@ const HttpQuery = types.model('GetQuery', {
   response: getDeepMap(10),
   loaded: types.boolean,
 }).views(self => ({
-  get(path) {
+  get(path = '') {
     const pathArray = path.split('.')
-    const value = pathArray.reduce((memo, key, i) => {
-      if (!i) return memo
+    const value = path ? pathArray.reduce((memo, key, i) => {
       if (typeof memo?.get === 'function') return memo.get(key)
       if ((memo || {})[key]) return memo[key]
       return undefined
-    }, self.response)
+    }, self.response) : self.response
     try {
       return getSnapshot(value)
     } catch {
@@ -66,7 +65,7 @@ const HttpQuery = types.model('GetQuery', {
   },
   setResponse(response) {
     self.response = response
-  }
+  },
 }))
 
 const Form = types.model('Form', {
@@ -202,19 +201,8 @@ const Store = types.model('store', {
       window.document.cookie = newCookie('token', '', 0)
     }
   },
-  callHttpQuery(tmpURL, { params, headers, cacheTime = 1000, method = 'GET', ...options }) {
-    const urlObj = new URL(tmpURL)
-    const searchParams = new URLSearchParams()
-    Object.entries(params).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach(item => searchParams.append(key, item))
-      } else {
-        searchParams.append(key, value)
-      }
-    })
-    urlObj.search = searchParams.toString()
-
-    const url = urlObj.toString()
+  callHttpQuery(tmpURL, { params, headers, cacheTime = 1000, method = 'GET', ...options } = {}) {
+    const url = getFullUrl(tmpURL, params)
 
     if (self.httpQuery.has(url)) {
       const prev = self.httpQuery.get(url)
@@ -257,7 +245,9 @@ const Store = types.model('store', {
 }))
 
 export const initializeStore = (snapshot = null) => {
-  const _store = store ?? Store.create()
+  if (store) return store
+
+  const _store = Store.create()
 
   // If your page has Next.js data fetching methods that use a Mobx store, it will
   // get hydrated here, check `pages/ssg.tsx` and `pages/ssr.tsx` for more details

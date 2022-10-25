@@ -63,6 +63,10 @@
   width: 100%;
 }
 
+.placeholder {
+  color: var(--trood-text-light-gray);
+}
+
 .root.disabled .value {
 }
 
@@ -102,13 +106,13 @@
 .defaultDropDown .value,
 .defaultDropDown .placeholder {
   padding-top: 1px;
-  padding-left: 10px;
+  padding-left: 16px;
   height: auto;
   vertical-align: center;
 }
 
 .defaultDropDown .optionsContainer {
-  width: 105%;
+  width: calc(100% + 32px);
   top: calc(0% - 1px);
 }
 
@@ -147,10 +151,6 @@
   text-transform: none;
   padding: 0 10px;
   justify-content: flex-start;
-}
-
-.arrow {
-  fill: var(--trood-gray-dark);
 }
 
 .list {

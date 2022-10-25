@@ -70,3 +70,18 @@ export const getApiPath = (path = '/', host) => {
   } catch {}
   return path
 }
+
+export const getFullUrl = (url, params = {}) => {
+  const urlObj = new URL(url)
+  const searchParams = new URLSearchParams()
+  Object.entries(params).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach(item => searchParams.append(key, item))
+    } else {
+      searchParams.append(key, value)
+    }
+  })
+  urlObj.search = searchParams.toString()
+
+  return urlObj.toString()
+}

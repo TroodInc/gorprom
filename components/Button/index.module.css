@@ -54,7 +54,8 @@
 }
 
 .fill {
-  padding: 18px 24px;
+  height: 64px;
+  padding: 0 16px;
   text-transform: lowercase;
   border-radius: 16px;
 }
@@ -78,7 +79,8 @@
 }
 
 .border {
-  padding: 18px 24px;
+  height: 64px;
+  padding: 0 16px;
   text-transform: lowercase;
   border-radius: 16px;
   border: 1px solid currentColor;
