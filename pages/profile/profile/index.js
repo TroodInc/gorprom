@@ -34,6 +34,7 @@ const Profile = ({ host }) => {
           style={{
             borderRadius: '50%',
           }}
+          objectFit="cover"
         />
       </div>
       <div className={styles.column}>

@@ -30,6 +30,7 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType }) => {
           src={image}
           width={190}
           height={110}
+          objectFit="cover"
         />
       </div>
       <div className={styles.center}>

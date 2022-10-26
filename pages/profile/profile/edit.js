@@ -55,6 +55,7 @@ const Profile = ({ host }) => {
             style={{
               borderRadius: '50%',
             }}
+            objectFit="cover"
           />
           <FileInput
             endpoint={fileApiPath + 'files/'}
