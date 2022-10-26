@@ -34,9 +34,9 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType }) => {
         />
       </div>
       <div className={styles.center}>
-        <div className={styles.title}>
+        <h2 className={styles.title}>
           {data.name}
-        </div>
+        </h2>
         {type === 'COMPANY' && (
           <div className={styles.description}>
             {data.description}
@@ -47,6 +47,9 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType }) => {
             <div className={styles.companyName}>
               {data.company?.name}
             </div>
+          )}
+          {type === 'COMPANY' && (
+            <div />
           )}
           {showType && (
             <div className={styles.type}>

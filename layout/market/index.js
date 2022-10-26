@@ -1,5 +1,6 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
+import { useRouter } from 'next/router'
 
 import Input from '../../components/Input'
 import Select from '../../components/Select'
@@ -12,7 +13,19 @@ const formStoreName = 'search'
 
 const MarketLayout = ({ children }) => {
   const { store } = useContext(MobXProviderContext)
-  const formStore = store.createFormStore(formStoreName, { form: { data: { type: 'ALL' } } })
+  const router = useRouter()
+  const { pathname, query } = router
+  const formStore = store.createFormStore(
+    formStoreName,
+    {
+      form: {
+        data: {
+          type: query?.type || 'ALL',
+          search: query?.search,
+        },
+      },
+    },
+  )
   const { form } = formStore
 
   return (
@@ -40,7 +53,11 @@ const MarketLayout = ({ children }) => {
           className={styles.button}
           disabled={!form.get('data.search')}
           label="Поиск"
-          link={`/market/search?type=${form.get('data.type')}&search=${form.get('data.search')}`}
+          link={`/market/search?type=${
+            form.get('data.type')
+          }&search=${
+            form.get('data.search')
+          }&from=${query?.from || pathname}`}
         />
       </div>
       <div className={styles.header}>
