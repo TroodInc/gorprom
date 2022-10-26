@@ -41,7 +41,7 @@ const Profile = ({ host }) => {
   })
 
   //const loaded = companies.loaded
-  const companiesArray = companies.get('data.data.data') || []
+  const companiesArray = companies.get('data.data') || []
 
   return (
     <>
@@ -58,6 +58,7 @@ const Profile = ({ host }) => {
           />
           <FileInput
             endpoint={fileApiPath + 'files/'}
+            onUpload={({ file_url }) => form.set('data.profile.avatar', file_url)}
           >
             <Button
               type={BUTTON_TYPES.text}
