@@ -96,6 +96,8 @@ const Market = ({ host }) => {
 }
 
 export async function getServerSideProps({ req, query }) {
+  if (req.url.startsWith('/_next')) return { props: {} } // dont preload data on client-side
+
   const { headers: { host }, cookies: { token } = {} } = req
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)

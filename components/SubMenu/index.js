@@ -8,8 +8,8 @@ import Link from '../Link'
 const SubMenu = ({ items, className }) => {
   return (
     <div className={classNames(className, styles.root)}>
-      {items.map(({ link, title }) => (
-        <Link href={link} key={link} className={styles.link} activeClassName={styles.active}>
+      {items.map(({ link, title, ...other }) => (
+        <Link href={link} key={link} className={styles.link} activeClassName={styles.active} {...other}>
           <div className={styles.title}>
             {title}
           </div>

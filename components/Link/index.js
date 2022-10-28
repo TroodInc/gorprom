@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import classNames from 'classnames'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
+import escapeRegExp from 'lodash/escapeRegExp'
 
 import AbacContext from '../../abacContext'
 import { getPageAllow } from '../../helpers/abac'
@@ -12,13 +13,14 @@ const Link = ({
   ssr,
   className,
   activeClassName,
+  activeWithQuery = [],
   children,
   hideIfNotAllowed,
   onClick,
   ...other
 }) => {
   const { abacContext, abacRules } = useContext(AbacContext)
-  const { asPath } = useRouter()
+  const { asPath, query } = useRouter()
 
   if (!href) {
     return <div className={className} onClick={onClick} {...other}>{children}</div>
@@ -27,7 +29,14 @@ const Link = ({
   const absoluteUrl = href.startsWith('http')
   let linkActive
   if (!absoluteUrl) {
-    linkActive = (new RegExp(`^${href}`)).test(asPath)
+    linkActive = (new RegExp(`^${escapeRegExp(href)}`)).test(asPath)
+    if (activeWithQuery.length) {
+      const search = (href.match(/\?(.*)/) || [])[1]
+      const params = new URLSearchParams(search)
+      linkActive = activeWithQuery.reduce((memo, key) => {
+        return memo && (query[key] === (params.get(key) || undefined))
+      }, linkActive)
+    }
     const pageAllow = getPageAllow({
       context: abacContext,
       rules: abacRules,

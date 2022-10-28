@@ -43,6 +43,7 @@
 
 .modal.full {
   margin: 0;
+  min-width: 100vw;
 }
 
 .modal.left,

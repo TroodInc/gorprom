@@ -25,24 +25,16 @@ const App = ({ Component, pageProps = {}, ...other }) => {
     window.cacheInitProps = other
   }
 
-  if (!pageAllow?.access) {
-    return (
-      <Provider store={store}>
-        <AbacContext.Provider value={other}>
-          <Layout {...other}>
-            <Error statusCode={403} />
-          </Layout>
-        </AbacContext.Provider>
-      </Provider>
-    )
-  }
+  let error = statusCode
+
+  if (!pageAllow?.access) error = 403
 
   if (statusCode >= 400) {
     return (
       <Provider store={store}>
         <AbacContext.Provider value={other}>
           <Layout {...other}>
-            <Error statusCode={statusCode} />
+            <Error statusCode={error} />
           </Layout>
         </AbacContext.Provider>
       </Provider>

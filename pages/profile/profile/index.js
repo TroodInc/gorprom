@@ -28,6 +28,7 @@ const Profile = ({ host }) => {
     <div className={styles.root}>
       <div className={classNames(styles.column, styles.left)}>
         <Image
+          alt="Avatar"
           src={profile.avatar || '/image/defaultAvatar.jpg'}
           height={300}
           width={300}

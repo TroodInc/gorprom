@@ -1,0 +1,44 @@
+.root {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.root .button {
+    position: absolute;
+    top: 52px;
+    right: 28px;
+    background-color: var(--trood-gray);
+    color: var(--trood-text-white);
+    border-radius: 50%;
+}
+
+.root .button:hover {
+    background-color: var(--trood-orange);
+}
+
+.root .button svg {
+    width: 55%;
+    height: 55%;
+}
+
+.root .prev {
+    position: absolute;
+    top: calc(50% - 25px);
+    left: 100px;
+    transform: rotate(180deg);
+}
+
+.root .next {
+    position: absolute;
+    top: calc(50% - 25px);
+    right: 100px;
+}
+
+.root .prev:hover,
+.root .next:hover {
+    color: var(--trood-orange);
+}

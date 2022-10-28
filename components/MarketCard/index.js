@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import classNames from 'classnames'
 
+import Link from '../Link'
 import Button from '../Button'
 
 import styles from './index.module.css'
@@ -16,6 +17,19 @@ const TypeImgDict = {
   'PRODUCT': '/image/product.png',
   'SERVICE': '/image/service.png',
   'COMPANY': '/image/company.png',
+}
+
+const getTypeLink = (type, item) => {
+  switch (type) {
+    case 'PRODUCT':
+      return `/market/product/${item.id}`
+    case 'SERVICE':
+      return `/market/service/${item.id}`
+    case 'COMPANY':
+      return `/market/company/${item.id}`
+    default:
+      return undefined
+  }
 }
 
 const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType }) => {
@@ -35,7 +49,9 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType }) => {
       </div>
       <div className={styles.center}>
         <h2 className={styles.title}>
-          {data.name}
+          <Link className={styles.link} href={getTypeLink(type, data)}>
+            {data.name}
+          </Link>
         </h2>
         {type === 'COMPANY' && (
           <div className={styles.description}>
@@ -45,7 +61,9 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType }) => {
         <div className={styles.footer}>
           {type !== 'COMPANY' && (
             <div className={styles.companyName}>
-              {data.company?.name}
+              <Link className={styles.link} href={getTypeLink('COMPANY', data)}>
+                {data.company?.name}
+              </Link>
             </div>
           )}
           {type === 'COMPANY' && (

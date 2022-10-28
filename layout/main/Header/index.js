@@ -60,7 +60,7 @@ const Header = ({
               hideIfNotAllowed
               onClick={store.clearAuthData}
             >
-              <Icon size={72} type={ICONS_TYPES.clear} className={styles.button} />
+              <Icon size={72} type={ICONS_TYPES.close} className={styles.button} />
             </Link>
           )}
           {!authPage && (

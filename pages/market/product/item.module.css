@@ -1,0 +1,154 @@
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.breadcrumbs {
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: var(--trood-text-light-gray);
+    margin-bottom: 42px;
+    text-transform: lowercase;
+}
+
+.link:hover {
+    color: var(--trood-orange);
+}
+
+.title {
+    font-weight: 500;
+    font-size: 64px;
+    letter-spacing: -0.02em;
+    color: var(--trood-text);
+    margin-bottom: 64px;
+}
+
+.header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--trood-border-dark);
+    margin-bottom: 56px;
+}
+
+.company {
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--trood-text-light-gray);
+}
+
+.company:hover {
+    color: var(--trood-orange);
+}
+
+.main {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 16px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--trood-border-dark);
+    margin-bottom: 56px;
+}
+
+.left,
+.center,
+.right {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.left {
+    flex: 0 0 390px;
+}
+
+.image {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+}
+
+.image .zoom {
+    position: absolute;
+}
+
+.image .zoom {
+    display: none;
+    position: absolute;
+    top: calc(50% - 35px);
+    right: calc(50% - 35px);
+    background-color: var(--trood-gray-light);
+    color: var(--trood-text);
+    border-radius: 50%;
+}
+
+.image .smallZoom {
+    top: calc(50% - 20px);
+    right: calc(50% - 20px);
+}
+
+.image:hover .zoom {
+    display: flex;
+}
+
+.image .zoom svg {
+    width: 55%;
+    height: 55%;
+}
+
+.gallery {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 15px;
+}
+
+.gallery:not(:empty) {
+    margin-top: 15px;
+}
+
+.center {
+    flex: 1;
+}
+
+.teaser {
+    white-space: pre-wrap;
+    font-weight: 400;
+}
+
+.right {
+    flex: 0 0 360px;
+}
+
+.properties,
+.description {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-top: 56px;
+    font-weight: 400;
+    font-size: 18px;
+    gap: 1em;
+}
+
+.property {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.propertyName {
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 0 0 420px;
+    align-items: center;
+    color: var(--trood-text-light-gray);
+    gap: 16px;
+    margin-right: 16px;
+}
+
+.propertyName:after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--trood-text-light-gray);
+}

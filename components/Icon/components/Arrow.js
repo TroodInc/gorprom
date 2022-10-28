@@ -3,10 +3,8 @@ import React from 'react'
 
 
 const Arrow = () => (
-  <svg viewBox="0 0 24 24">
-    <path
-      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-    />
+  <svg viewBox="0 0 52 52">
+    <polygon points="14,52 12.5,50.6 36.6,26 12.5,1.4 14,0 39.5,26 "/>
   </svg>
 )
 

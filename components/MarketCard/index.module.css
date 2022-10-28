@@ -26,6 +26,10 @@
     overflow: hidden;
 }
 
+.link:hover {
+    color: var(--trood-orange);
+}
+
 .company .title {
     max-height: 1em;
 }

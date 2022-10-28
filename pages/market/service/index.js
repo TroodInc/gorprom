@@ -23,7 +23,7 @@ const Market = ({ host }) => {
   const productParams = {
     q: [
       'eq(type,SERVICE)',
-      query?.category && `eq(category,${query?.category})`,
+      query?.category && `or(eq(category,${query?.category}),eq(category.parent,${query?.category}))`,
     ].filter(Boolean).join(','),
   }
   const product = store.callHttpQuery(custodianApiPath + 'product', { params: productParams })
@@ -58,17 +58,18 @@ const Market = ({ host }) => {
         <div className={styles.title}>Фильтры</div>
         {productCategoryArray.map(item => {
           if (item.childs?.length) {
+            const items = [item, ...item.childs]
             return (
               <Select
                 key={item.id}
                 clearable
                 className={classNames(
                   styles.select,
-                  item.childs.find(c => c.id === +query?.category) && styles.active,
+                  items.find(c => c.id === +query?.category) && styles.active,
                 )}
                 placeholder={item.name}
-                items={item.childs.map(c => ({ value: c.id, label: c.name }))}
-                values={item.childs.find(c => c.id === +query?.category) ? [+query?.category] : []}
+                items={items.map(c => ({ value: c.id, label: c.name }))}
+                values={items.find(c => c.id === +query?.category) ? [+query?.category] : []}
                 onChange={vals => {
                   if (vals[0]) {
                     push(`${pathname}?category=${vals[0]}`)
@@ -105,6 +106,8 @@ const Market = ({ host }) => {
 }
 
 export async function getServerSideProps({ req, query }) {
+  if (req.url.startsWith('/_next')) return { props: {} } // dont preload data on client-side
+
   const { headers: { host }, cookies: { token } = {} } = req
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
@@ -112,7 +115,7 @@ export async function getServerSideProps({ req, query }) {
   const productParams = {
     q: [
       'eq(type,SERVICE)',
-      query?.category && `eq(category,${query?.category})`,
+      query?.category && `or(eq(category,${query?.category}),eq(category.parent,${query?.category}))`,
     ].filter(Boolean).join(','),
   }
   const productFullUrl = getFullUrl(custodianApiPath + 'product', productParams)
