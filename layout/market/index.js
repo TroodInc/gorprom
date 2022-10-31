@@ -1,5 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import Input from '../../components/Input'
@@ -14,6 +14,7 @@ const formStoreName = 'search'
 const MarketLayout = ({ children }) => {
   const { store } = useContext(MobXProviderContext)
   const router = useRouter()
+  useEffect(() => () => store.deleteFormStore(formStoreName), [])
   const { pathname, query } = router
   const formStore = store.createFormStore(
     formStoreName,

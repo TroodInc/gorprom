@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { types, applySnapshot, getSnapshot, detach } from 'mobx-state-tree'
+import { types, applySnapshot, getSnapshot, detach, getParent } from 'mobx-state-tree'
 import set from 'lodash/set'
 
 import { callApi, getFullUrl } from '../helpers/fetch'
@@ -73,6 +73,7 @@ const Form = types.model('Form', {
   errors: types.map(getDeepMap(5)),
 }).views(self => ({
   get(path, toJSON = true) {
+    if (getParent(self).detached) return undefined
     const pathArray = path.split('.')
     const value = pathArray.reduce((memo, key, i) => {
       if (!i) return memo
@@ -165,7 +166,13 @@ const FormStore = types.model('FormStore', {
   modalComponent: types.maybe(types.string),
   props: types.maybe(types.frozen()),
   form: Form,
+  detached: types.optional(types.boolean, false),
 })
+  .actions(self => ({
+    setDetached(detached = true) {
+      self.detached = detached
+    },
+  }))
 
 const Store = types.model('store', {
   httpQuery: types.map(HttpQuery),
@@ -177,13 +184,17 @@ const Store = types.model('store', {
   },
 })).actions(self => ({
   createFormStore(name, { modalComponent, form = {}, props } = {}) {
-    if (!self.formStore.has(name)) {
+    if (!self.formStore.has(name) || self.formStore.get(name).detached) {
       self.formStore.set(name, { modalComponent, form, props })
     }
     return self.formStore.get(name)
   },
   deleteFormStore(name) {
-    detach(self.formStore.get(name))
+    if (self.formStore.has(name)) {
+      const fs = self.formStore.get(name)
+      fs.setDetached()
+      detach(fs)
+    }
   },
   setAuthData(data) {
     const { token } = store

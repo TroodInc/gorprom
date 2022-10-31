@@ -71,7 +71,7 @@ const App = ({ Component, pageProps = {}, ...other }) => {
           <title>Горпром</title>
         </Head>
         <Layout layoutProps={layoutProps} {...other}>
-          <SubLayout {...other}>
+          <SubLayout {...other} {...pageProps}>
             <Component {...other} {...pageProps} />
           </SubLayout>
         </Layout>
