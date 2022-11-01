@@ -212,12 +212,12 @@ const Store = types.model('store', {
       window.document.cookie = newCookie('token', '', 0)
     }
   },
-  callHttpQuery(tmpURL, { params, headers, cacheTime = 1000, method = 'GET', ...options } = {}) {
+  callHttpQuery(tmpURL, { params, headers, cacheTime = 2000, method = 'GET', ...options } = {}) {
     const url = getFullUrl(tmpURL, params)
 
     if (self.httpQuery.has(url)) {
       const prev = self.httpQuery.get(url)
-      if (prev.callTime - Date.now() <= cacheTime) {
+      if (Date.now() - prev.callTime <= cacheTime) {
         return prev
       }
     } else {

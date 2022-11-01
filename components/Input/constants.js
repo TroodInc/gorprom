@@ -136,7 +136,7 @@ export const includeForTypes = {
 
 export const excludeForTypes = {}
 
-export const ROW_HEIGHT = 18
+export const ROW_HEIGHT = 28
 
 export const DEFAULT_MAX_ROWS = 5
 

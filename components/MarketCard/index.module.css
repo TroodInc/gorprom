@@ -26,6 +26,10 @@
     overflow: hidden;
 }
 
+.link {
+    cursor: pointer;
+}
+
 .link:hover {
     color: var(--trood-orange);
 }
@@ -59,4 +63,21 @@
     align-self: center;
     font-weight: 450;
     font-size: 18px;
+}
+
+.messageBox {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.messageBox .link {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    color: var(--trood-orange);
+}
+
+.messageBox .link:hover {
+    color: var(--trood-text);
 }

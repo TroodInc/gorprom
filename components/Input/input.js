@@ -90,7 +90,6 @@ class Input extends PureComponent {
     onChange: noopFunc,
     onValid: noopFunc,
     onInvalid: noopFunc,
-    onEnter: noopFunc,
     onSearch: noopFunc,
     onFocus: noopFunc,
     onBlur: noopFunc,
@@ -370,7 +369,10 @@ class Input extends PureComponent {
       const { getValue } = this.props.settings
       const value = getValue(this.state.formattedValue)
       this.handleBlur()
-      this.props.onEnter()
+      if (this.props.onEnter) {
+        e.preventDefault()
+        this.props.onEnter()
+      }
       this.props.onSearch(value)
     }
   }
@@ -592,6 +594,7 @@ class Input extends PureComponent {
         {label && <span className={style.label}>{label}</span>}
         <div {...dataAttributes} className={classNames(
           style.root,
+          style[type],
           inputClassName,
           {
             [style.error]: currentErrors.length > 0,

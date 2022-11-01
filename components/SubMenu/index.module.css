@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     text-transform: lowercase;
+    align-items: flex-end;
 }
 
 .active,

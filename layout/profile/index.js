@@ -11,7 +11,7 @@ const ProfileLayout = ({ children }) => {
         className={styles.menu}
         items={[
           { link: '/profile/profile', title: 'Профиль' },
-          { link: '/profile/requests', title: 'Запросы товаров/услуг' },
+          { link: '/profile/request', title: 'Запросы товаров/услуг' },
           { link: '/profile/organization', title: 'Управление организацией' },
         ]}
       />

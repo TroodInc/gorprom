@@ -1,11 +1,12 @@
 import { MobXProviderContext, observer } from 'mobx-react'
+import { useContext } from 'react'
 import Image from 'next/image'
 import classNames from 'classnames'
 import ProfileLayout from '../../../layout/profile'
 
 import styles from './index.module.css'
-import { useContext } from 'react'
 import { getApiPath } from '../../../helpers/fetch'
+import { toPhone } from '../../../helpers/format'
 
 
 const Profile = ({ host }) => {
@@ -94,7 +95,7 @@ const Profile = ({ host }) => {
             Телефон
           </div>
           <div className={styles.value}>
-            {profile.phone}
+            {profile.phone && '+' + toPhone(profile.phone)}
           </div>
         </div>
         <div className={styles.block}>

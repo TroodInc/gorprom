@@ -48,7 +48,7 @@ const CompanyProfile = ({ host }) => {
               Дата регистрации
             </div>
             <div className={styles.value}>
-              {legalData.registration_date && moment(legalData.registration_date).format('DD / MM / YY')}
+              {legalData.registration_date && moment(legalData.registration_date).format('DD.MM.YYYY')}
             </div>
           </div>
         </div>

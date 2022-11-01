@@ -15,6 +15,10 @@
   min-height: 38px;
 }
 
+.root.multi {
+  height: auto;
+}
+
 .root.error {
   border-color: var(--trood-red);
   border-bottom: 1px solid var(--trood-red);

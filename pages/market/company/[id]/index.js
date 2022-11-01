@@ -73,6 +73,7 @@ const CompanyMarket = ({ host }) => {
             data={item}
             type="PRODUCT"
             showType
+            host={host}
           />
         ))}
       </div>

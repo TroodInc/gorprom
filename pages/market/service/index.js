@@ -51,6 +51,7 @@ const Market = ({ host }) => {
             key={item.id}
             data={item}
             type="SERVICE"
+            host={host}
           />
         ))}
       </div>

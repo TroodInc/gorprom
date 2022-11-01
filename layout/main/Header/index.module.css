@@ -29,6 +29,7 @@
     letter-spacing: -0.035em;
 }
 
+.link:hover,
 .link.active {
     color: var(--trood-orange);
 }

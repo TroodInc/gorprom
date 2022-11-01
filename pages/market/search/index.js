@@ -81,6 +81,7 @@ const Market = ({ host }) => {
             data={item}
             type="PRODUCT"
             showType
+            host={host}
           />
         ))}
         {serviceArray.map(item => (
@@ -89,6 +90,7 @@ const Market = ({ host }) => {
             data={item}
             type="SERVICE"
             showType
+            host={host}
           />
         ))}
         {companyArray.map(item => (
@@ -97,6 +99,7 @@ const Market = ({ host }) => {
             data={item}
             type="COMPANY"
             showType
+            host={host}
           />
         ))}
       </div>
