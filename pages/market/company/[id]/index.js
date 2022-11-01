@@ -22,7 +22,7 @@ const TYPES = [
 const CompanyMarket = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const router = useRouter()
-  const { query: { id, type, category, search = '' }, pathname, push } = router
+  const { query: { id, type, category, search = '', from }, pathname, push } = router
 
   const path = pathname.replace('[id]', id)
 
@@ -63,7 +63,7 @@ const CompanyMarket = ({ host }) => {
               className={styles.button}
               label="отменить"
               type={BUTTON_TYPES.text}
-              onClick={() => push(path)}
+              onClick={() => push(from || path)}
             />
           </div>
         )}

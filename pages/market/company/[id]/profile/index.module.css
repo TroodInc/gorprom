@@ -3,22 +3,37 @@
     flex-flow: row nowrap;
 }
 
-.column {
+.left {
     display: flex;
-    flex: 1 1 100%;
     flex-flow: column nowrap;
+    flex: 1 1 33%;
     padding: 0 16px 24px;
-    gap: 40px;
-}
-
-.column.left {
     align-items: center;
     border-right: 1px solid var(--trood-border-dark);
+}
+
+.main {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 67%;
+    gap: 32px;
+}
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 32px;
+}
+
+.row.additionalGap {
+    margin-top: 32px;
 }
 
 .block {
     display: flex;
     flex-flow: column nowrap;
+    flex: 1 1 100%;
+    padding: 0 16px;
 }
 
 .block .title {

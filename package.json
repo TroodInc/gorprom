@@ -25,6 +25,7 @@
     "mobx-react": "^7.5.3",
     "mobx-react-lite": "^3.4.0",
     "mobx-state-tree": "^5.1.6",
+    "moment": "^2.29.4",
     "next": "12.3.1",
     "object-hash": "^3.0.0",
     "prop-types": "^15.8.1",

@@ -14,6 +14,7 @@ const Link = ({
   className,
   activeClassName,
   activeWithQuery = [],
+  exact,
   children,
   hideIfNotAllowed,
   onClick,
@@ -29,7 +30,12 @@ const Link = ({
   const absoluteUrl = href.startsWith('http')
   let linkActive
   if (!absoluteUrl) {
-    linkActive = (new RegExp(`^${escapeRegExp(href)}`)).test(asPath)
+    const mainPath = asPath.match(/^([^?#]*)/)[1]
+    if (exact) {
+      linkActive = href === mainPath
+    } else {
+      linkActive = (new RegExp(`^${escapeRegExp(href)}`)).test(mainPath)
+    }
     if (activeWithQuery.length) {
       const search = (href.match(/\?(.*)/) || [])[1]
       const params = new URLSearchParams(search)

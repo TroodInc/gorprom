@@ -43,6 +43,7 @@ const CompanyLayout = ({ host, children }) => {
   const companyName = company.get('data.data.name')
 
   const path = pathname.replace('[id]', id)
+  const mainPath = pathname.replace(/\[id].*/, id)
 
   return (
     <>
@@ -79,7 +80,7 @@ const CompanyLayout = ({ host, children }) => {
           className={styles.button}
           disabled={!form.get('data.search')}
           label="Поиск"
-          link={`${path}?type=${form.get('data.type')}&search=${form.get('data.search')}`}
+          link={`${mainPath}?type=${form.get('data.type')}&search=${form.get('data.search')}&from=${path}`}
         />
       </div>
       <div className={styles.header}>
@@ -94,9 +95,9 @@ const CompanyLayout = ({ host, children }) => {
         <SubMenu
           className={styles.menu}
           items={[
-            { link: path, title: 'Товары и услуги' },
-            { link: `${path}/profile`, title: 'Профиль' },
-            { link: `${path}/requisites`, title: 'Реквизиты' },
+            { link: mainPath, title: 'Товары и услуги', exact: true },
+            { link: `${mainPath}/profile`, title: 'Профиль' },
+            { link: `${mainPath}/requisites`, title: 'Реквизиты' },
           ]}
         />
       )}

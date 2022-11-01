@@ -90,7 +90,7 @@ const getPhoneFormat = (value = '', ext = true) => {
     const countryFormat = (countries[0].format || '').replace(/^\+/, '')
     if (!countryFormat) return undefined
     if (!ext) return countryFormat
-    return `${countryFormat} ex ${Array(15).fill('.').join('')}`
+    return `${countryFormat} доп ${Array(15).fill('.').join('')}`
   }
   return undefined
 }
