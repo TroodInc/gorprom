@@ -1,6 +1,7 @@
 .root {
     display: flex;
     flex-flow: column nowrap;
+    align-items: center;
     min-height: 100vh;
     background-color: var(--trood-background);
 }
@@ -10,4 +11,6 @@
     flex-flow: column nowrap;
     flex: 1 1 100%;
     padding: 24px 128px 56px;
+    width: 100%;
+    max-width: 1440px;
 }

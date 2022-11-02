@@ -5,6 +5,8 @@
     background-color: var(--trood-background-dark);
     color: var(--trood-text-white);
     gap: 24px;
+    width: 100%;
+    max-width: 1440px;
 }
 
 .logo {
