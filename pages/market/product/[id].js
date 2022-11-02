@@ -106,7 +106,28 @@ const Product = ({ host }) => {
           </div>
         </div>
         <div className={styles.right}>
-          <Button label="Отправить запрос" />
+          <Button
+            label="Отправить запрос"
+            onClick={() => {
+              const requestFormStoreName = 'requestPRODUCT' + id
+              const requestFormStore = store.createFormStore(requestFormStoreName, {
+                form: {
+                  data: {
+                    target: {
+                      _object: 'product',
+                      id,
+                    },
+                    message_set: [
+                      {
+                        text: 'Отправлен запрос',
+                      }],
+                  },
+                },
+              })
+              requestFormStore.form.submit(custodianApiPath + 'order', 'POST')
+                .then(() => router.push('/profile/request'))
+            }}
+          />
         </div>
       </div>
       <SubMenu

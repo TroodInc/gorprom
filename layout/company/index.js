@@ -89,6 +89,25 @@ const CompanyLayout = ({ host, children }) => {
           className={styles.button}
           label="Связаться"
           color={BUTTON_COLORS.orange}
+          onClick={() => {
+            const requestFormStoreName = 'requestCOMPANY' + id
+            const requestFormStore = store.createFormStore(requestFormStoreName, {
+              form: {
+                data: {
+                  target: {
+                    _object: 'company',
+                    id,
+                  },
+                  message_set: [
+                    {
+                      text: 'Отправлен запрос',
+                    }],
+                },
+              },
+            })
+            requestFormStore.form.submit(custodianApiPath + 'order', 'POST')
+              .then(() => router.push('/profile/request'))
+          }}
         />
       </div>
       {!search && (
