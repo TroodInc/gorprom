@@ -6,11 +6,14 @@
   width: 100%;
 }
 
+.root.listRoot {
+  border-top: 1px solid var(--trood-border-dark);
+}
+
 .itemWrapper {
   display: flex;
   align-items: center;
-  height: 1.5rem;
-  padding: 0 10px;
+  padding: 10px 0;
 }
 
 .tileItemWrapper {
@@ -27,8 +30,8 @@
   height: 100%;
 }
 
-.item,
-.itemTile {
+.root:not(.listRoot) .item,
+.itemTile:not(.listRoot) {
   white-space: nowrap;
   overflow: hidden;
 }
@@ -38,7 +41,7 @@
   color: var(--trood-orange);
 }
 
-.itemActive {
+.root:not(.checkbox) .itemActive {
   color: var(--trood-text-white);
   background-color: var(--trood-background-dark);
 }

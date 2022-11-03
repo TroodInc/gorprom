@@ -101,8 +101,8 @@
 }
 
 .icon {
-  width: 1.15em;
-  height: 1.15em;
+  width: 1em;
+  height: 1em;
 }
 
 .icon:not(:last-child) {

@@ -3,8 +3,13 @@
 }
 
 .root.checkbox {
-  height: 18px;
-  width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--trood-border);
 }
 
 .root.toggle {
@@ -15,15 +20,6 @@
 
 .root.checkbox.boxRoot {
   border-radius: 2px;
-}
-
-.root.checked {
-  background-color: var(--trood-orange);
-  border: 1px solid var(--trood-border-dark);
-}
-
-.root:not(.checked) {
-  border: 1px solid var(--trood-border-dark);
 }
 
 .toggle:before {
@@ -69,10 +65,6 @@
 .icon svg {
   width: 80%;
   height: 80%;
-}
-
-.boxRoot .icon {
-  color: var(--trood-white);
 }
 
 .root:not(.checked) .icon {

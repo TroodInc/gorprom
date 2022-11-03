@@ -152,7 +152,7 @@ class Select extends PureComponent {
     super(props)
 
     this.state = {
-      wasBlured: true,
+      wasBlured: false,
     }
 
     this.lastValid = true
@@ -200,35 +200,23 @@ class Select extends PureComponent {
     switch (type) {
       case SELECT_TYPES.filterDropdown:
         return (
-          <DropDown {...{
-            ...generalProps,
-            showSearch: true,
-          }} />
+          <DropDown {...generalProps } showSearch />
         )
       case SELECT_TYPES.tile:
         return (
-          <Tile {...{
-            ...generalProps,
-          }} />
+          <Tile {...generalProps} />
         )
       case SELECT_TYPES.rating:
         return (
-          <Rating {...{
-            ...generalProps,
-          }} />
+          <Rating {...generalProps} />
         )
       case SELECT_TYPES.list:
         return (
-          <List {...{
-            ...generalProps,
-          }} />
+          <List {...generalProps} listRoot />
         )
       default:
         return (
-          <DropDown {...{
-            ...generalProps,
-            controlClassName: styles.dropDown,
-          }} />
+          <DropDown {...generalProps} controlClassName={styles.dropDown} />
         )
     }
   }

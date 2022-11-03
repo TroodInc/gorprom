@@ -1,7 +1,7 @@
 .root {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   cursor: pointer;
   user-select: none;
 }
@@ -20,6 +20,7 @@
   height: 100%;
   opacity: 0;
   z-index: -1;
+  margin: 0;
 }
 
 .root.disabled {
@@ -28,6 +29,7 @@
 
 .label {
   cursor: pointer;
+  text-transform: lowercase;
 }
 
 .root .disabled .label {
@@ -38,13 +40,13 @@
 .labelRight {
   composes: label;
   order: 2;
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 .labelLeft {
   composes: label;
   order: 0;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .component {

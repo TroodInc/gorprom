@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { types, applySnapshot, getSnapshot, detach, getParent } from 'mobx-state-tree'
+import { types, applySnapshot, getSnapshot, detach, getParent, isAlive, isArrayType, getType } from 'mobx-state-tree'
 import set from 'lodash/set'
 
 import { callApi, getFullUrl } from '../helpers/fetch'
@@ -95,13 +95,21 @@ const Form = types.model('Form', {
   },
 })).actions(self => ({
   set(path, value) {
-    // if (!isAlive(self)) return
+    if (!isAlive(self)) return
     self.errors.set('globalError', undefined)
     const pathArray = path.split('.')
     const lastKey = pathArray.pop()
     let target = self
     pathArray.forEach((key, i) => {
       if (target) {
+        /*
+        if (isArrayType(getType(target))) {
+          const index =
+          const { length } = target
+
+          console.log(target.length, target, key)
+        }
+         */
         let nextTarget
         if (typeof target.get === 'function') {
           nextTarget = target.get(key, false)
@@ -112,6 +120,17 @@ const Form = types.model('Form', {
           const newPath = [...pathArray.slice(i + 1), lastKey].join('.')
           if (typeof target.set === 'function') {
             target.set(key, set({}, newPath, value))
+          } else if (isArrayType(getType(target))) {
+            const index = +key
+            if (Number.isNaN(index)) {
+              throw new Error('Wrong path name')
+            }
+            if (index > target.length) {
+              for (let i = 0; i < index; i += 1) {
+                target[i] = target[i] || undefined
+              }
+            }
+            target[key] = set({}, newPath, value)
           } else {
             target[key] = set({}, newPath, value)
           }

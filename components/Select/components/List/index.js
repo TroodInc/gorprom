@@ -174,6 +174,7 @@ class List extends PureComponent {
       disabled,
       isLoading,
       focusedItem,
+      listRoot,
     } = this.props
 
     const { maxHeight } = this.state
@@ -184,7 +185,7 @@ class List extends PureComponent {
 
     return (
       <ul {...{
-        className: classNames(styles.root, styles[orientation], className),
+        className: classNames(styles.root, styles[orientation], styles[type], className, listRoot && styles.listRoot),
         ref: (node) => {
           this.list = node
         },

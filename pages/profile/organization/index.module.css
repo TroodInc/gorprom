@@ -1,0 +1,74 @@
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.left {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 0 33%;
+    padding: 0 16px 24px;
+    align-items: center;
+    gap: 40px;
+}
+
+.main {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 0 67%;
+    gap: 32px;
+}
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 16px;
+}
+
+.row.additionalGap {
+    margin-top: 32px;
+}
+
+.cell {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 1 50%;
+}
+
+.cell.full {
+    flex: 1;
+}
+
+.controls {
+    margin-top: 24px;
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 56px;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 24px;
+}
+
+.contactBlock {
+    composes: row;
+    gap: 8px;
+}
+
+.split {
+    width: 1px;
+    background-color: var(--trood-border-dark);
+    margin-top: 34px;
+    margin-bottom: 9px;
+}
+
+.icon {
+    color: var(--trood-text-light-gray);
+    margin-top: 25px;
+}
+
+.icon:hover {
+    color: var(--trood-orange);
+}
+
+.add {
+    align-self: flex-start;
+}

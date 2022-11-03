@@ -1,5 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import classNames from 'classnames'
@@ -19,6 +19,8 @@ const Profile = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const account = store.authData
   const router = useRouter()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => () => store.deleteFormStore(formStoreName), [])
 
   const formStore = store.createFormStore(formStoreName, {
     form: {
@@ -35,6 +37,7 @@ const Profile = ({ host }) => {
   const fileApiPath = getApiPath(process.env.NEXT_PUBLIC_FILE_API, host)
 
   const companies = store.callHttpQuery(custodianApiPath + 'company', {
+    cacheTime: Number.MAX_SAFE_INTEGER,
     params: {
       only: ['name', 'ownership_type', 'ownership_type.name'],
     },
@@ -167,7 +170,6 @@ const Profile = ({ host }) => {
               .then(({ data }) => {
                 store.setAuthData(data?.data)
                 router.push('/profile/profile')
-                store.deleteFormStore(formStoreName)
               })
           }}
         />
@@ -176,10 +178,7 @@ const Profile = ({ host }) => {
           type={BUTTON_TYPES.border}
           label="< &nbsp; &nbsp; &nbsp; Вернуться в профиль"
           disabled={form.hasErrors}
-          onClick={() => {
-            router.push('/profile/profile')
-            store.deleteFormStore(formStoreName)
-          }}
+          link="/profile/profile"
         />
       </div>
     </>

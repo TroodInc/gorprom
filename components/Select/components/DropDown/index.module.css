@@ -49,6 +49,8 @@
 
 .placeholder,
 .value {
+  display: flex;
+  flex: 1;
   height: inherit;
   padding-top: 8px;
   font-weight: 400;

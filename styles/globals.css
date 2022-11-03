@@ -35,6 +35,7 @@ a, button, div, span {
   box-sizing: border-box;
 }
 
+ul,
 p,
 fieldset {
   margin-block-start: 0;
