@@ -32,7 +32,7 @@ const Organization = ({ host }) => {
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
   const fileApiPath = getApiPath(process.env.NEXT_PUBLIC_FILE_API, host)
 
-  const formStoreName = 'company' + (id || '')
+  const formStoreName = 'company' + (company || '')
   let formStore = store.formStore.has(formStoreName) ? store.formStore.get(formStoreName) : undefined
 
   if (!formStore) {
@@ -46,10 +46,10 @@ const Organization = ({ host }) => {
           company_types: companyData.company_types.map(t => t.id),
           contact_set: companyData.contact_set,
           corp_mail: companyData.corp_mail,
-          department_type: companyData.department_type.id,
+          department_type: companyData.department_type?.id,
           logo: companyData.logo,
           name: companyData.name,
-          ownership_type: companyData.ownership_type.id,
+          ownership_type: companyData.ownership_type?.id,
           parent_company: companyData.parent_company,
           work_type: companyData.work_type.map(t => t.id),
         }
