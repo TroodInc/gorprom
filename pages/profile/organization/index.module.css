@@ -1,42 +1,111 @@
 .root {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: column;
+}
+
+.navigation {
+    display: flex;
+    flex-basis: 100%;
+    margin-bottom: 56px;
+    gap: 24px;
+}
+
+.organizationLink:hover {
+    color: var(--trood-orange);
+}
+
+.organizationLink {
+    display: flex;
+    height: 64px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    flex-basis: 33%;
+    letter-spacing: -0.04em;
+    color: var(--trood-orange);
+    border: 2px solid;
+    border-radius: 16px;
+}
+
+.linkContent {
+    display: flex;
+    gap: 24px;
+}
+
+.financeLink {
+    composes: organizationLink;
+    justify-content: start;
+    color: var(--trood-gray-dark);
+}
+
+.financeLink .linkContent {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.productsLink {
+    composes: financeLink;
+}
+
+.main {
+    display: flex;
+    flex-flow: row nowrap;
+    padding-top: 43px;
+    border-top: 1px solid var(--trood-border-dark);
 }
 
 .left {
     display: flex;
     flex-flow: column nowrap;
-    flex: 0 0 33%;
-    padding: 0 16px 24px;
+    padding: 0 0 24px;
+    margin-right: 48px;
     align-items: center;
-    gap: 40px;
 }
 
-.main {
+.right {
     display: flex;
     flex-flow: column nowrap;
-    flex: 0 0 67%;
+    flex: 1 1 67%;
     gap: 32px;
+    border-left: 1px solid var(--trood-border-dark);
 }
 
 .row {
     display: flex;
     flex-flow: row nowrap;
-    gap: 16px;
+    gap: 40px;
 }
 
 .row.additionalGap {
-    margin-top: 32px;
+    margin-top: 42px;
 }
 
-.cell {
+.block {
     display: flex;
     flex-flow: column nowrap;
-    flex: 0 1 50%;
+    flex: 1 1;
+    max-width: 366px;
+    padding: 0 16px;
 }
 
-.cell.full {
-    flex: 1;
+.block .title {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    color: var(--trood-text-light-gray);
+    margin-bottom: 8px;
+    text-transform: lowercase;
+}
+
+.block .value {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 100%;
+}
+
+.block .value:empty:after {
+    content: '--------------------';
+    letter-spacing: -0.15em;
 }
 
 .controls {
@@ -46,29 +115,4 @@
     display: flex;
     flex-flow: row nowrap;
     gap: 24px;
-}
-
-.contactBlock {
-    composes: row;
-    gap: 8px;
-}
-
-.split {
-    width: 1px;
-    background-color: var(--trood-border-dark);
-    margin-top: 34px;
-    margin-bottom: 9px;
-}
-
-.icon {
-    color: var(--trood-text-light-gray);
-    margin-top: 25px;
-}
-
-.icon:hover {
-    color: var(--trood-orange);
-}
-
-.add {
-    align-self: flex-start;
 }
