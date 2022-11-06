@@ -1,24 +1,33 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
-import Image from 'next/image'
 import classNames from 'classnames'
-import ProfileLayout from '../../../layout/profile'
+import moment from 'moment'
 
 import styles from './index.module.css'
-import { getApiPath } from '../../../helpers/fetch'
-import { toPhone } from '../../../helpers/format'
-import Button, { BUTTON_COLORS, BUTTON_TYPES } from '../../../components/Button'
-import Link from '../../../components/Link'
+import Image from 'next/image'
+import ProfileLayout from '../../../../layout/profile'
+import { getApiPath } from '../../../../helpers/fetch'
+import { toNumber } from '../../../../helpers/format'
+import Button, { BUTTON_COLORS, BUTTON_SPECIAL_TYPES, BUTTON_TYPES } from '../../../../components/Button'
+import Checkbox from '../../../../components/Checkbox'
+import Link from '../../../../components/Link'
+import organization from '../index'
 
-const Organization = ({ host }) => {
+
+const Requisites = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const { profile: { company } } = store.authData
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
-  const companyCall = store.callHttpQuery(custodianApiPath + 'company/' + company)
 
-  const companyData = companyCall.get('data.data') || {}
-  const companyAddress = companyCall.get('data.data.address') || {}
+  const companyParams = {
+    depth: 3,
+    exclude: ['address', 'company_types', 'contact_set', 'product_set', 'work_type'],
+  }
+  const companyCall = store.callHttpQuery(custodianApiPath + 'company/' + company, { params: companyParams })
+  const logo = companyCall.get('data.data.logo')
+  const legalData = companyCall.get('data.data.legal_info') || {}
+  const legalAddress = companyCall.get('data.data.legal_info.legal_address') || {}
 
   return (
     <div className={styles.root}>
@@ -28,6 +37,7 @@ const Organization = ({ host }) => {
           href={'/profile/organization'}
         >
           <div className={styles.linkContent}>
+            <div>{'<'}</div>
             <div>профиль организации</div>
           </div>
         </Link>
@@ -37,7 +47,6 @@ const Organization = ({ host }) => {
         >
           <div className={styles.linkContent}>
             <div>финансовая информация</div>
-            <div>{'>'}</div>
           </div>
         </Link>
         <Link
@@ -54,7 +63,7 @@ const Organization = ({ host }) => {
         <div className={styles.left}>
           <Image
             alt="Logo"
-            src={companyData.logo || '/image/defaultLogo.jpg'}
+            src={logo || '/image/defaultLogo.jpg'}
             height={140}
             width={140}
             objectFit="contain"
@@ -64,60 +73,24 @@ const Organization = ({ host }) => {
             label="Редактировать"
             type={BUTTON_TYPES.border}
             color={BUTTON_COLORS.orange}
-            link="organization/edit"
+            link="requisites/edit"
           />
         </div>
         <div className={styles.right}>
           <div className={styles.row}>
             <div className={styles.block}>
               <div className={styles.title}>
-                Название
+                Дата регистрации
               </div>
               <div className={styles.value}>
-                {companyData.name}
-              </div>
-            </div>
-          </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Форма собственности
-              </div>
-              <div className={styles.value}>
-                {companyData.ownership_type?.name}
-              </div>
-            </div>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Структура организации
-              </div>
-              <div className={styles.value}>
-                {companyData.department_type?.name}
-              </div>
-            </div>
-          </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Тип организации
-              </div>
-              <div className={styles.value}>
-                {companyData.company_types?.map(t => t.name).join(', ')}
-              </div>
-            </div>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Тип деятельности
-              </div>
-              <div className={styles.value}>
-                {companyData.work_type?.map(t => t.name).join(', ')}
+                {legalData.registration_date && moment(legalData.registration_date).format('DD.MM.YYYY')}
               </div>
             </div>
           </div>
           <div className={classNames(styles.row, styles.additionalGap)}>
             <div className={styles.block}>
               <div className={styles.value}>
-                Адрес
+                Юридический адрес
               </div>
             </div>
           </div>
@@ -127,7 +100,7 @@ const Organization = ({ host }) => {
                 Регион / район
               </div>
               <div className={styles.value}>
-                {companyAddress.region}
+                {legalAddress.region}
               </div>
             </div>
             <div className={styles.block}>
@@ -135,7 +108,7 @@ const Organization = ({ host }) => {
                 Город / н.п.
               </div>
               <div className={styles.value}>
-                {companyAddress.city}
+                {legalAddress.city}
               </div>
             </div>
           </div>
@@ -145,7 +118,7 @@ const Organization = ({ host }) => {
                 Улица
               </div>
               <div className={styles.value}>
-                {companyAddress.street}
+                {legalAddress.street}
               </div>
             </div>
             <div className={styles.block}>
@@ -153,7 +126,7 @@ const Organization = ({ host }) => {
                 Дом
               </div>
               <div className={styles.value}>
-                {companyAddress.house}
+                {legalAddress.house}
               </div>
             </div>
           </div>
@@ -163,36 +136,110 @@ const Organization = ({ host }) => {
                 Квартира / офис
               </div>
               <div className={styles.value}>
-                {companyAddress.flat}
+                {legalAddress.flat}
               </div>
             </div>
           </div>
           <div className={classNames(styles.row, styles.additionalGap)}>
             <div className={styles.block}>
               <div className={styles.value}>
-                Контакты
+                Реквизиты
               </div>
             </div>
           </div>
-          {companyData.contact_set?.map(item => (
-            <div key={item.id} className={styles.row}>
-              <div className={styles.block}>
-                <div className={styles.title}>
-                  {item.comment}
-                </div>
-                <div className={styles.value}>
-                  +{toPhone(item.value)}
-                </div>
-              </div>
-            </div>
-          ))}
           <div className={styles.row}>
             <div className={styles.block}>
               <div className={styles.title}>
-                корпоративные почты
+                ИНН
               </div>
               <div className={styles.value}>
-                {companyData.corp_mail}
+                {legalData.inn}
+              </div>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                ОКВЄД
+              </div>
+              <div className={styles.value}>
+                {legalData.okved}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                КПП
+              </div>
+              <div className={styles.value}>
+                {legalData.kpp}
+              </div>
+            </div>
+          </div>
+          <div className={classNames(styles.row, styles.additionalGap)}>
+            <div className={styles.block}>
+              <div className={styles.value}>
+                Команда
+              </div>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Руководители
+              </div>
+              <div className={styles.value}>
+                {legalData.supervisor}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Учредители
+              </div>
+              <div className={styles.value}>
+                {legalData.founder}
+              </div>
+            </div>
+          </div>
+          <div className={classNames(styles.row, styles.additionalGap)}>
+            <div className={styles.block}>
+              <div className={styles.value}>
+                Финансы
+              </div>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                уставной капитал
+              </div>
+              <div className={styles.value}>
+                {legalData.authorized_capital && toNumber(legalData.authorized_capital)}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Среднесписочная численность
+              </div>
+              <div className={styles.value}>
+                {legalData.staff}
+              </div>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Выручка за последний год
+              </div>
+              <div className={styles.value}>
+                {legalData.revenue && toNumber(legalData.revenue)}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Прибыль за последний год
+              </div>
+              <div className={styles.value}>
+                {legalData.profit && toNumber(legalData.profit)}
               </div>
             </div>
           </div>
@@ -202,6 +249,6 @@ const Organization = ({ host }) => {
   )
 }
 
-Organization.SubLayout = ProfileLayout
+Requisites.SubLayout = ProfileLayout
 
-export default observer(Organization)
+export default observer(Requisites)

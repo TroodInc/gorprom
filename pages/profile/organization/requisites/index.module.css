@@ -18,11 +18,11 @@
     display: flex;
     height: 64px;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     padding: 0 16px;
     flex-basis: 33%;
     letter-spacing: -0.04em;
-    color: var(--trood-orange);
+    color: var(--trood-gray-dark);
     border: 2px solid;
     border-radius: 16px;
 }
@@ -34,17 +34,17 @@
 
 .financeLink {
     composes: organizationLink;
-    justify-content: start;
-    color: var(--trood-gray-dark);
-}
-
-.financeLink .linkContent {
-    width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    color: var(--trood-orange);
 }
 
 .productsLink {
-    composes: financeLink;
+    composes: organizationLink;
+}
+
+.productsLink .linkContent {
+    width: 100%;
+    justify-content: space-between;
 }
 
 .main {
@@ -115,4 +115,9 @@
     display: flex;
     flex-flow: row nowrap;
     gap: 24px;
+}
+
+.checkboxLabel {
+    font-size: 18px;
+    line-height: 125%;
 }
