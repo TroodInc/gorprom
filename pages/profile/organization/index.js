@@ -7,12 +7,24 @@ import ProfileLayout from '../../../layout/profile'
 import styles from './index.module.css'
 import { getApiPath } from '../../../helpers/fetch'
 import { toPhone } from '../../../helpers/format'
-import Button, { BUTTON_COLORS, BUTTON_TYPES } from '../../../components/Button'
+import Button, { BUTTON_COLORS, BUTTON_SPECIAL_TYPES, BUTTON_TYPES } from '../../../components/Button'
 import Link from '../../../components/Link'
 
 const Organization = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const { profile: { company } } = store.authData
+
+  if (!company) {
+    return (
+      <Button
+        type={BUTTON_TYPES.text}
+        specialType={BUTTON_SPECIAL_TYPES.plus}
+        color={BUTTON_COLORS.orange}
+        label="Добавить организацию"
+        link="/profile/organization/edit"
+      />
+    )
+  }
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
   const companyCall = store.callHttpQuery(custodianApiPath + 'company/' + company)
@@ -174,6 +186,16 @@ const Organization = ({ host }) => {
               </div>
             </div>
           </div>
+          <div className={styles.row}>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                корпоративные почты
+              </div>
+              <div className={styles.value}>
+                {companyData.corp_mail}
+              </div>
+            </div>
+          </div>
           {companyData.contact_set?.map(item => (
             <div key={item.id} className={styles.row}>
               <div className={styles.block}>
@@ -186,16 +208,6 @@ const Organization = ({ host }) => {
               </div>
             </div>
           ))}
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                корпоративные почты
-              </div>
-              <div className={styles.value}>
-                {companyData.corp_mail}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

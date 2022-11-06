@@ -101,23 +101,35 @@ const Request = ({ host }) => {
             const { form } = formStore
 
             return (
-              <Input
-                type={INPUT_TYPES.multi}
-                minRows={2}
-                className={styles.input}
-                placeholder='Напишите сообщение...'
-                value={form.get('data.text')}
-                errors={form.get('errors.text')}
-                onChange={(value) => form.set('data.text', value)}
-                onInvalid={(value) => form.set('errors.text', value)}
-                onValid={() => form.set('errors.text', [])}
-                onEnter={() => form.submit(custodianApiPath + 'message', 'POST')
-                  .then(() => {
+              <div className={styles.newMessage}>
+                <Input
+                  type={INPUT_TYPES.multi}
+                  minRows={2}
+                  className={styles.input}
+                  placeholder='Напишите сообщение...'
+                  value={form.get('data.text')}
+                  errors={form.get('errors.text')}
+                  onChange={(value) => form.set('data.text', value)}
+                  onInvalid={(value) => form.set('errors.text', value)}
+                  onValid={() => form.set('errors.text', [])}
+                  onEnter={() => form.submit(custodianApiPath + 'message', 'POST')
+                    .then(() => {
+                      form.set('data.text', '')
+                      setScrolled(false)
+                      store.callHttpQuery(custodianApiPath + 'order/' + id, { params: orderProps })
+                    })}
+                />
+                <Button
+                  className={styles.sendMessage}
+                  type={BUTTON_TYPES.text}
+                  label="Отправить"
+                  onClick={() => {
                     form.set('data.text', '')
                     setScrolled(false)
                     store.callHttpQuery(custodianApiPath + 'order/' + id, { params: orderProps })
-                  })}
-              />
+                  }}
+                />
+              </div>
             )
           }}
         </Observer>

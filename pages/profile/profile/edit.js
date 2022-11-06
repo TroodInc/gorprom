@@ -158,6 +158,15 @@ const Profile = ({ host }) => {
             onInvalid={(value) => form.set('errors.profile.company', value)}
             onValid={() => form.set('errors.profile.company', [])}
           />
+          {!account.profile.company && (
+            <Button
+              type={BUTTON_TYPES.text}
+              specialType={BUTTON_SPECIAL_TYPES.plus}
+              color={BUTTON_COLORS.orange}
+              label="Добавить организацию"
+              link="/profile/organization/edit"
+            />
+          )}
         </div>
       </div>
       <div className={styles.controls}>

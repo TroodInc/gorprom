@@ -69,6 +69,21 @@
     color: var(--trood-text-light-gray);
 }
 
+.newMessage {
+    display: flex;
+    flex-flow: column nowrap;
+    border-bottom: 1px solid var(--trood-border-dark);
+}
+
 .input {
     margin-top: 40px;
+}
+
+.input > div:last-child {
+    border-bottom: none;
+}
+
+.sendMessage {
+    align-self: flex-end;
+    margin-bottom: 8px;
 }

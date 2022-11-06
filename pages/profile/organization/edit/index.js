@@ -1,5 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import classNames from 'classnames'
@@ -24,6 +24,7 @@ const CONTACT_TYPES = [
 
 const Organization = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
+  const router = useRouter()
   const { id, profile: { company } } = store.authData
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // useEffect(() => () => store.deleteFormStore(formStoreName), [])
@@ -69,7 +70,7 @@ const Organization = ({ host }) => {
         creator: id,
         address: {},
         company_types: [],
-        contact_set: [],
+        contact_set: [{ type: 'PHONE' }],
         legal_info: {},
         work_type: [],
       }
@@ -298,8 +299,8 @@ const Organization = ({ host }) => {
                 placeholder="@gmail.com, @yandex.ru"
                 value={form.get('data.profile.company.corp_mail')}
                 errors={form.get('errors.profile.company.corp_mail')}
-                onChange={(value) => form.set('data.profile.corp_mail', value)}
-                onInvalid={(value) => form.set('errors.profile.corp_mail', value)}
+                onChange={(value) => form.set('data.profile.company.corp_mail', value)}
+                onInvalid={(value) => form.set('errors.profile.company.corp_mail', value)}
                 onValid={() => form.set('errors.profile.company.corp_mail', [])}
               />
             </div>
@@ -389,13 +390,14 @@ const Organization = ({ host }) => {
             submit.then(({ data }) => {
               store.setAuthData(data?.data)
               store.deleteFormStore(formStoreName)
+              router.push('/profile/organization')
             })
           }}
         />
         <Button
           type={BUTTON_TYPES.border}
           label="< &nbsp; &nbsp; &nbsp; Вернуться в профиль"
-          link="/profile/profile"
+          link="/profile/organization"
         />
       </div>
     </>
