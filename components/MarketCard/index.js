@@ -65,7 +65,7 @@ const needLogin = ({ store, reason }) => (
   </div>
 )
 
-const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host }) => {
+const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host, onEdit }) => {
   const { store } = useContext(MobXProviderContext)
   const { id } = store.authData
   const router = useRouter()
@@ -87,12 +87,12 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host }) 
       </div>
       <div className={styles.center}>
         <h2 className={styles.title}>
-          {!!id && (
+          {!onEdit && !!id && (
             <Link className={styles.link} href={getTypeLink(type, data)}>
               {data.name}
             </Link>
           )}
-          {!id && (
+          {!onEdit && !id && (
             <div
               className={styles.link}
               onClick={() => {
@@ -108,6 +108,7 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host }) 
               {data.name}
             </div>
           )}
+          {onEdit && data.name}
         </h2>
         {type === 'COMPANY' && (
           <div className={styles.description}>
@@ -117,9 +118,12 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host }) 
         <div className={styles.footer}>
           {type !== 'COMPANY' && (
             <div className={styles.companyName}>
-              <Link className={styles.link} href={getTypeLink('COMPANY', data)}>
-                {data.company?.name}
-              </Link>
+              {!onEdit && (
+                <Link className={styles.link} href={getTypeLink('COMPANY', data)}>
+                  {data.company?.name}
+                </Link>
+              )}
+              {onEdit && data.company?.name}
             </div>
           )}
           {type === 'COMPANY' && (
@@ -134,38 +138,47 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host }) 
       </div>
       <div className={styles.right}>
         <div />
-        <Button
-          className={styles.button}
-          label="Связаться"
-          onClick={() => {
-            if (id) {
-              const formStoreName = 'request' + type + data.id
-              const formStore = store.createFormStore(formStoreName, {
-                form: {
-                  data: {
-                    target: {
-                      _object: TypeObjectTypeDict[type],
-                      id: data.id,
+        {onEdit && (
+          <Button
+            className={styles.button}
+            label="Изменить"
+            onClick={onEdit}
+          />
+        )}
+        {!onEdit && (
+          <Button
+            className={styles.button}
+            label="Связаться"
+            onClick={() => {
+              if (id) {
+                const formStoreName = 'request' + type + data.id
+                const formStore = store.createFormStore(formStoreName, {
+                  form: {
+                    data: {
+                      target: {
+                        _object: TypeObjectTypeDict[type],
+                        id: data.id,
+                      },
+                      message_set: [
+                        {
+                          text: 'Отправлен запрос',
+                        }],
                     },
-                    message_set: [
-                      {
-                        text: 'Отправлен запрос',
-                      }],
                   },
-                },
-              })
-              formStore.form.submit(custodianApiPath + 'order', 'POST').then(() => router.push('/profile/request'))
-            } else {
-              store.createFormStore(needLoginFormName, {
-                modalComponent: 'MessageBox',
-                props: {
-                  width: 600,
-                  children: needLogin({ store, reason: 'отправить запрос' }),
-                },
-              })
-            }
-          }}
-        />
+                })
+                formStore.form.submit(custodianApiPath + 'order', 'POST').then(() => router.push('/profile/request'))
+              } else {
+                store.createFormStore(needLoginFormName, {
+                  modalComponent: 'MessageBox',
+                  props: {
+                    width: 600,
+                    children: needLogin({ store, reason: 'отправить запрос' }),
+                  },
+                })
+              }
+            }}
+          />
+        )}
       </div>
     </div>
   )
