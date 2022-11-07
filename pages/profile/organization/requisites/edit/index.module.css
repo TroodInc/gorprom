@@ -1,0 +1,108 @@
+.root {
+    display: flex;
+    flex-flow: column;
+}
+
+.navigation {
+    display: flex;
+    flex-basis: 100%;
+    margin-bottom: 56px;
+    gap: 24px;
+}
+
+.organizationLink:hover {
+    color: var(--trood-orange);
+}
+
+.organizationLink {
+    display: flex;
+    height: 64px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    flex-basis: 33%;
+    letter-spacing: -0.04em;
+    color: var(--trood-orange);
+    border: 2px solid;
+    border-radius: 16px;
+}
+
+.linkContent {
+    display: flex;
+    gap: 24px;
+}
+
+.financeLink {
+    composes: organizationLink;
+    justify-content: start;
+    color: var(--trood-gray-dark);
+}
+
+.financeLink .linkContent {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.productsLink {
+    composes: financeLink;
+}
+
+.main {
+    display: flex;
+    flex-flow: row nowrap;
+    padding-top: 43px;
+    border-top: 1px solid var(--trood-border-dark);
+}
+
+.left {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 0 0 24px;
+    margin-right: 48px;
+    align-items: center;
+}
+
+.right {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 67%;
+    gap: 16px;
+    border-left: 1px solid var(--trood-border-dark);
+}
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 40px;
+}
+
+.row.additionalGap {
+    margin-top: 42px;
+}
+
+.block {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1;
+    max-width: 366px;
+    padding: 0 16px;
+}
+
+.block .value {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 100%;
+}
+
+.subHeader {
+    margin-bottom: 8px;
+}
+
+.controls {
+    margin-top: 42px;
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 56px;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 24px;
+}
