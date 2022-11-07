@@ -10,6 +10,7 @@ import MarketCard from '../../../../components/MarketCard'
 import Select from '../../../../components/Select'
 
 import styles from './index.module.css'
+import Link from '../../../../components/Link'
 
 
 const TYPES = [
@@ -45,87 +46,117 @@ const CompanyProducts = ({ host }) => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.left}>
-        <Button
-          label="Новый товар/услуга"
-          color={BUTTON_COLORS.orange}
-          specialType={BUTTON_SPECIAL_TYPES.plus}
-          link="/profile/organization/products/edit"
-        />
-        {productArray.map(item => (
-          <MarketCard
-            key={item.id}
-            data={item}
-            type="PRODUCT"
-            showType
-            host={host}
-            onEdit={p => push(`/profile/organization/products/edit/${p.id}`)}
-          />
-        ))}
+      <div className={styles.navigation}>
+        <Link
+          className={styles.organizationLink}
+          href={'/profile/organization'}
+        >
+          <div className={styles.linkContent}>
+            <div>{'<'}</div>
+            <div>профиль организации</div>
+          </div>
+        </Link>
+        <Link
+          className={styles.financeLink}
+          href={'/profile/organization/requisites'}
+        >
+          <div className={styles.linkContent}>
+            <div>{'<'}</div>
+            <div>финансовая информация</div>
+          </div>
+        </Link>
+        <Link
+          className={styles.productsLink}
+          href={'/profile/organization/products'}
+        >
+          <div className={styles.linkContent}>
+            <div>товары</div>
+          </div>
+        </Link>
       </div>
-      <div className={styles.right}>
-        <div className={styles.title}>Фильтры</div>
-        <Select
-          clearable
-          className={classNames(
-            styles.select,
-            TYPES.find(c => c.value === type) && styles.active,
-          )}
-          placeholder="Тип"
-          items={TYPES}
-          values={type ? [type] : []}
-          onChange={vals => {
-            if (vals[0]) {
-              push(`${path}?type=${vals[0]}&category=${category || ''}`)
-            } else {
-              push(`${path}?type=&category=${category || ''}`)
+      <div className={styles.main}>
+        <div className={styles.left}>
+          <Button
+            label="Новый товар/услуга"
+            color={BUTTON_COLORS.orange}
+            specialType={BUTTON_SPECIAL_TYPES.plus}
+            link="/profile/organization/products/edit"
+          />
+          {productArray.map(item => (
+            <MarketCard
+              key={item.id}
+              data={item}
+              type="PRODUCT"
+              showType
+              host={host}
+              onEdit={() => push(`/profile/organization/products/edit/${item.id}`)}
+            />
+          ))}
+        </div>
+        <div className={styles.right}>
+          <div className={styles.title}>Фильтры</div>
+          <Select
+            clearable
+            className={classNames(
+              styles.select,
+              TYPES.find(c => c.value === type) && styles.active,
+            )}
+            placeholder="Тип"
+            items={TYPES}
+            values={type ? [type] : []}
+            onChange={vals => {
+              if (vals[0]) {
+                push(`${path}?type=${vals[0]}&category=${category || ''}`)
+              } else {
+                push(`${path}?type=&category=${category || ''}`)
+              }
+            }}
+          />
+          {productCategoryArray.map(item => {
+            if (item.childs?.length) {
+              const items = [item, ...item.childs]
+              return (
+                <Select
+                  key={item.id}
+                  clearable
+                  className={classNames(
+                    styles.select,
+                    items.find(c => c.id === +category) && styles.active,
+                  )}
+                  placeholder={item.name}
+                  items={items.map(c => ({ value: c.id, label: c.name }))}
+                  values={items.find(c => c.id === +category) ? [+category] : []}
+                  onChange={vals => {
+                    if (vals[0]) {
+                      push(`${path}?type=${type || ''}&category=${vals[0]}`)
+                    } else {
+                      push(`${path}?type=${type || ''}&category=`)
+                    }
+                  }}
+                />
+              )
             }
-          }}
-        />
-        {productCategoryArray.map(item => {
-          if (item.childs?.length) {
-            const items = [item, ...item.childs]
-            return (
-              <Select
-                key={item.id}
-                clearable
-                className={classNames(
-                  styles.select,
-                  items.find(c => c.id === +category) && styles.active,
-                )}
-                placeholder={item.name}
-                items={items.map(c => ({ value: c.id, label: c.name }))}
-                values={items.find(c => c.id === +category) ? [+category] : []}
-                onChange={vals => {
-                  if (vals[0]) {
-                    push(`${path}?type=${type || ''}&category=${vals[0]}`)
-                  } else {
-                    push(`${path}?type=${type || ''}&category=`)
-                  }
-                }}
-              />
-            )
-          }
-          if (!item.parent) {
-            return (
-              <Button
-                key={item.id}
-                className={styles.button}
-                label={item.name}
-                type={BUTTON_TYPES.border}
-                color={item.id === +category ? BUTTON_COLORS.orange : BUTTON_COLORS.black}
-                onClick={() => {
-                  if (item.id === +category) {
-                    push(`${path}?type=${type || ''}&category=`)
-                  } else {
-                    push(`${path}?type=${type || ''}&category=${item.id}`)
-                  }
-                }}
-              />
-            )
-          }
-          return null
-        })}
+            if (!item.parent) {
+              return (
+                <Button
+                  key={item.id}
+                  className={styles.button}
+                  label={item.name}
+                  type={BUTTON_TYPES.border}
+                  color={item.id === +category ? BUTTON_COLORS.orange : BUTTON_COLORS.black}
+                  onClick={() => {
+                    if (item.id === +category) {
+                      push(`${path}?type=${type || ''}&category=`)
+                    } else {
+                      push(`${path}?type=${type || ''}&category=${item.id}`)
+                    }
+                  }}
+                />
+              )
+            }
+            return null
+          })}
+        </div>
       </div>
     </div>
   )

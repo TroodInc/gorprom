@@ -1,0 +1,117 @@
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.navigation {
+    display: flex;
+    flex-basis: 100%;
+    margin-bottom: 56px;
+    gap: 24px;
+}
+
+.organizationLink:hover {
+    color: var(--trood-orange);
+}
+
+.organizationLink {
+    display: flex;
+    height: 64px;
+    align-items: center;
+    justify-content: start;
+    padding: 0 16px;
+    flex-basis: 33%;
+    letter-spacing: -0.04em;
+    color: var(--trood-gray-dark);
+    border: 2px solid;
+    border-radius: 16px;
+}
+
+.linkContent {
+    display: flex;
+    gap: 24px;
+}
+
+.financeLink {
+    composes: organizationLink;
+}
+
+.productsLink {
+    composes: organizationLink;
+    justify-content: center;
+    color: var(--trood-orange);
+}
+
+.main {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 0 67%;
+    gap: 32px;
+    padding-top: 43px;
+    border-top: 1px solid var(--trood-border-dark);
+}
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 16px;
+}
+
+.row.additionalGap {
+    margin-top: 32px;
+}
+
+.cell {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 1 50%;
+}
+
+.cell.full {
+    flex: 1;
+}
+
+.controls {
+    margin-top: 24px;
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 56px;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 24px;
+}
+
+.contactBlock {
+    composes: row;
+    gap: 8px;
+}
+
+.split {
+    width: 1px;
+    background-color: var(--trood-border-dark);
+    margin-top: 34px;
+    margin-bottom: 9px;
+}
+
+.icon {
+    color: var(--trood-text-light-gray);
+    margin-top: 25px;
+}
+
+.icon:hover {
+    color: var(--trood-orange);
+}
+
+.add {
+    align-self: flex-start;
+}
+
+.photoRow {
+    composes: row;
+    flex-flow: row wrap;
+}
+
+.photo {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}

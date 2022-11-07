@@ -6,6 +6,26 @@ import { callApi, getFullUrl } from '../helpers/fetch'
 import { newCookie } from '../helpers/cookie'
 
 
+const normalize = obj => {
+  if (obj && typeof obj === 'object') {
+    if (Array.isArray(obj)) {
+      const array = []
+      for (let i = 0; i < obj.length; i += 1) {
+        array.push(normalize(obj[i]))
+      }
+      return array
+    } else {
+      return Object.entries(obj).reduce((memo, [key, value]) => {
+        return {
+          ...memo,
+          [key]: normalize(value),
+        }
+      }, {})
+    }
+  }
+  return obj
+}
+
 const hasErrors = errors => {
   if (errors === undefined || errors === null) return false
   if (typeof errors === 'object') {
@@ -102,14 +122,6 @@ const Form = types.model('Form', {
     let target = self
     pathArray.forEach((key, i) => {
       if (target) {
-        /*
-        if (isArrayType(getType(target))) {
-          const index =
-          const { length } = target
-
-          console.log(target.length, target, key)
-        }
-         */
         let nextTarget
         if (typeof target.get === 'function') {
           nextTarget = target.get(key, false)
@@ -119,7 +131,7 @@ const Form = types.model('Form', {
         if (!nextTarget) {
           const newPath = [...pathArray.slice(i + 1), lastKey].join('.')
           if (typeof target.set === 'function') {
-            target.set(key, set({}, newPath, value))
+            target.set(key, normalize(set({}, newPath, value)))
           } else if (isArrayType(getType(target))) {
             const index = +key
             if (Number.isNaN(index)) {
@@ -130,9 +142,9 @@ const Form = types.model('Form', {
                 target[i] = target[i] || undefined
               }
             }
-            target[key] = set({}, newPath, value)
+            target[key] = normalize(set({}, newPath, value))
           } else {
-            target[key] = set({}, newPath, value)
+            target[key] = normalize(set({}, newPath, value))
           }
         }
         target = nextTarget

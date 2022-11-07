@@ -12,6 +12,7 @@ import Select, { SELECT_TYPES, LIST_TYPES } from '../../../../components/Select'
 import Button, { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SPECIAL_TYPES } from '../../../../components/Button'
 import FileInput from '../../../../components/FileInput'
 import { getApiPath } from '../../../../helpers/fetch'
+import Link from '../../../../components/Link'
 
 
 const CONTACT_TYPES = [
@@ -70,7 +71,7 @@ const Organization = ({ host }) => {
         creator: id,
         address: {},
         company_types: [],
-        contact_set: [{ type: 'PHONE' }],
+        contact_set: [{ type: 'PHONE', tmpId: Date.now() }],
         legal_info: {},
         work_type: [],
       }
@@ -114,6 +115,34 @@ const Organization = ({ host }) => {
   return (
     <>
       <div className={styles.root}>
+        <div className={styles.navigation}>
+          <Link
+            className={styles.organizationLink}
+            href={'/profile/organization'}
+          >
+            <div className={styles.linkContent}>
+              <div>профиль организации</div>
+            </div>
+          </Link>
+          <Link
+            className={styles.financeLink}
+            href={'/profile/organization/requisites'}
+          >
+            <div className={styles.linkContent}>
+              <div>финансовая информация</div>
+              <div>{'>'}</div>
+            </div>
+          </Link>
+          <Link
+            className={styles.productsLink}
+            href={'/profile/organization/products'}
+          >
+            <div className={styles.linkContent}>
+              <div>товары</div>
+              <div>{'>'}</div>
+            </div>
+          </Link>
+        </div>
         <div className={styles.main}>
           <div className={styles.row}>
             <div className={styles.cell}>
@@ -371,7 +400,7 @@ const Organization = ({ host }) => {
                 color={BUTTON_COLORS.orange}
                 onClick={() => {
                   const contactSet = form.get('data.profile.company.contact_set') || []
-                  const newContactSet = [...contactSet, { type: 'PHONE' }]
+                  const newContactSet = [...contactSet, { type: 'PHONE', tmpId: Date.now() }]
 
                   form.set('data.profile.company.contact_set', newContactSet)
                 }}

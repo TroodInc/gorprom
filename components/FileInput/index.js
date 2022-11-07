@@ -41,12 +41,14 @@ class FileInput extends PureComponent {
       onUpload,
       endpoint,
       children,
+      className,
       ...other
     } = this.props
 
     return (
       <FileUploader
         {...other}
+        classes={[className]}
         handleChange={this.uploadFile}
       >
         {children}
