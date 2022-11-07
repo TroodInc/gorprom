@@ -14,14 +14,10 @@ const RequisitesEdit = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const router = useRouter()
   const { profile: { company } } = store.authData
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // useEffect(() => () => store.deleteFormStore(formStoreName), [])
 
-  const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
-  const fileApiPath = getApiPath(process.env.NEXT_PUBLIC_FILE_API, host)
 
-  const formStoreName = 'company'
+  const formStoreName = 'company' + company
   let formStore = store.formStore.has(formStoreName) ? store.formStore.get(formStoreName) : undefined
 
   if (!formStore) {
@@ -34,30 +30,11 @@ const RequisitesEdit = ({ host }) => {
     )
 
     if (loaded) {
-      const requisitesData = get('data.data.legal_info')
-      const requisitesAddressData = get('data.data.legal_info.legal_address')
-      const requisitesEditData = {
-        registrationDate: requisitesData.registration_date,
-        inn: requisitesData.inn,
-        kpp: requisitesData.kpp,
-        okved: requisitesData.okved,
-        capital: requisitesData.authorized_capital,
-        supervisor: requisitesData.supervisor,
-        founder: requisitesData.founder,
-        staff: requisitesData.staff,
-        revenue: requisitesData.revenue,
-        profit: requisitesData.profit,
-        address: {
-          region: requisitesAddressData.region,
-          city: requisitesAddressData.city,
-          street: requisitesAddressData.street,
-          house: requisitesAddressData.house,
-          flat: requisitesAddressData.flat,
-        },
-      }
       formStore = store.createFormStore(formStoreName, {
         form: {
-          data: requisitesEditData,
+          data: {
+            legal_info: get('data.data.legal_info'),
+          },
         },
       })
     }
@@ -105,11 +82,11 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="дата регистрации"
                   validate={{ required: true }}
-                  value={form.get('data.registrationDate')}
-                  errors={form.get('errors.registrationDate')}
-                  onChange={(value) => form.set('data.registrationDate', value)}
-                  onInvalid={(value) => form.set('errors.registrationDate', value)}
-                  onValid={() => form.set('errors.registrationDate', [])}
+                  value={form.get('data.legal_info.registration_date')}
+                  errors={form.get('errors.legal_info.registration_date')}
+                  onChange={(value) => form.set('data.legal_info.registration_date', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.registration_date', value)}
+                  onValid={() => form.set('errors.legal_info.registration_date', [])}
                 />
               </div>
             </div>
@@ -125,22 +102,22 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="регион / район"
                   validate={{ required: true }}
-                  value={form.get('data.address.region')}
-                  errors={form.get('errors.address.region')}
-                  onChange={(value) => form.set('data.address.region', value)}
-                  onInvalid={(value) => form.set('errors.address.region', value)}
-                  onValid={() => form.set('errors.address.region', [])}
+                  value={form.get('data.legal_info.legal_address.region')}
+                  errors={form.get('errors.legal_info.legal_address.region')}
+                  onChange={(value) => form.set('data.legal_info.legal_address.region', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.legal_address.region', value)}
+                  onValid={() => form.set('errors.legal_info.legal_address.region', [])}
                 />
               </div>
               <div className={styles.block}>
                 <Input
                   label="город / н.п."
                   validate={{ required: true }}
-                  value={form.get('data.address.city')}
-                  errors={form.get('errors.address.city')}
-                  onChange={(value) => form.set('data.address.city', value)}
-                  onInvalid={(value) => form.set('errors.address.city', value)}
-                  onValid={() => form.set('errors.address.city', [])}
+                  value={form.get('data.legal_info.legal_address.city')}
+                  errors={form.get('errors.legal_info.legal_address.city')}
+                  onChange={(value) => form.set('data.legal_info.legal_address.city', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.legal_address.city', value)}
+                  onValid={() => form.set('errors.legal_info.legal_address.city', [])}
                 />
               </div>
             </div>
@@ -149,22 +126,22 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="улица"
                   validate={{ required: true }}
-                  value={form.get('data.address.street')}
-                  errors={form.get('errors.address.street')}
-                  onChange={(value) => form.set('data.address.street', value)}
-                  onInvalid={(value) => form.set('errors.address.street', value)}
-                  onValid={() => form.set('errors.address.street', [])}
+                  value={form.get('data.legal_info.legal_address.street')}
+                  errors={form.get('errors.legal_info.legal_address.street')}
+                  onChange={(value) => form.set('data.legal_info.legal_address.street', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.legal_address.street', value)}
+                  onValid={() => form.set('errors.legal_info.legal_address.street', [])}
                 />
               </div>
               <div className={styles.block}>
                 <Input
                   label="дом"
                   validate={{ required: true }}
-                  value={form.get('data.address.house')}
-                  errors={form.get('errors.address.house')}
-                  onChange={(value) => form.set('data.address.house', value)}
-                  onInvalid={(value) => form.set('errors.address.house', value)}
-                  onValid={() => form.set('errors.address.house', [])}
+                  value={form.get('data.legal_info.legal_address.house')}
+                  errors={form.get('errors.legal_info.legal_address.house')}
+                  onChange={(value) => form.set('data.legal_info.legal_address.house', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.legal_address.house', value)}
+                  onValid={() => form.set('errors.legal_info.legal_address.house', [])}
                 />
               </div>
             </div>
@@ -174,11 +151,11 @@ const RequisitesEdit = ({ host }) => {
                   label="квартира"
                   type={INPUT_TYPES.number}
                   validate={{ required: true }}
-                  value={form.get('data.address.flat')}
-                  errors={form.get('errors.address.flat')}
-                  onChange={(value) => form.set('data.address.flat', value)}
-                  onInvalid={(value) => form.set('errors.address.flat', value)}
-                  onValid={() => form.set('errors.address.flat', [])}
+                  value={form.get('data.legal_info.legal_address.flat')}
+                  errors={form.get('errors.legal_info.legal_address.flat')}
+                  onChange={(value) => form.set('data.legal_info.legal_address.flat', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.legal_address.flat', value)}
+                  onValid={() => form.set('errors.legal_info.legal_address.flat', [])}
                 />
               </div>
             </div>
@@ -195,11 +172,11 @@ const RequisitesEdit = ({ host }) => {
                   label="инн"
                   type={INPUT_TYPES.number}
                   validate={{ required: true, minLen: 10, maxLen: 10 }}
-                  value={form.get('data.inn')}
-                  errors={form.get('errors.inn')}
-                  onChange={(value) => form.set('data.inn', value)}
-                  onInvalid={(value) => form.set('errors.inn', value)}
-                  onValid={() => form.set('errors.inn', [])}
+                  value={form.get('data.legal_info.inn')}
+                  errors={form.get('errors.legal_info.inn')}
+                  onChange={(value) => form.set('data.legal_info.inn', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.inn', value)}
+                  onValid={() => form.set('errors.legal_info.inn', [])}
                 />
               </div>
             </div>
@@ -208,11 +185,11 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="оквэд"
                   validate={{ required: true }}
-                  value={form.get('data.okved')}
-                  errors={form.get('errors.okved')}
-                  onChange={(value) => form.set('data.okved', value)}
-                  onInvalid={(value) => form.set('errors.okved', value)}
-                  onValid={() => form.set('errors.okved', [])}
+                  value={form.get('data.legal_info.okved')}
+                  errors={form.get('errors.legal_info.okved')}
+                  onChange={(value) => form.set('data.legal_info.okved', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.okved', value)}
+                  onValid={() => form.set('errors.legal_info.okved', [])}
                 />
               </div>
               <div className={styles.block}>
@@ -220,11 +197,11 @@ const RequisitesEdit = ({ host }) => {
                   label="кпп"
                   type={INPUT_TYPES.number}
                   validate={{ required: true, minLen: 9, maxLen: 9 }}
-                  value={form.get('data.kpp')}
-                  errors={form.get('errors.kpp')}
-                  onChange={(value) => form.set('data.kpp', value)}
-                  onInvalid={(value) => form.set('errors.kpp', value)}
-                  onValid={() => form.set('errors.kpp', [])}
+                  value={form.get('data.legal_info.kpp')}
+                  errors={form.get('errors.legal_info.kpp')}
+                  onChange={(value) => form.set('data.legal_info.kpp', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.kpp', value)}
+                  onValid={() => form.set('errors.legal_info.kpp', [])}
                 />
               </div>
             </div>
@@ -240,22 +217,22 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="руководители"
                   validate={{ required: true }}
-                  value={form.get('data.supervisor')}
-                  errors={form.get('errors.supervisor')}
-                  onChange={(value) => form.set('data.supervisor', value)}
-                  onInvalid={(value) => form.set('errors.supervisor', value)}
-                  onValid={() => form.set('errors.supervisor', [])}
+                  value={form.get('data.legal_info.supervisor')}
+                  errors={form.get('errors.legal_info.supervisor')}
+                  onChange={(value) => form.set('data.legal_info.supervisor', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.supervisor', value)}
+                  onValid={() => form.set('errors.legal_info.supervisor', [])}
                 />
               </div>
               <div className={styles.block}>
                 <Input
                   label="учредители"
                   validate={{ required: true }}
-                  value={form.get('data.founder')}
-                  errors={form.get('errors.founder')}
-                  onChange={(value) => form.set('data.founder', value)}
-                  onInvalid={(value) => form.set('errors.founder', value)}
-                  onValid={() => form.set('errors.founder', [])}
+                  value={form.get('data.legal_info.founder')}
+                  errors={form.get('errors.legal_info.founder')}
+                  onChange={(value) => form.set('data.legal_info.founder', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.founder', value)}
+                  onValid={() => form.set('errors.legal_info.founder', [])}
                 />
               </div>
             </div>
@@ -272,11 +249,11 @@ const RequisitesEdit = ({ host }) => {
                   label="уставной капитал"
                   type={INPUT_TYPES.number}
                   validate={{ required: true }}
-                  value={form.get('data.capital')}
-                  errors={form.get('errors.capital')}
-                  onChange={(value) => form.set('data.capital', value)}
-                  onInvalid={(value) => form.set('errors.capital', value)}
-                  onValid={() => form.set('errors.capital', [])}
+                  value={form.get('data.legal_info.authorized_capital')}
+                  errors={form.get('errors.legal_info.authorized_capital')}
+                  onChange={(value) => form.set('data.legal_info.authorized_capital', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.authorized_capital', value)}
+                  onValid={() => form.set('errors.legal_info.authorized_capital', [])}
                 />
               </div>
               <div className={styles.block}>
@@ -284,11 +261,11 @@ const RequisitesEdit = ({ host }) => {
                   label="среднесписочная численность"
                   type={INPUT_TYPES.number}
                   validate={{ required: true }}
-                  value={form.get('data.staff')}
-                  errors={form.get('errors.staff')}
-                  onChange={(value) => form.set('data.staff', value)}
-                  onInvalid={(value) => form.set('errors.staff', value)}
-                  onValid={() => form.set('errors.staff', [])}
+                  value={form.get('data.legal_info.staff')}
+                  errors={form.get('errors.legal_info.staff')}
+                  onChange={(value) => form.set('data.legal_info.staff', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.staff', value)}
+                  onValid={() => form.set('errors.legal_info.staff', [])}
                 />
               </div>
             </div>
@@ -298,11 +275,11 @@ const RequisitesEdit = ({ host }) => {
                   label="выручка за последний год"
                   type={INPUT_TYPES.number}
                   validate={{ required: true }}
-                  value={form.get('data.revenue')}
-                  errors={form.get('errors.revenue')}
-                  onChange={(value) => form.set('data.revenue', value)}
-                  onInvalid={(value) => form.set('errors.revenue', value)}
-                  onValid={() => form.set('errors.revenue', [])}
+                  value={form.get('data.legal_info.revenue')}
+                  errors={form.get('errors.legal_info.revenue')}
+                  onChange={(value) => form.set('data.legal_info.revenue', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.revenue', value)}
+                  onValid={() => form.set('errors.legal_info.revenue', [])}
                 />
               </div>
               <div className={styles.block}>
@@ -310,11 +287,11 @@ const RequisitesEdit = ({ host }) => {
                   label="прибыль за последний год"
                   type={INPUT_TYPES.number}
                   validate={{ required: true }}
-                  value={form.get('data.profit')}
-                  errors={form.get('errors.profit')}
-                  onChange={(value) => form.set('data.profit', value)}
-                  onInvalid={(value) => form.set('errors.profit', value)}
-                  onValid={() => form.set('errors.profit', [])}
+                  value={form.get('data.legal_info.profit')}
+                  errors={form.get('errors.legal_info.profit')}
+                  onChange={(value) => form.set('data.legal_info.profit', value)}
+                  onInvalid={(value) => form.set('errors.legal_info.profit', value)}
+                  onValid={() => form.set('errors.legal_info.profit', [])}
                 />
               </div>
             </div>
@@ -326,10 +303,8 @@ const RequisitesEdit = ({ host }) => {
           label="Сохранить изменения"
           disabled={form.hasErrors}
           onClick={() => {
-            const submit = company ? form.submit(custodianApiPath + 'company/' + company + '/', 'PATCH') :
-              form.submit(custodianApiPath + 'company/', 'POST')
-            submit.then(({ data }) => {
-              store.setAuthData(data?.data)
+            const submit = form.submit(custodianApiPath + 'company/' + company, 'PATCH')
+            submit.then(() => {
               store.deleteFormStore(formStoreName)
               router.push('/profile/organization/requisites')
             })
