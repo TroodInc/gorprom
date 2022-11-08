@@ -33,3 +33,15 @@
     url("/fonts/SuisseIntl-SemiBold.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
     url("/fonts/SuisseIntl-SemiBold.svg#SuisseIntl-SemiBold") format("svg"); /* iOS 4.1- */
 }
+
+@font-face {
+    font-family: "Aeroport";
+    font-weight: 400;
+    font-style: normal;
+    src: url("/fonts/Aeroport.eot"); /* IE9*/
+    src: url("/fonts/Aeroport.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("/fonts/Aeroport.woff2") format("woff2"), /* chrome、firefox */
+    url("/fonts/Aeroport.woff") format("woff"), /* chrome、firefox */
+    url("/fonts/Aeroport.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url("/fonts/Aeroport.svg#SuisseIntl-SemiBold") format("svg"); /* iOS 4.1- */
+}
