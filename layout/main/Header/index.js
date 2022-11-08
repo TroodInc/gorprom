@@ -29,17 +29,17 @@ const Header = ({
           <Image
             alt="Горпром"
             src="/image/logoDark.svg"
-            width={500}
-            height={96}
+            width={312}
+            height={58}
           />
         </Link>
         <div className={styles.menu}>
           {[
             { link: '/market', label: 'Маркетплейс' },
-            { link: '/association', label: 'Ассоциация' },
-            { link: '/niokr', label: 'НИОКР' },
-            { link: '/education', label: 'Обучение' },
             { link: '/job', label: 'Биржа труда' },
+            { link: '/analytics', label: 'Аналитика' },
+            { link: '/education', label: 'Образование и научная работа' },
+            { link: '/association', label: 'Ассоциация' },
           ].map(({ link, label }) => (
             <Link
               key={link}
@@ -53,19 +53,19 @@ const Header = ({
           ))}
         </div>
         <div className={styles.buttons}>
-          <Icon size={72} type={ICONS_TYPES.search} className={styles.button} />
+          <Icon size={44} type={ICONS_TYPES.search} className={styles.button} />
           {authPage && (
             <Link
               href="/"
               hideIfNotAllowed
               onClick={store.clearAuthData}
             >
-              <Icon size={72} type={ICONS_TYPES.close} className={styles.button} />
+              <Icon size={44} type={ICONS_TYPES.close} className={styles.button} />
             </Link>
           )}
           {!authPage && (
             <HiddenContent
-              control={(<Icon size={72} type={ICONS_TYPES.user} className={styles.button} />)}
+              control={(<Icon size={44} type={ICONS_TYPES.user} className={styles.button} />)}
             >
               <div className={styles.userMenu}>
                 {[
@@ -82,6 +82,7 @@ const Header = ({
                       href={link}
                       hideIfNotAllowed
                       onClick={action}
+                      activeClassName={styles.active}
                       {...other}
                     >
                       {label}

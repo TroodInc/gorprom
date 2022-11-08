@@ -8,27 +8,48 @@
 
 .container {
     display: flex;
+    height: 110px;
     flex-flow: row nowrap;
-    gap: 30px;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     border: 1px solid var(--trood-border-dark);
     border-right: none;
     border-left: none;
-    padding: 28px 0 32px;
+    padding: 28px 0 24px;
 }
 
 .logo {
-    flex: 0 0 500px;
+    flex: 0 0 312px;
+    margin-right: 14px;
 }
 
 .menu {
     display: flex;
+    height: inherit;
     flex-flow: row wrap;
-    gap: 16px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 24px;
+    gap: 24px;
     flex: 1 1 100%;
-    text-transform: lowercase;
     letter-spacing: -0.035em;
+}
+
+.link {
+    height: fit-content;
+    order: 1;
+    font-size: 18px;
+    line-height: 100%;
+}
+
+.link.active {
+    margin-right: auto;
+    margin-top: 23px;
+    align-self: flex-start;
+    order: 0;
+    font-family: Aeroport, sans-serif;
+    font-size: 22px;
+    text-transform: lowercase;
 }
 
 .link:hover,
@@ -40,8 +61,7 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    width: 150px;
-    flex: 0 0 150px;
+    flex: 0 0 92px;
 }
 
 .button {
