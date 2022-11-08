@@ -14,16 +14,20 @@ const formStoreName = 'search'
 const MarketLayout = ({ children }) => {
   const { store } = useContext(MobXProviderContext)
   const router = useRouter()
+  const { pathname, query: { type, search, from } } = router
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => () => store.deleteFormStore(formStoreName), [])
-  const { pathname, query } = router
+  useEffect(() => {
+    if (!search) { store.deleteFormStore(formStoreName) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search])
   const formStore = store.createFormStore(
     formStoreName,
     {
       form: {
         data: {
-          type: query?.type || 'ALL',
-          search: query?.search,
+          type: type || 'ALL',
+          search: search,
         },
       },
     },
@@ -59,7 +63,7 @@ const MarketLayout = ({ children }) => {
             form.get('data.type')
           }&search=${
             form.get('data.search')
-          }&from=${query?.from || pathname}`}
+          }&from=${from || pathname}`}
         />
       </div>
       <div className={styles.header}>
