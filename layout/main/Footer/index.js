@@ -93,7 +93,7 @@ const Footer = () => {
       </div>
       <div className={styles.bottom}>
         <div className={styles.copy}>
-          &copy;&nbsp;2022 Ассоциация &laquo;НП&nbsp;&laquo;Горнопромышленники России&raquo;
+          &copy;&nbsp;{new Date().getFullYear()} Ассоциация &laquo;НП&nbsp;&laquo;Горнопромышленники России&raquo;
         </div>
         <Link href={'/personal'} className={styles.bottomLink}>
           Политика обработки персональных данных
