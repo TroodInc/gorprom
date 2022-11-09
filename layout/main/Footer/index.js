@@ -3,45 +3,54 @@ import Link from '../../../components/Link'
 import Icon, { ICONS_TYPES } from '../../../components/Icon'
 
 import styles from './index.module.css'
+import Button, { BUTTON_COLORS, BUTTON_TYPES } from '../../../components/Button'
 
 
 const Footer = () => {
   return (
     <footer className={styles.root}>
-      <Link
-        className={styles.logo}
-        href="/"
-        hideIfNotAllowed
-      >
+      <div className={styles.top}>
+        <Link
+          className={styles.logo}
+          href="/"
+          hideIfNotAllowed
+        >
+          <Image
+            alt="Горпром"
+            src="/image/logoLight.svg"
+            width={280}
+            height={52}
+          />
+        </Link>
         <Image
-          alt="Горпром"
-          src="/image/logoLight.svg"
-          width={280}
-          height={52}
+          alt="Горнопромышленники России"
+          src="/image/logoFooter.svg"
+          width={78}
+          height={78}
         />
-      </Link>
+      </div>
       <div className={styles.main}>
         <div className={styles.mainLeft}>
-          <div className={styles.address}>
-            Plot No 82, Institutional Area,
-            Sector 32, Москва, Россия 122001
-          </div>
-          <a href="mailto: gor@prom.com" className={styles.email}>
-            gor@prom.com
-          </a>
+          <div className={styles.phoneLabel}>техническая поддержка</div>
           <a href="tel: +79284332233" className={styles.phone}>
             +7 928 433 2233
           </a>
+          <Button
+            className={styles.registrationBtn}
+            label="Зарегистрироваться"
+            type={BUTTON_TYPES.fill}
+            link={'/registration'}
+          />
         </div>
         <div className={styles.mainRight}>
           <div className={styles.block}>
-            <div className={styles.blockTitle}>О нас</div>
+            <div className={styles.blockTitle}>О платформе</div>
             <div className={styles.links}>
               {[
-                { link: '/about/platform', label: 'Платформа' },
-                { link: '/about/history', label: 'История' },
-                { link: '/about/mission', label: 'Миссия' },
-                { link: '/about/contacts', label: 'Контакты' },
+                { link: '/market', label: 'Маркетплейс' },
+                { link: '/job', label: 'Биржа труда' },
+                { link: '/analytics', label: 'Аналитика' },
+                { link: '/education', label: 'Образование и научная работа' },
               ].map(({ link, label }) => (
                 <Link
                   key={link}
@@ -54,14 +63,13 @@ const Footer = () => {
             </div>
           </div>
           <div className={styles.block}>
-            <div className={styles.blockTitle}>Маркетплейс</div>
+            <div className={styles.blockTitle}>Об Ассоциации</div>
             <div className={styles.links}>
               {[
-                { link: '/market/brands', label: 'Бренды' },
-                { link: '/market/equipment', label: 'Оборудование' },
-                { link: '/market/terms', label: 'Пользовательское соглашение' },
-                { link: '/market/pricing', label: 'Ценообразование' },
-                { link: '/market/licensing', label: 'Лицензирование' },
+                { link: '/association/activity', label: 'Деятельность' },
+                { link: '/association/events', label: 'Мероприятия' },
+                { link: '/association/news', label: 'Новости' },
+                { link: '/association/contacts', label: 'Контакты' },
               ].map(({ link, label }) => (
                 <Link
                   key={link}
@@ -71,22 +79,28 @@ const Footer = () => {
                   {label}
                 </Link>
               ))}
+              <div className={styles.socials}>
+                <Link href="https://vk.com">
+                  <Icon size={44} type={ICONS_TYPES.vk} className={styles.socialLink} />
+                </Link>
+                <Link href="https://t.me">
+                  <Icon size={44} type={ICONS_TYPES.tg} className={styles.socialLink} />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div className={styles.bottom}>
-        <div className={styles.bottomLeft}>
-          <Link href="https://vk.com">
-            <Icon size={72} type={ICONS_TYPES.vk} className={styles.button} />
-          </Link>
-          <Link href="https://t.me">
-            <Icon size={72} type={ICONS_TYPES.tg} className={styles.button} />
-          </Link>
+        <div className={styles.copy}>
+          &copy;&nbsp;{new Date().getFullYear()} Ассоциация &laquo;НП&nbsp;&laquo;Горнопромышленники России&raquo;
         </div>
-        <div className={styles.bottomRight}>
-          Copyright © {new Date().getFullYear()} Gorprom
-        </div>
+        <Link href={'/personal'} className={styles.bottomLink}>
+          Политика обработки персональных данных
+        </Link>
+        <Link href={'/agreement'} className={styles.bottomLink}>
+          Пользовательское соглашение
+        </Link>
       </div>
     </footer>
   )
