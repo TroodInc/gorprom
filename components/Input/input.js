@@ -17,7 +17,6 @@ import {
 } from './constants'
 
 import Icon, { ICONS_TYPES } from '../Icon'
-import Label from '../Label'
 
 import styles from './index.module.css'
 
@@ -516,51 +515,41 @@ class Input extends PureComponent {
       switch (type) {
         case INPUT_TYPES.multi:
           return (
-            <textarea {...{
-              className: classNames(styles.textarea, disabled && styles.disabled),
-              style: {
+            <textarea
+              {...inputProps}
+              className={classNames(styles.textarea, disabled && styles.disabled)}
+              style={{
                 lineHeight: `${ROW_HEIGHT}px`,
                 height,
-              },
-              ...inputProps,
-            }} />
+              }}
+            />
           )
         case INPUT_TYPES.password:
           return (
             <>
               <input
-                {...{
-                  type: this.state.isPasswordShown
-                    ? INNER_INPUT_TYPES.text
-                    : INNER_INPUT_TYPES.password,
-                  className: classNames(
-                    styles.input,
-                    styles.password,
-                    disabled && styles.disabled
-                  ),
-                  ...inputProps,
-                }}
+                {...inputProps}
+                type={this.state.isPasswordShown ? INNER_INPUT_TYPES.text : INNER_INPUT_TYPES.password}
+                className={classNames(
+                  styles.input,
+                  disabled && styles.disabled
+                )}
               />
-              <button className={styles.btn} onClick={this.changePasswordVisibility}>
-                <Icon
-                  {...{
-                    className: styles.passwordEye,
-                    type: this.state.isPasswordShown
-                      ? ICONS_TYPES.eyeClose
-                      : ICONS_TYPES.eyeOpen,
-                    size: 28,
-                  }}
-                />
-              </button>
+              <Icon
+                className={styles.passwordEye}
+                type={this.state.isPasswordShown ? ICONS_TYPES.eyeClose : ICONS_TYPES.eyeOpen}
+                size={28}
+                onClick={this.changePasswordVisibility}
+              />
             </>
           )
         default:
           return (
-            <input {...{
-              type: INNER_INPUT_TYPES[type],
-              className: classNames(styles.input, disabled && styles.disabled),
-              ...inputProps,
-            }} />
+            <input
+              {...inputProps}
+              type={INNER_INPUT_TYPES[type]}
+              className={classNames(styles.input, disabled && styles.disabled)}
+            />
           )
       }
     }

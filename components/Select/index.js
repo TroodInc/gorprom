@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import deepEqual from 'deep-equal'
 
 import { ICONS_TYPES } from '../Icon'
-import Label from '../Label'
 
 import { SELECT_TYPES } from './constants'
 
@@ -153,13 +152,15 @@ class TSelect extends PureComponent {
     super(props)
 
     this.state = {
-      wasBlured: true,
+      wasBlured: false,
+      wasFocused: false,
     }
 
     this.lastValid = true
 
     this.handleValidate = this.handleValidate.bind(this)
     this.toggleBlur = this.toggleBlur.bind(this)
+    this.toggleFocus = this.toggleFocus.bind(this)
     this.getSelectComponent = this.getSelectComponent.bind(this)
   }
 
@@ -194,8 +195,14 @@ class TSelect extends PureComponent {
       type: listType,
       clearable: clearable === undefined ? multi : clearable,
       errors,
-      onBlur: this.toggleBlur,
-      onFocus: () => this.toggleBlur(false),
+      onBlur: () => {
+        this.toggleBlur()
+        this.toggleFocus(false)
+      },
+      onFocus: () => {
+        this.toggleFocus(true)
+        this.toggleBlur(false)
+      },
     }
 
     switch (type) {
@@ -260,7 +267,11 @@ class TSelect extends PureComponent {
   }
 
   toggleBlur(wasBlured = true) {
-    this.setState({ wasBlured })
+    this.setState({ wasBlured: wasBlured })
+  }
+
+  toggleFocus(wasFocused) {
+    this.setState({ wasFocused: wasFocused })
   }
 
   render() {
@@ -281,7 +292,7 @@ class TSelect extends PureComponent {
       <div className={classNames(className, styles.root)}>
         {
           !!label &&
-            <span className={classNames(labelClassName, styles.label, { [styles.active]: !this.state.wasBlured })}>
+            <span className={classNames(labelClassName, styles.label, { [styles.active]: this.state.wasFocused })}>
               {label}
             </span>
         }

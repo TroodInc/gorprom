@@ -187,14 +187,16 @@ class DropDown extends PureComponent {
     const { open, innerSearch } = this.state
     if (open && showSearch) {
       return (
-        <Input {...{
-          'data-cy': `${label}_search`,
-          inputClassName: styles.search,
-          autoFocus: true,
-          value: innerSearch,
-          onSearch: this.handleSearch,
-          onChange: this.handleChangeSearchValue,
-        }} />
+        <Input
+          {...{
+            'data-cy': `${label}_search`,
+          }}
+          inputClassName={styles.search}
+          autoFocus={true}
+          value={innerSearch}
+          onSearch={this.handleSearch}
+          onChange={this.handleChangeSearchValue}
+        />
       )
     }
     if (!values.length && placeholder) return placeholder
@@ -251,18 +253,20 @@ class DropDown extends PureComponent {
 
     return (
       <ClickOutside onClick={() => this.toggleOpen(false)}>
-        <div {...{
-          tabIndex: disabled ? -1 : tabIndex,
-          style: mainSelectContainerStyle,
-          className: classNames(
+        <div
+          tabIndex={disabled ? -1 : tabIndex}
+          style={mainSelectContainerStyle}
+          className={classNames(
             controlClassName,
             styles.root,
             errors.length && styles.error,
             disabled && styles.disabled,
             open && styles.open,
-          ),
-          onKeyDown: this.handleKeyDown,
-        }}>
+          )}
+          onKeyDown={this.handleKeyDown}
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
+        >
           <span {...{
             className: styles.content,
             onClick: showSearch && open ? undefined : () => this.toggleOpen(),
@@ -273,32 +277,25 @@ class DropDown extends PureComponent {
             </span>
           </span>
           <Icon
-            svgNodes={
-              <path
-                d="M16 9H12.1677L7.98403 2.97675L3.8004 9H0L6.38723 0L9.58084 0L16 9Z"
-                className={styles.arrow}
-              />
-            }
-            svgViewBox={[16, 9]}
-            {...{
-              size: 16,
-              // type: ICONS_TYPES.arrow,
-              rotate: open ? ROTATE_TYPES.up : ROTATE_TYPES.down,
-              onClick: () => this.toggleOpen(),
-              ...iconProps,
-              className: classNames(styles.control, iconProps.className),
-            }} />
+            size={16}
+            type={ICONS_TYPES.triangleArrow}
+            rotate={open ? ROTATE_TYPES.down : ROTATE_TYPES.up}
+            onClick={() => this.toggleOpen()}
+            className={classNames(styles.control, iconProps.className)}
+            {...iconProps}
+          />
           <div className={classNames(styles.optionsContainer, openUp && styles.openUp, !open && styles.hide)}>
             <List {...{
               ...this.props,
               focusedItem,
-              show: open,
               type,
               items,
-              onChange: this.handleChange,
-              className: styles.list,
-              itemClassName: styles.listItem,
-            }} />
+            }}
+            show={open}
+            onChange={this.handleChange}
+            className={styles.list}
+            itemClassName={styles.listItem}
+            />
             {
               !!children &&
               <div className={styles.children}>

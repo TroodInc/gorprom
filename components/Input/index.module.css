@@ -1,6 +1,6 @@
 .root {
   position: relative;
-  border: 1px solid var(--trood-text-light-gray);
+  border: 1px solid var(--trood-border-light-gray);
   border-radius: var(--trood-input-border-radius);
   background-color: var(--trood-white);
   display: flex;
@@ -41,6 +41,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.passwordEye {
+  margin-right: 14px;
 }
 
 .passwordEye svg path {

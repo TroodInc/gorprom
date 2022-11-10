@@ -8,7 +8,7 @@
   cursor: pointer;
   height: 72px;
   max-height: 100%;
-  border: 1px solid var(--trood-text-light-gray);
+  border: 1px solid var(--trood-border-light-gray);
   background-color: var(--trood-white);
   border-radius: var(--trood-input-border-radius);
 }
@@ -18,7 +18,7 @@
   outline: none;
 }
 
-.root:focus .arrow {
+.root:focus .control path {
   fill: var(--trood-orange);
 }
 
@@ -26,7 +26,7 @@
   border-color: var(--trood-orange);
 }
 
-.root.open .arrow {
+.root.open .control path {
   fill: var(--trood-orange);
 }
 
@@ -48,7 +48,7 @@
 .control {
   height: 100%;
   color: var(--trood-text);
-  margin-right: 16px;
+  padding-right: 16px;
 }
 
 .placeholder,
@@ -111,10 +111,6 @@
   text-transform: none;
   padding: 0 10px;
   justify-content: flex-start;
-}
-
-.arrow {
-  fill: var(--trood-gray-dark);
 }
 
 .list {
