@@ -33,9 +33,10 @@
   overflow: hidden;
 }
 
-.item:hover,
-.itemHover {
-  color: var(--trood-orange);
+.itemHover,
+.itemWrapper:hover {
+  color: var(--trood-text-white);
+  background-color: var(--trood-background-dark);
 }
 
 .itemSelected {

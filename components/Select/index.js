@@ -153,7 +153,7 @@ class TSelect extends PureComponent {
     super(props)
 
     this.state = {
-      wasBlured: false,
+      wasBlured: true,
     }
 
     this.lastValid = true
@@ -281,11 +281,9 @@ class TSelect extends PureComponent {
       <div className={classNames(className, styles.root)}>
         {
           !!label &&
-          <Label {...{
-            className: classNames(labelClassName, styles.label),
-            required: validate.required,
-            label,
-          }} />
+            <span className={classNames(labelClassName, styles.label, { [styles.active]: !this.state.wasBlured })}>
+              {label}
+            </span>
         }
         {this.getSelectComponent(currentErrors)}
         {

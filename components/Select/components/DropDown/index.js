@@ -272,14 +272,22 @@ class DropDown extends PureComponent {
               {this.renderDisplayValue()}
             </span>
           </span>
-          <Icon {...{
-            size: 8,
-            type: ICONS_TYPES.triangleArrow,
-            rotate: open ? ROTATE_TYPES.up : ROTATE_TYPES.down,
-            onClick: () => this.toggleOpen(),
-            ...iconProps,
-            className: classNames(styles.control, iconProps.className),
-          }} />
+          <Icon
+            svgNodes={
+              <path
+                d="M16 9H12.1677L7.98403 2.97675L3.8004 9H0L6.38723 0L9.58084 0L16 9Z"
+                className={styles.arrow}
+              />
+            }
+            svgViewBox={[16, 9]}
+            {...{
+              size: 16,
+              // type: ICONS_TYPES.arrow,
+              rotate: open ? ROTATE_TYPES.up : ROTATE_TYPES.down,
+              onClick: () => this.toggleOpen(),
+              ...iconProps,
+              className: classNames(styles.control, iconProps.className),
+            }} />
           <div className={classNames(styles.optionsContainer, openUp && styles.openUp, !open && styles.hide)}>
             <List {...{
               ...this.props,
@@ -288,6 +296,8 @@ class DropDown extends PureComponent {
               type,
               items,
               onChange: this.handleChange,
+              className: styles.list,
+              itemClassName: styles.listItem,
             }} />
             {
               !!children &&
