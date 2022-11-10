@@ -160,8 +160,8 @@ class Input extends PureComponent {
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
 
-    this.throttledOnChangeEvent = throttle(this.props.onChange, DISPATCH_DEBOUNCE)
-    this.debouncedOnSearchEvent = debounce(this.props.onSearch, SEARCH_DEBOUNCE)
+    this.throttledOnChangeEvent = throttle((...args) => this.props.onChange(...args), DISPATCH_DEBOUNCE)
+    this.debouncedOnSearchEvent = debounce((...args) => this.props.onSearch(...args), SEARCH_DEBOUNCE)
   }
 
   componentDidMount() {
@@ -231,11 +231,11 @@ class Input extends PureComponent {
     }
 
     if (maxLen && value.length > maxLen) {
-      errors.push(`Максимальная длинна: ${maxLen}`)
+      errors.push(`Максимальная длина: ${maxLen}`)
     }
 
     if (minLen && (required || value.length > 0) && value.length < minLen) {
-      errors.push(`Минимальная длинна: ${minLen}`)
+      errors.push(`Минимальная длина: ${minLen}`)
     }
 
     return errors
@@ -368,7 +368,10 @@ class Input extends PureComponent {
       const { getValue } = this.props.settings
       const value = getValue(this.state.formattedValue)
       this.handleBlur()
-      this.props.onEnter()
+      if (this.props.onEnter) {
+        e.preventDefault()
+        this.props.onEnter()
+      }
       this.props.onSearch(value)
     }
   }
