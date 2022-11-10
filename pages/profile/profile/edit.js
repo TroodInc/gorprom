@@ -121,7 +121,7 @@ const Profile = ({ host }) => {
             validate={{ required: true }}
             onChange={(value) => {
               form.set('data.login', value)
-              form.set('data.profile.name', value)
+              form.set('data.profile.mail', value)
             }}
             onInvalid={(value) => form.set('errors.login', value)}
             onValid={() => form.set('errors.login', [])}
