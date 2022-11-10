@@ -27,7 +27,7 @@ const CreateCompany = () => {
         type={INPUT_TYPES.text}
         value={form.get('data.name')}
         errors={form.get('errors.name')}
-        validate={{ required: true }}
+        validate={{ required: true, checkOnBlur: true }}
         onChange={(value) => form.set('data.name', value)}
         onInvalid={(value) => form.set('errors.name', value)}
         onValid={() => form.set('errors.name', [])}
@@ -39,7 +39,6 @@ const CreateCompany = () => {
         minRows={8}
         value={form.get('data.product.description')}
         errors={form.get('errors.product.description')}
-        validate={{ required: false }}
         onChange={(value) => form.set('data.product.description', value)}
         onInvalid={(value) => form.set('errors.product.description', value)}
         onValid={() => form.set('errors.product.description', [])}
@@ -52,7 +51,7 @@ const CreateCompany = () => {
         type={INPUT_TYPES.email}
         value={form.get('data.contact_set[0].value')}
         errors={form.get('errors.contact_set[0].value')}
-        validate={{ required: true }}
+        validate={{ required: true, checkOnBlur: true }}
         onChange={(value) => {
           form.set('data.contact_set[0].value', value)
           form.set('data.contact_set[0].type.name', 'email')
@@ -66,7 +65,7 @@ const CreateCompany = () => {
         type={INPUT_TYPES.phone}
         value={form.get('data.phone')}
         errors={form.get('errors.phone')}
-        validate={{ required: true }}
+        validate={{ required: true, checkOnBlur: true }}
         onChange={(value) => form.set('data.phone', value)}
         onInvalid={(value) => form.set('errors.phone', value)}
         onValid={() => form.set('errors.phone', [])}
@@ -77,7 +76,7 @@ const CreateCompany = () => {
         type={INPUT_TYPES.url}
         value={form.get('data.website')}
         errors={form.get('errors.website')}
-        validate={{ required: true }}
+        validate={{ required: true, checkOnBlur: true }}
         onChange={(value) => form.set('data.website', value)}
         onInvalid={(value) => form.set('errors.website', value)}
         onValid={() => form.set('errors.website', [])}

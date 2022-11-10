@@ -170,7 +170,7 @@ const Organization = ({ host }) => {
             <div className={styles.cell}>
               <Input
                 label="Название"
-                validate={{ required: true }}
+                validate={{ required: true, checkOnBlur: true }}
                 value={form.get('data.profile.company.name')}
                 errors={form.get('errors.profile.company.name')}
                 onChange={(value) => form.set('data.profile.company.name', value)}
@@ -341,7 +341,7 @@ const Organization = ({ host }) => {
                   className={styles.contact}
                   type={INPUT_TYPES.phoneWithExt}
                   label="Номер телефона"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get(`data.profile.company.contact_set.${i}.value`)}
                   errors={form.get(`errors.profile.company.contact_set.${i}.value`)}
                   onChange={(value) => form.set(`data.profile.company.contact_set.${i}.value`, value)}

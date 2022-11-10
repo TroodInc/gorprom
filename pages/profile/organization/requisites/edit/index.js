@@ -81,7 +81,7 @@ const RequisitesEdit = ({ host }) => {
               <div className={styles.block}>
                 <Input
                   label="дата регистрации"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.registration_date')}
                   errors={form.get('errors.legal_info.registration_date')}
                   onChange={(value) => form.set('data.legal_info.registration_date', value)}
@@ -101,7 +101,7 @@ const RequisitesEdit = ({ host }) => {
               <div className={styles.block}>
                 <Input
                   label="регион / район"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.legal_address.region')}
                   errors={form.get('errors.legal_info.legal_address.region')}
                   onChange={(value) => form.set('data.legal_info.legal_address.region', value)}
@@ -112,7 +112,7 @@ const RequisitesEdit = ({ host }) => {
               <div className={styles.block}>
                 <Input
                   label="город / н.п."
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.legal_address.city')}
                   errors={form.get('errors.legal_info.legal_address.city')}
                   onChange={(value) => form.set('data.legal_info.legal_address.city', value)}
@@ -125,7 +125,7 @@ const RequisitesEdit = ({ host }) => {
               <div className={styles.block}>
                 <Input
                   label="улица"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.legal_address.street')}
                   errors={form.get('errors.legal_info.legal_address.street')}
                   onChange={(value) => form.set('data.legal_info.legal_address.street', value)}
@@ -136,7 +136,7 @@ const RequisitesEdit = ({ host }) => {
               <div className={styles.block}>
                 <Input
                   label="дом"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.legal_address.house')}
                   errors={form.get('errors.legal_info.legal_address.house')}
                   onChange={(value) => form.set('data.legal_info.legal_address.house', value)}
@@ -150,7 +150,7 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="квартира"
                   type={INPUT_TYPES.number}
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.legal_address.flat')}
                   errors={form.get('errors.legal_info.legal_address.flat')}
                   onChange={(value) => form.set('data.legal_info.legal_address.flat', value)}
@@ -171,7 +171,7 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="инн"
                   type={INPUT_TYPES.number}
-                  validate={{ required: true, minLen: 10, maxLen: 10 }}
+                  validate={{ required: true, checkOnBlur: true, minLen: 10, maxLen: 10 }}
                   value={form.get('data.legal_info.inn')}
                   errors={form.get('errors.legal_info.inn')}
                   onChange={(value) => form.set('data.legal_info.inn', value)}
@@ -184,7 +184,7 @@ const RequisitesEdit = ({ host }) => {
               <div className={styles.block}>
                 <Input
                   label="оквэд"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.okved')}
                   errors={form.get('errors.legal_info.okved')}
                   onChange={(value) => form.set('data.legal_info.okved', value)}
@@ -196,7 +196,7 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="кпп"
                   type={INPUT_TYPES.number}
-                  validate={{ required: true, minLen: 9, maxLen: 9 }}
+                  validate={{ required: true, checkOnBlur: true, minLen: 9, maxLen: 9 }}
                   value={form.get('data.legal_info.kpp')}
                   errors={form.get('errors.legal_info.kpp')}
                   onChange={(value) => form.set('data.legal_info.kpp', value)}
@@ -216,7 +216,7 @@ const RequisitesEdit = ({ host }) => {
               <div className={styles.block}>
                 <Input
                   label="руководители"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.supervisor')}
                   errors={form.get('errors.legal_info.supervisor')}
                   onChange={(value) => form.set('data.legal_info.supervisor', value)}
@@ -227,7 +227,7 @@ const RequisitesEdit = ({ host }) => {
               <div className={styles.block}>
                 <Input
                   label="учредители"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.founder')}
                   errors={form.get('errors.legal_info.founder')}
                   onChange={(value) => form.set('data.legal_info.founder', value)}
@@ -248,7 +248,7 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="уставной капитал"
                   type={INPUT_TYPES.number}
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.authorized_capital')}
                   errors={form.get('errors.legal_info.authorized_capital')}
                   onChange={(value) => form.set('data.legal_info.authorized_capital', value)}
@@ -260,7 +260,7 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="среднесписочная численность"
                   type={INPUT_TYPES.number}
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.staff')}
                   errors={form.get('errors.legal_info.staff')}
                   onChange={(value) => form.set('data.legal_info.staff', value)}
@@ -274,7 +274,7 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="выручка за последний год"
                   type={INPUT_TYPES.number}
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.revenue')}
                   errors={form.get('errors.legal_info.revenue')}
                   onChange={(value) => form.set('data.legal_info.revenue', value)}
@@ -286,7 +286,7 @@ const RequisitesEdit = ({ host }) => {
                 <Input
                   label="прибыль за последний год"
                   type={INPUT_TYPES.number}
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get('data.legal_info.profit')}
                   errors={form.get('errors.legal_info.profit')}
                   onChange={(value) => form.set('data.legal_info.profit', value)}

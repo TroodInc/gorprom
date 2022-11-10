@@ -118,7 +118,7 @@ const Profile = ({ host }) => {
             type={INPUT_TYPES.email}
             value={form.get('data.login')}
             errors={form.get('errors.login')}
-            validate={{ required: true }}
+            validate={{ required: true, checkOnBlur: true }}
             onChange={(value) => {
               form.set('data.login', value)
               form.set('data.profile.mail', value)

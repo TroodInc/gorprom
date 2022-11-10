@@ -79,7 +79,7 @@ const Registration = ({ host }) => {
                 type={INPUT_TYPES.email}
                 value={form.get('data.login')}
                 errors={form.get('errors.login')}
-                validate={{ required: true }}
+                validate={{ required: true, checkOnBlur: true }}
                 onChange={(value) => {
                   form.set('data.login', value)
                   form.set('data.profile.mail', value)
@@ -93,7 +93,7 @@ const Registration = ({ host }) => {
                 type={INPUT_TYPES.password}
                 value={form.get('data.password')}
                 errors={form.get('errors.password')}
-                validate={{ required: true }}
+                validate={{ required: true, checkOnBlur: true }}
                 onChange={(value) => form.set('data.password', value)}
                 onInvalid={(value) => form.set('errors.password', value)}
                 onValid={() => form.set('errors.password', [])}

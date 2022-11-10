@@ -88,7 +88,7 @@ const ProductEdit = ({ host }) => {
             <div className={styles.cell}>
               <Input
                 label="Название"
-                validate={{ required: true }}
+                validate={{ required: true, checkOnBlur: true }}
                 value={form.get('data.name')}
                 errors={form.get('errors.name')}
                 onChange={(value) => form.set('data.name', value)}
@@ -174,7 +174,7 @@ const ProductEdit = ({ host }) => {
                 <Input
                   label="Название параметра"
                   placeholder="Вес, кг"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get(`data.attribute_set.${i}.name`)}
                   errors={form.get(`errors.attribute_set.${i}.name`)}
                   onChange={(value) => form.set(`data.attribute_set.${i}.name`, value)}
@@ -187,7 +187,7 @@ const ProductEdit = ({ host }) => {
                 <Input
                   label="Значение"
                   placeholder="10"
-                  validate={{ required: true }}
+                  validate={{ required: true, checkOnBlur: true }}
                   value={form.get(`data.attribute_set.${i}.value`)}
                   errors={form.get(`errors.attribute_set.${i}.value`)}
                   onChange={(value) => form.set(`data.attribute_set.${i}.value`, value)}
