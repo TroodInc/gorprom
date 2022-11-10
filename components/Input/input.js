@@ -146,6 +146,7 @@ class Input extends PureComponent {
     this.state = {
       formattedValue: formatValue(value.toString()),
       height: props.minRows * ROW_HEIGHT,
+      isPasswordShown: false,
     }
 
     this.heightChange = this.heightChange.bind(this)
@@ -435,6 +436,21 @@ class Input extends PureComponent {
     this.props.onBlur()
   }
 
+  changePasswordVisibility = () => {
+    this.setState(({ isPasswordShown }) => ({
+      isPasswordShown: !isPasswordShown,
+    }))
+
+    if (this.timer && this.state.isPasswordShown) {
+      clearTimeout(this.timer)
+      this.timer = null
+    } else {
+      this.timer = setTimeout(() => {
+        this.setState({ isPasswordShown: false })
+      }, 15000)
+    }
+  }
+
   render() {
     const {
       className,
@@ -509,6 +525,35 @@ class Input extends PureComponent {
               ...inputProps,
             }} />
           )
+        case INPUT_TYPES.password:
+          return (
+            <>
+              <input
+                {...{
+                  type: this.state.isPasswordShown
+                    ? INNER_INPUT_TYPES.text
+                    : INNER_INPUT_TYPES.password,
+                  className: classNames(
+                    styles.input,
+                    styles.password,
+                    disabled && styles.disabled
+                  ),
+                  ...inputProps,
+                }}
+              />
+              <button className={styles.btn} onClick={this.changePasswordVisibility}>
+                <Icon
+                  {...{
+                    className: styles.passwordEye,
+                    type: this.state.isPasswordShown
+                      ? ICONS_TYPES.eyeClose
+                      : ICONS_TYPES.eyeOpen,
+                    size: 28,
+                  }}
+                />
+              </button>
+            </>
+          )
         default:
           return (
             <input {...{
@@ -527,11 +572,9 @@ class Input extends PureComponent {
       )}>
         {
           label &&
-          <Label {...{
-            className: classNames(labelClassName, styles.label),
-            required,
-            label,
-          }} />
+            <span className={classNames(labelClassName, styles.label, { [styles.active]: active })}>
+              {label}
+            </span>
         }
         <div className={classNames(
           styles.root,

@@ -1,17 +1,21 @@
 .root {
   position: relative;
-  border: 1px solid var(--trood-border-dark);
+  border: 1px solid var(--trood-text-light-gray);
   border-radius: var(--trood-input-border-radius);
   background-color: var(--trood-white);
   display: flex;
   align-items: stretch;
-  min-height: 38px;
-  padding: 8px 10px;
+  height: 72px;
+  margin-top: 6px;
+  padding: 8px 8px 8px 16px;
 }
 
 .root.active {
   border-color: var(--trood-orange);
-  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
+}
+
+.label.active {
+  color: var(--trood-orange)
 }
 
 .error {
@@ -20,11 +24,16 @@
 
 .active {
   border: 1px solid var(--trood-orange);
-  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: none;
 }
 
 .label {
-  margin-bottom: 10px;
+  margin-left: 16px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  color: var(--trood-text-light-gray);
+  border: none;
 }
 
 .phoneCode {
@@ -32,6 +41,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.passwordEye svg path {
+  fill: var(--trood-text-light-gray);
+  fill-opacity: 0.4;
 }
 
 .input {
@@ -70,21 +84,19 @@
   color: var(--trood-text-light-gray);
 }
 
-.shadow {
-  composes: input;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  position: absolute;
-}
-
 .errorText {
   margin-top: 5px;
   color: var(--trood-red);
-  font-size: 12px;
+  font-size: 18px;
 }
 
 .colorRepresentation {
   width: 40px;
   height: 40px;
+}
+
+.btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
