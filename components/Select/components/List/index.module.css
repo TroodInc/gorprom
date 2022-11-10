@@ -6,14 +6,11 @@
   width: 100%;
 }
 
-.root.listRoot {
-  border-top: 1px solid var(--trood-border-dark);
-}
-
 .itemWrapper {
   display: flex;
   align-items: center;
-  padding: 10px 0;
+  height: 1.5rem;
+  padding: 0 10px;
 }
 
 .tileItemWrapper {
@@ -30,24 +27,25 @@
   height: 100%;
 }
 
-.root:not(.listRoot) .item,
-.itemTile:not(.listRoot) {
+.item,
+.itemTile {
   white-space: nowrap;
   overflow: hidden;
 }
 
-.itemHover,
-.itemWrapper:hover {
+.item:hover,
+.itemHover {
   color: var(--trood-orange);
 }
 
-.root:not(.checkbox) .itemActive {
-  color: var(--trood-text-white);
-  background-color: var(--trood-background-dark);
+.itemSelected {
+  color: var(--trood-orange);
+  background-color: var(--trood-text-gray);
 }
 
 .empty {
   composes: itemWrapper;
+  color: var(--trood-text-light-gray);
   cursor: default;
 }
 

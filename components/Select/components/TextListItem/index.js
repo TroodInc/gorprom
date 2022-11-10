@@ -13,10 +13,9 @@ const TextListItem = ({
 }) => {
   return (
     <div
-      {...{
-        onClick: disabled ? undefined : () => onChange(),
-        className: classNames(styles.root, className, value && styles.selected, disabled && styles.disabled),
-      }}>
+      className={classNames(styles.root, className, value && styles.selected, disabled && styles.disabled)}
+      onClick={disabled ? undefined : () => onChange()}
+    >
       {label}
     </div>
   )

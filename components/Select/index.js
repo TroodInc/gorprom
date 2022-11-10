@@ -3,9 +3,8 @@ import React, { PureComponent } from 'react'
 import classNames from 'classnames'
 import deepEqual from 'deep-equal'
 
-import styles from './index.module.css'
-
 import { ICONS_TYPES } from '../Icon'
+import Label from '../Label'
 
 import { SELECT_TYPES } from './constants'
 
@@ -13,6 +12,8 @@ import List, { LIST_ORIENTATION, LIST_TYPES } from './components/List'
 import DropDown from './components/DropDown'
 import Tile from './components/Tile'
 import Rating from './components/Rating'
+
+import styles from './index.module.css'
 
 
 const valueTypes = PropTypes.oneOfType([
@@ -25,7 +26,7 @@ const valueTypes = PropTypes.oneOfType([
  * Component for select some value.
  */
 
-class Select extends PureComponent {
+class TSelect extends PureComponent {
   static propTypes = {
     /** class name for styling component */
     className: PropTypes.string,
@@ -200,23 +201,34 @@ class Select extends PureComponent {
     switch (type) {
       case SELECT_TYPES.filterDropdown:
         return (
-          <DropDown {...generalProps } showSearch />
+          <DropDown {...{
+            ...generalProps,
+            showSearch: true,
+          }} />
         )
       case SELECT_TYPES.tile:
         return (
-          <Tile {...generalProps} />
+          <Tile {...{
+            ...generalProps,
+          }} />
         )
       case SELECT_TYPES.rating:
         return (
-          <Rating {...generalProps} />
+          <Rating {...{
+            ...generalProps,
+          }} />
         )
       case SELECT_TYPES.list:
         return (
-          <List {...generalProps} listRoot />
+          <List {...{
+            ...generalProps,
+          }} />
         )
       default:
         return (
-          <DropDown {...generalProps} controlClassName={styles.dropDown} />
+          <DropDown {...{
+            ...generalProps,
+          }} />
         )
     }
   }
@@ -233,7 +245,8 @@ class Select extends PureComponent {
     } = this.props
 
     if (!disabled) {
-      const newErrors = required && !values.length ? ['Обязательное значение'] : []
+      const newErrors = required && !values.length ?
+        ['Обязательное значение'] : []
 
       if (newErrors.length) {
         this.lastValid = false
@@ -267,10 +280,12 @@ class Select extends PureComponent {
     return (
       <div className={classNames(className, styles.root)}>
         {
-          label &&
-            <div className={classNames(labelClassName, styles.label, !this.state.wasBlured && styles.labelActive)}>
-              {label}
-            </div>
+          !!label &&
+          <Label {...{
+            className: classNames(labelClassName, styles.label),
+            required: validate.required,
+            label,
+          }} />
         }
         {this.getSelectComponent(currentErrors)}
         {
@@ -291,4 +306,4 @@ class Select extends PureComponent {
 export { SELECT_TYPES } from './constants'
 export { LIST_ORIENTATION, LIST_TYPES } from './components/List'
 
-export default Select
+export default TSelect

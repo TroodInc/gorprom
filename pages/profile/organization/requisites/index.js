@@ -8,10 +8,8 @@ import Image from 'next/image'
 import ProfileLayout from '../../../../layout/profile'
 import { getApiPath } from '../../../../helpers/fetch'
 import { toNumber } from '../../../../helpers/format'
-import Button, { BUTTON_COLORS, BUTTON_SPECIAL_TYPES, BUTTON_TYPES } from '../../../../components/Button'
-import Checkbox from '../../../../components/Checkbox'
+import Button, { BUTTON_COLORS, BUTTON_TYPES } from '../../../../components/Button'
 import Link from '../../../../components/Link'
-import organization from '../index'
 
 
 const Requisites = ({ host }) => {

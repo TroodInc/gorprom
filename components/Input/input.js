@@ -17,9 +17,10 @@ import {
 } from './constants'
 
 import Icon, { ICONS_TYPES } from '../Icon'
-import WysiwygEditor from '../internal/Wysiwyg'
+import Label from '../Label'
 
-import style from './index.module.css'
+import styles from './index.module.css'
+
 
 const noopFunc = () => {}
 
@@ -40,7 +41,7 @@ class Input extends PureComponent {
     placeholder: PropTypes.string,
     autoFocus: PropTypes.bool,
     disabled: PropTypes.bool,
-    errors: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
+    errors: PropTypes.arrayOf(PropTypes.string),
     showTextErrors: PropTypes.bool,
     children: PropTypes.node,
 
@@ -90,6 +91,7 @@ class Input extends PureComponent {
     onChange: noopFunc,
     onValid: noopFunc,
     onInvalid: noopFunc,
+    onEnter: noopFunc,
     onSearch: noopFunc,
     onFocus: noopFunc,
     onBlur: noopFunc,
@@ -140,13 +142,10 @@ class Input extends PureComponent {
     } = props
 
     this.lastValid = true
-    this.timer = null
 
     this.state = {
       formattedValue: formatValue(value.toString()),
       height: props.minRows * ROW_HEIGHT,
-      isPasswordShown: false,
-      // isLegendShow: true,
     }
 
     this.heightChange = this.heightChange.bind(this)
@@ -161,8 +160,8 @@ class Input extends PureComponent {
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
 
-    this.throttledOnChangeEvent = throttle((...args) => this.props.onChange(...args), DISPATCH_DEBOUNCE)
-    this.debouncedOnSearchEvent = debounce((...args) => this.props.onSearch(...args), SEARCH_DEBOUNCE)
+    this.throttledOnChangeEvent = throttle(this.props.onChange, DISPATCH_DEBOUNCE)
+    this.debouncedOnSearchEvent = debounce(this.props.onSearch, SEARCH_DEBOUNCE)
   }
 
   componentDidMount() {
@@ -206,7 +205,7 @@ class Input extends PureComponent {
         format,
         required,
         zeroIsValue,
-        requiredError,
+        requiredError = 'Обязательное значение',
         minLen,
         maxLen,
       },
@@ -215,11 +214,11 @@ class Input extends PureComponent {
     // Required validation, overrides all other errors
     if (required) {
       if (/^\s*$/.test(value)) {
-        return [requiredError || 'Обязательное значение'] // TODO i18n
+        return [requiredError]
       }
       if (numberTypes.includes(type) && !zeroIsValue) {
         if (value === 0 || value === '0') {
-          return [requiredError || 'Обязательное значение'] // TODO i18n
+          return [requiredError]
         }
       }
     }
@@ -228,15 +227,15 @@ class Input extends PureComponent {
 
     const regexpToMatch = (format && format.regexp) || format
     if (value && regexpToMatch && !regexpToMatch.test(value)) {
-      errors.push(format.error || 'Некорректный формат') // TODO i18n
+      errors.push(format.error || 'Некорректный формат')
     }
 
     if (maxLen && value.length > maxLen) {
-      errors.push(`Максимальная длина: ${maxLen}`) // TODO i18n
+      errors.push(`Максимальная длинна: ${maxLen}`)
     }
 
     if (minLen && (required || value.length > 0) && value.length < minLen) {
-      errors.push(`Минимальная длина: ${minLen}`) // TODO i18n
+      errors.push(`Минимальная длинна: ${minLen}`)
     }
 
     return errors
@@ -369,10 +368,7 @@ class Input extends PureComponent {
       const { getValue } = this.props.settings
       const value = getValue(this.state.formattedValue)
       this.handleBlur()
-      if (this.props.onEnter) {
-        e.preventDefault()
-        this.props.onEnter()
-      }
+      this.props.onEnter()
       this.props.onSearch(value)
     }
   }
@@ -436,36 +432,10 @@ class Input extends PureComponent {
     this.props.onBlur()
   }
 
-  changePasswordVisibility = () => {
-    this.setState(({ isPasswordShown }) => ({
-      isPasswordShown: !isPasswordShown,
-    }))
-
-    if (this.timer && this.state.isPasswordShown) {
-      clearTimeout(this.timer)
-      this.timer = null
-    } else {
-      this.timer = setTimeout(() => {
-        this.setState({ isPasswordShown: false })
-      }, 15000)
-    }
-  }
-
-  /*
-  showLegend = () => {
-    this.setState({ isLegendShow: true })
-  }
-
-  hideLegend = () => {
-    this.setState({ isLegendShow: false })
-  }
-  */
-
   render() {
     const {
-      innerRef,
-      dataAttributes,
       className,
+      labelClassName,
       inputClassName,
       type,
       disabled,
@@ -476,6 +446,7 @@ class Input extends PureComponent {
       showTextErrors,
       children,
       settings: {
+        required,
         checkOnBlur,
       },
     } = this.props
@@ -524,17 +495,10 @@ class Input extends PureComponent {
 
     const getInputComp = () => {
       switch (type) {
-        case INPUT_TYPES.wysiwyg:
-          return (
-            <WysiwygEditor {...{
-              ...inputProps,
-              ref: undefined,
-            }} />
-          )
         case INPUT_TYPES.multi:
           return (
             <textarea {...{
-              className: classNames(style.textarea, disabled && style.disabled),
+              className: classNames(styles.textarea, disabled && styles.disabled),
               style: {
                 lineHeight: `${ROW_HEIGHT}px`,
                 height,
@@ -542,113 +506,85 @@ class Input extends PureComponent {
               ...inputProps,
             }} />
           )
-        case INPUT_TYPES.password:
-          return (
-            <>
-              <input
-                {...{
-                  type: this.state.isPasswordShown
-                    ? INNER_INPUT_TYPES.text
-                    : INNER_INPUT_TYPES.password,
-                  className: classNames(
-                    style.input,
-                    disabled && style.disabled
-                  ),
-                  ...inputProps,
-                }}
-              />
-              <button className={style.btn} onClick={this.changePasswordVisibility}>
-                <Icon
-                  {...{
-                    className: style.phoneCode,
-                    type: this.state.isPasswordShown
-                      ? ICONS_TYPES.eyeClose
-                      : ICONS_TYPES.eyeOpen,
-                    size: 28,
-                  }}
-                />
-              </button>
-            </>
-          )
         default:
           return (
-            <input
-              {...{
-                type: INNER_INPUT_TYPES[type],
-                className: classNames(
-                  style.input,
-                  disabled && style.disabled
-                ),
-                ...inputProps,
-              }}
-            />
+            <input {...{
+              type: INNER_INPUT_TYPES[type],
+              className: classNames(styles.input, disabled && styles.disabled),
+              ...inputProps,
+            }} />
           )
       }
     }
 
     return (
-      <div ref={innerRef} className={classNames(
-        style.rootWrapper,
+      <div className={classNames(
+        styles.rootWrapper,
         className,
       )}>
-        {label && <span className={style.label}>{label}</span>}
-        <div {...dataAttributes} className={classNames(
-          style.root,
-          style[type],
+        {
+          label &&
+          <Label {...{
+            className: classNames(labelClassName, styles.label),
+            required,
+            label,
+          }} />
+        }
+        <div className={classNames(
+          styles.root,
           inputClassName,
           {
-            [style.error]: currentErrors.length > 0,
-            [style.active]: active,
+            [styles.error]: currentErrors.length > 0,
+            [styles.active]: active,
           },
         )}>
-          <fieldset className={style.fieldset}>
-            {
-              (type === INPUT_TYPES.phone || type === INPUT_TYPES.phoneWithExt) &&
-              <span className={style.phoneCode}>+</span>
-            }
-            {
-              type === INPUT_TYPES.search &&
-              <Icon {...{
-                className: style.phoneCode,
-                type: ICONS_TYPES.search,
-                size: 20,
-              }} />
-            }
-            {
-              type === INPUT_TYPES.url &&
-              <span className={style.phoneCode}>http://</span>
-            }
-            {
-              type === INPUT_TYPES.multi &&
-              <textarea {...{
-                ref: (node) => {
-                  this.shadow = node
-                  this.heightChange()
-                },
-                className: style.shadow,
-                style: {
-                  height: 0,
-                  width: this.inputWidth,
-                  lineHeight: `${ROW_HEIGHT}px`,
-                },
-                value: formattedValue,
-                tabIndex: -1,
-                readOnly: true,
-              }} />
-            }
-            {getInputComp()}
-          </fieldset>
+          {
+            (type === INPUT_TYPES.phone || type === INPUT_TYPES.phoneWithExt) &&
+            <span className={styles.phoneCode}>+</span>
+          }
+          {
+            type === INPUT_TYPES.search &&
+            <Icon {...{
+              className: styles.phoneCode,
+              type: ICONS_TYPES.search,
+              size: 20,
+            }} />
+          }
+          {
+            type === INPUT_TYPES.url &&
+            <span className={styles.phoneCode}>http://</span>
+          }
+          {
+            type === INPUT_TYPES.multi &&
+            <textarea {...{
+              ref: (node) => {
+                this.shadow = node
+                this.heightChange()
+              },
+              className: styles.shadow,
+              style: {
+                height: 0,
+                width: this.inputWidth,
+                lineHeight: `${ROW_HEIGHT}px`,
+              },
+              value: formattedValue,
+              tabIndex: -1,
+              readOnly: true,
+            }} />
+          }
+          {getInputComp()}
           {children}
-          {showTextErrors && !!currentErrors.length && (
-            <div className={style.errors}>
-              {currentErrors.map((error, index) => (
-                <div className={style.errorText} key={index}>
-                  {error}
-                </div>
-              ))}
-            </div>
-          )}
         </div>
+        {
+          showTextErrors &&
+          <div className={styles.errors}>
+            {currentErrors.map((error, index) => (
+              <div className={styles.errorText} key={index}>
+                {error}
+              </div>
+            ))}
+          </div>
+        }
       </div>
     )
   }

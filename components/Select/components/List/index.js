@@ -20,14 +20,14 @@ import TileListItem from '../TileListItem'
 import TextListItem from '../TextListItem'
 
 
-const Toggle = props => <Checkbox {...props} viewType={CHECK_VIEW_TYPES.toggle}/>
+const Toggle = (props) => (<Checkbox {...props} viewType={CHECK_VIEW_TYPES.toggle} />)
 
 const getItemComponent = (type) => {
   switch (type) {
     case LIST_TYPES.checkbox:
       return Checkbox
     case LIST_TYPES.toggle:
-      return (props) => Toggle
+      return Toggle
     case LIST_TYPES.tile:
       return TileListItem
     default:
@@ -174,7 +174,6 @@ class List extends PureComponent {
       disabled,
       isLoading,
       focusedItem,
-      listRoot,
     } = this.props
 
     const { maxHeight } = this.state
@@ -185,7 +184,7 @@ class List extends PureComponent {
 
     return (
       <ul {...{
-        className: classNames(styles.root, styles[orientation], styles[type], className, listRoot && styles.listRoot),
+        className: classNames(styles.root, styles[orientation], className),
         ref: (node) => {
           this.list = node
         },
@@ -193,11 +192,7 @@ class List extends PureComponent {
       }}>
         {items.map((item, i) => (
           <li
-            className={classNames(
-              type === LIST_TYPES.tile ? styles.tileItemWrapper : styles.itemWrapper,
-              (i === focusedItem) && styles.itemHover,
-              isSelected(item) && styles.itemActive,
-            )}
+            className={type === LIST_TYPES.tile ? styles.tileItemWrapper : styles.itemWrapper}
             key={item.value || `${item.value}`}
             ref={(node) => {
               this[`option${item.value}`] = node
@@ -206,6 +201,8 @@ class List extends PureComponent {
             <ItemComponent {...{
               className: classNames(
                 type === LIST_TYPES.tile ? styles.tileItem : styles.item,
+                i === focusedItem && styles.itemHover,
+                isSelected(item) && styles.itemSelected,
                 itemClassName,
               ),
               value: isSelected(item),

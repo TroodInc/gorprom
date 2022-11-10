@@ -7,7 +7,6 @@ const INT = 'int'
 const FLOAT = 'float'
 const NUMBER = 'number'
 const MULTI = 'multi'
-const WYSIWYG = 'wysiwyg'
 const PASSWORD = 'password'
 const PHONE = 'phone'
 const PHONE_WITH_EXT = 'phoneWithExt'
@@ -26,7 +25,6 @@ export const INPUT_TYPES = {
   [FLOAT]: FLOAT,
   [NUMBER]: NUMBER,
   [MULTI]: MULTI,
-  [WYSIWYG]: WYSIWYG,
   [PASSWORD]: PASSWORD,
   [PHONE]: PHONE,
   [PHONE_WITH_EXT]: PHONE_WITH_EXT,
@@ -64,11 +62,11 @@ export const VALIDATION_FORMATS = {
   [TIME]: /([0-1]\d[0-5]\d)|(2[0-3][0-5]\d)/,
 }
 
-export const errors = {
-  [EMAIL]: 'E-Mail is incorrect!',
-  [COLOR]: 'HEX-code is incorrect!',
-  [URL]: 'Url is incorrect!',
-} // TODO i18n
+export const errorsByType = {
+  [EMAIL]: 'Некорректный E-Mail!',
+  [COLOR]: 'Некорректный HEX-код!',
+  [URL]: 'Некоректная ссылка!',
+}
 
 export const FLOAT_MAX_FRACTIONALS = 6
 export const MONEY_MAX_FRACTIONALS = 2
@@ -136,7 +134,7 @@ export const includeForTypes = {
 
 export const excludeForTypes = {}
 
-export const ROW_HEIGHT = 28
+export const ROW_HEIGHT = 18
 
 export const DEFAULT_MAX_ROWS = 5
 

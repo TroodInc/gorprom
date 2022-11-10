@@ -1,5 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import classNames from 'classnames'
@@ -8,20 +8,12 @@ import ProfileLayout from '../../../../../layout/profile'
 import styles from './index.module.css'
 import Input, { INPUT_TYPES } from '../../../../../components/Input'
 import Icon, { ICONS_TYPES } from '../../../../../components/Icon'
-import Select, { SELECT_TYPES, LIST_TYPES } from '../../../../../components/Select'
+import Select, { SELECT_TYPES } from '../../../../../components/Select'
 import Button, { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SPECIAL_TYPES } from '../../../../../components/Button'
 import FileInput from '../../../../../components/FileInput'
 import { getApiPath } from '../../../../../helpers/fetch'
 import Link from '../../../../../components/Link'
 
-
-const CONTACT_TYPES = [
-  { value: 'Приемная' },
-  { value: 'Снабжение' },
-  { value: 'Продажи' },
-  { value: 'Логистика' },
-  { value: 'Маркетинг/администрация' },
-]
 
 const formStoreName = 'product'
 
@@ -32,7 +24,6 @@ const ProductEdit = ({ host }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   // useEffect(() => () => store.deleteFormStore(formStoreName), [])
 
-  const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
   const fileApiPath = getApiPath(process.env.NEXT_PUBLIC_FILE_API, host)
 

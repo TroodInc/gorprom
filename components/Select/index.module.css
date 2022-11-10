@@ -3,15 +3,8 @@
   display: block;
 }
 
-.labelActive {
-  color: var(--trood-orange);
-}
-
 .label {
-  margin-bottom: 7px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 100%;
+  margin-bottom: 10px;
 }
 
 .errors {

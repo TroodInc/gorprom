@@ -17,9 +17,9 @@
 }
 
 .yellow {
-  color: #f5a623;
+  color: var(--trood-orange);
 }
 
 .gray {
-  color: #95979f;
+  color: var(--trood-gray-light);
 }

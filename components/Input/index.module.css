@@ -1,36 +1,17 @@
-.rootWrapper {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
 .root {
   position: relative;
-  /*padding-bottom: 2px;*/
+  border: 1px solid var(--trood-border-dark);
+  border-radius: var(--trood-input-border-radius);
   background-color: var(--trood-white);
-  border-bottom: 1px solid var(--trood-border-dark);
   display: flex;
-  flex-direction: column;
   align-items: stretch;
-  height: 70px;
   min-height: 38px;
-}
-
-.root.multi {
-  height: auto;
-}
-
-.root.error {
-  border-color: var(--trood-red);
-  border-bottom: 1px solid var(--trood-red);
+  padding: 8px 10px;
 }
 
 .root.active {
   border-color: var(--trood-orange);
-  border-bottom: 1px solid var(--trood-orange);
-}
-
-.errors {
-  height: 18px;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
 }
 
 .error {
@@ -38,53 +19,26 @@
 }
 
 .active {
-  border: none;
-}
-
-.error .fieldset {
-  border-top: 1px solid var(--trood-red);
-  color: var(--trood-red);
-}
-
-.active .fieldset {
-  border-top: 1px solid var(--trood-orange);
-  color: var(--trood-orange);
+  border: 1px solid var(--trood-orange);
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
 }
 
 .label {
-  margin-bottom: 7px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 100%;
-  color: var(--trood-text-gray);
-}
-
-.error .label {
-  color: var(--trood-text-gray);
-}
-
-.active .label {
-  color: var(--trood-orange);
+  margin-bottom: 10px;
 }
 
 .phoneCode {
-  margin-right: 0.15em;
-  margin-bottom: 16px;
-  color: var(--trood-text-gray);
+  margin-right: 0.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .input {
+  font-size: inherit;
   width: 100%;
   min-width: 0;
-  margin-bottom: 16px;
   padding: 0;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 100%;
-  letter-spacing: .5px;
   resize: none;
   border: none;
   outline: none;
@@ -113,7 +67,7 @@
 }
 
 .root .disabled {
-  color: var(--trood-text-gray);
+  color: var(--trood-text-light-gray);
 }
 
 .shadow {
@@ -125,32 +79,12 @@
 }
 
 .errorText {
+  margin-top: 5px;
   color: var(--trood-red);
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 100%;
+  font-size: 12px;
 }
 
 .colorRepresentation {
   width: 40px;
   height: 40px;
-}
-
-.btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.input[type='password']::-ms-reveal {
-  display: none;
-}
-
-.fieldset {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding-top: 6px;
-  outline: none;
-  border-top: 1px solid var(--trood-border-dark);
 }

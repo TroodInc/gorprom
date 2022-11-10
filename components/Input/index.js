@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import InnerInput from './input'
+import Input from './input'
 import {
   VALIDATION_FORMATS,
   INPUT_TYPES,
@@ -10,17 +10,17 @@ import {
   formatLengthFunctions,
   includeForTypes,
   excludeForTypes,
-  errors,
+  errorsByType,
 } from './constants'
 
 /**
  * Component for output input.
  */
 
-class Input extends PureComponent {
+class TInput extends PureComponent {
   static propTypes = {
     /** type is one of INPUT_TYPES.text, INPUT_TYPES.int, INPUT_TYPES.float, INPUT_TYPES.number,
-     * INPUT_TYPES.multi, INPUT_TYPES.wysiwyg, INPUT_TYPES.password, INPUT_TYPES.phone,
+     * INPUT_TYPES.multi, INPUT_TYPES.password, INPUT_TYPES.phone,
      * INPUT_TYPES.phoneWithExt, INPUT_TYPES.money, INPUT_TYPES.moneyNumber, INPUT_TYPES.email,
      * INPUT_TYPES.url, INPUT_TYPES.color, INPUT_TYPES.search, INPUT_TYPES.time */
     type: PropTypes.oneOf(Object.values(INPUT_TYPES)),
@@ -75,7 +75,7 @@ class Input extends PureComponent {
     /** disabled or not */
     disabled: PropTypes.bool,
     /** text errors */
-    errors: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
+    errors: PropTypes.arrayOf(PropTypes.string),
     /** show text errors or not */
     showTextErrors: PropTypes.bool,
     /** children node */
@@ -152,7 +152,6 @@ class Input extends PureComponent {
     const { type, value, validate } = this.props
     const properties = {
       ...validate,
-      checkOnBlur: validate.checkOnBlur === undefined ? true : validate.checkOnBlur,
       formatValue: formatToFunctions[type] || (v => v),
       getValue: formatFromFunctions[type] || (v => v),
       minLen: validate.minLen || (formatLengthFunctions[type] || (() => 0))(value),
@@ -162,10 +161,11 @@ class Input extends PureComponent {
 
     if (!properties.format) {
       const validateRegexp = VALIDATION_FORMATS[type]
+      const errorMsg = errorsByType[type]
       if (validateRegexp) {
         properties.format = {
           regexp: validateRegexp,
-          error: errors[type],
+          error: errorMsg,
         }
       }
     }
@@ -175,7 +175,7 @@ class Input extends PureComponent {
 
   render() {
     return (
-      <InnerInput {...{
+      <Input {...{
         ...this.props,
         validate: undefined,
         settings: this.getInputSettings(),
@@ -186,4 +186,4 @@ class Input extends PureComponent {
 
 export { INPUT_TYPES } from './constants'
 
-export default Input
+export default TInput
