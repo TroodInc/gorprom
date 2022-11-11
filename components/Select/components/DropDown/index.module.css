@@ -18,16 +18,16 @@
   outline: none;
 }
 
-.root:focus .control path {
-  fill: var(--trood-orange);
+.root:focus .control {
+  color: var(--trood-orange);
 }
 
 .root.open {
   border-color: var(--trood-orange);
 }
 
-.root.open .control path {
-  fill: var(--trood-orange);
+.root.open .control {
+  color: var(--trood-orange);
 }
 
 .root.error {
@@ -47,7 +47,7 @@
 
 .control {
   height: 100%;
-  color: var(--trood-text);
+  color: var(--trood-gray-dark);
   padding-right: 16px;
 }
 
