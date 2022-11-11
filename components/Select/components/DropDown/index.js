@@ -188,9 +188,7 @@ class DropDown extends PureComponent {
     if (open && showSearch) {
       return (
         <Input
-          {...{
-            'data-cy': `${label}_search`,
-          }}
+          data-cy={`${label}_search`}
           inputClassName={styles.search}
           autoFocus={true}
           value={innerSearch}
@@ -267,11 +265,11 @@ class DropDown extends PureComponent {
           onFocus={this.props.onFocus}
           onBlur={this.props.onBlur}
         >
-          <span {...{
-            className: styles.content,
-            onClick: showSearch && open ? undefined : () => this.toggleOpen(),
-            'data-cy': label || placeholder,
-          }}>
+          <span
+            className={styles.content}
+            onClick={showSearch && open ? undefined : () => this.toggleOpen()}
+            data-cy={label || placeholder}
+          >
             <span className={classNames(values.length ? styles.value : styles.placeholder, valueClassName)}>
               {this.renderDisplayValue()}
             </span>
