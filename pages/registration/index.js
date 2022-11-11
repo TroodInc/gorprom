@@ -10,6 +10,8 @@ import { getApiPath } from '../../helpers/fetch'
 
 import styles from './index.module.css'
 import PasswordCheck from '../../components/PasswordCheck'
+import Link from '../../components/Link'
+import Checkbox from '../../components/Checkbox'
 
 
 const formStoreName = 'registration'
@@ -45,93 +47,143 @@ const Registration = ({ host }) => {
       <Head>
         <title>Горпром | Регистрация</title>
       </Head>
-      <div className={styles.left}>
+      <div className={styles.top}>
+        <Link className={styles.goBackBtn} href={'/registration'}>
+          {'<'}
+        </Link>
         {[
           { title: 'Регистрация', active: !verify },
           { title: 'Верификация', active: verify },
-        ].map(({ title, active }, i) => (
-          <div key={i} className={classNames(styles.step, active && styles.active)}>
-            {i + 1}. {title}
+          // { title: 'Данные организации', active: verify },
+        ].map(({ title, active }, i, arr) => (
+          <div key={i} className={styles.step}>
+            <div className={classNames(styles.stepText, active && styles.active)}>{title}</div>
+            {(i !== arr.length - 1) && <div className={styles.stepArrow}>{'>'}</div>}
           </div>
         ))}
       </div>
-      <div className={styles.right}>
-        {verify &&
-            <>
-              <div className={styles.verificationText}>
-                  Мы отправили письмо вам на почту. Перейдите по ссылке из письма чтобы завершить регистрацию.
-              </div>
-              <div className={styles.confirmationText}>ожидаем подтверждения...</div>
-              <div className={styles.verificationQuestion}>Не получили письмо?</div>
-              <Button
-                className={styles.verificationButton}
-                label="Отправить повторно"
-                type={BUTTON_TYPES.text}
-                color={BUTTON_COLORS.orange}
-                onClick={() => console.warn('Предупреждающее сообщение')}
-              />
-            </>}
-        {!verify &&
-            <>
-              <Input
-                className={styles.login}
-                label="Почта"
-                type={INPUT_TYPES.email}
-                value={form.get('data.login')}
-                errors={form.get('errors.login')}
-                validate={{ required: true, checkOnBlur: true }}
-                onChange={(value) => {
-                  form.set('data.login', value)
-                  form.set('data.profile.mail', value)
-                }}
-                onInvalid={(value) => form.set('errors.login', value)}
-                onValid={() => form.set('errors.login', [])}
-              />
-              <Input
-                className={styles.password}
-                label="Пароль"
-                type={INPUT_TYPES.password}
-                value={form.get('data.password')}
-                errors={form.get('errors.password')}
-                validate={{ required: true, checkOnBlur: true }}
-                onChange={(value) => form.set('data.password', value)}
-                onInvalid={(value) => form.set('errors.password', value)}
-                onValid={() => form.set('errors.password', [])}
-              />
-              <PasswordCheck
-                password={form.get('data.password')}
-                minLength={8}
-                checkLower
-                checkUpper
-                checkNumber
-                onValidate={(value) => form.set('errors.passwordCheck', value)}
-              />
-              <Button
-                className={styles.loginButton}
-                label="Продолжить"
-                disabled={form.hasErrors}
-                onClick={() => {
-                  form.submit(authApiPath + 'register/', 'POST')
-                    .then(({ data }) => {
-                      store.setAuthData(data?.data)
-                      router.push('/')
-                      store.deleteFormStore(formStoreName)
-                    })
-                }}
-              />
-              {globalError && (
-                <div className={styles.globalError}>{globalError}</div>
-              )}
-              <div className={styles.registerQuestion}>Уже есть аккаунт?</div>
-              <Button
-                className={styles.registerButton}
-                label="Войти"
-                type={BUTTON_TYPES.text}
-                color={BUTTON_COLORS.orange}
-                link="/login"
-              />
-            </>}
-      </div>
+      {verify &&
+        <div className={styles.mainVerification}>
+          <div className={styles.verificationText}>
+            Пожалуйста, проверьте электронную почту – мы отправили ссылку для завершения регистрации.
+          </div>
+          <div className={styles.verificationQuestion}>Не получили письмо?</div>
+          <Button
+            className={styles.verificationButton}
+            label="Отправить повторно"
+            type={BUTTON_TYPES.fill}
+            color={BUTTON_COLORS.black}
+            onClick={() => console.warn('Предупреждающее сообщение')}
+          />
+          <Link className={styles.supportLink} href={'/support'}>Написать в службу поддержки</Link>
+        </div>
+      }
+      {!verify &&
+        <div className={styles.mainRegistration}>
+          <Input
+            label="Имя"
+            value={form.get('data.profile.name')}
+            errors={form.get('errors.profile.name')}
+            onChange={(value) => form.set('data.profile.name', value)}
+            onInvalid={(value) => form.set('errors.profile.name', value)}
+            onValid={() => form.set('errors.profile.name', [])}
+          />
+          <Input
+            label="Фамилия"
+            value={form.get('data.profile.surname')}
+            errors={form.get('errors.profile.surname')}
+            onChange={(value) => form.set('data.profile.surname', value)}
+            onInvalid={(value) => form.set('errors.profile.surname', value)}
+            onValid={() => form.set('errors.profile.surname', [])}
+          />
+          <Input
+            label="Отчество"
+            value={form.get('data.profile.patronymic')}
+            errors={form.get('errors.profile.patronymic')}
+            onChange={(value) => form.set('data.profile.patronymic', value)}
+            onInvalid={(value) => form.set('errors.profile.patronymic', value)}
+            onValid={() => form.set('errors.profile.patronymic', [])}
+          />
+          <Input
+            className={styles.login}
+            label="Электронная почта"
+            type={INPUT_TYPES.email}
+            value={form.get('data.login')}
+            errors={form.get('errors.login')}
+            validate={{ required: true, checkOnBlur: true }}
+            onChange={(value) => {
+              form.set('data.login', value)
+              form.set('data.profile.mail', value)
+            }}
+            onInvalid={(value) => form.set('errors.login', value)}
+            onValid={() => form.set('errors.login', [])}
+          />
+          <Input
+            className={styles.password}
+            label="Пароль"
+            type={INPUT_TYPES.password}
+            value={form.get('data.password')}
+            errors={form.get('errors.password')}
+            validate={{ required: true, checkOnBlur: true }}
+            onChange={(value) => form.set('data.password', value)}
+            onInvalid={(value) => form.set('errors.password', value)}
+            onValid={() => form.set('errors.password', [])}
+          />
+          <PasswordCheck
+            password={form.get('data.password')}
+            minLength={8}
+            checkLower
+            checkUpper
+            checkNumber
+            onValidate={(value) => form.set('errors.passwordCheck', value)}
+          />
+          <div className={styles.checkboxWrapper}>
+            <Checkbox
+              className={styles.checkbox}
+              value={form.get('data.profile.agreement')}
+              errors={form.get('errors.profile.agreement')}
+              validate={{ required: true, checkOnBlur: true }}
+              onChange={(value) => form.set('data.profile.agreement', value)}
+              onInvalid={(value) => form.set('errors.profile.agreement', value)}
+              onValid={() => form.set('errors.profile.agreement', [])}
+            />
+            <div className={styles.checkboxText}>
+              Регистрируясь, я соглашаюсь на обработку&nbsp;
+              <Link
+                className={styles.checkboxLink}
+                href={'/personal'}
+                target={'_blank'}
+              >
+                Персональных данных
+              </Link>
+            </div>
+          </div>
+          <Button
+            className={styles.loginButton}
+            label="Продолжить"
+            disabled={form.hasErrors}
+            onClick={() => {
+              form.submit(authApiPath + 'register/', 'POST')
+                .then(({ data }) => {
+                  store.setAuthData(data?.data)
+                  router.push('/')
+                  store.deleteFormStore(formStoreName)
+                })
+            }}
+          />
+          {globalError && (
+            <div className={styles.globalError}>{globalError}</div>
+          )}
+          <div className={styles.registerQuestion}>Уже есть аккаунт?</div>
+          <Button
+            className={styles.registerButton}
+            label="Войти"
+            type={BUTTON_TYPES.text}
+            color={BUTTON_COLORS.orange}
+            link="/login"
+          />
+        </div>
+      }
     </div>
   )
 }
