@@ -4,7 +4,16 @@
 }
 
 .label {
-  margin-bottom: 10px;
+  margin-left: 16px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  color: var(--trood-text-light-gray);
+  border: none;
+}
+
+.active {
+  color: var(--trood-orange);
 }
 
 .errors {

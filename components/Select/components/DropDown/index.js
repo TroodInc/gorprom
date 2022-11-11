@@ -187,14 +187,14 @@ class DropDown extends PureComponent {
     const { open, innerSearch } = this.state
     if (open && showSearch) {
       return (
-        <Input {...{
-          'data-cy': `${label}_search`,
-          inputClassName: styles.search,
-          autoFocus: true,
-          value: innerSearch,
-          onSearch: this.handleSearch,
-          onChange: this.handleChangeSearchValue,
-        }} />
+        <Input
+          data-cy={`${label}_search`}
+          inputClassName={styles.search}
+          autoFocus={true}
+          value={innerSearch}
+          onSearch={this.handleSearch}
+          onChange={this.handleChangeSearchValue}
+        />
       )
     }
     if (!values.length && placeholder) return placeholder
@@ -251,44 +251,49 @@ class DropDown extends PureComponent {
 
     return (
       <ClickOutside onClick={() => this.toggleOpen(false)}>
-        <div {...{
-          tabIndex: disabled ? -1 : tabIndex,
-          style: mainSelectContainerStyle,
-          className: classNames(
+        <div
+          tabIndex={disabled ? -1 : tabIndex}
+          style={mainSelectContainerStyle}
+          className={classNames(
             controlClassName,
             styles.root,
             errors.length && styles.error,
             disabled && styles.disabled,
             open && styles.open,
-          ),
-          onKeyDown: this.handleKeyDown,
-        }}>
-          <span {...{
-            className: styles.content,
-            onClick: showSearch && open ? undefined : () => this.toggleOpen(),
-            'data-cy': label || placeholder,
-          }}>
+          )}
+          onKeyDown={this.handleKeyDown}
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
+        >
+          <span
+            className={styles.content}
+            onClick={showSearch && open ? undefined : () => this.toggleOpen()}
+            data-cy={label || placeholder}
+          >
             <span className={classNames(values.length ? styles.value : styles.placeholder, valueClassName)}>
               {this.renderDisplayValue()}
             </span>
           </span>
-          <Icon {...{
-            size: 8,
-            type: ICONS_TYPES.triangleArrow,
-            rotate: open ? ROTATE_TYPES.up : ROTATE_TYPES.down,
-            onClick: () => this.toggleOpen(),
-            ...iconProps,
-            className: classNames(styles.control, iconProps.className),
-          }} />
+          <Icon
+            size={16}
+            type={ICONS_TYPES.triangleArrow}
+            rotate={open ? ROTATE_TYPES.down : ROTATE_TYPES.up}
+            onClick={() => this.toggleOpen()}
+            className={classNames(styles.control, iconProps.className)}
+            {...iconProps}
+          />
           <div className={classNames(styles.optionsContainer, openUp && styles.openUp, !open && styles.hide)}>
             <List {...{
               ...this.props,
               focusedItem,
-              show: open,
               type,
               items,
-              onChange: this.handleChange,
-            }} />
+            }}
+            show={open}
+            onChange={this.handleChange}
+            className={styles.list}
+            itemClassName={styles.listItem}
+            />
             {
               !!children &&
               <div className={styles.children}>

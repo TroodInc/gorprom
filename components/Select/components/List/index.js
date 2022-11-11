@@ -192,7 +192,11 @@ class List extends PureComponent {
       }}>
         {items.map((item, i) => (
           <li
-            className={type === LIST_TYPES.tile ? styles.tileItemWrapper : styles.itemWrapper}
+            className={classNames(
+              type === LIST_TYPES.tile ? styles.tileItemWrapper : styles.itemWrapper,
+              i === focusedItem && styles.itemHover,
+              isSelected(item) && styles.itemHover,
+            )}
             key={item.value || `${item.value}`}
             ref={(node) => {
               this[`option${item.value}`] = node
@@ -201,8 +205,6 @@ class List extends PureComponent {
             <ItemComponent {...{
               className: classNames(
                 type === LIST_TYPES.tile ? styles.tileItem : styles.item,
-                i === focusedItem && styles.itemHover,
-                isSelected(item) && styles.itemSelected,
                 itemClassName,
               ),
               value: isSelected(item),

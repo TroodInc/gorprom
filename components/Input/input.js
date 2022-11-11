@@ -17,7 +17,6 @@ import {
 } from './constants'
 
 import Icon, { ICONS_TYPES } from '../Icon'
-import Label from '../Label'
 
 import styles from './index.module.css'
 
@@ -146,6 +145,7 @@ class Input extends PureComponent {
     this.state = {
       formattedValue: formatValue(value.toString()),
       height: props.minRows * ROW_HEIGHT,
+      isPasswordShown: false,
     }
 
     this.heightChange = this.heightChange.bind(this)
@@ -435,6 +435,21 @@ class Input extends PureComponent {
     this.props.onBlur()
   }
 
+  changePasswordVisibility = () => {
+    this.setState(({ isPasswordShown }) => ({
+      isPasswordShown: !isPasswordShown,
+    }))
+
+    if (this.timer && this.state.isPasswordShown) {
+      clearTimeout(this.timer)
+      this.timer = null
+    } else {
+      this.timer = setTimeout(() => {
+        this.setState({ isPasswordShown: false })
+      }, 15000)
+    }
+  }
+
   render() {
     const {
       className,
@@ -500,22 +515,41 @@ class Input extends PureComponent {
       switch (type) {
         case INPUT_TYPES.multi:
           return (
-            <textarea {...{
-              className: classNames(styles.textarea, disabled && styles.disabled),
-              style: {
+            <textarea
+              {...inputProps}
+              className={classNames(styles.textarea, disabled && styles.disabled)}
+              style={{
                 lineHeight: `${ROW_HEIGHT}px`,
                 height,
-              },
-              ...inputProps,
-            }} />
+              }}
+            />
+          )
+        case INPUT_TYPES.password:
+          return (
+            <>
+              <input
+                {...inputProps}
+                type={this.state.isPasswordShown ? INNER_INPUT_TYPES.text : INNER_INPUT_TYPES.password}
+                className={classNames(
+                  styles.input,
+                  disabled && styles.disabled
+                )}
+              />
+              <Icon
+                className={styles.passwordEye}
+                type={this.state.isPasswordShown ? ICONS_TYPES.eyeClose : ICONS_TYPES.eyeOpen}
+                size={28}
+                onClick={this.changePasswordVisibility}
+              />
+            </>
           )
         default:
           return (
-            <input {...{
-              type: INNER_INPUT_TYPES[type],
-              className: classNames(styles.input, disabled && styles.disabled),
-              ...inputProps,
-            }} />
+            <input
+              {...inputProps}
+              type={INNER_INPUT_TYPES[type]}
+              className={classNames(styles.input, disabled && styles.disabled)}
+            />
           )
       }
     }
@@ -527,11 +561,9 @@ class Input extends PureComponent {
       )}>
         {
           label &&
-          <Label {...{
-            className: classNames(labelClassName, styles.label),
-            required,
-            label,
-          }} />
+            <span className={classNames(labelClassName, styles.label, { [styles.active]: active })}>
+              {label}
+            </span>
         }
         <div className={classNames(
           styles.root,
