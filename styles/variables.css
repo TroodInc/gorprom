@@ -5,7 +5,7 @@
   --trood-text: #312f2f;
   --trood-text-gray: #2f2d2d;
   --trood-text-light-gray: #95a1a0;
-  --trood-text-silver: #949292;
+  --trood-text-silver: #979696;
   --trood-text-white: #fff;
 
   --trood-white: #fff;
@@ -15,7 +15,8 @@
 
   --trood-border: #e8e8e8;
   --trood-border-dark: #312f2f;
-  --trood-border-light-gray: #95a1a0;
+  --trood-border-gray-dark: #2f2d2d;
+  --trood-border-light-gray: #979696;
 
   --trood-orange: #e4a642;
   --trood-red: #e95c5c;
