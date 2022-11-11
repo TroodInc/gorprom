@@ -11,28 +11,38 @@
 .item {
     display: flex;
     align-items: flex-start;
-    color: var(--trood-gray);
+    color: var(--trood-text-silver);
     margin-bottom: 18px;
     font-size: 18px;
     line-height: 100%;
 }
 
+
 .clear, .check {
     display: flex;
+    width: 16px;
+    height: 16px;
     align-items: center;
     justify-content: center;
-    height:15px;
-    width: 15px;
-    background-color:  var(--trood-red);
-    color:  var(--trood-white);
+    color: var(--trood-white);
     border-radius: 100%;
     margin-right: 10px;
 }
 
+.clear,
+.clear ~ div {
+    opacity: 0.4;
+}
+
 .clear {
-    background-color:  var(--trood-red);
+    border: 1px solid var(--trood-border-light-gray);
 }
 
 .check {
-    background-color:  var(--trood-orange);
+    background-color: var(--trood-orange);;
 }
+
+.check ~ div {
+    color: var(--trood-orange);
+}
+
