@@ -1,44 +1,90 @@
 .root {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
 }
 
-.left {
+.top {
+    position: relative;
     display: flex;
-    flex-flow: column nowrap;
-    flex: 0 1 490px;
-    padding-right: 16px;
-    border-right: 1px solid var(--trood-border-dark);
+    flex-flow: row nowrap;
+    padding-bottom: 27px;
+    margin-bottom: 14px;
+    letter-spacing: -0.04em;
+    border-bottom: 1px solid var(--trood-border-gray-dark);
+}
+
+.goBackBtn {
+    position: absolute;
+    left: -100px;
+    padding: 0 10px;
+    font-size: 20px;
+    border: 1px solid var(--trood-border-gray-dark);
+    border-radius: 8px;
 }
 
 .step {
+    display: flex;
+    flex-flow: row nowrap;
     font-weight: 500;
-    font-size: 28px;
-    padding: 24px 0;
-    border-bottom: 1px solid var(--trood-border-dark);
+    font-size: 24px;
+    line-height: 97%;
+    color: var(--trood-text-silver);
 }
 
-.step:first-child {
-    padding-top: 0;
+.stepText,
+.stepArrow {
+    margin-right: 25px;
+    opacity: 0.4;
 }
 
-.step.active {
-    color: #E4A642;
+.active {
+    color: var(--trood-orange);
+    opacity: 1;
 }
 
-.right {
+.main {
     display: flex;
     flex-flow: column nowrap;
-    flex: 0 0 420px;
     margin: 0 auto;
+    gap: 6px;
 }
 
-.login {
-    margin-bottom: 48px;
+.mainRegistration {
+    composes: main;
+    max-width: 390px;
+}
+
+.mainVerification {
+    composes: main;
+    margin-top: 11px;
+    max-width: 422px;
 }
 
 .password {
-    margin-bottom: 24px;
+    margin-bottom: 19px;
+}
+
+.checkboxWrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 18px 0;
+}
+
+.checkbox {
+    margin-right: 12px;
+    margin-top: 2px;
+}
+
+.checkboxText {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 125%;
+    cursor: default;
+    text-transform: none;
+}
+
+.checkboxLink {
+    color: var(--trood-orange);
 }
 
 .forgotButton {
@@ -47,7 +93,8 @@
 }
 
 .loginButton {
-    margin-bottom: 24px;
+    text-transform: none;
+    margin-bottom: 13px;
 }
 
 .globalError {
@@ -58,42 +105,42 @@
 
 .registerQuestion {
     font-size: 18px;
-    margin-bottom: 4px;
+    line-height: 100%;
 }
 
 .registerButton {
+    text-transform: none;
     align-self: flex-start;
 }
 
 .verificationText {
-    margin-bottom: 24px;
+    margin-bottom: 26px;
     font-weight: 400;
     font-size: 18px;
     line-height: 125%;
     letter-spacing: -0.02em;
 }
 
-.confirmationText {
-    padding: 20px 0;
-    margin-bottom: 24px;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 97%;
-    letter-spacing: -0.04em;
-    border-top: 1px solid #2F2D2D;
-    border-bottom: 1px solid #2F2D2D;
-}
-
 .verificationQuestion {
+    margin-bottom: 10px;
     font-weight: 400;
     font-size: 18px;
     line-height: 125%;
 }
 
 .verificationButton {
-    width: fit-content;
-    justify-content: flex-start;
+    max-width: 390px;
+    margin-bottom: 10px;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 97%;
+    letter-spacing: -0.04em;
+}
+
+.supportLink {
     font-weight: 400;
     font-size: 18px;
     line-height: 125%;
+    color: var(--trood-orange);
 }
