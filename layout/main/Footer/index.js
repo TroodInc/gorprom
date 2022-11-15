@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { MobXProviderContext, observer } from 'mobx-react'
 import classNames from 'classnames'
 import Image from 'next/image'
 import Link from '../../../components/Link'
@@ -8,6 +10,8 @@ import Button, { BUTTON_TYPES } from '../../../components/Button'
 
 
 const Footer = ({ className, hide }) => {
+  const { store } = useContext(MobXProviderContext)
+  const { id } = store.authData
   if (hide) return null
   return (
     <footer className={classNames(styles.root, className)}>
@@ -37,12 +41,14 @@ const Footer = ({ className, hide }) => {
           <a href="tel: +79284332233" className={styles.phone}>
             +7 928 433 2233
           </a>
-          <Button
-            className={styles.registrationBtn}
-            label="Зарегистрироваться"
-            type={BUTTON_TYPES.fill}
-            link={'/registration'}
-          />
+          {!id && (
+            <Button
+              className={styles.registrationBtn}
+              label="Зарегистрироваться"
+              type={BUTTON_TYPES.fill}
+              link={'/registration'}
+            />
+          )}
         </div>
         <div className={styles.mainRight}>
           <div className={styles.block}>
@@ -108,4 +114,4 @@ const Footer = ({ className, hide }) => {
   )
 }
 
-export default Footer
+export default observer(Footer)
