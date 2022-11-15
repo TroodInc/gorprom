@@ -34,7 +34,7 @@
 
 .financeLink {
     composes: organizationLink;
-    justify-content: start;
+    justify-content: flex-start;
     color: var(--trood-gray-dark);
 }
 

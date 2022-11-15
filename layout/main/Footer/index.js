@@ -1,14 +1,16 @@
+import classNames from 'classnames'
 import Image from 'next/image'
 import Link from '../../../components/Link'
 import Icon, { ICONS_TYPES } from '../../../components/Icon'
 
 import styles from './index.module.css'
-import Button, { BUTTON_COLORS, BUTTON_TYPES } from '../../../components/Button'
+import Button, { BUTTON_TYPES } from '../../../components/Button'
 
 
-const Footer = () => {
+const Footer = ({ className, hide }) => {
+  if (hide) return null
   return (
-    <footer className={styles.root}>
+    <footer className={classNames(styles.root, className)}>
       <div className={styles.top}>
         <Link
           className={styles.logo}

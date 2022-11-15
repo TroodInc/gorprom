@@ -3,7 +3,6 @@
     flex-flow: column nowrap;
     padding: 28px 28px 0;
     width: 100%;
-    max-width: 1440px;
 }
 
 .container {
@@ -99,4 +98,27 @@
 
 .userMenu > :not(:last-child) {
     border-bottom: 1px solid var(--trood-border-dark);
+}
+
+.dark .container {
+    border-color: var(--trood-border-light);
+}
+
+.dark .link,
+.dark .link.active {
+    color: var(--trood-text-white);
+}
+
+.dark .link:hover {
+    color: var(--trood-orange);
+}
+
+.dark .button {
+    background-color: var(--trood-white);
+    color: var(--trood-text-gray);
+}
+
+.button:hover {
+    background-color: var(--trood-orange);
+    color: var(--trood-text-white);
 }

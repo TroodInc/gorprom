@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import classNames from 'classnames'
 import { MobXProviderContext, observer } from 'mobx-react'
 import Image from 'next/image'
 import Link from '../../../components/Link'
@@ -9,6 +10,9 @@ import styles from './index.module.css'
 
 
 const Header = ({
+  className,
+  hide,
+  theme = 'light',
   layoutProps: {
     authPage,
     profilePage,
@@ -16,10 +20,12 @@ const Header = ({
 }) => {
   const { store } = useContext(MobXProviderContext)
 
+  if (hide) return null
+
   const isAuth = store.authData.id > 0
 
   return (
-    <header className={styles.root}>
+    <header className={classNames(styles.root, className, styles[theme])}>
       <div className={styles.container}>
         <Link
           className={styles.logo}
@@ -28,7 +34,7 @@ const Header = ({
         >
           <Image
             alt="Горпром"
-            src="/image/logoDark.svg"
+            src={theme === 'light' ? '/image/logoDark.svg' : '/image/logoLight.svg'}
             width={312}
             height={58}
           />

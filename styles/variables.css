@@ -1,5 +1,6 @@
 :root {
   --trood-background: #fff;
+  --trood-background-gray: #d3d3d3;
   --trood-background-dark: #2f2d2d;
 
   --trood-text: #312f2f;
@@ -15,6 +16,7 @@
 
   --trood-border: #e8e8e8;
   --trood-border-dark: #312f2f;
+  --trood-border-light: #fff;
   --trood-border-gray-dark: #2f2d2d;
   --trood-border-light-gray: #979696;
 

@@ -72,6 +72,15 @@
   background-color: var(--trood-orange);
 }
 
+.fill.white {
+  color: var(--trood-text);
+  background-color: var(--trood-white);
+}
+
+.fill.white:not(.disabled):hover {
+  color: var(--trood-orange);
+}
+
 .text {
   font-weight: 400;
   font-size: 18px;
@@ -96,8 +105,15 @@
 .text.orange,
 .border.orange,
 .text.black:not(.disabled):hover,
-.border.black:not(.disabled):hover {
+.border.black:not(.disabled):hover,
+.text.white:not(.disabled):hover,
+.border.white:not(.disabled):hover {
   color: var(--trood-orange);
+}
+
+.text.white,
+.border.white {
+  color: var(--trood-white);
 }
 
 .icon {
