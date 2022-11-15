@@ -10,6 +10,7 @@
   line-height: 100%;
   color: var(--trood-text-light-gray);
   border: none;
+  margin-bottom: 6px;
 }
 
 .active {

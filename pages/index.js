@@ -1,14 +1,17 @@
 import { Fragment, useContext, useState } from 'react'
 import classNames from 'classnames'
+import moment from 'moment'
 import { MobXProviderContext, observer } from 'mobx-react'
 import Image from 'next/image'
 
 import Link from '../components/Link'
 import ImageSlider from '../components/ImageSlider'
 import Button, { BUTTON_TYPES, BUTTON_COLORS } from '../components/Button'
+import Input from '../components/Input'
 
 import styles from './index.module.css'
 import Icon, { ICONS_TYPES } from '../components/Icon'
+import { callGetApi, getApiPath, getFullUrl } from '../helpers/fetch'
 
 
 const market = [
@@ -97,15 +100,90 @@ const flowByType = {
   ],
 }
 
-const Main = () => {
+const News = ({ big, data: { id, created, name, type, photo } }) => {
+  const link = type === 'NEWS' ?
+    `/association/news/${id}` :
+    `/association/events/${id}`
+  if (big) {
+    return (
+      <Link className={classNames(styles.newsItem, styles.big)} href={link}>
+        <Image
+          alt={photo}
+          src={photo}
+          layout="fill"
+          objectFit="cover"
+        />
+        <div className={styles.newsContent}>
+          <h3 className={styles.title}>
+            {name}
+          </h3>
+          <div className={styles.date}>
+            {moment(created).format('DD.MM.YYYY HH.mm')}
+          </div>
+        </div>
+      </Link>
+    )
+  }
+  return (
+    <Link className={classNames(styles.newsItem, styles.normal)} href={link}>
+      <div className={styles.newsContent}>
+        <h3 className={styles.title}>
+          {name}
+        </h3>
+        <div className={styles.row}>
+          <div className={styles.date}>
+            {moment(created).format('DD.MM.YYYY HH.mm')}
+          </div>
+          <Icon
+            type={ICONS_TYPES.arrowWithTail}
+            className={styles.arrowWithTail}
+            size={46}
+          />
+        </div>
+        <div className={styles.imageWrapper}>
+          <Image
+            alt={photo}
+            src={photo}
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+      </div>
+    </Link>
+  )
+}
+
+const formStoreName = 'subscribe'
+const successFormStoreName = 'success'
+
+const Main = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const { id } = store.authData
+
+  let formStore = store.createFormStore(formStoreName)
+  const { form } = formStore
 
   const [company, setCompany] = useState(0)
   const prevCompany = company - 1 < 0 ? companies.length - 1 : company - 1
   const nextCompany = company + 1 > companies.length - 1 ? 0 : company + 1
 
   const [howType, setHowType] = useState('PROM')
+
+  const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
+
+  const newsParams = {
+    q: 'eq(type,NEWS),sort(-created),limit(0,5)',
+    only: ['name', 'created', 'photo', 'type'],
+  }
+  const news = store.callHttpQuery(custodianApiPath + 'news', { params: newsParams })
+  const newsArray = news.get('data.data') || []
+
+  const eventParams = {
+    q: 'eq(type,EVENT),sort(-created),limit(0,3)',
+    only: ['name', 'created', 'photo', 'type'],
+  }
+  const event = store.callHttpQuery(custodianApiPath + 'news', { params: eventParams })
+  const eventArray = event.get('data.data') || []
 
   return (
     <div className={styles.root}>
@@ -257,8 +335,152 @@ const Main = () => {
           </div>
         </div>
       </div>
+      <div className={styles.fifth}>
+        {!!newsArray.length && (
+          <div className={styles.news}>
+            <h2 className={styles.title}>
+              Новости
+            </h2>
+            <div className={styles.content}>
+              <News big data={newsArray[0]} />
+              {newsArray.length > 1 && (
+                <>
+                  <div className={styles.split} />
+                  <News data={newsArray[1]} />
+                </>
+              )}
+            </div>
+            {newsArray.length > 2 && (
+              <div className={styles.content}>
+                {newsArray.map((item, i) => {
+                  if (i < 2) return null
+                  return (
+                    <Fragment key={item.id}>
+                      {i > 2 && (<div className={styles.split} />)}
+                      <News data={item} />
+                    </Fragment>
+                  )
+                })}
+              </div>
+            )}
+            <Button
+              className={styles.arrowButton}
+              label="Другие новости"
+              link="/association/news"
+            />
+          </div>
+        )}
+        {!!eventArray.length && (
+          <div className={styles.news}>
+            <h2 className={styles.title}>
+              Отраслевые мероприятия
+            </h2>
+            <div className={styles.content}>
+              {eventArray.map((item, i) => (
+                <Fragment key={item.id}>
+                  {!!i && (<div className={styles.split} />)}
+                  <News data={item} />
+                </Fragment>
+              ))}
+            </div>
+            <Button
+              className={styles.arrowButton}
+              label="Другие события"
+              link="/association/events"
+            />
+          </div>
+        )}
+        <div className={styles.subscribe}>
+          <div className={styles.left}>
+            Подписаться на рассылку
+          </div>
+          <div className={styles.right}>
+            <div className={styles.inputWrapper}>
+              <Input
+                className={styles.input}
+                placeholder="Введите адрес электронной почты"
+                validate={{ required: true, checkOnBlur: true }}
+                showTextErrors={false}
+                value={form.get('data.mail')}
+                errors={form.get('errors.mail')}
+                onChange={(value) => form.set('data.mail', value)}
+                onInvalid={(value) => form.set('errors.mail', value)}
+                onValid={() => form.set('errors.mail', [])}
+              />
+              <Button
+                className={styles.button}
+                disabled={form.hasErrors}
+                type={BUTTON_TYPES.border}
+                label={'>'}
+                onClick={() => form.submit(custodianApiPath + 'subscriber', 'POST')
+                  .then(() => {
+                    form.set('data.mail', '')
+                    store.createFormStore(successFormStoreName, {
+                      modalComponent: 'MessageBox',
+                      props: {
+                        width: 400,
+                        children: 'Вы успешно подписались на рассылку',
+                      },
+                    })
+                  })}
+              />
+            </div>
+            <div className={styles.disclaimer}>
+              <span>Подписываясь, я соглашаюсь на получение новостных/рекламных сообщений на условиях</span>
+              <Link href="/terms">Пользовательского соглашения</Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
+}
+
+export async function getServerSideProps({ req, query }) {
+  if (req.url.startsWith('/_next')) return { props: {} } // dont preload data on client-side
+
+  const { headers: { host }, cookies: { token } = {} } = req
+
+  const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
+
+  const newsParams = {
+    q: 'eq(type,NEWS),sort(-created),limit(0,5)',
+    only: ['name', 'created', 'photo', 'type'],
+  }
+  const newsFullUrl = getFullUrl(custodianApiPath + 'news', newsParams)
+  const newsResponse = await callGetApi(
+    newsFullUrl,
+    token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+  )
+
+  const eventParams = {
+    q: 'eq(type,EVENT),sort(-created),limit(0,3)',
+    only: ['name', 'created', 'photo', 'type'],
+  }
+  const eventFullUrl = getFullUrl(custodianApiPath + 'news', eventParams)
+  const eventResponse = await callGetApi(
+    eventFullUrl,
+    token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+  )
+
+  return {
+    props: {
+      initialStore: {
+        httpQuery: {
+          [newsFullUrl]: {
+            callTime: Date.now(),
+            loaded: true,
+            response: newsResponse,
+          },
+          [eventFullUrl]: {
+            callTime: Date.now(),
+            loaded: true,
+            response: eventResponse,
+          },
+        },
+      },
+    },
+  }
 }
 
 Main.layoutProps = {

@@ -6,7 +6,6 @@
   display: flex;
   align-items: stretch;
   height: 72px;
-  margin-top: 6px;
   padding: 8px 8px 8px 16px;
 }
 
@@ -34,6 +33,7 @@
   line-height: 100%;
   color: var(--trood-text-light-gray);
   border: none;
+  margin-bottom: 6px;
 }
 
 .phoneCode {
