@@ -87,7 +87,7 @@ const PasswordCheck = ({
     return arr.map(({ title, icn, iconStyle }, i) => {
       return (
         <div className={styles.item} key={i}>
-          <Icon type={icn === ICONS_TYPES.clear ? '' : icn} size={16} className={iconStyle}/>
+          <Icon type={icn} size={16} className={iconStyle}/>
           <div>
             {title}
           </div>

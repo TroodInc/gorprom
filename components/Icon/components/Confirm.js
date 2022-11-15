@@ -2,8 +2,8 @@ import React from 'react'
 
 const Confirm = () => {
   return (
-    <svg viewBox="0 0 24 24">
-      <path d="M8,16.2l-4.8-4.8L1,13.7l7,7L23,5.7l-2.2-2.2L8,16.2z" />
+    <svg viewBox="0 0 12 12">
+      <polygon points="5.24,10.44 0,5.73 1.55,4.01 5.09,7.19 10.3,1.56 12,3.13 "/>
     </svg>
   )
 }

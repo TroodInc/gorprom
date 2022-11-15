@@ -18,7 +18,8 @@
 }
 
 
-.clear, .check {
+.clear,
+.check {
     display: flex;
     width: 16px;
     height: 16px;
@@ -40,6 +41,10 @@
 
 .check {
     background-color: var(--trood-orange);;
+}
+
+.check svg {
+    width: 65%;
 }
 
 .check ~ div {

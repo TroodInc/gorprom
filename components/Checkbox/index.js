@@ -100,7 +100,7 @@ class Checkbox extends PureComponent {
       }}>
         <Icon {...{
           type: iconType || ICONS_TYPES.confirm,
-          size: 14,
+          size: 12,
           className: iconType || value ? style.icon : style.iconHide,
         }} />
       </div>

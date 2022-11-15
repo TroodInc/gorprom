@@ -48,7 +48,7 @@ const Registration = ({ host }) => {
         <title>Горпром | Регистрация</title>
       </Head>
       <div className={styles.top}>
-        <Link className={styles.goBackBtn} href={'/registration'}>
+        <Link className={styles.goBackBtn} href={'/'} onClick={store.clearAuthData}>
           {'<'}
         </Link>
         {[
