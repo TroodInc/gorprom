@@ -115,13 +115,15 @@ const Main = () => {
       ]}>
         <div className={styles.header}>
           <h2 className={styles.title}>Маркетплейс горной промышленности</h2>
-          <Button
-            className={styles.reg}
-            label="Регистрация"
-            type={BUTTON_TYPES.border}
-            color={BUTTON_COLORS.white}
-            link={'/registration'}
-          />
+          {!id && (
+            <Button
+              className={styles.reg}
+              label="Регистрация"
+              type={BUTTON_TYPES.border}
+              color={BUTTON_COLORS.white}
+              link={'/registration'}
+            />
+          )}
         </div>
       </ImageSlider>
       <div className={styles.first}>
