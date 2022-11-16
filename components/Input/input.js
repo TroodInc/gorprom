@@ -589,24 +589,24 @@ class Input extends PureComponent {
             type === INPUT_TYPES.url &&
             <span className={styles.phoneCode}>http://</span>
           }
-          {/*{*/}
-          {/*  type === INPUT_TYPES.multi &&*/}
-          {/*  <textarea {...{*/}
-          {/*    ref: (node) => {*/}
-          {/*      this.shadow = node*/}
-          {/*      this.heightChange()*/}
-          {/*    },*/}
-          {/*    className: styles.shadow,*/}
-          {/*    style: {*/}
-          {/*      height: 0,*/}
-          {/*      width: this.inputWidth,*/}
-          {/*      lineHeight: `${ROW_HEIGHT}px`,*/}
-          {/*    },*/}
-          {/*    value: formattedValue,*/}
-          {/*    tabIndex: -1,*/}
-          {/*    readOnly: true,*/}
-          {/*  }} />*/}
-          {/*}*/}
+          {
+            type === INPUT_TYPES.multi &&
+            <textarea {...{
+              ref: (node) => {
+                this.shadow = node
+                this.heightChange()
+              },
+              className: styles.shadow,
+              style: {
+                height: 0,
+                width: this.inputWidth,
+                lineHeight: `${ROW_HEIGHT}px`,
+              },
+              value: formattedValue,
+              tabIndex: -1,
+              readOnly: true,
+            }} />
+          }
           {getInputComp()}
           {children}
         </div>
