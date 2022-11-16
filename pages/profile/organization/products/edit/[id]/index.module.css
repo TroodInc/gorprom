@@ -69,10 +69,6 @@
     flex: 0 1 390px;
 }
 
-.cell .descrInput {
-    height: 184px;
-}
-
 .controls {
     margin-top: 56px;
     display: flex;
@@ -108,12 +104,11 @@
 }
 
 .split {
-    position: absolute;
-    top: 41px;
-    left: calc(34% - 12px);
+    position: relative;
+    z-index: 9;
     width: 1px;
-    height: 56px;
-    background-color: var(--trood-border-dark);
+    background-color: var(--trood-border-light-gray);
+    margin: 34px 0 8px -1px;
 }
 
 .icon {
@@ -156,6 +151,7 @@
     align-self: center;
     justify-content: center;
     margin-bottom: 9px;
+    opacity: 0.4;
 }
 
 .addPhotoLabel {

@@ -143,8 +143,6 @@ const ProductEdit = ({ host }) => {
           <div className={styles.row}>
             <div className={classNames(styles.cell)}>
               <Input
-                className={styles.descr}
-                inputClassName={styles.descrInput}
                 label="Краткое описание"
                 type={INPUT_TYPES.multi}
                 minRows={5}
@@ -158,8 +156,6 @@ const ProductEdit = ({ host }) => {
             </div>
             <div className={classNames(styles.cell)}>
               <Input
-                className={styles.descr}
-                inputClassName={styles.descrInput}
                 label="Полное описание"
                 type={INPUT_TYPES.multi}
                 minRows={5}
@@ -206,10 +202,9 @@ const ProductEdit = ({ host }) => {
                   onValid={() => form.set(`errors.attribute_set.${i}.value`, [])}
                 />
               </div>
-              <div className={styles.split}/>
               <Icon
                 className={styles.icon}
-                size={15}
+                size={14}
                 type={ICONS_TYPES.clear}
                 onClick={() => {
                   const attributeSet = form.get('data.attribute_set') || []

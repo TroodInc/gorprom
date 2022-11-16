@@ -5,8 +5,8 @@
   background-color: var(--trood-white);
   display: flex;
   align-items: stretch;
-  height: 72px;
-  padding: 8px 8px 8px 16px;
+  min-height: 72px;
+  padding: 8px 16px;
 }
 
 .root.active {
@@ -106,4 +106,12 @@
   background: transparent;
   border: none;
   cursor: pointer;
+}
+
+.shadow {
+  composes: input;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  position: absolute;
 }

@@ -90,7 +90,6 @@ class Input extends PureComponent {
     onChange: noopFunc,
     onValid: noopFunc,
     onInvalid: noopFunc,
-    onEnter: noopFunc,
     onSearch: noopFunc,
     onFocus: noopFunc,
     onBlur: noopFunc,
@@ -464,7 +463,6 @@ class Input extends PureComponent {
       showTextErrors,
       children,
       settings: {
-        required,
         checkOnBlur,
       },
     } = this.props
