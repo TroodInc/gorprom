@@ -71,54 +71,31 @@ const ProductEdit = ({ host }) => {
     <>
       <div className={styles.root}>
         <div className={styles.navigation}>
-          <Link
-            className={styles.organizationLink}
-            href={'/profile/organization'}
-          >
-            <div className={styles.linkContent}>
-              <div>{'<'}</div>
-              <div>профиль организации</div>
-            </div>
-          </Link>
-          <Link
-            className={styles.financeLink}
-            href={'/profile/organization/requisites'}
-          >
-            <div className={styles.linkContent}>
-              <div>{'<'}</div>
-              <div>финансовая информация</div>
-            </div>
-          </Link>
-          <Link
-            className={styles.productsLink}
-            href={'/profile/organization/products'}
-          >
-            <div className={styles.linkContent}>
-              <div>товары</div>
-            </div>
-          </Link>
+          {[
+            { title: 'Профиль организации', href: '/profile/organization', active: false },
+            { title: 'Финансовая информация', href: '/profile/organization/requisites', active: false },
+            { title: 'Товары и услуги', href: '/profile/organization/products', active: true },
+          ].map(({ title, href, active }, i, arr) => (
+            <Link
+              className={classNames(styles.navLink, active && styles.active)}
+              href={href}
+              key={i}
+            >
+              <div className={styles.linkContent}>
+                <div>{title}</div>
+                {(i !== arr.length - 1) && <div>{'>'}</div>}
+              </div>
+            </Link>
+          ))}
         </div>
         <div className={styles.main}>
-          <div className={styles.row}>
-            <div className={styles.cell}>
-              <Input
-                label="Название"
-                validate={{ required: true, checkOnBlur: true }}
-                value={form.get('data.name')}
-                errors={form.get('errors.name')}
-                onChange={(value) => form.set('data.name', value)}
-                onInvalid={(value) => form.set('errors.name', value)}
-                onValid={() => form.set('errors.name', [])}
-              />
-            </div>
-          </div>
-          <div className={styles.row}>
+          <div className={classNames(styles.row, styles.section)}>
             <div className={styles.cell}>
               <Select
                 validate={{ required: true, checkOnBlur: true }}
                 type={SELECT_TYPES.filterDropdown}
                 label="Тип"
-                placeholder="Укажите тип"
+                placeholder="Не выбрано"
                 items={productTypeArray.map(item => ({
                   value: item.id,
                   label: item.name,
@@ -131,12 +108,25 @@ const ProductEdit = ({ host }) => {
                 onValid={() => form.set('errors.type', [])}
               />
             </div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.cell}>
+              <Input
+                label="Название"
+                validate={{ required: true, checkOnBlur: true }}
+                value={form.get('data.name')}
+                errors={form.get('errors.name')}
+                onChange={(value) => form.set('data.name', value)}
+                onInvalid={(value) => form.set('errors.name', value)}
+                onValid={() => form.set('errors.name', [])}
+              />
+            </div>
             <div className={styles.cell}>
               <Select
                 validate={{ required: true, checkOnBlur: true }}
                 type={SELECT_TYPES.filterDropdown}
                 label="Категория"
-                placeholder="Укажите категорию"
+                placeholder="Не выбрано"
                 items={productCategoryArray.map(item => ({
                   value: item.id,
                   label: item.parent ? `${item.name} (${item.parent.name})` : item.name,
@@ -151,11 +141,14 @@ const ProductEdit = ({ host }) => {
             </div>
           </div>
           <div className={styles.row}>
-            <div className={classNames(styles.cell, styles.full)}>
+            <div className={classNames(styles.cell)}>
               <Input
+                className={styles.descr}
+                inputClassName={styles.descrInput}
                 label="Краткое описание"
                 type={INPUT_TYPES.multi}
-                minRows={2}
+                minRows={5}
+                validate={{ maxLen: 1000 }}
                 value={form.get('data.teaser')}
                 errors={form.get('errors.teaser')}
                 onChange={(value) => form.set('data.teaser', value)}
@@ -163,13 +156,14 @@ const ProductEdit = ({ host }) => {
                 onValid={() => form.set('errors.teaser', [])}
               />
             </div>
-          </div>
-          <div className={styles.row}>
-            <div className={classNames(styles.cell, styles.full)}>
+            <div className={classNames(styles.cell)}>
               <Input
+                className={styles.descr}
+                inputClassName={styles.descrInput}
                 label="Полное описание"
                 type={INPUT_TYPES.multi}
                 minRows={5}
+                validate={{ maxLen: 3000 }}
                 value={form.get('data.description')}
                 errors={form.get('errors.description')}
                 onChange={(value) => form.set('data.description', value)}
@@ -178,7 +172,7 @@ const ProductEdit = ({ host }) => {
               />
             </div>
           </div>
-          <div className={classNames(styles.row, styles.additionalGap)}>
+          <div className={classNames(styles.row, styles.additionalGap, styles.section)}>
             <div className={styles.cell}>
               Параметры
             </div>
@@ -187,6 +181,7 @@ const ProductEdit = ({ host }) => {
             <div key={item.id || item.tmpId} className={styles.contactBlock}>
               <div className={styles.cell}>
                 <Input
+                  inputClassName={styles.inputRight}
                   label="Название параметра"
                   placeholder="Вес, кг"
                   validate={{ required: true, checkOnBlur: true }}
@@ -200,6 +195,7 @@ const ProductEdit = ({ host }) => {
               <div className={styles.split}/>
               <div className={styles.cell}>
                 <Input
+                  inputClassName={styles.inputLeft}
                   label="Значение"
                   placeholder="10"
                   validate={{ required: true, checkOnBlur: true }}
@@ -213,8 +209,8 @@ const ProductEdit = ({ host }) => {
               <div className={styles.split}/>
               <Icon
                 className={styles.icon}
-                size={32}
-                type={ICONS_TYPES.trashBin}
+                size={15}
+                type={ICONS_TYPES.clear}
                 onClick={() => {
                   const attributeSet = form.get('data.attribute_set') || []
                   const newAttributeSet = []
@@ -234,7 +230,7 @@ const ProductEdit = ({ host }) => {
               />
             </div>
           ))}
-          <div className={styles.row}>
+          <div className={classNames(styles.row, styles.addNew)}>
             <div className={styles.cell}>
               <Button
                 className={styles.add}
@@ -251,70 +247,68 @@ const ProductEdit = ({ host }) => {
               />
             </div>
           </div>
-          <div className={classNames(styles.row, styles.additionalGap)}>
+          <div className={classNames(styles.row, styles.additionalGap, styles.section)}>
             <div className={styles.cell}>
               Фото
             </div>
           </div>
-          {!!form.get('data.photo_set').length && (
-            <div className={styles.photoRow}>
-              {(form.get('data.photo_set') || []).map((item, i) => (
-                <div key={item.link} className={styles.photo}>
-                  <Image
-                    alt={'Photo' + (i + 1)}
-                    src={item.link}
-                    width={190}
-                    height={110}
-                    objectFit="cover"
-                  />
-                  <Icon
-                    className={styles.icon}
-                    size={32}
-                    type={ICONS_TYPES.trashBin}
-                    onClick={() => {
-                      const photoSet = form.get('data.photo_set') || []
-                      const newPhotoSet = []
-                      const photoSetErrors = form.get('errors.photo_set') || []
-                      const newPhotoSetErrors = []
+          <div className={styles.photoRow}>
+            {!!form.get('data.photo_set').length && (
+              <>
+                {(form.get('data.photo_set') || []).map((item, i) => (
+                  <div key={item.link} className={styles.photo}>
+                    <Image
+                      alt={'Photo' + (i + 1)}
+                      src={item.link}
+                      width={172}
+                      height={172}
+                      objectFit="cover"
+                    />
+                    <Icon
+                      className={styles.iconPhoto}
+                      size={14}
+                      type={ICONS_TYPES.clear}
+                      onClick={() => {
+                        const photoSet = form.get('data.photo_set') || []
+                        const newPhotoSet = []
+                        const photoSetErrors = form.get('errors.photo_set') || []
+                        const newPhotoSetErrors = []
 
-                      photoSet.forEach((_, j) => {
-                        if (i !== j) {
-                          newPhotoSet.push(photoSet[j])
-                          newPhotoSetErrors.push(photoSetErrors[j])
-                        }
-                      })
+                        photoSet.forEach((_, j) => {
+                          if (i !== j) {
+                            newPhotoSet.push(photoSet[j])
+                            newPhotoSetErrors.push(photoSetErrors[j])
+                          }
+                        })
 
-                      form.set('data.photo_set', newPhotoSet)
-                      form.set('errors.photo_set', newPhotoSetErrors)
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-          <div className={styles.row}>
-            <div className={styles.cell}>
-              <FileInput
-                className={styles.add}
-                endpoint={fileApiPath + 'files/'}
-                onUpload={({ file_url }) =>
-                  form.set(`data.photo_set.${form.get('data.photo_set').length}.link`, file_url)
-                }
-              >
-                <Button
-                  className={styles.add}
-                  type={BUTTON_TYPES.text}
-                  specialType={BUTTON_SPECIAL_TYPES.upload}
-                  color={BUTTON_COLORS.orange}
-                  label="Добавить еще фото"
-                />
-              </FileInput>
-            </div>
+                        form.set('data.photo_set', newPhotoSet)
+                        form.set('errors.photo_set', newPhotoSetErrors)
+                      }}
+                    />
+                  </div>
+                ))}
+              </>
+            )}
+            <FileInput
+              className={styles.addPhoto}
+              endpoint={fileApiPath + 'files/'}
+              onUpload={({ file_url }) =>
+                form.set(`data.photo_set.${form.get('data.photo_set').length}.link`, file_url)
+              }
+            >
+              <Icon
+                className={styles.addPhotoIcon}
+                size={62}
+                type={ICONS_TYPES.photo}
+              />
+              <div className={styles.addPhotoLabel}>Добавить фото</div>
+            </FileInput>
           </div>
         </div>
       </div>
       <div className={styles.controls}>
         <Button
+          className={styles.controlsBtn}
           label="Сохранить изменения"
           disabled={form.hasErrors}
           onClick={() => {
@@ -325,6 +319,7 @@ const ProductEdit = ({ host }) => {
           }}
         />
         <Button
+          className={styles.controlsBtn}
           type={BUTTON_TYPES.border}
           label="< &nbsp; &nbsp; &nbsp; Вернуться к товарам"
           link="/profile/organization/products"

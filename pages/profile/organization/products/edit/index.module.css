@@ -6,25 +6,29 @@
 .navigation {
     display: flex;
     flex-basis: 100%;
-    margin-bottom: 56px;
+    margin-bottom: 27px;
     gap: 24px;
 }
 
-.organizationLink:hover {
+.navLink:hover {
     color: var(--trood-orange);
+    opacity: 1;
 }
 
-.organizationLink {
+.navLink {
     display: flex;
-    height: 64px;
     align-items: center;
     justify-content: flex-start;
-    padding: 0 16px;
-    flex-basis: 33%;
-    letter-spacing: -0.04em;
-    color: var(--trood-gray-dark);
-    border: 2px solid;
-    border-radius: 16px;
+    font-size: 24px;
+    line-height: 97%;
+    letter-spacing: -0.03em;
+    color: var(--trood-text-light-gray);
+    opacity: 0.4;
+}
+
+.active {
+    color: var(--trood-orange);
+    opacity: 1;
 }
 
 .linkContent {
@@ -32,23 +36,11 @@
     gap: 24px;
 }
 
-.financeLink {
-    composes: organizationLink;
-}
-
-.productsLink {
-    composes: organizationLink;
-    justify-content: center;
-    color: var(--trood-orange);
-}
-
 .main {
     display: flex;
     flex-flow: column nowrap;
-    flex: 0 0 67%;
-    gap: 32px;
-    padding-top: 43px;
-    border-top: 1px solid var(--trood-border-dark);
+    flex: 0 0 100%;
+    gap: 7px;
 }
 
 .row {
@@ -58,60 +50,140 @@
 }
 
 .row.additionalGap {
-    margin-top: 32px;
+    margin-top: 30px;
+}
+
+.section {
+    width: 100%;
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 16px;
+}
+
+.section:not(:first-of-type) {
+    margin-bottom: 35px;
 }
 
 .cell {
     display: flex;
     flex-flow: column nowrap;
-    flex: 0 1 50%;
+    flex: 0 1 390px;
 }
 
-.cell.full {
-    flex: 1;
+.cell .descrInput {
+    height: 184px;
 }
 
 .controls {
-    margin-top: 24px;
-    border-top: 1px solid var(--trood-border-dark);
-    padding-top: 56px;
+    margin-top: 56px;
     display: flex;
     flex-flow: row nowrap;
     gap: 24px;
 }
 
+.controlsBtn {
+    width: 378px;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 97%;
+    letter-spacing: -0.04em;
+    text-transform: none;
+}
+
 .contactBlock {
     composes: row;
-    gap: 8px;
+    position: relative;
+    gap: 0;
+}
+
+.cell .inputLeft {
+    border-left: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.cell .inputRight {
+    border-right: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .split {
+    position: absolute;
+    top: 41px;
+    left: calc(34% - 12px);
     width: 1px;
+    height: 56px;
     background-color: var(--trood-border-dark);
-    margin-top: 34px;
-    margin-bottom: 9px;
 }
 
 .icon {
-    color: var(--trood-text-light-gray);
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
     margin-top: 25px;
-}
-
-.icon:hover {
-    color: var(--trood-orange);
+    margin-left: 16px;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    background-color: var(--trood-gray-dark);
+    color: var(--trood-white);
 }
 
 .add {
     align-self: flex-start;
+    line-height: 125%;
+    text-transform: none;
+}
+
+.addNew {
+    margin-top: 16px;
+}
+
+.addPhoto {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    width: 172px;
+    height: 172px;
+    color: var(--trood-text-silver);
+    border: 1px dashed var(--trood-border-light-gray);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.addPhotoIcon {
+    align-self: center;
+    justify-content: center;
+    margin-bottom: 9px;
+}
+
+.addPhotoLabel {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    opacity: 0.4;
 }
 
 .photoRow {
     composes: row;
+    display: flex;
     flex-flow: row wrap;
+    gap: 24px;
 }
 
 .photo {
+    position: relative;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+}
+
+.iconPhoto {
+    composes: icon;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    margin: 0;
 }
