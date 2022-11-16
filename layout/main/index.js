@@ -20,9 +20,9 @@ const Layout = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.root}>
-        <Header {...props} {...headerProps} {...layoutProps} />
+        <Header {...props} {...headerProps} layoutProps={layoutProps} />
         <main className={classNames(className, styles.main)}>{children}</main>
-        <Footer {...props} {...footerProps} {...layoutProps} />
+        <Footer {...props} {...footerProps} layoutProps={layoutProps} />
       </div>
     </div>
   )
