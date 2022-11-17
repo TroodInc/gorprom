@@ -148,7 +148,7 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host, on
         {!onEdit && (
           <Button
             className={styles.button}
-            label="Связаться"
+            label="Отправить запрос"
             onClick={() => {
               if (id) {
                 const formStoreName = 'request' + type + data.id
