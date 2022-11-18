@@ -5,12 +5,10 @@ import classNames from 'classnames'
 
 import { callGetApi, getApiPath, getFullUrl } from '../../../helpers/fetch'
 import MarketLayout from '../../../layout/market'
-import SubMenu from '../../../components/SubMenu'
 import Select from '../../../components/Select'
 import MarketCard from '../../../components/MarketCard'
 
 import styles from './index.module.css'
-
 
 const Market = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
@@ -38,14 +36,6 @@ const Market = ({ host }) => {
   return (
     <div className={styles.root}>
       <div className={styles.left}>
-        <SubMenu
-          className={styles.menu}
-          items={[
-            { link: '/market/product', title: 'Товары' },
-            { link: '/market/service', title: 'Услуги' },
-            { link: '/market/company', title: 'Компании' },
-          ]}
-        />
         {companyArray.map(item => (
           <MarketCard
             key={item.id}
@@ -56,7 +46,7 @@ const Market = ({ host }) => {
         ))}
       </div>
       <div className={styles.right}>
-        <div className={styles.title}>Фильтры</div>
+        <div className={styles.title}>Категории</div>
         <Select
           clearable
           className={classNames(

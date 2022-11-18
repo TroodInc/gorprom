@@ -5,7 +5,6 @@ import classNames from 'classnames'
 
 import { callGetApi, getApiPath, getFullUrl } from '../../../helpers/fetch'
 import MarketLayout from '../../../layout/market'
-import SubMenu from '../../../components/SubMenu'
 import Button, { BUTTON_TYPES, BUTTON_COLORS } from '../../../components/Button'
 import Select from '../../../components/Select'
 import MarketCard from '../../../components/MarketCard'
@@ -38,14 +37,6 @@ const Market = ({ host }) => {
   return (
     <div className={styles.root}>
       <div className={styles.left}>
-        <SubMenu
-          className={styles.menu}
-          items={[
-            { link: '/market/product', title: 'Товары' },
-            { link: '/market/service', title: 'Услуги' },
-            { link: '/market/company', title: 'Компании' },
-          ]}
-        />
         {productArray.map(item => (
           <MarketCard
             key={item.id}
@@ -56,7 +47,7 @@ const Market = ({ host }) => {
         ))}
       </div>
       <div className={styles.right}>
-        <div className={styles.title}>Фильтры</div>
+        <div className={styles.title}>Категории</div>
         {productCategoryArray.map(item => {
           if (item.childs?.length) {
             const items = [item, ...item.childs]

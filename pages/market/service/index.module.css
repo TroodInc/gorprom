@@ -1,35 +1,30 @@
 .root {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
-    gap: 100px;
+    gap: 56px;
+}
+
+.root * {
+    text-transform: none;
 }
 
 .left {
-    flex: 1 1 73%;
-}
-
-.menu {
-    margin-bottom: 32px;
+    margin-top: 24px;
+    flex-basis: 780px;
 }
 
 .right {
-    flex: 1 1 27%;
+    flex-basis: 300px;
     display: flex;
     flex-flow: column nowrap;
     gap: 4px;
 }
 
-.right .title {
+.title {
     font-weight: 500;
-    font-size: 24px;
-    letter-spacing: -0.04em;
-    margin-bottom: 12px;
-    text-transform: lowercase;
-}
-
-.right .select {
-    text-transform: lowercase;
+    font-size: 18px;
+    line-height: 135%;
+    margin-bottom: 20px;
 }
 
 .right .select > div {
@@ -38,8 +33,12 @@
     height: 64px;
 }
 
-.right .select span {
+.select span, .button {
     font-weight: 500;
+    font-size: 18px;
+    line-height: 97%;
+    letter-spacing: -0.04em;
+    color: var(--trood-text);
 }
 
 .right .select.active {
@@ -54,6 +53,6 @@
     color: var(--trood-orange);
 }
 
-.right .button {
+.button {
     justify-content: flex-start;
 }
