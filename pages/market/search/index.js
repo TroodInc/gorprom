@@ -9,13 +9,12 @@ import MarketLayout from '../../../layout/market'
 import MarketCard from '../../../components/MarketCard'
 
 import styles from './index.module.css'
-import Button, { BUTTON_TYPES } from '../../../components/Button'
 
 
 const Market = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const router = useRouter()
-  const { query: { search = '', type, from }, push } = router
+  const { query: { search = '', type } } = router
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
 
@@ -65,15 +64,9 @@ const Market = ({ host }) => {
           )}
           {!!totalCount && (
             <div>
-              Найдено {humanizeNumber(totalCount, 'совпадение', 'совпадения', 'совпадений')}
+              Найдено: {humanizeNumber(totalCount, 'совпадение', 'совпадения', 'совпадений')}
             </div>
           )}
-          <Button
-            className={styles.button}
-            label="отменить"
-            type={BUTTON_TYPES.text}
-            onClick={() => push(from || '/market')}
-          />
         </div>
         {productArray.map(item => (
           <MarketCard
@@ -102,8 +95,6 @@ const Market = ({ host }) => {
             host={host}
           />
         ))}
-      </div>
-      <div className={styles.right}>
       </div>
     </div>
   )

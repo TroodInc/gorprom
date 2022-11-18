@@ -6,7 +6,7 @@
 }
 
 .left {
-    flex: 1 1 73%;
+    flex-basis: 100%;
 }
 
 .header {
@@ -14,9 +14,8 @@
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 12px;
+    padding-bottom: 22px;
     border-bottom: 1px solid var(--trood-border-dark);
-    margin-bottom: 56px;
 }
 
 .header .button {
