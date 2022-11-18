@@ -229,18 +229,31 @@ const Store = types.model('store', {
   },
   setAuthData(data) {
     const { token } = store
-    self.authData = {
-      ...data,
-      token: data.token || token,
+    const realToken = data.token || token
+    if (realToken) {
+      self.authData = {
+        ...data,
+        token: data.token || token,
+      }
+    } else {
+      self.authData = {
+        login: data.login,
+      }
     }
-    if (window !== undefined && self.authData.token) {
-      window.document.cookie = newCookie('token', self.authData.token, 365)
+    if (window !== undefined) {
+      if (self.authData.token) {
+        window.document.cookie = newCookie('token', self.authData.token, 365)
+        window.document.cookie = newCookie('reg', '', 0)
+      } else {
+        window.document.cookie = newCookie('reg', self.authData.login, 365)
+      }
     }
   },
   clearAuthData() {
     self.authData = {}
     if (window !== undefined) {
       window.document.cookie = newCookie('token', '', 0)
+      window.document.cookie = newCookie('reg', '', 0)
     }
   },
   callHttpQuery(tmpURL, { params, headers, cacheTime = 2000, method = 'GET', ...options } = {}) {

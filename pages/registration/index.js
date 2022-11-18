@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
 import classNames from 'classnames'
 
 import Input, { INPUT_TYPES } from '../../components/Input'
 import Button, { BUTTON_COLORS, BUTTON_TYPES } from '../../components/Button'
-import { getApiPath } from '../../helpers/fetch'
+import { getApiPath, callGetApi, callPostApi } from '../../helpers/fetch'
 
 import styles from './index.module.css'
 import PasswordCheck from '../../components/PasswordCheck'
@@ -18,9 +18,47 @@ const formStoreName = 'registration'
 
 const Registration = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
-  const router = useRouter()
+  const { query: { token } } = useRouter()
 
   const { authData } = store
+
+  const company = !!authData.id
+  const verify = !!authData.login && !company
+  const reg = !company && !verify
+
+
+  const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
+
+  useEffect(() => {
+    if (verify && token) {
+      callGetApi(authApiPath + 'activate?token=' + token)
+        .then(resp => {
+          const realToken = resp.data.data.token
+          callPostApi(authApiPath + 'verify-token/', { headers: { Authorization: `Token ${realToken}` } })
+            .then(({ data: { data } }) => {
+              store.setAuthData({
+                ...data,
+                token: realToken,
+              })
+            })
+        })
+        .catch(resp => {
+          if (resp.status >= 400) {
+            let error = resp.error
+            while (error && typeof error === 'object') {
+              error = error.error || error.data
+            }
+            store.createFormStore('error', {
+              modalComponent: 'MessageBox',
+              props: {
+                width: 400,
+                children: error,
+              },
+            })
+          }
+        })
+    }
+  }, [])
 
   const formStore = store.createFormStore(
     formStoreName,
@@ -36,11 +74,7 @@ const Registration = ({ host }) => {
   )
   const { form } = formStore
 
-  const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
-
   const globalError = form.get('errors.globalError')
-
-  const verify = authData.id
 
   return (
     <div className={styles.root}>
@@ -62,6 +96,7 @@ const Registration = ({ host }) => {
           </div>
         ))}
       </div>
+      {company && 'company step'}
       {verify &&
         <div className={styles.mainVerification}>
           <div className={styles.verificationText}>
@@ -73,12 +108,29 @@ const Registration = ({ host }) => {
             label="Отправить повторно"
             type={BUTTON_TYPES.fill}
             color={BUTTON_COLORS.black}
-            onClick={() => console.warn('Предупреждающее сообщение')}
+            onClick={() => {
+              callPostApi(authApiPath + 'activate/',
+                {
+                  body: JSON.stringify({ login: authData.login }),
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                })
+                .then(() => {
+                  store.createFormStore('success', {
+                    modalComponent: 'MessageBox',
+                    props: {
+                      width: 400,
+                      children: 'Письмо отправлено',
+                    },
+                  })
+                })
+            }}
           />
           <Link className={styles.supportLink} href={'/support'}>Написать в службу поддержки</Link>
         </div>
       }
-      {!verify &&
+      {reg &&
         <div className={styles.mainRegistration}>
           <Input
             label="Имя"
@@ -166,7 +218,6 @@ const Registration = ({ host }) => {
               form.submit(authApiPath + 'register/', 'POST')
                 .then(({ data }) => {
                   store.setAuthData(data?.data)
-                  router.push('/')
                   store.deleteFormStore(formStoreName)
                 })
             }}

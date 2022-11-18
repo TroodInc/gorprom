@@ -22,7 +22,12 @@ const App = ({ Component, pageProps = {}, ...other }) => {
   }
   const store = useStore(initData)
   if (typeof window !== 'undefined') {
-    window.cacheInitProps = other
+    window.cacheInitProps = {
+      ...other,
+      initialStore: {
+        authData: store.authData,
+      },
+    }
   }
 
   let error = statusCode
@@ -99,7 +104,7 @@ App.getInitialProps = async({ ctx, router, Component }) => {
         ...initProps,
       }
     }
-    const { token } = ctx?.req?.cookies || {}
+    const { token, reg } = ctx?.req?.cookies || {}
     const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
     if (token) {
       const verifyEndpoint = authApiPath + 'verify-token/'
@@ -119,6 +124,12 @@ App.getInitialProps = async({ ctx, router, Component }) => {
           },
         }
       } catch {}
+    } else if (reg) {
+      initProps.initialStore = {
+        authData: {
+          login: reg,
+        },
+      }
     }
     if (!initProps.abacRules) {
       try {
@@ -135,24 +146,17 @@ App.getInitialProps = async({ ctx, router, Component }) => {
       path: context.ctx.route,
     })
 
-    const redirect = '/registration'
-    if (initProps.account?.id && !initProps.account?.active && context.ctx.route !== redirect) {
-      ctx.res.writeHead(302, {
-        Location: redirect,
-        'Content-Type': 'text/html; charset=utf-8',
-      })
-      ctx.res.end()
-    }
-
     return {
       ...getInitialProps({ ctx, router }, initProps),
       ...initProps,
     }
   } else {
+    const { abacContext, abacRules, account } = window.cacheInitProps
+
     const newContext = {
-      sbj: window.cacheInitProps.abacContext.sbj,
+      sbj: abacContext.sbj,
       ctx: {
-        host: window.cacheInitProps.abacContext.ctx.host,
+        host: abacContext.ctx.host,
         path: ctx.asPath,
         route: ctx.pathname,
         query: ctx.query,
@@ -161,18 +165,13 @@ App.getInitialProps = async({ ctx, router, Component }) => {
 
     const initProps = {
       abacContext: newContext,
-      abacRules: window.cacheInitProps.abacRules,
-      account: window.cacheInitProps.account,
+      abacRules: abacRules,
+      account: account,
       pageAllow: getPageAllow({
-        rules: window.cacheInitProps.abacRules,
+        rules: abacRules,
         context: newContext,
         path: newContext.ctx.route,
       }),
-    }
-
-    const redirect = '/registration'
-    if (initProps.account?.id && !initProps.account?.active && ctx.asPath !== redirect) {
-      router.replace(redirect)
     }
 
     return {
