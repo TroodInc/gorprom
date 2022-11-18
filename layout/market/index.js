@@ -8,6 +8,7 @@ import Button, { BUTTON_COLORS } from '../../components/Button'
 import styles from './index.module.css'
 import { ICONS_TYPES } from '../../components/Icon'
 import Link from '../../components/Link'
+import classNames from 'classnames'
 
 
 const formStoreName = 'search'
@@ -15,7 +16,7 @@ const formStoreName = 'search'
 const MarketLayout = ({ children }) => {
   const { store } = useContext(MobXProviderContext)
   const router = useRouter()
-  const { pathname, query: { type, search, from } } = router
+  const { pathname, query: { type, search, from }, push } = router
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => () => store.deleteFormStore(formStoreName), [])
   useEffect(() => {
@@ -47,7 +48,7 @@ const MarketLayout = ({ children }) => {
         <Button
           specialType={ICONS_TYPES.search}
           color={BUTTON_COLORS.white}
-          className={styles.button}
+          className={classNames(styles.button, styles.searchBtn)}
           disabled={!form.get('data.search')}
           link={`/market/search?type=${
             form.get('data.type')
@@ -55,34 +56,46 @@ const MarketLayout = ({ children }) => {
             form.get('data.search')
           }&from=${from || pathname}`}
         />
+        {search &&
+            <Button
+              className={classNames(styles.button, styles.clearBtn)}
+              specialType={ICONS_TYPES.clear}
+              color={BUTTON_COLORS.white}
+              onClick={() => push(from || '/market')}
+            />
+        }
       </div>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Маркетплейс</h1>
-        {!store?.authData?.id && (
-          <Button
-            className={styles.registrationBtn}
-            label="Зарегистрироваться"
-            link="/registration"
-            color={BUTTON_COLORS.orange}
-          />
-        )}
-      </div>
-      <div className={styles.navigation}>
-        {[
-          { link: '/market/product', title: 'Товары' },
-          { link: '/market/service', title: 'Услуги' },
-          { link: '/market/company', title: 'Компании' },
-        ].map(({ title, link }) => (
-          <Link
-            className={styles.navLink}
-            activeClassName={styles.activeNavLink}
-            href={link}
-            key={link}
-          >
-            {title}
-          </Link>
-        ))}
-      </div>
+      {!search &&
+          <>
+            <div className={styles.header}>
+              <h1 className={styles.title}>Маркетплейс</h1>
+              {!store?.authData?.id && (
+                <Button
+                  className={styles.registrationBtn}
+                  label="Зарегистрироваться"
+                  link="/registration"
+                  color={BUTTON_COLORS.orange}
+                />
+              )}
+            </div>
+            <div className={styles.navigation}>
+              {[
+                { link: '/market/product', title: 'Товары' },
+                { link: '/market/service', title: 'Услуги' },
+                { link: '/market/company', title: 'Компании' },
+              ].map(({ title, link }) => (
+                <Link
+                  className={styles.navLink}
+                  activeClassName={styles.activeNavLink}
+                  href={link}
+                  key={link}
+                >
+                  {title}
+                </Link>
+              ))}
+            </div>
+          </>
+      }
       {children}
     </div>
   )

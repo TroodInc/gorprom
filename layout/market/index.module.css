@@ -7,7 +7,7 @@
     display: flex;
     flex-flow: row nowrap;
     gap: 16px;
-    margin-bottom: 45px;
+    margin-bottom: 22px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--trood-border-gray-dark);
 }
@@ -51,17 +51,24 @@
     margin-bottom: 0;
 }
 
+.search .searchBtn:hover {
+    stroke: var(--trood-orange);
+}
+
 .search .button {
-    padding: 20px;
-    right: 12px;
     position: absolute;
+    right: 12px;
     align-self: center;
-    font-weight: 450;
-    font-size: 18px;
     color: var(--trood-gray-dark);
     background-color: var(--trood-white);
     stroke: var(--trood-gray-dark);
     stroke-width: 2;
+}
+
+.search .clearBtn {
+    padding: 0;
+    right: -40px;
+    stroke: var(--trood-white);
 }
 
 .title {
