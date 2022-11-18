@@ -10,6 +10,7 @@ import Select from '../../../components/Select'
 import MarketCard from '../../../components/MarketCard'
 
 import styles from './index.module.css'
+import Link from '../../../components/Link'
 
 
 const Market = ({ host }) => {
@@ -38,14 +39,6 @@ const Market = ({ host }) => {
   return (
     <div className={styles.root}>
       <div className={styles.left}>
-        <SubMenu
-          className={styles.menu}
-          items={[
-            { link: '/market/product', title: 'Товары' },
-            { link: '/market/service', title: 'Услуги' },
-            { link: '/market/company', title: 'Компании' },
-          ]}
-        />
         {companyArray.map(item => (
           <MarketCard
             key={item.id}
@@ -56,7 +49,7 @@ const Market = ({ host }) => {
         ))}
       </div>
       <div className={styles.right}>
-        <div className={styles.title}>Фильтры</div>
+        <div className={styles.title}>Категории</div>
         <Select
           clearable
           className={classNames(
