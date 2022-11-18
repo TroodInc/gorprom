@@ -7,6 +7,7 @@ import Button, { BUTTON_COLORS } from '../../components/Button'
 
 import styles from './index.module.css'
 import { ICONS_TYPES } from '../../components/Icon'
+import Link from '../../components/Link'
 
 
 const formStoreName = 'search'
@@ -37,18 +38,6 @@ const MarketLayout = ({ children }) => {
   return (
     <div className={styles.root}>
       <div className={styles.search}>
-        {/*<Select*/}
-        {/*  className={styles.select}*/}
-        {/*  items={[*/}
-        {/*    { value: 'ALL', label: 'Все' },*/}
-        {/*    { value: 'PRODUCT', label: 'Товары' },*/}
-        {/*    { value: 'SERVICE', label: 'Услуги' },*/}
-        {/*    { value: 'COMPANY', label: 'Компании' },*/}
-        {/*  ]}*/}
-        {/*  values={form.get('data.type') ? [form.get('data.type')] : []}*/}
-        {/*  onChange={values => form.set('data.type', values[0])}*/}
-        {/*/>*/}
-        {/*<div className={styles.splitter} />*/}
         <Input
           className={styles.input}
           placeholder="Введите текст для поиска ..."
@@ -77,6 +66,22 @@ const MarketLayout = ({ children }) => {
             color={BUTTON_COLORS.orange}
           />
         )}
+      </div>
+      <div className={styles.navigation}>
+        {[
+          { link: '/market/product', title: 'Товары' },
+          { link: '/market/service', title: 'Услуги' },
+          { link: '/market/company', title: 'Компании' },
+        ].map(({ title, link }) => (
+          <Link
+            className={styles.navLink}
+            activeClassName={styles.activeNavLink}
+            href={link}
+            key={link}
+          >
+            {title}
+          </Link>
+        ))}
       </div>
       {children}
     </div>
