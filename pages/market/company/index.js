@@ -5,13 +5,10 @@ import classNames from 'classnames'
 
 import { callGetApi, getApiPath, getFullUrl } from '../../../helpers/fetch'
 import MarketLayout from '../../../layout/market'
-import SubMenu from '../../../components/SubMenu'
 import Select from '../../../components/Select'
 import MarketCard from '../../../components/MarketCard'
 
 import styles from './index.module.css'
-import Link from '../../../components/Link'
-
 
 const Market = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
