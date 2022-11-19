@@ -46,12 +46,12 @@
     display: flex;
     flex-flow: column nowrap;
     margin: 0 auto;
-    gap: 6px;
+    gap: 16px;
 }
 
 .mainRegistration {
     composes: main;
-    max-width: 390px;
+    width: 390px;
 }
 
 .mainVerification {
@@ -129,7 +129,7 @@
 }
 
 .verificationButton {
-    max-width: 390px;
+    width: 390px;
     margin-bottom: 10px;
     text-transform: none;
     font-weight: 500;
@@ -143,4 +143,15 @@
     font-size: 18px;
     line-height: 125%;
     color: var(--trood-orange);
+}
+
+.controls {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 24px;
+    margin: 56px 0 16px;
+}
+
+.controls > * {
+    width: 390px;
 }

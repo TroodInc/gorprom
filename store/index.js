@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { types, applySnapshot, getSnapshot, detach, getParent, isAlive, isArrayType, getType } from 'mobx-state-tree'
 import set from 'lodash/set'
+import get from 'lodash/get'
 
 import { callApi, getFullUrl } from '../helpers/fetch'
 import { newCookie } from '../helpers/cookie'
@@ -38,6 +39,20 @@ const hasErrors = errors => {
   }
   return true
 }
+
+const getPaths = (obj, root) => {
+  return Object.entries(obj).reduce((memo, [key, value]) => {
+    const path = [root, key].filter(Boolean).join('.')
+    if (typeof value === 'object') {
+      return [
+        ...memo,
+        ...getPaths(value, path),
+      ]
+    }
+    return [...memo, path]
+  }, [])
+}
+
 
 let store
 
@@ -151,7 +166,9 @@ const Form = types.model('Form', {
       }
     })
     if (target) {
-      if (typeof target.set === 'function') {
+      if (target === self) {
+        target[lastKey] = value
+      } else if (typeof target.set === 'function') {
         target.set(lastKey, value)
       } else {
         target[lastKey] = value
@@ -175,6 +192,15 @@ const Form = types.model('Form', {
       headers,
     })
       .catch(error => {
+        if (typeof data === 'object') {
+          const dataPaths = getPaths(data)
+          dataPaths.forEach(path => {
+            const err = get(error.error.data, path)
+            if (err) {
+              self.set('errors.' + path, err)
+            }
+          })
+        }
         let globalError = error
         while (globalError && typeof globalError === 'object') {
           globalError = globalError.error || globalError.data

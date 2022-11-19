@@ -251,7 +251,7 @@ class Input extends PureComponent {
     if (validateErrors && validateErrors.length) {
       this.lastValid = false
       if (!deepEqual(errors, validateErrors)) onInvalid(validateErrors)
-    } else if (!this.lastValid) {
+    } else if (!this.lastValid || (errors?.length)) {
       this.lastValid = true
       onValid()
     }

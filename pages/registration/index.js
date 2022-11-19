@@ -5,7 +5,8 @@ import { MobXProviderContext, observer } from 'mobx-react'
 import classNames from 'classnames'
 
 import Input, { INPUT_TYPES } from '../../components/Input'
-import Button, { BUTTON_COLORS, BUTTON_TYPES } from '../../components/Button'
+import Select, { SELECT_TYPES } from '../../components/Select'
+import Button, { BUTTON_COLORS, BUTTON_SPECIAL_TYPES, BUTTON_TYPES } from '../../components/Button'
 import { getApiPath, callGetApi, callPostApi } from '../../helpers/fetch'
 
 import styles from './index.module.css'
@@ -18,7 +19,7 @@ const formStoreName = 'registration'
 
 const Registration = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
-  const { query: { token } } = useRouter()
+  const { query: { token }, push } = useRouter()
 
   const { authData } = store
 
@@ -28,6 +29,32 @@ const Registration = ({ host }) => {
 
 
   const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
+  const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
+
+  const formStore = store.createFormStore(
+    formStoreName,
+    {
+      form: {
+        data: {
+          profile: {
+            role: 'USER',
+          },
+        },
+      },
+    },
+  )
+  const { form } = formStore
+
+  const companies = store.callHttpQuery(custodianApiPath + 'company', {
+    cacheTime: Number.MAX_SAFE_INTEGER,
+    params: {
+      only: ['name', 'ownership_type', 'ownership_type.name'],
+    },
+  })
+
+  const companiesArray = companies.get('data.data') || []
+
+  const globalError = form.get('errors.globalError')
 
   useEffect(() => {
     if (verify && token) {
@@ -40,6 +67,7 @@ const Registration = ({ host }) => {
                 ...data,
                 token: realToken,
               })
+              form.set('data', data)
             })
         })
         .catch(resp => {
@@ -60,22 +88,6 @@ const Registration = ({ host }) => {
     }
   }, [])
 
-  const formStore = store.createFormStore(
-    formStoreName,
-    {
-      form: {
-        data: {
-          profile: {
-            role: 'USER',
-          },
-        },
-      },
-    },
-  )
-  const { form } = formStore
-
-  const globalError = form.get('errors.globalError')
-
   return (
     <div className={styles.root}>
       <Head>
@@ -86,8 +98,9 @@ const Registration = ({ host }) => {
           {'<'}
         </Link>
         {[
-          { title: 'Регистрация', active: !verify },
+          { title: 'Регистрация', active: reg },
           { title: 'Верификация', active: verify },
+          { title: 'Данные организации', active: company },
           // { title: 'Данные организации', active: verify },
         ].map(({ title, active }, i, arr) => (
           <div key={i} className={styles.step}>
@@ -96,8 +109,79 @@ const Registration = ({ host }) => {
           </div>
         ))}
       </div>
-      {company && 'company step'}
-      {verify &&
+      {company && (
+        <>
+          <div className={styles.mainRegistration}>
+            <Input
+              label="Должность"
+              value={form.get('data.profile.position')}
+              errors={form.get('errors.profile.position')}
+              onChange={(value) => form.set('data.profile.position', value)}
+              onInvalid={(value) => form.set('errors.profile.position', value)}
+              onValid={() => form.set('errors.profile.position', [])}
+            />
+            <Select
+              clearable
+              type={SELECT_TYPES.filterDropdown}
+              label="Организация"
+              placeholder="Укажите организацию"
+              items={companiesArray.map(item => ({
+                value: item.id,
+                label: item.ownership_type.name + ' ' + item.name,
+              }))}
+              values={form.get('data.profile.company') ? [form.get('data.profile.company')] : []}
+              errors={form.get('errors.profile.company')}
+              onChange={(values) => form.set('data.profile.company', values[0] || null)}
+              onInvalid={(value) => form.set('errors.profile.company', value)}
+              onValid={() => form.set('errors.profile.company', [])}
+            />
+            <Button
+              type={BUTTON_TYPES.text}
+              specialType={BUTTON_SPECIAL_TYPES.plus}
+              color={BUTTON_COLORS.orange}
+              label="Добавить организацию"
+              link="/profile/organization/edit"
+            />
+            <Input
+              className={styles.login}
+              label="Электронная почта"
+              type={INPUT_TYPES.email}
+              value={form.get('data.login')}
+              errors={form.get('errors.login')}
+              validate={{ required: true, checkOnBlur: true }}
+              onChange={(value) => {
+                form.set('data.login', value)
+                form.set('data.profile.mail', value)
+              }}
+              onInvalid={(value) => form.set('errors.login', value)}
+              onValid={() => form.set('errors.login', [])}
+            />
+          </div>
+          <div className={styles.controls}>
+            <Button
+              label="Завершить"
+              disabled={form.hasErrors}
+              onClick={() => {
+                form.submit(authApiPath + 'account/' + form.get('data.id') + '/', 'PATCH')
+                  .then(({ data }) => {
+                    store.setAuthData(data?.data)
+                    store.deleteFormStore(formStoreName)
+                    push('/profile')
+                  })
+              }}
+            />
+            <Button
+              type={BUTTON_TYPES.border}
+              label="Пропустить"
+              link="/profile"
+            />
+          </div>
+          {globalError && (
+            <div className={styles.globalError}>{globalError}</div>
+          )}
+        </>
+      )}
+      {verify && (
         <div className={styles.mainVerification}>
           <div className={styles.verificationText}>
             Пожалуйста, проверьте электронную почту – мы отправили ссылку для завершения регистрации.
@@ -129,8 +213,8 @@ const Registration = ({ host }) => {
           />
           <Link className={styles.supportLink} href={'/support'}>Написать в службу поддержки</Link>
         </div>
-      }
-      {reg &&
+      )}
+      {reg && (
         <div className={styles.mainRegistration}>
           <Input
             label="Имя"
@@ -218,7 +302,6 @@ const Registration = ({ host }) => {
               form.submit(authApiPath + 'register/', 'POST')
                 .then(({ data }) => {
                   store.setAuthData(data?.data)
-                  store.deleteFormStore(formStoreName)
                 })
             }}
           />
@@ -234,7 +317,7 @@ const Registration = ({ host }) => {
             link="/login"
           />
         </div>
-      }
+      )}
     </div>
   )
 }
@@ -260,6 +343,7 @@ Registration.getInitialProps = async({ ctx, router }, { account }) => {
       }
     }
   }
+
   return {}
 }
 
