@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  letter-spacing: -0.02em;
+}
+
+.root .wrapper {
+  max-width: 610px;
+}
+
+.root a {
+  margin-left: 0.25em;
+  color: var(--trood-orange);
+}
+
+.root a:hover {
+  color: var(--trood-text);
+}
