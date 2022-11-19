@@ -152,8 +152,15 @@
     margin: 56px 0 16px;
 }
 
-.controls > * {
+.controls .center {
     width: 390px;
+}
+
+.controls .left,
+.controls .right {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1;
 }
 
 .addCompany {

@@ -23,7 +23,7 @@ const Registration = ({ host }) => {
 
   const { authData } = store
 
-  const company = !!authData.id
+  const company = !!authData.id || true
   const verify = !!authData.login && !company
   const reg = !company && !verify
 
@@ -159,23 +159,28 @@ const Registration = ({ host }) => {
             />
           </div>
           <div className={styles.controls}>
-            <Button
-              label="Завершить"
-              disabled={form.hasErrors}
-              onClick={() => {
-                form.submit(authApiPath + 'account/' + form.get('data.id') + '/', 'PATCH')
-                  .then(({ data }) => {
-                    store.setAuthData(data?.data)
-                    store.deleteFormStore(formStoreName)
-                    push('/profile')
-                  })
-              }}
-            />
-            <Button
-              type={BUTTON_TYPES.border}
-              label="Пропустить"
-              link="/profile"
-            />
+            <div className={styles.left}>
+              <Button
+                label="Завершить"
+                disabled={form.hasErrors}
+                onClick={() => {
+                  form.submit(authApiPath + 'account/' + form.get('data.id') + '/', 'PATCH')
+                    .then(({ data }) => {
+                      store.setAuthData(data?.data)
+                      store.deleteFormStore(formStoreName)
+                      push('/profile')
+                    })
+                }}
+              />
+            </div>
+            <div className={styles.center}>
+              <Button
+                type={BUTTON_TYPES.border}
+                label="Пропустить"
+                link="/profile"
+              />
+            </div>
+            <div className={styles.right} />
           </div>
           {globalError && (
             <div className={styles.globalError}>{globalError}</div>
