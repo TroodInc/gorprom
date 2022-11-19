@@ -58,7 +58,7 @@ const Footer = ({ className, hide }) => {
                 { link: '/market', label: 'Маркетплейс' },
                 { link: '/job', label: 'Биржа труда' },
                 { link: '/analytics', label: 'Аналитика' },
-                { link: '/education', label: 'Образование и научная работа' },
+                { link: '/education', label: 'Образование' },
               ].map(({ link, label }) => (
                 <Link
                   key={link}

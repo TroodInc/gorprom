@@ -44,7 +44,7 @@ const Header = ({
             { link: '/market', label: 'Маркетплейс' },
             { link: '/job', label: 'Биржа труда' },
             { link: '/analytics', label: 'Аналитика' },
-            { link: '/education', label: 'Образование и научная работа' },
+            { link: '/education', label: 'Образование' },
             { link: '/association', label: 'Ассоциация' },
           ].map(({ link, label }) => (
             <Link
