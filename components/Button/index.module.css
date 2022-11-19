@@ -56,7 +56,6 @@
 .fill {
   height: 64px;
   padding: 0 16px;
-  text-transform: lowercase;
   border-radius: 16px;
 }
 
@@ -84,13 +83,11 @@
 .text {
   font-weight: 400;
   font-size: 18px;
-  text-transform: uppercase;
 }
 
 .border {
   height: 64px;
   padding: 0 16px;
-  text-transform: lowercase;
   border-radius: 16px;
   border: 1px solid currentColor;
 }

@@ -136,6 +136,7 @@ const Registration = ({ host }) => {
               onValid={() => form.set('errors.profile.company', [])}
             />
             <Button
+              className={styles.addCompany}
               type={BUTTON_TYPES.text}
               specialType={BUTTON_SPECIAL_TYPES.plus}
               color={BUTTON_COLORS.orange}
