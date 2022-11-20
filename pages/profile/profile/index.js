@@ -111,10 +111,14 @@ const Profile = ({ host }) => {
   )
 }
 
-Profile.SubLayout = ProfileLayout
-
 Profile.layoutProps = {
   profilePage: true,
+}
+
+Profile.SubLayout = ProfileLayout
+
+Profile.subLayoutProps = {
+  editable: true,
 }
 
 export default observer(Profile)

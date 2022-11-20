@@ -23,6 +23,7 @@ const ImageSlider = ({ className, items = [], duration = 10, children }) => {
   }, [])
   useEffect(() => {
     timer = setTimeout(changeImage(items.length, index, setIndex), duration * 1000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, items.length])
 
   return (

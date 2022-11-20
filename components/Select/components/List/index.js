@@ -184,7 +184,7 @@ class List extends PureComponent {
 
     return (
       <ul {...{
-        className: classNames(styles.root, styles[orientation], className),
+        className: classNames(styles.root, styles[orientation], className, styles[type]),
         ref: (node) => {
           this.list = node
         },
@@ -195,7 +195,7 @@ class List extends PureComponent {
             className={classNames(
               type === LIST_TYPES.tile ? styles.tileItemWrapper : styles.itemWrapper,
               i === focusedItem && styles.itemHover,
-              isSelected(item) && styles.itemHover,
+              isSelected(item) && styles.itemSelected,
             )}
             key={item.value || `${item.value}`}
             ref={(node) => {

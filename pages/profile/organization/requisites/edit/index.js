@@ -6,7 +6,6 @@ import ProfileLayout from '../../../../../layout/profile'
 import styles from './index.module.css'
 import Input, { INPUT_TYPES } from '../../../../../components/Input'
 import { getApiPath } from '../../../../../helpers/fetch'
-import Link from '../../../../../components/Link'
 import Button, { BUTTON_TYPES } from '../../../../../components/Button'
 import { useRouter } from 'next/router'
 
@@ -267,6 +266,7 @@ const RequisitesEdit = ({ host }) => {
           type={BUTTON_TYPES.border}
           label="< &nbsp; &nbsp; &nbsp; Вернуться в профиль"
           link="/profile/organization/requisites"
+          onClick={() => store.deleteFormStore(formStoreName)}
         />
       </div>
     </>

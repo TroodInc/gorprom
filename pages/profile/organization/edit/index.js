@@ -12,7 +12,6 @@ import Select, { SELECT_TYPES, LIST_TYPES } from '../../../../components/Select'
 import Button, { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SPECIAL_TYPES } from '../../../../components/Button'
 import FileInput from '../../../../components/FileInput'
 import { getApiPath } from '../../../../helpers/fetch'
-import Link from '../../../../components/Link'
 
 
 const CONTACT_TYPES = [
@@ -397,6 +396,7 @@ const Organization = ({ host }) => {
           type={BUTTON_TYPES.border}
           label="< &nbsp; &nbsp; &nbsp; Вернуться в профиль"
           link="/profile/organization"
+          onClick={() => store.deleteFormStore(formStoreName)}
         />
       </div>
     </>

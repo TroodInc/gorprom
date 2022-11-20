@@ -80,7 +80,6 @@
     font-size: 18px;
     line-height: 125%;
     cursor: default;
-    text-transform: none;
 }
 
 .checkboxLink {
@@ -93,7 +92,6 @@
 }
 
 .loginButton {
-    text-transform: none;
     margin-bottom: 13px;
 }
 
@@ -109,7 +107,6 @@
 }
 
 .registerButton {
-    text-transform: none;
     align-self: flex-start;
 }
 
@@ -131,7 +128,6 @@
 .verificationButton {
     width: 390px;
     margin-bottom: 10px;
-    text-transform: none;
     font-weight: 500;
     font-size: 24px;
     line-height: 97%;

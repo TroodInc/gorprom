@@ -1,3 +1,18 @@
+.header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.pencil {
+    color: var(--trood-text-silver);
+}
+
+.pencil:hover {
+    color: var(--trood-text);
+}
+
 .title {
     font-weight: 500;
     font-size: 64px;

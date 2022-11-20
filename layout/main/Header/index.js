@@ -15,7 +15,6 @@ const Header = ({
   theme = 'light',
   layoutProps: {
     authPage,
-    profilePage,
   } = {},
 }) => {
   const { store } = useContext(MobXProviderContext)
@@ -77,8 +76,7 @@ const Header = ({
                 {[
                   { link: '/login', label: 'Вход', show: !isAuth },
                   { link: '/registration', label: 'Регистрация', show: !isAuth },
-                  { link: '/profile/profile', label: 'Личный кабинет', show: isAuth && !profilePage },
-                  { link: '/profile/profile/edit', label: 'Редактировать профиль', show: isAuth && profilePage },
+                  { link: '/profile/profile', label: 'Личный кабинет', show: isAuth },
                   { link: '/', label: 'Выход', action: store.clearAuthData, ssr: true, show: isAuth },
                 ].map(({ link, label, show, action, ...other }) => {
                   if (!show) return null

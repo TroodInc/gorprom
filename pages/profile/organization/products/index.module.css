@@ -23,7 +23,6 @@
 }
 
 .header .button {
-    text-transform: lowercase;
     font-weight: 500;
 }
 
@@ -39,11 +38,6 @@
     font-size: 24px;
     letter-spacing: -0.04em;
     margin-bottom: 12px;
-    text-transform: lowercase;
-}
-
-.right .select {
-    text-transform: lowercase;
 }
 
 .right .select > div {

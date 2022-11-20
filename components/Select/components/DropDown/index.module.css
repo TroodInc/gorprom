@@ -107,7 +107,6 @@
 
 .addButton {
   width: 100%;
-  text-transform: none;
   padding: 0 10px;
   justify-content: flex-start;
 }

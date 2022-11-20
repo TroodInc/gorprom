@@ -12,7 +12,6 @@ import Select, { SELECT_TYPES } from '../../../../../../components/Select'
 import Button, { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SPECIAL_TYPES } from '../../../../../../components/Button'
 import FileInput from '../../../../../../components/FileInput'
 import { getApiPath } from '../../../../../../helpers/fetch'
-import Link from '../../../../../../components/Link'
 
 
 const ProductEdit = ({ host }) => {

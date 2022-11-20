@@ -1,6 +1,4 @@
-.root * {
-    text-transform: none;
-}
+.root {}
 
 .search {
     position: relative;

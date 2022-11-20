@@ -10,7 +10,6 @@ import MarketCard from '../../../../components/MarketCard'
 import Select from '../../../../components/Select'
 
 import styles from './index.module.css'
-import Link from '../../../../components/Link'
 
 
 const TYPES = [

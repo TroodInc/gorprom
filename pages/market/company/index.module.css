@@ -4,10 +4,6 @@
     gap: 56px;
 }
 
-.root * {
-    text-transform: none;
-}
-
 .left {
     margin-top: 24px;
     flex-basis: 780px;

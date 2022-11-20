@@ -29,7 +29,6 @@
 
 .label {
   cursor: pointer;
-  text-transform: lowercase;
 }
 
 .root .disabled .label {

@@ -48,6 +48,7 @@ const App = ({ Component, pageProps = {}, ...other }) => {
 
   const layoutProps = Component.layoutProps ? Component.layoutProps : {}
   const SubLayout = Component.SubLayout ? Component.SubLayout : ({ children }) => children
+  const subLayoutProps = Component.subLayoutProps ? Component.subLayoutProps : {}
 
   return (
     <Provider store={store}>
@@ -76,7 +77,7 @@ const App = ({ Component, pageProps = {}, ...other }) => {
           <title>Горпром</title>
         </Head>
         <Layout layoutProps={layoutProps} {...other}>
-          <SubLayout {...other} {...pageProps}>
+          <SubLayout {...other} {...pageProps} {...subLayoutProps}>
             <Component {...other} {...pageProps} />
           </SubLayout>
         </Layout>

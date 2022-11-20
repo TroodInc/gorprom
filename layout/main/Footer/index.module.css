@@ -51,7 +51,6 @@
 .main .mainLeft .registrationBtn {
     max-width: 413px;
     margin-top: auto;
-    text-transform: none;
     color: var(--trood-text-gray);
     background-color: var(--trood-background);
 }

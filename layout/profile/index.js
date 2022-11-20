@@ -1,12 +1,27 @@
+import { useRouter } from 'next/router'
+
 import SubMenu from '../../components/SubMenu'
+import Icon, { ICONS_TYPES } from '../../components/Icon'
 
 import styles from './index.module.css'
 
 
-const ProfileLayout = ({ children }) => {
+const ProfileLayout = ({ children, editable }) => {
+  const { push } = useRouter()
+
   return (
     <>
-      <h1 className={styles.title}>Личный кабинет</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Личный кабинет</h1>
+        {editable && (
+          <Icon
+            className={styles.pencil}
+            size={32}
+            type={ICONS_TYPES.pencil}
+            onClick={() => push('/profile/profile/edit')}
+          />
+        )}
+      </div>
       <SubMenu
         className={styles.menu}
         items={[
