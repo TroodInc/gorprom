@@ -23,7 +23,7 @@ const Registration = ({ host }) => {
 
   const { authData } = store
 
-  const company = !!authData.id || true
+  const company = !!authData.id
   const verify = !!authData.login && !company
   const reg = !company && !verify
 
