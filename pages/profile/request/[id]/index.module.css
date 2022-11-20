@@ -2,6 +2,9 @@
     display: flex;
     flex-flow: row nowrap;
     gap: 16px;
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 24px;
+    margin-top: 24px;
 }
 
 .left {
@@ -85,5 +88,5 @@
 
 .sendMessage {
     align-self: flex-end;
-    margin-bottom: 8px;
+    margin: 8px 0;
 }

@@ -29,216 +29,186 @@ const Requisites = ({ host }) => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.navigation}>
-        <Link
-          className={styles.organizationLink}
-          href={'/profile/organization'}
-        >
-          <div className={styles.linkContent}>
-            <div>{'<'}</div>
-            <div>профиль организации</div>
-          </div>
-        </Link>
-        <Link
-          className={styles.financeLink}
-          href={'/profile/organization/requisites'}
-        >
-          <div className={styles.linkContent}>
-            <div>финансовая информация</div>
-          </div>
-        </Link>
-        <Link
-          className={styles.productsLink}
-          href={'/profile/organization/products'}
-        >
-          <div className={styles.linkContent}>
-            <div>товары</div>
-            <div>{'>'}</div>
-          </div>
-        </Link>
+      <div className={styles.left}>
+        <Image
+          alt="Logo"
+          src={logo || '/image/defaultLogo.jpg'}
+          height={140}
+          width={140}
+          objectFit="contain"
+          objectPosition="top"
+        />
+        <Button
+          label="Редактировать"
+          type={BUTTON_TYPES.border}
+          color={BUTTON_COLORS.orange}
+          link="requisites/edit"
+        />
       </div>
-      <div className={styles.main}>
-        <div className={styles.left}>
-          <Image
-            alt="Logo"
-            src={logo || '/image/defaultLogo.jpg'}
-            height={140}
-            width={140}
-            objectFit="contain"
-            objectPosition="top"
-          />
-          <Button
-            label="Редактировать"
-            type={BUTTON_TYPES.border}
-            color={BUTTON_COLORS.orange}
-            link="requisites/edit"
-          />
+      <div className={styles.right}>
+        <div className={styles.row}>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Дата регистрации
+            </div>
+            <div className={styles.value}>
+              {legalData.registration_date && moment(legalData.registration_date).format('DD.MM.YYYY')}
+            </div>
+          </div>
         </div>
-        <div className={styles.right}>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Дата регистрации
-              </div>
-              <div className={styles.value}>
-                {legalData.registration_date && moment(legalData.registration_date).format('DD.MM.YYYY')}
-              </div>
+        <div className={classNames(styles.row, styles.additionalGap)}>
+          <div className={styles.block}>
+            <div className={styles.value}>
+              Юридический адрес
             </div>
           </div>
-          <div className={classNames(styles.row, styles.additionalGap)}>
-            <div className={styles.block}>
-              <div className={styles.value}>
-                Юридический адрес
-              </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Регион / район
+            </div>
+            <div className={styles.value}>
+              {legalAddress.region}
             </div>
           </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Регион / район
-              </div>
-              <div className={styles.value}>
-                {legalAddress.region}
-              </div>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Город / н.п.
             </div>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Город / н.п.
-              </div>
-              <div className={styles.value}>
-                {legalAddress.city}
-              </div>
+            <div className={styles.value}>
+              {legalAddress.city}
             </div>
           </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Улица
-              </div>
-              <div className={styles.value}>
-                {legalAddress.street}
-              </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Улица
             </div>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Дом
-              </div>
-              <div className={styles.value}>
-                {legalAddress.house}
-              </div>
+            <div className={styles.value}>
+              {legalAddress.street}
             </div>
           </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Квартира / офис
-              </div>
-              <div className={styles.value}>
-                {legalAddress.flat}
-              </div>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Дом
+            </div>
+            <div className={styles.value}>
+              {legalAddress.house}
             </div>
           </div>
-          <div className={classNames(styles.row, styles.additionalGap)}>
-            <div className={styles.block}>
-              <div className={styles.value}>
-                Реквизиты
-              </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Квартира / офис
+            </div>
+            <div className={styles.value}>
+              {legalAddress.flat}
             </div>
           </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                ИНН
-              </div>
-              <div className={styles.value}>
-                {legalData.inn}
-              </div>
+        </div>
+        <div className={classNames(styles.row, styles.additionalGap)}>
+          <div className={styles.block}>
+            <div className={styles.value}>
+              Реквизиты
             </div>
           </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                ОКВЄД
-              </div>
-              <div className={styles.value}>
-                {legalData.okved}
-              </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              ИНН
             </div>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                КПП
-              </div>
-              <div className={styles.value}>
-                {legalData.kpp}
-              </div>
+            <div className={styles.value}>
+              {legalData.inn}
             </div>
           </div>
-          <div className={classNames(styles.row, styles.additionalGap)}>
-            <div className={styles.block}>
-              <div className={styles.value}>
-                Команда
-              </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              ОКВЄД
+            </div>
+            <div className={styles.value}>
+              {legalData.okved}
             </div>
           </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Руководители
-              </div>
-              <div className={styles.value}>
-                {legalData.supervisor}
-              </div>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              КПП
             </div>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Учредители
-              </div>
-              <div className={styles.value}>
-                {legalData.founder}
-              </div>
+            <div className={styles.value}>
+              {legalData.kpp}
             </div>
           </div>
-          <div className={classNames(styles.row, styles.additionalGap)}>
-            <div className={styles.block}>
-              <div className={styles.value}>
-                Финансы
-              </div>
+        </div>
+        <div className={classNames(styles.row, styles.additionalGap)}>
+          <div className={styles.block}>
+            <div className={styles.value}>
+              Команда
             </div>
           </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                уставной капитал
-              </div>
-              <div className={styles.value}>
-                {legalData.authorized_capital && toNumber(legalData.authorized_capital)}
-              </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Руководители
             </div>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Среднесписочная численность
-              </div>
-              <div className={styles.value}>
-                {legalData.staff}
-              </div>
+            <div className={styles.value}>
+              {legalData.supervisor}
             </div>
           </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Выручка за последний год
-              </div>
-              <div className={styles.value}>
-                {legalData.revenue && toNumber(legalData.revenue)}
-              </div>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Учредители
             </div>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Прибыль за последний год
-              </div>
-              <div className={styles.value}>
-                {legalData.profit && toNumber(legalData.profit)}
-              </div>
+            <div className={styles.value}>
+              {legalData.founder}
+            </div>
+          </div>
+        </div>
+        <div className={classNames(styles.row, styles.additionalGap)}>
+          <div className={styles.block}>
+            <div className={styles.value}>
+              Финансы
+            </div>
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              уставной капитал
+            </div>
+            <div className={styles.value}>
+              {legalData.authorized_capital && toNumber(legalData.authorized_capital)}
+            </div>
+          </div>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Среднесписочная численность
+            </div>
+            <div className={styles.value}>
+              {legalData.staff}
+            </div>
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Выручка за последний год
+            </div>
+            <div className={styles.value}>
+              {legalData.revenue && toNumber(legalData.revenue)}
+            </div>
+          </div>
+          <div className={styles.block}>
+            <div className={styles.title}>
+              Прибыль за последний год
+            </div>
+            <div className={styles.value}>
+              {legalData.profit && toNumber(legalData.profit)}
             </div>
           </div>
         </div>

@@ -10,9 +10,33 @@ const ProfileLayout = ({ children }) => {
       <SubMenu
         className={styles.menu}
         items={[
-          { link: '/profile/profile', title: 'Профиль' },
-          { link: '/profile/request', title: 'Запросы товаров/услуг' },
-          { link: '/profile/organization', title: 'Управление организацией' },
+          {
+            link: '/profile/profile',
+            title: 'Профиль',
+          },
+          {
+            link: '/profile/request',
+            title: 'Запросы товаров/услуг',
+          },
+          {
+            link: '/profile/organization',
+            title: 'Управление организацией',
+            subItems: [
+              {
+                link: '',
+                title: 'Профиль организации',
+                exact: true,
+              },
+              {
+                link: '/requisites',
+                title: 'Финансовая информация',
+              },
+              {
+                link: '/products',
+                title: 'Товары',
+              },
+            ],
+          },
         ]}
       />
       {children}

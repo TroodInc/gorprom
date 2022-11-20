@@ -1,6 +1,9 @@
 .root {
     display: flex;
     flex-flow: row nowrap;
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 24px;
+    margin-top: 24px;
 }
 
 .column {

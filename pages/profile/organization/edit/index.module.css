@@ -1,50 +1,11 @@
 .root {
     display: flex;
     flex-flow: column nowrap;
-}
-
-.navigation {
-    display: flex;
-    flex-basis: 100%;
-    margin-bottom: 56px;
-    gap: 24px;
-}
-
-.organizationLink:hover {
-    color: var(--trood-orange);
-}
-
-.organizationLink {
-    display: flex;
-    height: 64px;
-    align-items: center;
-    justify-content: center;
-    padding: 0 16px;
-    flex-basis: 33%;
-    letter-spacing: -0.04em;
-    color: var(--trood-orange);
-    border: 2px solid;
-    border-radius: 16px;
-}
-
-.linkContent {
-    display: flex;
-    gap: 24px;
-}
-
-.financeLink {
-    composes: organizationLink;
-    justify-content: flex-start;
-    color: var(--trood-gray-dark);
-}
-
-.financeLink .linkContent {
-    width: 100%;
-    justify-content: space-between;
-}
-
-.productsLink {
-    composes: financeLink;
+    flex: 0 0 67%;
+    gap: 32px;
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 24px;
+    margin-top: 24px;
 }
 
 .left {
@@ -54,15 +15,6 @@
     padding: 0 16px 24px;
     align-items: center;
     gap: 40px;
-}
-
-.main {
-    display: flex;
-    flex-flow: column nowrap;
-    flex: 0 0 67%;
-    gap: 32px;
-    padding-top: 43px;
-    border-top: 1px solid var(--trood-border-dark);
 }
 
 .row {

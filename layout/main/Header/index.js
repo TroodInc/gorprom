@@ -71,7 +71,7 @@ const Header = ({
           )}
           {!authPage && (
             <HiddenContent
-              control={(<Icon size={44} type={ICONS_TYPES.user} className={styles.button} />)}
+              ControlComponent={() => (<Icon size={44} type={ICONS_TYPES.user} className={styles.button} />)}
             >
               <div className={styles.userMenu}>
                 {[

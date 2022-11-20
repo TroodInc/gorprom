@@ -36,7 +36,7 @@ class HiddenContent extends PureComponent {
   render() {
     const {
       className,
-      control,
+      ControlComponent,
       children,
       position,
     } = this.props
@@ -49,7 +49,7 @@ class HiddenContent extends PureComponent {
       <ClickOutside onClick={this.handleOutsideClick}>
         <div className={classNames(styles.root, className)}>
           <div onClick={this.toggleContent}>
-            {control}
+            {<ControlComponent open={isVisible} />}
           </div>
           {isVisible &&
               <div className={styles[position]}>

@@ -1,79 +1,17 @@
 .root {
     display: flex;
-    flex-flow: column;
-}
-
-.navigation {
-    display: flex;
-    flex-basis: 100%;
-    margin-bottom: 56px;
-    gap: 24px;
-}
-
-.organizationLink:hover {
-    color: var(--trood-orange);
-}
-
-.organizationLink {
-    display: flex;
-    height: 64px;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 16px;
-    flex-basis: 33%;
-    letter-spacing: -0.04em;
-    color: var(--trood-gray-dark);
-    border: 2px solid;
-    border-radius: 16px;
-}
-
-.linkContent {
-    display: flex;
-    gap: 24px;
-}
-
-.financeLink {
-    composes: organizationLink;
-    justify-content: center;
-    color: var(--trood-orange);
-}
-
-.productsLink {
-    composes: organizationLink;
-}
-
-.productsLink .linkContent {
-    width: 100%;
-    justify-content: space-between;
-}
-
-.main {
-    display: flex;
-    flex-flow: row nowrap;
-    padding-top: 43px;
-    border-top: 1px solid var(--trood-border-dark);
-}
-
-.left {
-    display: flex;
-    flex-flow: column nowrap;
-    padding: 0 0 24px;
-    margin-right: 48px;
-    align-items: center;
-}
-
-.right {
-    display: flex;
     flex-flow: column nowrap;
     flex: 1 1 67%;
     gap: 16px;
-    border-left: 1px solid var(--trood-border-dark);
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 24px;
+    margin-top: 24px;
 }
 
 .row {
     display: flex;
     flex-flow: row nowrap;
-    gap: 40px;
+    gap: 16px;
 }
 
 .row.additionalGap {
@@ -85,7 +23,6 @@
     flex-flow: column nowrap;
     flex: 1 1;
     max-width: 366px;
-    padding: 0 16px;
 }
 
 .subHeader {
