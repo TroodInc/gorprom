@@ -10,6 +10,7 @@ import SubMenu from '../../components/SubMenu'
 import styles from './index.module.css'
 import Link from '../../components/Link'
 import { getApiPath } from '../../helpers/fetch'
+import Icon, { ICONS_TYPES } from '../../components/Icon'
 
 
 const formStoreName = 'companySearch'
@@ -41,6 +42,7 @@ const CompanyLayout = ({ host, children }) => {
 
   const company = store.callHttpQuery(custodianApiPath + 'company/' + id)
   const companyName = company.get('data.data.name')
+  const verify = company.get('data.data.verify')
 
   const path = pathname.replace('[id]', id)
   const mainPath = pathname.replace(/\[id].*/, id)
@@ -84,7 +86,19 @@ const CompanyLayout = ({ host, children }) => {
         />
       </div>
       <div className={styles.header}>
-        <h1 className={styles.title}>{companyName}</h1>
+        <h1 className={styles.title}>
+          {companyName}
+          {verify &&
+            <div className={styles.verify}>
+              <Icon
+                className={styles.verifyIcon}
+                size={10}
+                type={ICONS_TYPES.confirm}
+              />
+              <div className={styles.verifyText}>Верифицировано</div>
+            </div>
+          }
+        </h1>
         <Button
           className={styles.button}
           label="Связаться"
