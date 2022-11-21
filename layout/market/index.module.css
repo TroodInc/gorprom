@@ -10,43 +10,9 @@
     border-bottom: 1px solid var(--trood-border-gray-dark);
 }
 
-.search .select {
-    width: 360px;
-}
-
-.search .select > div {
-    border-top: none;
-    border-bottom: none;
-}
-
-.search .splitter {
-    height: 54px;
-    border-left: 1px solid var(--trood-border-dark);
-}
-
 .search .input {
     flex: 1;
     color: var(--trood-text-silver);
-}
-
-.search input::placeholder {
-    letter-spacing: 0.03em;
-    color: var(--trood-text-silver);
-    opacity: 0.4;
-}
-
-.search .input > div {
-    background-color: transparent;
-}
-
-.search .input fieldset {
-    border-top: none;
-    padding-top: 0;
-    margin: auto 0;
-}
-
-.search .input input {
-    margin-bottom: 0;
 }
 
 .search .searchBtn:hover {

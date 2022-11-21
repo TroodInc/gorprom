@@ -44,6 +44,15 @@ const MarketLayout = ({ children }) => {
           placeholder="Введите текст для поиска ..."
           value={form.get('data.search')}
           onChange={value => form.set('data.search', value)}
+          onEnter={() => {
+            if (form.get('data.search')) {
+              router.push(`/market/search?type=${
+                form.get('data.type')
+              }&search=${
+                form.get('data.search')
+              }&from=${from || pathname}`)
+            }
+          }}
         />
         <Button
           specialType={ICONS_TYPES.search}

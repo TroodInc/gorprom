@@ -41,6 +41,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--trood-text-silver);
 }
 
 .passwordEye {
@@ -64,20 +65,10 @@
   background-color: inherit;
 }
 
-.input::-webkit-input-placeholder {
-  color: var(--trood-text-light-gray);
-}
-
-.input::-moz-placeholder {
-  color: var(--trood-text-light-gray);
-}
-
-.input:-moz-placeholder {
-  color: var(--trood-text-light-gray);
-}
-
-.input:-ms-input-placeholder {
-  color: var(--trood-text-light-gray);
+.input::placeholder {
+  letter-spacing: 0.03em;
+  color: var(--trood-text-silver);
+  opacity: 0.4;
 }
 
 .textarea {
