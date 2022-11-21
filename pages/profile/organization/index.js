@@ -10,6 +10,7 @@ import { getApiPath } from '../../../helpers/fetch'
 import { toPhone } from '../../../helpers/format'
 import Button, { BUTTON_COLORS, BUTTON_SPECIAL_TYPES, BUTTON_TYPES } from '../../../components/Button'
 import Icon, { ICONS_TYPES } from '../../../components/Icon'
+import Link from '../../../components/Link'
 
 const Organization = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
@@ -33,6 +34,7 @@ const Organization = ({ host }) => {
 
   const companyData = companyCall.get('data.data') || {}
   const companyAddress = companyCall.get('data.data.address') || {}
+  const verify = companyData.verify
 
   return (
     <>
@@ -50,11 +52,28 @@ const Organization = ({ host }) => {
           <Image
             alt="Logo"
             src={companyData.logo || '/image/defaultLogo.jpg'}
-            height={140}
+            height={90}
             width={140}
             objectFit="contain"
             objectPosition="top"
           />
+          <Icon
+            className={classNames(styles.verifyIcon, verify && styles.active)}
+            type={ICONS_TYPES.confirm}
+            size={10}
+          />
+          <div className={classNames(styles.verifyText, verify && styles.active)}>
+            {verify ? 'Верифицировано' : 'Неверифицировано'} Ассоциацией НП &laquo;Горнопромышленники России&raquo;
+          </div>
+          <div>
+              Подробнее про верификацию по ссылке<br/>
+            <Link
+              className={styles.link}
+              href={'/agreement'}
+            >
+              Пользовательское соглашение
+            </Link>
+          </div>
         </div>
         <div className={styles.right}>
           <div className={styles.row}>
@@ -166,11 +185,14 @@ const Organization = ({ host }) => {
           <div className={styles.row}>
             <div className={styles.block}>
               <div className={styles.title}>
-                корпоративные почты
+                Веб-сайт
               </div>
-              <div className={styles.value}>
-                {companyData.corp_mail}
-              </div>
+              <Link
+                className={classNames(styles.value, styles.link)}
+                href={'https://' + companyData.site}
+              >
+                {companyData.site}
+              </Link>
             </div>
           </div>
           {companyData.contact_set?.map(item => (
