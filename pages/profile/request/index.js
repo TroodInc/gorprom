@@ -42,7 +42,14 @@ const Request = ({ host }) => {
             const lastMessageIndex = item.message_set.length - 1 < 0 ? 0 : item.message_set.length - 1
             const lastMessageMy = item.message_set[lastMessageIndex].sender === id
             return (
-              <tr key={item.id} onClick={() => push(`${pathname}/${item.id}`)}>
+              <tr key={item.id} onClick={() => {
+                store.createFormStore('request' + item.id, {
+                  modalComponent: 'Request',
+                  props: {
+                    id: item.id,
+                  },
+                })
+              }}>
                 <td>{item.id}</td>
                 <td>{item.target.name}</td>
                 <td>

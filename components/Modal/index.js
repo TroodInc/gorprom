@@ -9,8 +9,10 @@ ReactModal.setAppElement('#__next')
 
 const Modal = ({
   className,
+  overlayClassName,
   type = 'center',
   width = 400,
+  height,
   style,
   children,
   onClose = () => {},
@@ -27,10 +29,11 @@ const Modal = ({
       {...other}
       onRequestClose={onClose}
       className={classNames(className, styles.modal, styles[type])}
-      overlayClassName={classNames(styles.overlay, styles[type])}
+      overlayClassName={classNames(overlayClassName, styles.overlay, styles[type])}
       style={{
         content: {
           width,
+          height,
           ...style,
         },
       }}

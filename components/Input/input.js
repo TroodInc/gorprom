@@ -366,10 +366,18 @@ class Input extends PureComponent {
     if (e.key === KEY_CODES.enter) {
       const { getValue } = this.props.settings
       const value = getValue(this.state.formattedValue)
-      this.handleBlur()
-      if (this.props.onEnter) {
+      // this.handleBlur()
+      if (this.props.type === INPUT_TYPES.multi && this.props.onEnter) {
         e.preventDefault()
-        this.props.onEnter()
+        if (e.ctrlKey) {
+          const newValue = value.substring(0, this.selectionStart) + '\n' + value.substring(this.selectionStart)
+          this.setState({
+            caretPosition: this.selectionStart + 1,
+            formattedValue: newValue,
+          }, () => this.throttledOnChangeEvent(newValue))
+        } else {
+          this.props.onEnter()
+        }
       }
       this.props.onSearch(value)
     }
@@ -487,6 +495,8 @@ class Input extends PureComponent {
         }
         if (node && caretPosition !== undefined && active) {
           node.setSelectionRange(caretPosition, caretPosition)
+          node.blur()
+          node.focus()
         }
       },
       'data-cy': label || placeholder,

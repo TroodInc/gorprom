@@ -34,11 +34,13 @@
 }
 
 .modal.left {
-  margin: 0 auto 0 0;
+  margin: 24px auto 24px 24px;
+  height: calc(100% - 48px);
 }
 
 .modal.right {
-  margin: 0 0 0 auto;
+  margin: 24px 24px 24px auto;
+  height: calc(100% - 48px);
 }
 
 .modal.full {
@@ -46,8 +48,6 @@
   min-width: 100vw;
 }
 
-.modal.left,
-.modal.right,
 .modal.full {
   border-radius: 0;
   min-height: 100vh;
