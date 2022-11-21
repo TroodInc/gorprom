@@ -123,11 +123,12 @@ const Request = ({ host }) => {
                   className={styles.sendMessage}
                   type={BUTTON_TYPES.text}
                   label="Отправить"
-                  onClick={() => {
-                    form.set('data.text', '')
-                    setScrolled(false)
-                    store.callHttpQuery(custodianApiPath + 'order/' + id, { params: orderProps })
-                  }}
+                  onClick={() => form.submit(custodianApiPath + 'message', 'POST')
+                    .then(() => {
+                      form.set('data.text', '')
+                      setScrolled(false)
+                      store.callHttpQuery(custodianApiPath + 'order/' + id, { params: orderProps })
+                    })}
                 />
               </div>
             )
