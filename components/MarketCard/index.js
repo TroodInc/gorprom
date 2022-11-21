@@ -53,7 +53,7 @@ const needLogin = ({ store, reason }) => (
       href="/registration"
       onClick={() => store.deleteFormStore(needLoginFormName)}
     >
-            зарегистрироваться
+      зарегистрироваться
     </Link>
     <span>или</span>
     <Link
@@ -61,7 +61,7 @@ const needLogin = ({ store, reason }) => (
       href="/login"
       onClick={() => store.deleteFormStore(needLoginFormName)}
     >
-            авторизироваться
+      авторизироваться
     </Link>
   </div>
 )
@@ -139,7 +139,7 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host, on
           )}
           {showType && (
             <div className={styles.type}>
-                            Категория: {TypeNameDict[type].toLowerCase()}
+              Категория: {TypeNameDict[type].toLowerCase()}
             </div>
           )}
         </div>
