@@ -10,6 +10,7 @@ import ProfileLayout from '../../../../layout/profile'
 import { getApiPath } from '../../../../helpers/fetch'
 import { toNumber } from '../../../../helpers/format'
 import Icon, { ICONS_TYPES } from '../../../../components/Icon'
+import Link from '../../../../components/Link'
 
 
 const Requisites = ({ host }) => {
@@ -27,6 +28,7 @@ const Requisites = ({ host }) => {
   const logo = companyCall.get('data.data.logo')
   const legalData = companyCall.get('data.data.legal_info') || {}
   const legalAddress = companyCall.get('data.data.legal_info.legal_address') || {}
+  const verify = companyCall.get('data.data.verify')
 
   return (
     <>
@@ -44,11 +46,28 @@ const Requisites = ({ host }) => {
           <Image
             alt="Logo"
             src={logo || '/image/defaultLogo.jpg'}
-            height={140}
+            height={90}
             width={140}
             objectFit="contain"
             objectPosition="top"
           />
+          <Icon
+            className={classNames(styles.verifyIcon, verify && styles.active)}
+            type={ICONS_TYPES.confirm}
+            size={10}
+          />
+          <div className={classNames(styles.verifyText, verify && styles.active)}>
+            {verify ? 'Верифицировано' : 'Неверифицировано'} Ассоциацией НП &laquo;Горнопромышленники России&raquo;
+          </div>
+          <div>
+              Подробнее про верификацию по ссылке<br/>
+            <Link
+              className={styles.link}
+              href={'/agreement'}
+            >
+              Пользовательское соглашение
+            </Link>
+          </div>
         </div>
         <div className={styles.right}>
           <div className={styles.row}>
