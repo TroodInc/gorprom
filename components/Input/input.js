@@ -585,7 +585,7 @@ class Input extends PureComponent {
           }
           {
             type === INPUT_TYPES.url &&
-            <span className={styles.phoneCode}>http://</span>
+            <span className={styles.phoneCode}>https://</span>
           }
           {
             type === INPUT_TYPES.multi &&

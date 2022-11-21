@@ -47,6 +47,7 @@ const Organization = ({ host }) => {
           company_types: companyData.company_types.map(t => t.id),
           contact_set: companyData.contact_set,
           corp_mail: companyData.corp_mail,
+          site: companyData.site,
           department_type: companyData.department_type?.id,
           logo: companyData.logo,
           name: companyData.name,
@@ -301,6 +302,19 @@ const Organization = ({ host }) => {
               onChange={(value) => form.set('data.profile.company.corp_mail', value)}
               onInvalid={(value) => form.set('errors.profile.company.corp_mail', value)}
               onValid={() => form.set('errors.profile.company.corp_mail', [])}
+            />
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={classNames(styles.cell, styles.full)}>
+            <Input
+              type={INPUT_TYPES.url}
+              label="Сайт"
+              value={form.get('data.profile.company.site')}
+              errors={form.get('errors.profile.company.site')}
+              onChange={(value) => form.set('data.profile.company.site', value)}
+              onInvalid={(value) => form.set('errors.profile.company.site', value)}
+              onValid={() => form.set('errors.profile.company.site', [])}
             />
           </div>
         </div>
