@@ -36,7 +36,6 @@ const Market = ({ host }) => {
   return (
     <div className={styles.root}>
       <div className={styles.left}>
-        <div className={styles.verify}>?</div>
         {companyArray.map(item => (
           <MarketCard
             key={item.id}

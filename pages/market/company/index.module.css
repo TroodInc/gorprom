@@ -4,19 +4,6 @@
     gap: 56px;
 }
 
-.verify {
-    display: inline-block;
-    width: 20px;
-    padding: 3px 0;
-    text-align: center;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 100%;
-    color: var(--trood-text-white);
-    background-color: var(--trood-background-dark);
-    border-radius: 100%;
-}
-
 .left {
     margin-top: 24px;
     flex-basis: 780px;
