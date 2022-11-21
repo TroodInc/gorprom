@@ -203,7 +203,7 @@ const Form = types.model('Form', {
         }
         let globalError = error
         while (globalError && typeof globalError === 'object') {
-          globalError = globalError.error || globalError.data
+          globalError = globalError.error || globalError.data || globalError.detail
         }
         if (globalError) {
           self.set('errors.globalError', globalError)

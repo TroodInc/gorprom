@@ -1,0 +1,43 @@
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 0 390px;
+    width: 390px;
+    margin: 18px auto;
+}
+
+.login {
+    margin-bottom: 24px;
+}
+
+.password {
+    margin-bottom: 24px;
+}
+
+.forgotButton {
+    align-self: flex-end;
+    margin-bottom: 24px;
+}
+
+.loginButton {
+    margin-bottom: 24px;
+}
+
+.globalError {
+    font-size: 18px;
+    color: var(--trood-red);
+    margin-bottom: 24px;
+}
+
+.registerQuestion {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.registerButton {
+    align-self: flex-start;
+}
+
+.message:not(:last-child) {
+    margin-bottom: 24px;
+}

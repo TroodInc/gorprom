@@ -55,7 +55,7 @@ const Login = ({ host }) => {
         label="Забыли пароль?"
         type={BUTTON_TYPES.text}
         color={BUTTON_COLORS.orange}
-        link="/forgot"
+        link="/recovery"
       />
       <Button
         className={styles.loginButton}

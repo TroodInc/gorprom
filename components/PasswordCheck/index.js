@@ -5,6 +5,7 @@ import Icon, { ICONS_TYPES } from '../Icon'
 
 const PasswordCheck = ({
   password = '',
+  confirmation,
   minLength,
   checkLetter,
   checkUpper,
@@ -72,14 +73,23 @@ const PasswordCheck = ({
     errorsArr.push(letterErr)
   }
 
-  const errors = errorsArr.filter((item) => { return item.icn === ICONS_TYPES.clear}).map((item) => item.title)
+  if (confirmation) {
+    const confirmationErr = confirmation === password ?
+      { title: 'Пароли совпадают', icn: ICONS_TYPES.confirm, iconStyle: styles.check } :
+      { title: 'Пароли не совпадают', icn: ICONS_TYPES.clear, iconStyle: styles.clear }
+
+    errorsArr.push(confirmationErr)
+  }
+
+  const errors = errorsArr.filter((item) => item.icn === ICONS_TYPES.clear).map((item) => item.title)
 
   useEffect(() => {
     onValidate(errors)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [password])
+  }, [password, confirmation])
 
-  if (!password || !(minLength || checkLetter || checkUpper || checkLower || checkNumber || checkSpec)) {
+  if (!password ||
+    !(minLength || checkLetter || checkUpper || checkLower || checkNumber || checkSpec || confirmation)) {
     return null
   }
 
