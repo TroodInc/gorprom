@@ -55,11 +55,15 @@ services:
       SERVICE_AUTH_SECRET: "3dd09def9ce1945116ba915793de32ee85b7e7b36421fd0ebd745d5d4fe4bd14e2d256cf97de6cf1686fd44c94ccfd292148477cae59822c54fae58f01fe3d7f"
 
       PROFILE_STORAGE: "CUSTODIAN"
+      PROFILE_CONFIRMATION_ENABLED: "True"
       CUSTODIAN_PROFILE_OBJECT: "employee"
       CUSTODIAN_LINK: "http://custodian:8000/custodian/"
 
-#      MAILER_TYPE: "TROOD"
-#      TROOD_MAIL_SERVICE_URL: "http://mail:8000"
+      PROJECT_LINK: "http://45.138.163.227"
+      PROJECT_NAME: "Горпром"
+
+      MAILER_TYPE: "TROOD"
+      TROOD_MAIL_SERVICE_URL: "http://mail:8000"
 
     labels:
       - "traefik.enable=true"
@@ -83,7 +87,7 @@ services:
       SERVICE_DOMAIN: "MAIL"
       SERVICE_AUTH_SECRET: "3dd09def9ce1945116ba915793de32ee85b7e7b36421fd0ebd745d5d4fe4bd14e2d256cf97de6cf1686fd44c94ccfd292148477cae59822c54fae58f01fe3d7f"
 
-      AUTHENTICATION_TYPE: "TROOD"
+#      AUTHENTICATION_TYPE: "TROOD"
       TROOD_AUTH_SERVICE_URL: "http://authorization:8000/"
     labels:
       - "traefik.enable=true"
