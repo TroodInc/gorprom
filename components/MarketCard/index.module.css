@@ -38,6 +38,18 @@
     max-height: 1em;
 }
 
+.verifyIcon {
+    position: absolute;
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    margin-left: 10px;
+    padding-left: 2px;
+    color: var(--trood-white);
+    background-color: var(--trood-orange);
+    border-radius: 100%;
+}
+
 .footer {
     display: flex;
     flex-flow: row nowrap;

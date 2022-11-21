@@ -59,9 +59,36 @@
 }
 
 .title {
+    position: relative;
+    gap: 16px;
     font-weight: 500;
     font-size: 64px;
     letter-spacing: -0.02em;
+}
+
+.verify {
+    position: absolute;
+    margin-left: 16px;
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.verifyIcon {
+    width: 14px;
+    height: 14px;
+    padding-left: 2px;
+    color: var(--trood-white);
+    background-color: var(--trood-orange);
+    border-radius: 100%;
+}
+
+.verifyText {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 115%;
+    letter-spacing: -0.02em;
+    color: var(--trood-orange);
 }
 
 .header {

@@ -9,6 +9,7 @@ import Button from '../Button'
 
 import styles from './index.module.css'
 import { getApiPath } from '../../helpers/fetch'
+import Icon, { ICONS_TYPES } from '../Icon'
 
 
 const TypeNameDict = {
@@ -109,6 +110,13 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host, on
             </div>
           )}
           {onEdit && data.name}
+          {(type === 'COMPANY' && data.verify) && (
+            <Icon
+              className={styles.verifyIcon}
+              type={ICONS_TYPES.confirm}
+              size={10}
+            />
+          )}
         </h2>
         {type === 'COMPANY' && (
           <div className={styles.description}>
