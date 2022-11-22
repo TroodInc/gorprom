@@ -34,6 +34,10 @@ const ProfileLayout = ({ children, editable }) => {
             title: 'Запросы товаров/услуг',
           },
           {
+            link: '/profile/favorite',
+            title: 'Избранное',
+          },
+          {
             link: '/profile/organization',
             title: 'Управление организацией',
             subItems: [

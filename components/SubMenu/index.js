@@ -41,7 +41,14 @@ const SubMenu = ({ items, className }) => {
                       activeClassName={styles.active}
                       exact={subItem.exact}
                     >
-                      {subItem.title}
+                      <div className={styles.wrappedLink}>
+                        {subItem.title}
+                        <Icon
+                          className={styles.activeIcon}
+                          size={16}
+                          type={ICONS_TYPES.confirm}
+                        />
+                      </div>
                     </Link>
                   )
                 })}
