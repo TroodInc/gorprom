@@ -55,3 +55,18 @@
 .mail {
     color: var(--trood-orange);
 }
+
+.rootEmpty {
+    composes: root;
+    align-items: flex-start;
+}
+
+.rootEmpty .title {
+    font-weight: 500;
+    font-size: 48px;
+}
+
+.rootEmpty .text {
+    width: 520px;
+    margin: 34px 0 24px;
+}

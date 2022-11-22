@@ -1,18 +1,17 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
 import moment from 'moment'
-import { useRouter } from 'next/router'
 
 import ProfileLayout from '../../../layout/profile'
 import { getApiPath } from '../../../helpers/fetch'
 import Icon, { ICONS_TYPES } from '../../../components/Icon'
+import Button from '../../../components/Button'
 
 import styles from './index.module.css'
 
 
 const Request = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
-  const { push, pathname } = useRouter()
   const { id, profile: { company } = {} } = store.authData
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
@@ -25,6 +24,23 @@ const Request = ({ host }) => {
   }
   const order = store.callHttpQuery(custodianApiPath + 'order', { params: orderProps })
   const orderArray = order.get('data.data') || []
+
+  if (!orderArray.length) {
+    return (
+      <div className={styles.rootEmpty}>
+        <div className={styles.title}>
+          У вас пока нет запросов
+        </div>
+        <div className={styles.text}>
+          Запрос можно отправить, нажав на кнопку «Отправить запрос» рядом с товаром/услугой
+        </div>
+        <Button
+          label="Перейти к поиску товаров и услуг"
+          link="/market"
+        />
+      </div>
+    )
+  }
 
   return (
     <div className={styles.root}>
