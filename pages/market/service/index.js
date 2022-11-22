@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 
-import { callGetApi, getApiPath, getFullUrl } from '../../../helpers/fetch'
+import { callPostApi, callGetApi, getApiPath, getFullUrl, callDeleteApi } from '../../../helpers/fetch'
 import MarketLayout from '../../../layout/market'
 import Button, { BUTTON_TYPES, BUTTON_COLORS } from '../../../components/Button'
 import Select from '../../../components/Select'
@@ -14,6 +14,7 @@ import styles from './index.module.css'
 
 const Market = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
+  const { id, token } = store.authData
   const router = useRouter()
   const { query, pathname, push } = router
 
@@ -34,17 +35,55 @@ const Market = ({ host }) => {
   const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', { params: productCategoryParams })
   const productCategoryArray = productCategory.get('data.data') || []
 
+  const favoriteEndpoint = custodianApiPath + 'favorite'
+  const favoriteParams = {
+    q: `eq(employee,${id})`,
+    depth: 1,
+  }
+  const favorite = store.callHttpQuery(favoriteEndpoint, { params: favoriteParams })
+  const favoriteArray = favorite.get('data.data') || []
+
   return (
     <div className={styles.root}>
       <div className={styles.left}>
-        {productArray.map(item => (
-          <MarketCard
-            key={item.id}
-            data={item}
-            type="SERVICE"
-            host={host}
-          />
-        ))}
+        {productArray.map(item => {
+          const fav = favoriteArray.find(f => f.product === item.id)
+          return (
+            <MarketCard
+              key={item.id}
+              data={item}
+              type="SERVICE"
+              host={host}
+              isFav={!!fav}
+              onFav={() => {
+                callPostApi(
+                  favoriteEndpoint,
+                  {
+                    headers: {
+                      'Content-Type': 'application/json',
+                      ...(token ? { Authorization: `Token ${token}` } : {}),
+                    },
+                    body: JSON.stringify({ product: item.id }),
+                  },
+                )
+                  .then(() => store.callHttpQuery(favoriteEndpoint, {
+                    params: favoriteParams,
+                    cacheTime: 0,
+                  }))
+              }}
+              onFavRemove={() => {
+                callDeleteApi(
+                  favoriteEndpoint + '/' + fav.id,
+                  token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+                )
+                  .then(() => store.callHttpQuery(favoriteEndpoint, {
+                    params: favoriteParams,
+                    cacheTime: 0,
+                  }))
+              }}
+            />
+          )
+        })}
       </div>
       <div className={styles.right}>
         <div className={styles.title}>Категории</div>
@@ -104,6 +143,18 @@ export async function getServerSideProps({ req, query }) {
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
 
+  let user
+
+  if (token) {
+    const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
+    const verifyEndpoint = authApiPath + 'verify-token/'
+    try {
+      const { data: { data: { id } } } =
+        await callPostApi(verifyEndpoint, { headers: { Authorization: `Token ${token}` } })
+      user = id
+    } catch {}
+  }
+
   const productParams = {
     q: [
       'eq(type,SERVICE)',
@@ -125,6 +176,25 @@ export async function getServerSideProps({ req, query }) {
     token ? { headers: { Authorization: `Token ${token}` } } : undefined,
   )
 
+  const fav = {}
+  if (user) {
+    const favoriteParams = {
+      q: `eq(employee,${user})`,
+      depth: 1,
+    }
+    const favoriteFullUrl = getFullUrl(custodianApiPath + 'favorite', favoriteParams)
+    const favoriteResponse = await callGetApi(
+      favoriteFullUrl,
+      token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+    )
+
+    fav[favoriteFullUrl] = {
+      callTime: Date.now(),
+      loaded: true,
+      response: favoriteResponse,
+    }
+  }
+
   return {
     props: {
       initialStore: {
@@ -139,6 +209,7 @@ export async function getServerSideProps({ req, query }) {
             loaded: true,
             response: productCategoryResponse,
           },
+          ...fav,
         },
       },
     },

@@ -67,7 +67,34 @@
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
+    align-items: flex-end;
     flex: 0 0 150px;
+}
+
+.favRemove {
+    background-color: var(--trood-background-dark);
+    border-radius: 50%;
+    color: var(--trood-text-white);
+}
+
+.fav {
+    color: var(--trood-text-silver);
+    border: 1px solid currentColor;
+    opacity: 0.4;
+    border-radius: 50%;
+}
+
+.activeFav {
+    color: var(--trood-text-white);
+    background-color: var(--trood-orange);
+    border-radius: 50%;
+}
+
+.fav svg,
+.activeFav svg,
+.favRemove svg {
+    width: 14px;
+    height: 14px;
 }
 
 .button {

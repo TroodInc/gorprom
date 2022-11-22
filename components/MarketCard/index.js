@@ -66,7 +66,17 @@ const needLogin = ({ store, reason }) => (
   </div>
 )
 
-const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host, onEdit }) => {
+const MarketCard = ({
+  className,
+  data = {},
+  type = 'PRODUCT',
+  showType,
+  host,
+  isFav,
+  onEdit,
+  onFav,
+  onFavRemove,
+}) => {
   const { store } = useContext(MobXProviderContext)
   const { id } = store.authData
   const router = useRouter()
@@ -145,7 +155,25 @@ const MarketCard = ({ className, data = {}, type = 'PRODUCT', showType, host, on
         </div>
       </div>
       <div className={styles.right}>
-        <div />
+        {!onFav && onFavRemove && (
+          <Icon
+            size={24}
+            type={ICONS_TYPES.clear}
+            className={styles.favRemove}
+            onClick={onFavRemove}
+          />
+        )}
+        {onFav && (
+          <Icon
+            size={24}
+            type={ICONS_TYPES.star}
+            className={isFav ? styles.activeFav : styles.fav}
+            onClick={isFav ? onFavRemove : onFav}
+          />
+        )}
+        {!(onFav && onFavRemove) && (
+          <div />
+        )}
         {onEdit && (
           <Button
             className={styles.button}
