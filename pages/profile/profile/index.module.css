@@ -2,21 +2,82 @@
     display: flex;
     flex-flow: row nowrap;
     border-top: 1px solid var(--trood-border-dark);
-    padding-top: 24px;
+    padding-top: 42px;
     margin-top: 24px;
 }
 
 .column {
     display: flex;
-    flex: 1 1 100%;
+    flex: 0 1 390px;
     flex-flow: column nowrap;
-    padding: 0 16px 24px;
-    gap: 40px;
+    padding-bottom: 24px;
+    gap: 16px;
 }
 
 .column.left {
+    padding-right: 16px;
     align-items: center;
+    flex: 0 0 188px;
+    gap: 26px;
     border-right: 1px solid var(--trood-border-dark);
+}
+
+.addPhoto {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    width: 172px;
+    height: 172px;
+    color: var(--trood-text-silver);
+    border: 1px dashed var(--trood-border-light-gray);
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+.addPhotoIcon {
+    align-self: center;
+    justify-content: center;
+    margin-top: -4px;
+}
+
+.addPhotoLabel {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+}
+
+.addPhotoBtnContainer {
+    font-size: 24px;
+}
+
+.addPhotoBtn {
+    display: flex;
+    padding-right: 10px;
+    gap: 18px;
+}
+
+.btnLabel {
+    font-size: 18px;
+    align-self: flex-end;
+}
+
+.right {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 100%;
+    margin-left: 16px;
+    gap: 42px;
+}
+
+.inputs {
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 1 1 100%;
+    gap: 16px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid var(--trood-border-dark);
 }
 
 .block {
@@ -40,11 +101,61 @@
     letter-spacing: -0.15em;
 }
 
+.addButton {
+    align-self: flex-start;
+    margin-top: 12px;
+}
+
+.link {
+    color: var(--trood-orange);
+}
+
+.mailing {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 8px;
+}
+
+.mailingHeader {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.mailingSubscribe, .mailingHeader {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 105%;
+}
+
+.mailingText {
+    display: flex;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 105%;
+    letter-spacing: -0.02em;
+    color: var(--trood-text-silver);
+}
+
+.subscribe {
+    display: block;
+}
+
 .controls {
-    margin-top: 24px;
-    border-top: 1px solid var(--trood-border-dark);
-    padding-top: 56px;
+    margin-top: 56px;
     display: flex;
     flex-flow: row nowrap;
     gap: 24px;
 }
+
+.submit {
+    width: 389px;
+}
+
+.goBack {
+    width: 374px;
+}
+
+.goBack a {
+  justify-content: flex-start;
+}
+
