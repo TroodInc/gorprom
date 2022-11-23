@@ -10,6 +10,7 @@
   cursor: pointer;
   user-select: none;
   font-weight: 500;
+  line-height: 1;
 }
 
 .disabled {
@@ -119,5 +120,5 @@
 }
 
 .icon:not(:last-child) {
-  margin-right: 1em;
+  margin-right: 0.8em;
 }

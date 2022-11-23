@@ -4,8 +4,8 @@ import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
-import { callGetApi, getApiPath, getFullUrl } from '../../../helpers/fetch'
-import Button from '../../../components/Button'
+import { callDeleteApi, callGetApi, callPostApi, getApiPath, getFullUrl } from '../../../helpers/fetch'
+import Button, { BUTTON_SPECIAL_TYPES, BUTTON_TYPES, BUTTON_COLORS } from '../../../components/Button'
 import Link from '../../../components/Link'
 import SubMenu from '../../../components/SubMenu'
 
@@ -15,6 +15,7 @@ import Icon, { ICONS_TYPES } from '../../../components/Icon'
 
 const Product = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
+  const { id: user, token } = store.authData
   const router = useRouter()
   const { pathname, query: { id, view = 'description' } } = router
   const path = pathname.replace('[id]', id)
@@ -26,6 +27,16 @@ const Product = ({ host }) => {
   }
   const product = store.callHttpQuery(custodianApiPath + 'product/' + id, { params: productParams })
   const productData = product.get('data.data')
+
+  const favoriteEndpoint = custodianApiPath + 'favorite'
+  const favoriteParams = {
+    q: `eq(employee,${user}),eq(product,${id})`,
+    depth: 1,
+  }
+  const favorite = store.callHttpQuery(favoriteEndpoint, { params: favoriteParams })
+  const favoriteArray = favorite.get('data.data') || []
+  const favId = favoriteArray[0]?.id
+  const isFavorite = !!favId
 
   if (!productData) return null
 
@@ -67,6 +78,40 @@ const Product = ({ host }) => {
             {productData.company.name}
           </Link>
         </h2>
+        <Button
+          className={styles.favButton}
+          type={isFavorite ? BUTTON_TYPES.fill : BUTTON_TYPES.border}
+          color={isFavorite ? BUTTON_COLORS.orange : BUTTON_COLORS.black}
+          specialType={BUTTON_SPECIAL_TYPES.star}
+          label={isFavorite ? 'Сохранено' : 'Сохранить'}
+          onClick={() => {
+            if (isFavorite) {
+              callDeleteApi(
+                favoriteEndpoint + '/' + favId,
+                token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+              )
+                .then(() => store.callHttpQuery(favoriteEndpoint, {
+                  params: favoriteParams,
+                  cacheTime: 0,
+                }))
+            } else {
+              callPostApi(
+                favoriteEndpoint,
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                    ...(token ? { Authorization: `Token ${token}` } : {}),
+                  },
+                  body: JSON.stringify({ product: +id }),
+                },
+              )
+                .then(() => store.callHttpQuery(favoriteEndpoint, {
+                  params: favoriteParams,
+                  cacheTime: 0,
+                }))
+            }
+          }}
+        />
       </div>
       <div className={styles.main}>
         {productData.photo_set && !!productData.photo_set.length && (
@@ -166,6 +211,18 @@ export async function getServerSideProps({ req, query }) {
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
 
+  let user
+
+  if (token) {
+    const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
+    const verifyEndpoint = authApiPath + 'verify-token/'
+    try {
+      const { data: { data: { id } } } =
+        await callPostApi(verifyEndpoint, { headers: { Authorization: `Token ${token}` } })
+      user = id
+    } catch {}
+  }
+
   const productParams = {
     depth: 3,
   }
@@ -174,6 +231,25 @@ export async function getServerSideProps({ req, query }) {
     productFullUrl,
     token ? { headers: { Authorization: `Token ${token}` } } : undefined,
   )
+
+  const fav = {}
+  if (user) {
+    const favoriteParams = {
+      q: `eq(employee,${user}),eq(product,${query.id})`,
+      depth: 1,
+    }
+    const favoriteFullUrl = getFullUrl(custodianApiPath + 'favorite', favoriteParams)
+    const favoriteResponse = await callGetApi(
+      favoriteFullUrl,
+      token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+    )
+
+    fav[favoriteFullUrl] = {
+      callTime: Date.now(),
+      loaded: true,
+      response: favoriteResponse,
+    }
+  }
 
   return {
     props: {
@@ -184,6 +260,7 @@ export async function getServerSideProps({ req, query }) {
             loaded: true,
             response: productResponse,
           },
+          ...fav,
         },
       },
     },

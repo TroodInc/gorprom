@@ -43,6 +43,13 @@
     color: var(--trood-orange);
 }
 
+.favButton {
+    border-radius: 8px;
+    height: 30px;
+    font-size: 18px;
+    padding: 0 8px;
+}
+
 .main {
     display: flex;
     flex-flow: row nowrap;
