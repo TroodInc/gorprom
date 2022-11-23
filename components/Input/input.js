@@ -495,8 +495,10 @@ class Input extends PureComponent {
         }
         if (node && caretPosition !== undefined && active) {
           node.setSelectionRange(caretPosition, caretPosition)
-          node.blur()
-          node.focus()
+          if (type === INPUT_TYPES.multi) {
+            node.blur()
+            node.focus()
+          }
         }
       },
       'data-cy': label || placeholder,
