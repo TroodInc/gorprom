@@ -4,6 +4,7 @@
     border-top: 1px solid var(--trood-border-dark);
     padding-top: 42px;
     margin-top: 24px;
+    gap: 16px;
 }
 
 .column {
@@ -67,7 +68,6 @@
     display: flex;
     flex-flow: column nowrap;
     flex: 1 1 100%;
-    margin-left: 16px;
     gap: 42px;
 }
 
