@@ -155,23 +155,21 @@ const MarketCard = ({
         </div>
       </div>
       <div className={styles.right}>
-        {!onFav && onFavRemove && (
+        {(id && !onFav && onFavRemove && (
           <Icon
             size={24}
             type={ICONS_TYPES.clear}
             className={styles.favRemove}
             onClick={onFavRemove}
           />
-        )}
-        {onFav && (
+        )) || (id && onFav && (
           <Icon
             size={24}
             type={ICONS_TYPES.star}
             className={isFav ? styles.activeFav : styles.fav}
             onClick={isFav ? onFavRemove : onFav}
           />
-        )}
-        {!(onFav && onFavRemove) && (
+        )) || (
           <div />
         )}
         {onEdit && (
