@@ -12,7 +12,7 @@
     flex: 0 1 390px;
     flex-flow: column nowrap;
     padding-bottom: 24px;
-    gap: 16px;
+    gap: 24px;
 }
 
 .column.left {
@@ -29,7 +29,7 @@
     justify-content: center;
     width: 172px;
     height: 172px;
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
     border: 1px dashed var(--trood-border-light-gray);
     border-radius: 50%;
     cursor: pointer;
@@ -89,6 +89,7 @@
     font-weight: 400;
     font-size: 18px;
     margin-bottom: 8px;
+    color: var(--trood-text-light-gray);
 }
 
 .block .value {
@@ -133,7 +134,7 @@
     font-size: 18px;
     line-height: 105%;
     letter-spacing: -0.02em;
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
 }
 
 .subscribe {

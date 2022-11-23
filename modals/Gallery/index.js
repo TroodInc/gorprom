@@ -16,8 +16,8 @@ const Gallery = ({ items, startIndex, onClose }) => {
 
   return (
     <Modal type="full" className={styles.root}>
-      <Icon size={72} type={ICONS_TYPES.close} className={styles.button} onClick={onClose} />
-      <Icon size={50} type={ICONS_TYPES.arrow} className={styles.prev} onClick={() => setIndex(prevIndex)} />
+      <Icon size={20} type={ICONS_TYPES.clear} className={styles.button} onClick={onClose} />
+      <Icon size={50} type={ICONS_TYPES.arrowThin} className={styles.prev} onClick={() => setIndex(prevIndex)} />
       <Image
         alt={`Photo ${index + 1}`}
         src={link}
@@ -25,7 +25,7 @@ const Gallery = ({ items, startIndex, onClose }) => {
         height={540}
         objectFit="scale-down"
       />
-      <Icon size={50} type={ICONS_TYPES.arrow} className={styles.next} onClick={() => setIndex(nextIndex)} />
+      <Icon size={50} type={ICONS_TYPES.arrowThin} className={styles.next} onClick={() => setIndex(nextIndex)} />
     </Modal>
   )
 }

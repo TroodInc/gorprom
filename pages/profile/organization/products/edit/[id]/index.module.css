@@ -102,7 +102,7 @@
     justify-content: center;
     width: 172px;
     height: 172px;
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
     border: 1px dashed var(--trood-border-light-gray);
     border-radius: 0;
     cursor: pointer;

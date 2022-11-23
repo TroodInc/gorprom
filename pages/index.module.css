@@ -422,7 +422,7 @@
 }
 
 .newsItem.normal .date {
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
 }
 
 .newsItem.normal .arrowWithTail {

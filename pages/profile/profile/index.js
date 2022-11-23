@@ -31,8 +31,8 @@ const Profile = ({ host }) => {
         <Image
           alt="Avatar"
           src={profile.avatar || '/image/defaultAvatar.jpg'}
-          height={300}
-          width={300}
+          height={172}
+          width={172}
           style={{
             borderRadius: '50%',
           }}

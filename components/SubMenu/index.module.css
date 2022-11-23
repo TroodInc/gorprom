@@ -3,7 +3,7 @@
     display: flex;
     flex-flow: row nowrap;
     gap: 20px;
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
 }
 
 .link {

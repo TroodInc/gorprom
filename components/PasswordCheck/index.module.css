@@ -11,7 +11,7 @@
 .item {
     display: flex;
     align-items: flex-start;
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
     margin-bottom: 18px;
     font-size: 18px;
     line-height: 100%;

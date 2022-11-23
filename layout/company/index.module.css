@@ -24,7 +24,7 @@
 
 .search .input {
     flex: 1;
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
 }
 
 .search .searchBtn:hover {

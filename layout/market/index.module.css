@@ -12,7 +12,7 @@
 
 .search .input {
     flex: 1;
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
 }
 
 .search .searchBtn:hover {
@@ -71,7 +71,7 @@
     font-size: 24px;
     line-height: 97%;
     letter-spacing: -0.04em;
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
     opacity: 0.4;
 }
 

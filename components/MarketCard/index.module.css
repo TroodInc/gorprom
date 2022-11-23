@@ -78,7 +78,7 @@
 }
 
 .fav {
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
     border: 1px solid currentColor;
     opacity: 0.4;
     border-radius: 50%;

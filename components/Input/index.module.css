@@ -42,7 +42,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--trood-text-silver);
+  color: var(--trood-text-light-gray);
 }
 
 .passwordEye {
@@ -68,7 +68,7 @@
 
 .input::placeholder {
   letter-spacing: 0.03em;
-  color: var(--trood-text-silver);
+  color: var(--trood-text-light-gray);
   opacity: 0.4;
 }
 

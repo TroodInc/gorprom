@@ -36,11 +36,11 @@
 .company {
     font-weight: 500;
     font-size: 18px;
-    color: var(--trood-text-light-gray);
+    color: var(--trood-orange);
 }
 
 .company:hover {
-    color: var(--trood-orange);
+    color: var(--trood-text);
 }
 
 .favButton {
@@ -100,8 +100,8 @@
 }
 
 .image .zoom svg {
-    width: 55%;
-    height: 55%;
+    width: 50%;
+    height: 50%;
 }
 
 .gallery {

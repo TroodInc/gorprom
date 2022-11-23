@@ -6,7 +6,7 @@
 }
 
 .pencil {
-    color: var(--trood-text-silver);
+    color: var(--trood-text-light-gray);
 }
 
 .pencil:hover {
