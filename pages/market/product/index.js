@@ -31,6 +31,7 @@ const Market = ({ host }) => {
 
   const productCategoryParams = {
     depth: 4,
+    q: 'is_null(parent,true)',
   }
   const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', { params: productCategoryParams })
   const productCategoryArray = productCategory.get('data.data') || []
@@ -169,6 +170,7 @@ export async function getServerSideProps({ req, query }) {
 
   const productCategoryParams = {
     depth: 4,
+    q: 'is_null(parent,true)',
   }
   const productCategoryFullUrl = getFullUrl(custodianApiPath + 'product_category', productCategoryParams)
   const productCategoryResponse = await callGetApi(
