@@ -7,18 +7,11 @@
 
 .root .button {
     position: absolute;
-    top: -36px;
-    right: -36px;
-    background-color: var(--trood-gray);
-    color: var(--trood-text-white);
-    border-radius: 50%;
+    top: 24px;
+    right: 24px;
+    color: var(--trood-text);
 }
 
 .root .button:hover {
-    background-color: var(--trood-orange);
-}
-
-.root .button svg {
-    width: 55%;
-    height: 55%;
+    color: var(--trood-orange);
 }

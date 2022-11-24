@@ -1,0 +1,99 @@
+.root {
+    position: relative;
+    display: flex;
+    gap: 16px;
+}
+
+.root .button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    color: var(--trood-text);
+}
+
+.root .button:hover {
+    color: var(--trood-orange);
+}
+
+.title {
+    margin-bottom: 42px;
+}
+
+.attachmentButton {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.attachmentIcon {
+    background-color: var(--trood-background-dark);
+    border-radius: 50%;
+    color: var(--trood-text-white);
+}
+
+.attachmentIcon svg {
+    width: 50%;
+    height: 50%;
+}
+
+.attachments {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.attachmentWrapper {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.iconClear {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    background-color: var(--trood-gray-dark);
+    color: var(--trood-white);
+    position: absolute;
+    top: -12px;
+    right: -12px;
+}
+
+.attachment {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 8px;
+    height: 172px;
+    width: 172px;
+    background: var(--trood-background-gray-a04);
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.attachmentName {
+    line-height: 1;
+    height: 3em;
+    margin-bottom: auto;
+    display: -webkit-box;
+    max-width: 200px;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.attachmentExt,
+.attachmentSize {
+    text-transform: uppercase;
+    color: var(--trood-text-light-gray);
+}

@@ -3,9 +3,23 @@ import { PureComponent } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
 
 
+const getFirstStringFromObject = (memo, value) => {
+  if (memo && typeof memo === 'string') {
+    return memo
+  }
+  if (value && typeof value === 'string') {
+    return value
+  }
+  if (value && typeof value === 'object') {
+    return Object.values(value).reduce(getFirstStringFromObject, '')
+  }
+  return ''
+}
+
 class FileInput extends PureComponent {
   static propTypes = {
     onUpload: PropTypes.func,
+    onError: PropTypes.func,
     endpoint: PropTypes.string,
   }
 
@@ -15,7 +29,7 @@ class FileInput extends PureComponent {
   }
 
   uploadFile(file) {
-    const { onUpload, endpoint } = this.props
+    const { onUpload, endpoint, onError } = this.props
 
     if (file) {
       const formData = new FormData()
@@ -28,9 +42,15 @@ class FileInput extends PureComponent {
         .then(resp => {
           resp.json()
             .then(data => {
+              if (resp.status >= 400) {
+                return Promise.reject({ status: resp.status, data })
+              }
               onUpload && onUpload(data)
             })
-            .catch(console.error)
+            .catch(({ data, status }) => {
+              let error = Object.values(data).reduce(getFirstStringFromObject, '')
+              onError && onError({ status, data, error })
+            })
         })
         .catch(console.error)
     }
@@ -50,6 +70,7 @@ class FileInput extends PureComponent {
         {...other}
         classes={[className]}
         handleChange={this.uploadFile}
+        hoverTitle=" "
       >
         {children}
       </FileUploader>

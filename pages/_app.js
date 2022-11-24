@@ -65,6 +65,7 @@ const App = ({ Component, pageProps = {}, ...other }) => {
                     {...fs.props}
                     host={other.host}
                     form={fs.form}
+                    store={store}
                     key={key}
                     onClose={() => store.deleteFormStore(key)}
                   />

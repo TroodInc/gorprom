@@ -418,7 +418,6 @@ const Main = ({ host }) => {
                     store.createFormStore(successFormStoreName, {
                       modalComponent: 'MessageBox',
                       props: {
-                        width: 400,
                         children: 'Вы успешно подписались на рассылку',
                       },
                     })

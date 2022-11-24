@@ -433,13 +433,17 @@ class Input extends PureComponent {
   }
 
   handleFocus() {
-    this.setState({ active: true })
-    this.props.onFocus()
+    if (!this.ignoreBlurFocusEvents) {
+      this.setState({ active: true })
+      this.props.onFocus()
+    }
   }
 
   handleBlur() {
-    this.setState({ wasBlured: true, active: false })
-    this.props.onBlur()
+    if (!this.ignoreBlurFocusEvents) {
+      this.setState({ wasBlured: true, active: false })
+      this.props.onBlur()
+    }
   }
 
   changePasswordVisibility = () => {
@@ -495,10 +499,10 @@ class Input extends PureComponent {
         }
         if (node && caretPosition !== undefined && active) {
           node.setSelectionRange(caretPosition, caretPosition)
-          if (type === INPUT_TYPES.multi) {
-            node.blur()
-            node.focus()
-          }
+          this.ignoreBlurFocusEvents = true
+          node.blur()
+          node.focus()
+          this.ignoreBlurFocusEvents = false
         }
       },
       'data-cy': label || placeholder,

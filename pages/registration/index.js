@@ -79,7 +79,6 @@ const Registration = ({ host }) => {
             store.createFormStore('error', {
               modalComponent: 'MessageBox',
               props: {
-                width: 400,
                 children: error,
               },
             })
@@ -211,7 +210,6 @@ const Registration = ({ host }) => {
                   store.createFormStore('success', {
                     modalComponent: 'MessageBox',
                     props: {
-                      width: 400,
                       children: 'Письмо отправлено',
                     },
                   })

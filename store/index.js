@@ -7,11 +7,22 @@ import { callApi, getFullUrl } from '../helpers/fetch'
 import { newCookie } from '../helpers/cookie'
 
 
+const isArrayAsObject = (obj = {}) => {
+  return !!Object.keys(obj).length && Object.keys(obj).every(item => !Number.isNaN(+item))
+}
+
 const normalize = obj => {
   if (obj && typeof obj === 'object') {
     if (Array.isArray(obj)) {
       const array = []
       for (let i = 0; i < obj.length; i += 1) {
+        array.push(normalize(obj[i]))
+      }
+      return array
+    } else if (isArrayAsObject(obj)) {
+      const array = []
+      const length = Math.max(...Object.keys(obj)) + 1
+      for (let i = 0; i < length; i += 1) {
         array.push(normalize(obj[i]))
       }
       return array

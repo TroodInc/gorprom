@@ -20,7 +20,7 @@ const Request = ({ host }) => {
     q: 'or(' + [
       `eq(creator,${id})`,
       company && `eq(target.product.company,${company}),eq(target.company.id,${company})`,
-    ].filter(Boolean).join(',') + ')',
+    ].filter(Boolean).join(',') + '),sort(-created)',
   }
   const order = store.callHttpQuery(custodianApiPath + 'order', { params: orderProps })
   const orderArray = order.get('data.data') || []
@@ -67,7 +67,7 @@ const Request = ({ host }) => {
                 })
               }}>
                 <td>{item.id}</td>
-                <td>{item.target.name}</td>
+                <td>{item.name || item.target.name}</td>
                 <td>
                   <div className={styles.lastChange}>
                     <span>{moment(lastChange).format('DD.MM.YYYY в HH.mm')}</span>
