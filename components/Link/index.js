@@ -18,6 +18,7 @@ const Link = ({
   children,
   hideIfNotAllowed,
   onClick,
+  download,
   ...other
 }) => {
   const { abacContext, abacRules } = useContext(AbacContext)
@@ -66,6 +67,7 @@ const Link = ({
         className={classNames(className, linkActive && activeClassName)}
         target={absoluteUrl ? '_blank' : undefined}
         rel={absoluteUrl ? 'noreferrer' : undefined}
+        download
       >
         {children}
       </a>
@@ -79,6 +81,7 @@ const Link = ({
         target={absoluteUrl ? '_blank' : undefined}
         rel={absoluteUrl ? 'noreferrer' : undefined}
         className={classNames(className, linkActive && activeClassName)}
+        download
       >
         {children}
       </a>

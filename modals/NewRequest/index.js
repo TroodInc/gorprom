@@ -16,7 +16,7 @@ const NewRequest = ({ children, onClose, host, form, store, ...other }) => {
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
   const fileApiPath = getApiPath(process.env.NEXT_PUBLIC_FILE_API, host)
 
-  const attachmentSet = form.get('data.message_set.0.attachment_set') || []
+  const attachmentsSet = form.get('data.message_set.0.attachments_set') || []
 
   return (
     <Modal
@@ -53,7 +53,11 @@ const NewRequest = ({ children, onClose, host, form, store, ...other }) => {
       <FileInput
         className={styles.attachmentButton}
         endpoint={fileApiPath + 'files/'}
-        onUpload={(data) => form.set('data.message_set.0.attachment_set.' + attachmentSet.length, data)}
+        onUpload={(data) => form.set('data.message_set.0.attachments_set.' + attachmentsSet.length, {
+          ...data,
+          id: undefined,
+          file_id: data.id,
+        })}
         onError={({ status, error }) => store.createFormStore('error', {
           modalComponent: 'MessageBox',
           props: {
@@ -68,23 +72,23 @@ const NewRequest = ({ children, onClose, host, form, store, ...other }) => {
         />
         Прикрепит файл
       </FileInput>
-      {!!attachmentSet.length && (
+      {!!attachmentsSet.length && (
         <div className={styles.attachments}>
-          {attachmentSet.map((item, i) => {
+          {attachmentsSet.map((item, i) => {
             const remove = () => {
-              const newAttachmentSet = []
-              const attachmentSetErrors = form.get('errors.attachment_set') || []
-              const newAttachmentSetErrors = []
+              const newAttachmentsSet = []
+              const attachmentsSetErrors = form.get('errors.attachments_set') || []
+              const newAttachmentsSetErrors = []
 
-              attachmentSet.forEach((_, j) => {
+              attachmentsSet.forEach((_, j) => {
                 if (i !== j) {
-                  newAttachmentSet.push(attachmentSet[j])
-                  newAttachmentSetErrors.push(attachmentSetErrors[j])
+                  newAttachmentsSet.push(attachmentsSet[j])
+                  newAttachmentsSetErrors.push(attachmentsSetErrors[j])
                 }
               })
 
-              form.set('data.message_set.0.attachment_set', newAttachmentSet)
-              form.set('errors.message_set.0.attachment_set', newAttachmentSetErrors)
+              form.set('data.message_set.0.attachments_set', newAttachmentsSet)
+              form.set('errors.message_set.0.attachments_set', newAttachmentsSetErrors)
             }
 
             if (item.type === 'IMAGE') {

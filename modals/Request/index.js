@@ -1,16 +1,18 @@
 import { MobXProviderContext, Observer } from 'mobx-react'
 import { useContext, useState } from 'react'
+import sortBy from 'lodash/sortBy'
+import Image from 'next/image'
 
 import { getApiPath } from '../../helpers/fetch'
+import { formatSize } from '../../helpers/format'
 
 import Modal from '../../components/Modal'
 import Icon, { ICONS_TYPES } from '../../components/Icon'
+import Input, { INPUT_TYPES } from '../../components/Input'
+import Link from '../../components/Link'
 
 import styles from './index.module.css'
-import Image from 'next/image'
 import moment from 'moment'
-import Input, { INPUT_TYPES } from '../../components/Input'
-// import Button, { BUTTON_TYPES } from '../../components/Button'
 
 
 const Request = ({ onClose, host, id, ...other }) => {
@@ -33,7 +35,7 @@ const Request = ({ onClose, host, id, ...other }) => {
       className={styles.root}
       overlayClassName={styles.overlay}
       style={{
-        width: '50%',
+        width: 'calc(50% - 24px)',
         height: 'calc(75% - 48px)',
         position: 'absolute',
         bottom: 24,
@@ -67,7 +69,7 @@ const Request = ({ onClose, host, id, ...other }) => {
         className={styles.messages}
       >
         {(orderData.message_set || []).map(item => {
-          const { sender = {} } = item
+          const { sender = {}, attachments_set: attachmentsSet = [] } = item
           return (
             <div key={item.id} className={styles.message}>
               <div className={styles.avatar}>
@@ -89,6 +91,42 @@ const Request = ({ onClose, host, id, ...other }) => {
                 <div className={styles.text}>
                   {item.text}
                 </div>
+                {!!attachmentsSet.length && (
+                  <div className={styles.attachments}>
+                    {sortBy(attachmentsSet, 'type').map(item => {
+                      if (item.type === 'IMAGE') {
+                        return (
+                          <Link key={item.id} href={item.file_url} download>
+                            <Image
+                              alt={item.filename}
+                              src={item.file_url}
+                              width={172}
+                              height={172}
+                              objectFit="cover"
+                            />
+                          </Link>
+                        )
+                      }
+                      return (
+                        <Link key={item.id} className={styles.attachment} href={item.file_url} download>
+                          <Icon
+                            className={styles.iconFile}
+                            size={32}
+                            type={ICONS_TYPES.doc}
+                          />
+                          <div className={styles.attachmentInfo}>
+                            <div className={styles.attachmentName}>
+                              {item.filename}
+                            </div>
+                            <div className={styles.attachmentSize}>
+                              {formatSize(item.size)}
+                            </div>
+                          </div>
+                        </Link>
+                      )
+                    })}
+                  </div>
+                )}
               </div>
               <div className={styles.date}>
                 {moment(item.created).format('HH:mm, DD:MM:YY')}

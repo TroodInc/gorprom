@@ -44,6 +44,7 @@
     flex-flow: column nowrap;
     flex: 1;
     gap: 8px;
+    max-width: calc(100% - 202px);
 }
 
 .message .user {
@@ -60,6 +61,55 @@
 .message .date {
     font-size: 14px;
     font-weight: 500;
+    color: var(--trood-text-light-gray);
+    margin-left: auto;
+}
+
+.attachments {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.attachment {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.iconFile {
+    color: var(--trood-text-white);
+    background-color: var(--trood-orange);
+    border-radius: 50%;
+}
+
+.iconFile svg {
+    width: 50%;
+    height: 50%;
+}
+
+.attachmentInfo {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    max-width: calc(100% - 40px);
+}
+
+.attachmentName {
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--trood-orange);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attachmentSize {
+    font-weight: 400;
+    font-size: 14px;
     color: var(--trood-text-light-gray);
 }
 
