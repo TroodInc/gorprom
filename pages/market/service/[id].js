@@ -154,23 +154,18 @@ const Service = ({ host }) => {
           <Button
             label="Отправить запрос"
             onClick={() => {
-              const requestFormStoreName = 'requestSERVICE' + id
-              const requestFormStore = store.createFormStore(requestFormStoreName, {
+              const formStoreName = 'requestService' + id
+              store.createFormStore(formStoreName, {
+                modalComponent: 'NewRequest',
                 form: {
                   data: {
                     target: {
                       _object: 'product',
-                      id,
+                      id: id,
                     },
-                    message_set: [
-                      {
-                        text: 'Отправлен запрос',
-                      }],
                   },
                 },
               })
-              requestFormStore.form.submit(custodianApiPath + 'order', 'POST')
-                .then(() => router.push('/profile/request'))
             }}
           />
         </div>

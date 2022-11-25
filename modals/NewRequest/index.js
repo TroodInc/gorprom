@@ -77,7 +77,7 @@ const NewRequest = ({ children, onClose, host, form, store, ...other }) => {
           {attachmentsSet.map((item, i) => {
             const remove = () => {
               const newAttachmentsSet = []
-              const attachmentsSetErrors = form.get('errors.attachments_set') || []
+              const attachmentsSetErrors = form.get('errors.message_set.0.attachments_set') || []
               const newAttachmentsSetErrors = []
 
               attachmentsSet.forEach((_, j) => {
@@ -111,7 +111,7 @@ const NewRequest = ({ children, onClose, host, form, store, ...other }) => {
               )
             }
 
-            const ext = (item.filename.match(/\.([^\.]*)$/) || [])[1]
+            const ext = (item.filename.match(/\.([^.]*)$/) || [])[1]
             return (
               <div key={item.id} className={styles.attachmentWrapper}>
                 <div className={styles.attachment}>

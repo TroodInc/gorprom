@@ -64,6 +64,12 @@ const Request = ({ host }) => {
                   props: {
                     id: item.id,
                   },
+                  form: {
+                    data: {
+                      order: item.id,
+                      text: '',
+                    },
+                  },
                 })
               }}>
                 <td>{item.id}</td>
