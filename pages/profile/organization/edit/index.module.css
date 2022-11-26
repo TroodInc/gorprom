@@ -1,20 +1,105 @@
 .root {
     display: flex;
-    flex-flow: column nowrap;
-    flex: 0 0 67%;
-    gap: 32px;
+    flex-flow: row nowrap;
     border-top: 1px solid var(--trood-border-dark);
-    padding-top: 24px;
+    padding-top: 42px;
     margin-top: 24px;
+    gap: 16px;
 }
 
 .left {
     display: flex;
+    flex: 0 0 188px;
     flex-flow: column nowrap;
-    flex: 0 0 33%;
-    padding: 0 16px 24px;
+    padding-bottom: 24px;
     align-items: center;
-    gap: 40px;
+    gap: 26px;
+    padding-right: 16px;
+    border-right: 1px solid var(--trood-border-dark);
+    margin-right: 16px;
+}
+
+.image {
+    border: 1px dashed var(--trood-border-light-gray) !important;
+}
+
+.addPhoto {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    width: 172px;
+    height: 172px;
+    color: var(--trood-text-light-gray);
+    border: 1px dashed var(--trood-border-light-gray);
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+.addPhotoIcon {
+    align-self: center;
+    justify-content: center;
+    margin-top: -4px;
+}
+
+.addPhotoLabel {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+}
+
+.addPhotoBtnContainer {
+    font-size: 24px;
+}
+
+.addPhotoBtn {
+    display: flex;
+    padding-right: 10px;
+    gap: 18px;
+}
+
+.btnLabel {
+    font-size: 18px;
+    align-self: flex-end;
+}
+
+.right {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 100%;
+}
+
+.block {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+}
+
+.block:not(:last-child) {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--trood-border-dark);
+    margin-bottom: 16px;
+}
+
+.checkboxBlock {
+    composes: block;
+    gap: 6px;
+}
+
+.title {
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+.checkboxBlock .title {
+    margin-bottom: 0;
+}
+
+.subTitle {
+    margin-top: 34px;
+    font-weight: 500;
+    font-size: 20px;
 }
 
 .row {
@@ -23,50 +108,86 @@
     gap: 16px;
 }
 
-.row.additionalGap {
-    margin-top: 32px;
-}
-
 .cell {
-    display: flex;
-    flex-flow: column nowrap;
-    flex: 0 1 50%;
+    flex: 1;
+    width: calc(50% - 8px);
+    max-width: 390px;
 }
 
-.cell.full {
+.cellFull {
     flex: 1;
+    max-width: 796px;
+}
+
+.contactBlock {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.contactBlock .cell {
+    width: 50%;
+    max-width: 50%;
+}
+
+.cell .inputLeft {
+    border-right: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.cell .selectRight > div:last-child {
+    border-left: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.add {
+    margin-top: 16px;
+    justify-content: flex-start;
+    line-height: 125%;
+}
+
+.split {
+    position: relative;
+    z-index: 9;
+    width: 1px;
+    background-color: var(--trood-border-light-gray);
+    margin: 34px 0 8px -1px;
+}
+
+.icon {
+    position: absolute;
+    right: -40px;
+    bottom: 24px;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+    margin-left: 16px;
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    background-color: var(--trood-gray-dark);
+    color: var(--trood-white);
 }
 
 .controls {
-    margin-top: 24px;
-    border-top: 1px solid var(--trood-border-dark);
-    padding-top: 56px;
+    margin-top: 56px;
     display: flex;
     flex-flow: row nowrap;
     gap: 24px;
 }
 
-.contactBlock {
-    composes: row;
-    gap: 8px;
+.submit {
+    width: 389px;
 }
 
-.split {
-    width: 1px;
-    background-color: var(--trood-border-dark);
-    margin-top: 34px;
-    margin-bottom: 9px;
+.goBack {
+    width: 374px;
 }
 
-.icon {
-    color: var(--trood-text-light-gray);
-    margin-top: 25px;
-}
-
-.icon:hover {
-    color: var(--trood-orange);
-}
-
-.add {
-    align-self: flex-start;
+.goBack a {
+    justify-content: flex-start;
 }

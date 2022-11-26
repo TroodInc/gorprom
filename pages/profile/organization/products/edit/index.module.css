@@ -3,7 +3,26 @@
     flex-flow: column nowrap;
     flex: 0 0 100%;
     gap: 7px;
+    border-top: 1px solid var(--trood-border-dark);
+    padding-top: 42px;
     margin-top: 24px;
+}
+
+.block {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+}
+
+.block:not(:last-child) {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--trood-border-dark);
+    margin-bottom: 16px;
+}
+
+.title {
+    font-weight: 500;
+    margin-bottom: 24px;
 }
 
 .row {
@@ -12,24 +31,15 @@
     gap: 16px;
 }
 
-.row.additionalGap {
-    margin-top: 30px;
-}
-
-.section {
-    width: 100%;
-    border-top: 1px solid var(--trood-border-dark);
-    padding-top: 24px;
-}
-
-.section:not(:first-of-type) {
-    margin-bottom: 35px;
-}
-
 .cell {
-    display: flex;
-    flex-flow: column nowrap;
-    flex: 0 1 390px;
+    flex: 1;
+    width: calc(50% - 8px);
+    max-width: 390px;
+}
+
+.cellFull {
+    flex: 1;
+    max-width: 796px;
 }
 
 .controls {
@@ -48,9 +58,14 @@
 }
 
 .contactBlock {
-    composes: row;
     position: relative;
-    gap: 0;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.contactBlock .cell {
+    width: 50%;
+    max-width: 50%;
 }
 
 .cell .inputLeft {
@@ -74,6 +89,9 @@
 }
 
 .icon {
+    position: absolute;
+    right: -40px;
+    bottom: 24px;
     display: flex;
     align-self: center;
     align-items: center;
@@ -88,12 +106,9 @@
 }
 
 .add {
-    align-self: flex-start;
-    line-height: 125%;
-}
-
-.addNew {
     margin-top: 16px;
+    justify-content: flex-start;
+    line-height: 125%;
 }
 
 .addPhoto {

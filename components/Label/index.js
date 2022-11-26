@@ -2,7 +2,9 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import classNames from 'classnames'
 
-import style from './index.module.css'
+import Hint from '../Hint'
+
+import styles from './index.module.css'
 
 /**
  * Component for output label.
@@ -28,13 +30,23 @@ class Label extends PureComponent {
       innerRef,
       className,
       required,
-      label,
+      hint,
+      children: label,
     } = this.props
 
     return (
-      <span ref={innerRef} className={classNames(style.root, className)}>
-        {label}{required && ' *'}
-      </span>
+      <div ref={innerRef} className={styles.root}>
+        <span className={classNames(styles.label, className)}>
+          {label}
+        </span>
+        {required && (
+          <span className={styles.required}>*</span>
+        )}
+        {hint && (
+          <Hint className={styles.hint} message={hint} />
+        )}
+      </div>
+
     )
   }
 }

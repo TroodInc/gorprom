@@ -9,11 +9,7 @@
   padding: 8px 16px;
 }
 
-.root.active {
-  border-color: var(--trood-orange);
-}
-
-.label.active {
+.activeLabel {
   color: var(--trood-orange)
 }
 
@@ -21,20 +17,9 @@
   border-color: var(--trood-red);
 }
 
-.active {
+.root.active {
   border: 1px solid var(--trood-orange);
   box-shadow: none;
-}
-
-.label {
-  display: block;
-  margin-left: 16px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 100%;
-  color: var(--trood-text-light-gray);
-  border: none;
-  margin-bottom: 6px;
 }
 
 .phoneCode {
@@ -43,6 +28,7 @@
   align-items: center;
   justify-content: center;
   color: var(--trood-text-light-gray);
+  opacity: 0.4;
 }
 
 .passwordEye {
