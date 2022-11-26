@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Link from '../components/Link'
 import ImageSlider from '../components/ImageSlider'
 import Button, { BUTTON_TYPES, BUTTON_COLORS } from '../components/Button'
-import Input from '../components/Input'
+import Input, { INPUT_TYPES } from '../components/Input'
 
 import styles from './index.module.css'
 import Icon, { ICONS_TYPES } from '../components/Icon'
@@ -18,35 +18,47 @@ const market = [
   {
     link: '/market/company',
     title: 'Компании',
-    image: '/image/main/company.png',
+    image: '/image/main/company.jpg',
     action: 'Поиск компании',
   },
   {
     link: '/market/product',
     title: 'Оборудование',
-    image: '/image/main/product.png',
+    image: '/image/main/product.jpg',
     action: 'Поиск оборудования',
   },
   {
     link: '/market/service',
     title: 'Услуги',
-    image: '/image/main/service.png',
+    image: '/image/main/service.jpg',
     action: 'Поиск услуги',
   },
 ]
 
 const companies = [
   {
-    name: 'Toptal',
-    logo: '/image/main/toptal.png',
+    name: 'Северсталь',
+    logo: '/image/company/severstal.png',
   },
   {
     name: 'Норникель',
-    logo: '/image/main/nornikel.png',
+    logo: '/image/company/nornikel.png',
   },
   {
-    name: 'Роснефть',
-    logo: '/image/main/rosneft.png',
+    name: 'Уралкалий',
+    logo: '/image/company/uralkaliy.png',
+  },
+  {
+    name: 'СЗНК',
+    logo: '/image/company/sznk.png',
+  },
+  {
+    name: 'Somex',
+    logo: '/image/company/somex.png',
+  },
+  {
+    name: 'Лукойл-Коми',
+    logo: '/image/company/lukoil.png',
   },
 ]
 
@@ -188,8 +200,10 @@ const Main = ({ host }) => {
   return (
     <div className={styles.root}>
       <ImageSlider className={styles.gallery} items={[
-        '/image/gallery/1.jpg',
-        '/image/gallery/2.jpg',
+        '/image/slider/1.jpg',
+        '/image/slider/2.jpg',
+        '/image/slider/3.jpg',
+        '/image/slider/4.jpg',
       ]}>
         <div className={styles.header}>
           <h2 className={styles.title}>Маркетплейс горной промышленности</h2>
@@ -309,7 +323,7 @@ const Main = ({ host }) => {
       <div className={styles.fourth}>
         <Image
           alt="Image"
-          src="/image/main/mainBg.jpg"
+          src="/image/main/bg.jpg"
           layout="fill"
           objectFit="cover"
         />
@@ -397,7 +411,9 @@ const Main = ({ host }) => {
           <div className={styles.right}>
             <div className={styles.inputWrapper}>
               <Input
+                key={form.get('data.tmp')}
                 className={styles.input}
+                type={INPUT_TYPES.email}
                 placeholder="Введите адрес электронной почты"
                 validate={{ required: true, checkOnBlur: true }}
                 showTextErrors={false}
@@ -415,6 +431,7 @@ const Main = ({ host }) => {
                 onClick={() => form.submit(custodianApiPath + 'subscriber', 'POST')
                   .then(() => {
                     form.set('data.mail', '')
+                    form.set('data.tmp', Date.now())
                     store.createFormStore(successFormStoreName, {
                       modalComponent: 'MessageBox',
                       props: {
