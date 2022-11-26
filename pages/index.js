@@ -399,7 +399,7 @@ const Main = ({ host }) => {
             </div>
             <Button
               className={styles.arrowButton}
-              label="Другие события"
+              label="Календарь событий"
               link="/association/events"
             />
           </div>
