@@ -12,6 +12,7 @@ import Select, { SELECT_TYPES } from '../../../../../components/Select'
 import Button, { BUTTON_TYPES, BUTTON_COLORS, BUTTON_SPECIAL_TYPES } from '../../../../../components/Button'
 import FileInput from '../../../../../components/FileInput'
 import { getApiPath } from '../../../../../helpers/fetch'
+import CategorySelect from '../../../../../components/CategorySelect'
 
 
 const formStoreName = 'product'
@@ -43,12 +44,11 @@ const ProductEdit = ({ host }) => {
   })
   const productTypeArray = productType.get('data.data') || []
 
-  const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', {
-    cacheTime: Number.MAX_SAFE_INTEGER,
-    params: {
-      q: 'not(is_null(childs.id,false))',
-    },
-  })
+  const productCategoryParams = {
+    depth: 5,
+  }
+  const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', { params: productCategoryParams })
+
   const productCategoryArray = productCategory.get('data.data') || []
 
   return (
@@ -87,21 +87,29 @@ const ProductEdit = ({ host }) => {
             />
           </div>
           <div className={styles.cell}>
-            <Select
-              validate={{ required: true, checkOnBlur: true }}
-              type={SELECT_TYPES.filterDropdown}
-              label="Категория"
-              placeholder="Не выбрано"
-              items={productCategoryArray.map(item => ({
-                value: item.id,
-                label: item.parent ? `${item.name} (${item.parent.name})` : item.name,
-              }))}
-              values={form.get('data.category') ?
-                [form.get('data.category')] : []}
-              errors={form.get('errors.category')}
+            {/*<Select*/}
+            {/*  validate={{ required: true, checkOnBlur: true }}*/}
+            {/*  type={SELECT_TYPES.filterDropdown}*/}
+            {/*  label="Категория"*/}
+            {/*  placeholder="Не выбрано"*/}
+            {/*  items={productCategoryArray.map(item => ({*/}
+            {/*    value: item.id,*/}
+            {/*    label: item.parent ? `${item.name} (${item.parent.name})` : item.name,*/}
+            {/*  }))}*/}
+            {/*  values={form.get('data.category') ?*/}
+            {/*  [form.get('data.category')] : []}*/}
+            {/*  errors={form.get('errors.category')}*/}
+            {/*  onChange={(values) => form.set('data.category', values[0] || null)}*/}
+            {/*  onInvalid={(value) => form.set('errors.category', value)}*/}
+            {/*  onValid={() => form.set('errors.category', [])}*/}
+            {/*/>*/}
+            <CategorySelect
+              label={'Процесс'}
+              placeholder={'Выберите процесс'}
+              items={productCategoryArray}
+              values={form.get('data.category') ? [form.get('data.category')] : []}
               onChange={(values) => form.set('data.category', values[0] || null)}
-              onInvalid={(value) => form.set('errors.category', value)}
-              onValid={() => form.set('errors.category', [])}
+              store={store}
             />
           </div>
         </div>
