@@ -1,13 +1,18 @@
 .root {
   display: flex;
-  flex-grow: 1;
-  flex-shrink: 0;
-  align-self: flex-start;
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: var(--trood-text-gray);
-  font-weight: 500;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  flex-flow: row nowrap;
+  margin: 0 0 6px 16px;
+  color: var(--trood-text-light-gray);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.required {
+  color: var(--trood-orange);
+  margin-left: 0.25em;
+}
+
+.hint {
+  margin-left: 0.6em;
 }

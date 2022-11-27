@@ -50,20 +50,21 @@
   padding-right: 16px;
 }
 
-.placeholder,
 .value {
   margin-left: 16px;
-  color: var(--trood-text-light-gray);
+  color: var(--trood-text);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+  text-align: left;
+  flex: 1 0;
 }
 
-.value {
-  text-align: left;
-  color: var(--trood-text);
-  flex: 1 0;
+.placeholder {
+  composes: value;
+  color: var(--trood-text-light-gray);
+  opacity: 0.4;
 }
 
 .root.disabled .value {

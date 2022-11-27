@@ -6,85 +6,82 @@
     color: var(--trood-text-white);
     gap: 8px;
     width: 100%;
+    letter-spacing: -0.02em;
+    font-weight: 500;
 }
 
 .top {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    padding-right: 82px;
+    padding-right: 170px;
+}
+
+.top .left {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.supportLabel {
+    margin-top: auto;
+    margin-bottom: 4px;
+    font-size: 18px;
+}
+
+.supportContact {
+    font-size: 32px;
+}
+
+.supportContact:hover {
+    color: var(--trood-orange);
 }
 
 .main {
     display: flex;
     flex-flow: row nowrap;
-    padding: 24px 68px 24px 0;
-    margin-bottom: 18px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    padding: 24px 0;
+    margin-bottom: 24px;
     border-bottom: 1px solid var(--trood-white);
+    gap: 40px;
 }
 
-.mainLeft {
+.main .left {
     display: flex;
     flex-flow: column nowrap;
-    flex: 1 1 506px;
-    padding-right: 16px;
+    flex: 1 1 415px;
+    margin-right: 50px;
 }
 
-.phone:hover  {
-    color: var(--trood-orange);
-}
-
-.phoneLabel {
-    margin: -2px 0 2px;
-    font-size: 18px;
-    line-height: 125%;
-}
-
-.phone {
-    width: fit-content;
-    font-size: 32px;
-    line-height: 105%;
-}
-
-.main .mainLeft .registrationBtn {
-    max-width: 413px;
-    margin-top: auto;
-    color: var(--trood-text-gray);
+.main .left .regButton:hover {
+    color: var(--trood-text);
     background-color: var(--trood-background);
 }
 
-.main .mainLeft .registrationBtn:hover {
-    background-color: var(--trood-orange);
-}
-
-.mainRight {
+.main .right {
+    position: relative;
     display: flex;
-    flex-flow: nowrap;
+    flex-flow: row nowrap;
     gap: 40px;
-    flex: 0 1 612px;
+    flex: 0 1 680px;
 }
 
 .block {
     display: flex;
     flex-flow: column nowrap;
-    flex: 0 1 286px;
     padding-left: 16px;
     border-left: 1px solid var(--trood-white);
+    margin-right: 42px;
 }
 
 .blockTitle {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     font-size: 32px;
-    line-height: 105%;
 }
 
 .links {
     display: flex;
     flex-flow: column nowrap;
     font-size: 18px;
-    line-height: 125%;
 }
 
 .links a:hover {
@@ -92,6 +89,9 @@
 }
 
 .socials {
+    position: absolute;
+    bottom: 0;
+    right: 0;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -118,15 +118,38 @@
 .bottom {
     display: flex;
     flex-flow: row nowrap;
-    gap: 36px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 110%;
+    gap: 40px;
+    align-items: flex-end;
+}
+
+.bottom .left {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 415px;
+    margin-right: 50px;
+    font-size: 18px;
     color: var(--trood-text-light-gray);
 }
 
+.sponsor {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 32px;
+    margin-top: 8px;
+}
+
+.bottom .right {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 0 1 680px;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--trood-background-gray);
+}
+
 .copy {
-    margin-right: 33px;
+    margin-top: 24px;
 }
 
 .bottomLink:hover {

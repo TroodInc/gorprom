@@ -159,7 +159,7 @@ export const humanizeNumber = (number, once, twice, many, zero) => {
 }
 
 export const formatSize = (length) => {
-  const type = ['byte', 'Kb', 'Mb', 'Gb', 'Tb']
+  const type = ['байт', 'КБ', 'МБ', 'ГБ', 'ТБ']
   let i = 0
   let newLength = length
   while (newLength && Math.round(newLength / 1024) > 0 && i < type.length - 1) {

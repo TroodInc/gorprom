@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import classNames from 'classnames'
 
-import style from './index.module.css'
+import styles from './index.module.css'
 
 import EnchancedSwitch, { INNER_INPUT_TYPES, LABEL_POSITION_TYPES } from '../internal/EnchancedSwitch'
 import Icon, { ICONS_TYPES } from '../Icon'
@@ -89,19 +89,19 @@ class Checkbox extends PureComponent {
     const checkboxComp = (
       <div {...{
         className: classNames(
-          style.root,
-          !iconType ? style.boxRoot : style.iconRoot,
-          style[viewType],
-          style[color],
-          value && style.checked,
-          disabled && style.disabled,
+          styles.root,
+          !iconType ? styles.boxRoot : styles.iconRoot,
+          styles[viewType],
+          styles[color],
+          value && styles.checked,
+          disabled && styles.disabled,
         ),
         'data-cy':  value ? 'checkbox_checked' : 'checkbox_unchecked',
       }}>
         <Icon {...{
           type: iconType || ICONS_TYPES.confirm,
           size: 12,
-          className: iconType || value ? style.icon : style.iconHide,
+          className: iconType || value ? styles.icon : styles.iconHide,
         }} />
       </div>
     )
@@ -112,7 +112,8 @@ class Checkbox extends PureComponent {
         switched: value,
         switchedComponent: checkboxComp,
         labelClassName: classNames(
-          color === CHECK_COLORS.black && !value ? style.grayLabel : '',
+          styles.label,
+          color === CHECK_COLORS.black && !value ? styles.grayLabel : '',
           labelClassName,
         ),
         ...other,

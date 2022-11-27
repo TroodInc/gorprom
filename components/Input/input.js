@@ -17,6 +17,7 @@ import {
 } from './constants'
 
 import Icon, { ICONS_TYPES } from '../Icon'
+import Label from '../Label'
 
 import styles from './index.module.css'
 
@@ -433,13 +434,17 @@ class Input extends PureComponent {
   }
 
   handleFocus() {
-    this.setState({ active: true })
-    this.props.onFocus()
+    if (!this.ignoreBlurFocusEvents) {
+      this.setState({ active: true })
+      this.props.onFocus()
+    }
   }
 
   handleBlur() {
-    this.setState({ wasBlured: true, active: false })
-    this.props.onBlur()
+    if (!this.ignoreBlurFocusEvents) {
+      this.setState({ wasBlured: true, active: false })
+      this.props.onBlur()
+    }
   }
 
   changePasswordVisibility = () => {
@@ -467,10 +472,12 @@ class Input extends PureComponent {
       autoFocus,
       placeholder,
       label,
+      hint,
       errors,
       showTextErrors,
       children,
       settings: {
+        required,
         checkOnBlur,
       },
     } = this.props
@@ -495,10 +502,10 @@ class Input extends PureComponent {
         }
         if (node && caretPosition !== undefined && active) {
           node.setSelectionRange(caretPosition, caretPosition)
-          if (type === INPUT_TYPES.multi) {
-            node.blur()
-            node.focus()
-          }
+          this.ignoreBlurFocusEvents = true
+          node.blur()
+          node.focus()
+          this.ignoreBlurFocusEvents = false
         }
       },
       'data-cy': label || placeholder,
@@ -571,9 +578,13 @@ class Input extends PureComponent {
       )}>
         {
           label &&
-            <span className={classNames(labelClassName, styles.label, { [styles.active]: active })}>
+            <Label
+              className={classNames(labelClassName, { [styles.activeLabel]: active })}
+              required={required}
+              hint={hint}
+            >
               {label}
-            </span>
+            </Label>
         }
         <div className={classNames(
           styles.root,

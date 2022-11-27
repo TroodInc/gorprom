@@ -118,7 +118,14 @@ const Organization = ({ host }) => {
                 Тип деятельности
               </div>
               <div className={styles.value}>
-                {companyData.work_type?.map(t => t.name).join(', ')}
+                {
+                  [
+                    ...(companyData.work_type || []).map(t => t.name),
+                    companyData.other_work_type,
+                  ]
+                    .filter(Boolean)
+                    .join(', ')
+                }
               </div>
             </div>
           </div>

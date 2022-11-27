@@ -1,6 +1,5 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 import classNames from 'classnames'
 
@@ -8,7 +7,6 @@ import Link from '../Link'
 import Button from '../Button'
 
 import styles from './index.module.css'
-import { getApiPath } from '../../helpers/fetch'
 import Icon, { ICONS_TYPES } from '../Icon'
 
 
@@ -79,8 +77,6 @@ const MarketCard = ({
 }) => {
   const { store } = useContext(MobXProviderContext)
   const { id } = store.authData
-  const router = useRouter()
-  const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
 
   let image = type === 'COMPANY' ? data.logo : (data.photo_set || [])[0]?.link
   if (!image) image = TypeImgDict[type]
@@ -110,7 +106,6 @@ const MarketCard = ({
                 store.createFormStore(needLoginFormName, {
                   modalComponent: 'MessageBox',
                   props: {
-                    width: 600,
                     children: needLogin({ store, reason: 'увидеть все данные' }),
                   },
                 })
@@ -186,26 +181,21 @@ const MarketCard = ({
             onClick={() => {
               if (id) {
                 const formStoreName = 'request' + type + data.id
-                const formStore = store.createFormStore(formStoreName, {
+                store.createFormStore(formStoreName, {
+                  modalComponent: 'NewRequest',
                   form: {
                     data: {
                       target: {
                         _object: TypeObjectTypeDict[type],
                         id: data.id,
                       },
-                      message_set: [
-                        {
-                          text: 'Отправлен запрос',
-                        }],
                     },
                   },
                 })
-                formStore.form.submit(custodianApiPath + 'order', 'POST').then(() => router.push('/profile/request'))
               } else {
                 store.createFormStore(needLoginFormName, {
                   modalComponent: 'MessageBox',
                   props: {
-                    width: 600,
                     children: needLogin({ store, reason: 'отправить запрос' }),
                   },
                 })

@@ -45,6 +45,11 @@
   border: 1px solid var(--trood-border);
 }
 
+.label {
+  font-weight: 400;
+  font-size: 18px;
+}
+
 .grayLabel {
   color: var(--trood-gray-dark);
 }

@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import deepEqual from 'deep-equal'
 
 import { ICONS_TYPES } from '../Icon'
+import Label from '../Label'
 
 import { SELECT_TYPES } from './constants'
 
@@ -279,22 +280,30 @@ class TSelect extends PureComponent {
       className,
       labelClassName,
       label,
+      hint,
 
       errors,
-      validate,
+      validate: {
+        checkOnBlur,
+        required,
+      },
       showTextErrors,
     } = this.props
 
-    const currentErrors = validate.checkOnBlur && !this.state.wasBlured ? [] : errors
+    const currentErrors = checkOnBlur && !this.state.wasBlured ? [] : errors
     const hasErrors = !!currentErrors.length
 
     return (
       <div className={classNames(className, styles.root)}>
         {
           !!label &&
-            <span className={classNames(labelClassName, styles.label, { [styles.active]: this.state.wasFocused })}>
+            <Label
+              className={classNames(labelClassName, { [styles.active]: this.state.wasFocused })}
+              required={required}
+              hint={hint}
+            >
               {label}
-            </span>
+            </Label>
         }
         {this.getSelectComponent(currentErrors)}
         {

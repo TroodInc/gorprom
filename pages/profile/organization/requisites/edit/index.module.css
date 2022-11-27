@@ -1,11 +1,96 @@
 .root {
     display: flex;
-    flex-flow: column nowrap;
-    flex: 1 1 67%;
-    gap: 16px;
+    flex-flow: row nowrap;
     border-top: 1px solid var(--trood-border-dark);
-    padding-top: 24px;
+    padding-top: 42px;
     margin-top: 24px;
+    gap: 16px;
+}
+
+.left {
+    display: flex;
+    flex: 0 0 188px;
+    flex-flow: column nowrap;
+    padding-bottom: 24px;
+    align-items: center;
+    gap: 26px;
+    padding-right: 16px;
+    border-right: 1px solid var(--trood-border-dark);
+    margin-right: 16px;
+}
+
+.image {
+    border: 1px dashed var(--trood-border-light-gray) !important;
+}
+
+.addPhoto {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    width: 172px;
+    height: 172px;
+    color: var(--trood-text-light-gray);
+    border: 1px dashed var(--trood-border-light-gray);
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+.addPhotoIcon {
+    align-self: center;
+    justify-content: center;
+    margin-top: -4px;
+}
+
+.addPhotoLabel {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+}
+
+.addPhotoBtnContainer {
+    font-size: 24px;
+}
+
+.addPhotoBtn {
+    display: flex;
+    padding-right: 10px;
+    gap: 18px;
+}
+
+.btnLabel {
+    font-size: 18px;
+    align-self: flex-end;
+}
+
+.right {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 100%;
+}
+
+.block {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+}
+
+.block:not(:last-child) {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--trood-border-dark);
+    margin-bottom: 16px;
+}
+
+.title {
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+.subTitle {
+    margin-top: 34px;
+    font-weight: 500;
+    font-size: 20px;
 }
 
 .row {
@@ -14,26 +99,32 @@
     gap: 16px;
 }
 
-.row.additionalGap {
-    margin-top: 42px;
+.cell {
+    flex: 1;
+    width: calc(50% - 8px);
+    max-width: 390px;
 }
 
-.block {
-    display: flex;
-    flex-flow: column nowrap;
-    flex: 1 1;
-    max-width: 366px;
-}
-
-.subHeader {
-    margin-bottom: 8px;
+.cellFull {
+    flex: 1;
+    max-width: 796px;
 }
 
 .controls {
-    margin-top: 42px;
-    border-top: 1px solid var(--trood-border-dark);
-    padding-top: 56px;
+    margin-top: 56px;
     display: flex;
     flex-flow: row nowrap;
     gap: 24px;
+}
+
+.submit {
+    width: 389px;
+}
+
+.goBack {
+    width: 374px;
+}
+
+.goBack a {
+    justify-content: flex-start;
 }

@@ -36,7 +36,7 @@
 .header .title {
     font-weight: 600;
     font-size: 64px;
-    color: var(--trood-orange);
+    color: var(--trood-white);
     margin-bottom: 24px;
 }
 
@@ -168,6 +168,7 @@
 .companyName {
     font-weight: 400;
     font-size: 18px;
+    text-align: center;
 }
 
 .company .imageWrapper {
@@ -252,12 +253,13 @@
     display: flex;
     flex-flow: row nowrap;
     gap: 46px;
-    align-items: flex-end;
+    align-items: flex-start;
     margin-top: 56px;
 }
 
 .flowStep {
     display: flex;
+    flex: 1;
     flex-flow: column nowrap;
     align-items: flex-start;
     gap: 32px;
@@ -280,6 +282,7 @@
 
 .flowArrow {
     color: var(--trood-orange);
+    margin-top: 116px;
 }
 
 .fourth {

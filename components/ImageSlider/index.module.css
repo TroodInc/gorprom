@@ -68,7 +68,7 @@
 .button {
     flex: 1;
     height: 8px;
-    background: var(--trood-orange);
+    background: var(--trood-white);
     border-radius: 4px;
     opacity: 0.4;
     backdrop-filter: blur(2px);
