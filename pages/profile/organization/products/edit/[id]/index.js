@@ -59,18 +59,12 @@ const ProductEdit = ({ host }) => {
   })
   const productTypeArray = productType.get('data.data') || []
 
-  // const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', {
-  //   cacheTime: Number.MAX_SAFE_INTEGER,
-  //   params: {
-  //     q: 'not(is_null(childs.id,false))',
-  //   },
-  // })
-  // const productCategoryArray = productCategory.get('data.data') || []
-
-  const productCategoryParams = {
-    depth: 5,
-  }
-  const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', { params: productCategoryParams })
+  const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', {
+    cacheTime: Number.MAX_SAFE_INTEGER,
+    params: {
+      q: 'not(is_null(childs.id,false))',
+    },
+  })
   const productCategoryArray = productCategory.get('data.data') || []
 
   return (

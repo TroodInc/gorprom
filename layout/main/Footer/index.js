@@ -11,8 +11,7 @@ import Button, { BUTTON_TYPES, BUTTON_COLORS } from '../../../components/Button'
 
 const Footer = ({ className, hide }) => {
   const { store } = useContext(MobXProviderContext)
-  const id = 0
-  // TODO const { id } = store.authData
+  const { id } = store.authData
   if (hide) return null
   return (
     <footer className={classNames(styles.root, className)}>
