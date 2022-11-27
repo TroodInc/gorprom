@@ -1,0 +1,48 @@
+.root {
+    position: relative;
+    display: block;
+}
+
+.label {
+    margin-left: 16px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    color: var(--trood-text-light-gray);
+    border: none;
+    margin-bottom: 6px;
+}
+
+.control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+    height: 72px;
+    max-height: 100%;
+    border: 1px solid var(--trood-border-light-gray);
+    background-color: var(--trood-white);
+    border-radius: var(--trood-input-border-radius);
+}
+
+.placeholder,
+.value {
+    margin-left: 16px;
+    color: var(--trood-text-light-gray);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+}
+
+.value {
+    color: var(--trood-text);
+}
+
+.icon {
+    height: 100%;
+    color: var(--trood-gray-dark);
+    padding-right: 16px;
+}
