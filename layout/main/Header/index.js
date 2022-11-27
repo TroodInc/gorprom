@@ -42,9 +42,9 @@ const Header = ({
           {[
             { link: '/market', label: 'Маркетплейс' },
             { link: '/job', label: 'Биржа труда' },
-            { link: '/analytics', label: 'Аналитика' },
+            { link: '/news', label: 'Новости' },
             { link: '/education', label: 'Образование' },
-            { link: '/association', label: 'Ассоциация' },
+            { link: 'https://gorprom.org/', label: 'Ассоциация' },
           ].map(({ link, label }) => (
             <Link
               key={link}

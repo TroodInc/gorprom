@@ -114,8 +114,8 @@ const flowByType = {
 
 const News = ({ big, data: { id, created, name, type, photo } }) => {
   const link = type === 'NEWS' ?
-    `/association/news/${id}` :
-    `/association/events/${id}`
+    `/news/${id}` :
+    `/events/${id}`
   if (big) {
     return (
       <Link className={classNames(styles.newsItem, styles.big)} href={link}>
@@ -443,7 +443,7 @@ const Main = ({ host }) => {
             </div>
             <div className={styles.disclaimer}>
               <span>Подписываясь, я соглашаюсь на получение новостных/рекламных сообщений на условиях</span>
-              <Link href="/terms">Пользовательского соглашения</Link>
+              <Link href="/agreement">Пользовательского соглашения</Link>
             </div>
           </div>
         </div>
