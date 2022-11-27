@@ -267,7 +267,12 @@ const Organization = ({ host }) => {
                           <Checkbox
                             label={first.name}
                             value={selectedWorkType.includes(first.id)}
-                            onChange={() => setData('work_type', [...selectedWorkType, first.id])}
+                            onChange={v =>
+                              setData(
+                                'work_type',
+                                v ? [...selectedWorkType, first.id] : selectedWorkType.filter(i => i !== first.id),
+                              )
+                            }
                           />
                         </div>
                         <div className={styles.cell}>
@@ -275,7 +280,12 @@ const Organization = ({ host }) => {
                             <Checkbox
                               label={second.name}
                               value={selectedWorkType.includes(second.id)}
-                              onChange={() => setData('work_type', [...selectedWorkType, second.id])}
+                              onChange={v =>
+                                setData(
+                                  'work_type',
+                                  v ? [...selectedWorkType, second.id] : selectedWorkType.filter(i => i !== second.id),
+                                )
+                              }
                             />
                           )}
                         </div>
