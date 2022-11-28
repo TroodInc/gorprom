@@ -48,10 +48,6 @@
     border-bottom: 1px solid var(--trood-border-gray-dark);
 }
 
-.categoryBlock * {
-    border-radius: 8px;
-}
-
 .mainCategory {
     font-weight: 500;
     font-size: 24px;
@@ -67,12 +63,23 @@
     gap: 5px;
 }
 
-.clickable:hover {
-    background-color: var(--trood-background-gray-a04);
+.clickable {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
 }
 
-.subCategory, .clickable {
-    cursor: pointer;
+.clickable:hover:before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    display: block;
+    top: -2px;
+    left: -6px;
+    width: calc(100% + 12px);
+    height: calc(100% + 4px);
+    border-radius: 8px;
+    background-color: var(--trood-background-gray-a04);
 }
 
 .subCategory {
@@ -96,7 +103,7 @@
 .subAddCategory {
     font-weight: 400;
     composes: subCategory;
-    padding-left: 16px;
+    margin-left: 16px;
 }
 
 .active.clickable {

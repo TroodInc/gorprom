@@ -79,7 +79,7 @@ const CategorySelect = ({
         className={styles.control}
         onClick={openModal}
       >
-        <span className={classNames(styles.placeholder, { [styles.value]: value })}>
+        <span className={value ? styles.value : styles.placeholder}>
           {value ? valueName : placeholder}
         </span>
         <Icon
