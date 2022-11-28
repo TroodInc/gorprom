@@ -3,7 +3,9 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    line-height: 110%;
+    line-height: 1.1;
+    height: 3.3em;
+    word-break: break-word;
 }
 
 .newsItem {

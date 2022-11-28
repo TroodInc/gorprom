@@ -327,7 +327,7 @@ const Main = ({ host }) => {
             <Button
               className={styles.arrowButton}
               label="Другие новости"
-              link="/association/news"
+              link="/news"
             />
           </div>
         )}
@@ -347,7 +347,7 @@ const Main = ({ host }) => {
             <Button
               className={styles.arrowButton}
               label="Календарь событий"
-              link="/association/events"
+              link="/events"
             />
           </div>
         )}

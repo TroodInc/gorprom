@@ -1,0 +1,23 @@
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 64px;
+}
+
+.content {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--trood-border-dark);
+    margin-top: 24px;
+}
+
+.split {
+    width: 1px;
+    background-color: var(--trood-border-dark);
+}
