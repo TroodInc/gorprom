@@ -25,6 +25,8 @@ const Profile = ({ host }) => {
     ((company.get('data.data.ownership_type.name') || '') + ' ' + (company.get('data.data.name') || '')).trim() :
     undefined
 
+  const isSubscribed = profile.subscribe
+
   return (
     <div className={styles.root}>
       <div className={classNames(styles.column, styles.left)}>
@@ -39,72 +41,79 @@ const Profile = ({ host }) => {
           objectFit="cover"
         />
       </div>
-      <div className={styles.column}>
-        <div className={styles.block}>
-          <div className={styles.title}>
-            Имя
+      <div className={styles.right}>
+        <div className={styles.columns}>
+          <div className={styles.column}>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Фамилия
+              </div>
+              <div className={styles.value}>
+                {profile.surname}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Имя
+              </div>
+              <div className={styles.value}>
+                {profile.name}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Отчество
+              </div>
+              <div className={styles.value}>
+                {profile.patronymic}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Должность
+              </div>
+              <div className={styles.value}>
+                {profile.position}
+              </div>
+            </div>
           </div>
-          <div className={styles.value}>
-            {profile.name}
+          <div className={styles.column}>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Почта
+              </div>
+              <div className={styles.value}>
+                {profile.mail}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Дополнительная почта
+              </div>
+              <div className={styles.value}>
+                {profile.additional_mail}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Телефон
+              </div>
+              <div className={styles.value}>
+                {profile.phone && '+' + toPhone(profile.phone)}
+              </div>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.title}>
+                Место работы (организация)
+              </div>
+              <div className={styles.value}>
+                {companyName}
+              </div>
+            </div>
           </div>
         </div>
-        <div className={styles.block}>
-          <div className={styles.title}>
-            Фамилия
-          </div>
-          <div className={styles.value}>
-            {profile.surname}
-          </div>
-        </div>
-        <div className={styles.block}>
-          <div className={styles.title}>
-            Отчество
-          </div>
-          <div className={styles.value}>
-            {profile.patronymic}
-          </div>
-        </div>
-        <div className={styles.block}>
-          <div className={styles.title}>
-            Должность
-          </div>
-          <div className={styles.value}>
-            {profile.position}
-          </div>
-        </div>
-      </div>
-      <div className={styles.column}>
-        <div className={styles.block}>
-          <div className={styles.title}>
-            Почта
-          </div>
-          <div className={styles.value}>
-            {profile.mail}
-          </div>
-        </div>
-        <div className={styles.block}>
-          <div className={styles.title}>
-            Дополнительная почта
-          </div>
-          <div className={styles.value}>
-            {profile.additional_mail}
-          </div>
-        </div>
-        <div className={styles.block}>
-          <div className={styles.title}>
-            Телефон
-          </div>
-          <div className={styles.value}>
-            {profile.phone && '+' + toPhone(profile.phone)}
-          </div>
-        </div>
-        <div className={styles.block}>
-          <div className={styles.title}>
-            Место работы (организация)
-          </div>
-          <div className={styles.value}>
-            {companyName}
-          </div>
+        <div className={styles.mailingHeader}>
+           Подписка { !isSubscribed && 'не' } оформлена
         </div>
       </div>
     </div>
