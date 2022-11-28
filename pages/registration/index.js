@@ -27,7 +27,6 @@ const Registration = ({ host }) => {
   const verify = !!authData.login && !company
   const reg = !company && !verify
 
-
   const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
 
@@ -144,6 +143,7 @@ const Registration = ({ host }) => {
               link="/profile/organization/edit"
             />
             <Input
+              disabled
               className={styles.login}
               label="Электронная почта"
               type={INPUT_TYPES.email}
@@ -222,20 +222,20 @@ const Registration = ({ host }) => {
       {reg && (
         <div className={styles.mainRegistration}>
           <Input
-            label="Имя"
-            value={form.get('data.profile.name')}
-            errors={form.get('errors.profile.name')}
-            onChange={(value) => form.set('data.profile.name', value)}
-            onInvalid={(value) => form.set('errors.profile.name', value)}
-            onValid={() => form.set('errors.profile.name', [])}
-          />
-          <Input
             label="Фамилия"
             value={form.get('data.profile.surname')}
             errors={form.get('errors.profile.surname')}
             onChange={(value) => form.set('data.profile.surname', value)}
             onInvalid={(value) => form.set('errors.profile.surname', value)}
             onValid={() => form.set('errors.profile.surname', [])}
+          />
+          <Input
+            label="Имя"
+            value={form.get('data.profile.name')}
+            errors={form.get('errors.profile.name')}
+            onChange={(value) => form.set('data.profile.name', value)}
+            onInvalid={(value) => form.set('errors.profile.name', value)}
+            onValid={() => form.set('errors.profile.name', [])}
           />
           <Input
             label="Отчество"
