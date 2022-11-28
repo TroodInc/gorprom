@@ -27,6 +27,10 @@
     border-radius: var(--trood-input-border-radius);
 }
 
+.error .control {
+    border-color: var(--trood-red);
+}
+
 .placeholder,
 .value {
     margin-left: 16px;
@@ -45,4 +49,16 @@
     height: 100%;
     color: var(--trood-gray-dark);
     padding-right: 16px;
+}
+
+.errors {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.errorText {
+    margin-top: 5px;
+    color: var(--trood-red);
+    font-size: 18px;
 }

@@ -17,22 +17,23 @@
     text-align: left;
     font-weight: 400;
     font-size: 24px;
-    line-height: 115%;
     letter-spacing: -0.02em;
 }
 
 .main {
     display: flex;
     flex-flow: row nowrap;
-    gap: 16px;
     margin-bottom: 24px;
     padding: 24px 16px;
     border: 1px solid var(--trood-border-light-gray);
     border-radius: 16px;
+    line-height: 1.4;
 }
 
 .left {
     flex: 0 1 50%;
+    padding-right: 16px;
+    border-right: 1px solid var(--trood-border-gray-dark);
 }
 
 .categoryBlock {
@@ -54,7 +55,9 @@
 .mainCategory {
     font-weight: 500;
     font-size: 24px;
-    line-height: 100%;
+}
+
+.mainCategory:not(:last-child) {
     margin-bottom: 16px;
 }
 
@@ -64,9 +67,8 @@
     gap: 5px;
 }
 
-.clickable:hover,
-.subCategory:hover {
-    background-color: var(--trood-background-gray);
+.clickable:hover {
+    background-color: var(--trood-background-gray-a04);
 }
 
 .subCategory, .clickable {
@@ -76,30 +78,27 @@
 .subCategory {
     font-weight: 400;
     font-size: 18px;
-    line-height: 140%;
     color: var(--trood-text-light-gray);
 }
 
 .right {
     flex: 0 1 50%;
     padding-left: 16px;
-    margin-top: 8px;
-    padding-top: 19px;
-    border-left: 1px solid var(--trood-border-gray-dark);
+    margin-top: 50px;
 }
 
-.additionalCategory {
+.addCategory {
     composes: mainCategory;
-    margin: 19px 0;
     font-size: 18px;
     color: var(--trood-text-light-gray);
 }
 
-.subAdditionalCategory {
+.subAddCategory {
+    font-weight: 400;
     composes: subCategory;
     padding-left: 16px;
 }
 
-.active {
+.active.clickable {
     color: var(--trood-orange)
 }

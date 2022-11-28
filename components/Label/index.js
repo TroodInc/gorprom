@@ -11,15 +11,6 @@ import styles from './index.module.css'
  */
 
 class Label extends PureComponent {
-  static propTypes = {
-    /** class name for styling component */
-    className: PropTypes.string,
-    /** show star * or not */
-    required: PropTypes.bool,
-    /** label text */
-    label: PropTypes.node,
-  }
-
   static defaultProps = {
     className: '',
     required: false,

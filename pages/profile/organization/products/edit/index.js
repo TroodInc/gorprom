@@ -44,14 +44,6 @@ const ProductEdit = ({ host }) => {
   })
   const productTypeArray = productType.get('data.data') || []
 
-  const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', {
-    cacheTime: Number.MAX_SAFE_INTEGER,
-    params: {
-      q: 'not(is_null(childs.id,false))',
-    },
-  })
-  const productCategoryArray = productCategory.get('data.data') || []
-
   return (
     <>
       <div className={styles.root}>
@@ -90,19 +82,14 @@ const ProductEdit = ({ host }) => {
               />
             </div>
             <div className={styles.cell}>
-              <Select
+              <CategorySelect
+                label={'Процесс'}
+                placeholder={'Выберите процесс'}
                 validate={{ required: true, checkOnBlur: true }}
-                type={SELECT_TYPES.filterDropdown}
-                label="Категория"
-                placeholder="Не выбрано"
-                items={productCategoryArray.map(item => ({
-                  value: item.id,
-                  label: item.parent ? `${item.name} (${item.parent.name})` : item.name,
-                }))}
-                values={form.get('data.category') ?
-                  [form.get('data.category')] : []}
+                endpoint={custodianApiPath + 'product_category'}
+                value={form.get('data.category')}
                 errors={form.get('errors.category')}
-                onChange={(values) => form.set('data.category', values[0] || null)}
+                onChange={(value) => form.set('data.category', value)}
                 onInvalid={(value) => form.set('errors.category', value)}
                 onValid={() => form.set('errors.category', [])}
               />

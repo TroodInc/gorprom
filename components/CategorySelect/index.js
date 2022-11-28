@@ -1,49 +1,86 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useState, useEffect } from 'react'
+import classNames from 'classnames'
+import { MobXProviderContext, observer } from 'mobx-react'
+
+import Icon, { ICONS_TYPES } from '../Icon'
+import Label from '../Label'
+
 import styles from './index.module.css'
 
-import React from 'react'
-import classNames from 'classnames'
-import Icon, { ICONS_TYPES } from '../Icon'
 
 const CategorySelect = ({
+  className,
   label,
   placeholder,
-  values,
-  items,
-  store,
+  hint,
+  validate: {
+    required,
+    checkOnBlur = true,
+  },
+  endpoint,
+  value,
+  errors = [],
+  showTextErrors = true,
   onChange,
+  onInvalid,
+  onValid,
 }) => {
+  const { store } = useContext(MobXProviderContext)
+  const [blur, setBlur] = useState(false)
 
-  function openModal() {
+  const currentErrors = Array.isArray(errors) ? errors : [errors]
+
+  useEffect(() => {
+    if (required) {
+      if (value) {
+        onValid()
+      } else {
+        onInvalid(['Обязательное значение'])
+      }
+    }
+  }, [value, required])
+
+  let valueName
+
+  if (value) {
+    const productCategory = store.callHttpQuery(endpoint + '/' + value, {
+      cacheTime: Number.MAX_SAFE_INTEGER,
+      params: {
+        only: 'name',
+      },
+    })
+    valueName = productCategory.get('data.data.name')
+  }
+
+  const openModal = () => {
     store.createFormStore('modal', {
       modalComponent: 'CategoryModal',
       props: {
-        width: 864,
-        items: items,
-        values: values,
+        endpoint,
+        value,
         onChange: onChange,
       },
     })
+    setBlur(true)
   }
 
-  function getValueName(id) {
-    return items.find((item) => id === item.id)?.name
-  }
+  const showErrors = (!checkOnBlur || blur) && !!currentErrors?.length
 
   return (
     <div
-      className={classNames(styles.root)}>
-      {
-        !!label &&
-          <div className={classNames(styles.label)}>
-            {label}
-          </div>
-      }
+      className={classNames(className, styles.root, showErrors && styles.error)}>
+      {label && (
+        <Label required={required} hint={hint}>
+          {label}
+        </Label>
+      )}
       <div
         className={styles.control}
         onClick={openModal}
       >
-        <span className={classNames(styles.placeholder, { [styles.value]: values.length })}>
-          {values.length ? getValueName(values[0]) : placeholder}
+        <span className={classNames(styles.placeholder, { [styles.value]: value })}>
+          {value ? valueName : placeholder}
         </span>
         <Icon
           size={16}
@@ -51,8 +88,17 @@ const CategorySelect = ({
           className={classNames(styles.icon)}
         />
       </div>
+      {showTextErrors && showErrors && (
+        <div className={styles.errors}>
+          {currentErrors.map((error, index) => (
+            <div className={styles.errorText} key={index}>
+              {error}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
 
-export default CategorySelect
+export default observer(CategorySelect)

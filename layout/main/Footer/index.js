@@ -82,7 +82,7 @@ const Footer = ({ className, hide }) => {
                 // eslint-disable-next-line max-len
                 { link: 'https://gorprom.org/%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5-%D0%BC%D0%B5%D1%80%D0%BE%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%B8%D1%8F-2022/', label: 'Деятельность' },
                 { link: 'https://gorprom.org/', label: 'Мероприятия' },
-                { link: 'https://gorprom.org/', label: 'Новости' },
+                { link: 'https://gorprom.org/#', label: 'Новости' },
                 { link: 'https://gorprom.org/%d0%ba%d0%be%d0%bd%d1%82%d0%b0%d0%ba%d1%82%d1%8b/', label: 'Контакты' },
               ].map(({ link, label }) => (
                 <Link
@@ -97,7 +97,7 @@ const Footer = ({ className, hide }) => {
                 <Link href="https://vk.com/gorprom_org">
                   <Icon size={44} type={ICONS_TYPES.vk} className={styles.socialLink} />
                 </Link>
-                <Link href="https://t.me//gorprom">
+                <Link href="https://t.me/gorprom">
                   <Icon size={44} type={ICONS_TYPES.tg} className={styles.socialLink} />
                 </Link>
               </div>
