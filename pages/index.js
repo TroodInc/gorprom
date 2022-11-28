@@ -1,6 +1,5 @@
 import { Fragment, useContext, useState } from 'react'
 import classNames from 'classnames'
-import moment from 'moment'
 import { MobXProviderContext, observer } from 'mobx-react'
 import Image from 'next/image'
 
@@ -12,6 +11,7 @@ import Input, { INPUT_TYPES } from '../components/Input'
 import styles from './index.module.css'
 import Icon, { ICONS_TYPES } from '../components/Icon'
 import { callGetApi, getApiPath, getFullUrl } from '../helpers/fetch'
+import NewsCard from '../components/NewsCard'
 
 
 const market = [
@@ -110,59 +110,6 @@ const flowByType = {
       text: 'Заключение сделки',
     },
   ],
-}
-
-const News = ({ big, data: { id, created, name, type, photo } }) => {
-  const link = type === 'NEWS' ?
-    `/news/${id}` :
-    `/events/${id}`
-  if (big) {
-    return (
-      <Link className={classNames(styles.newsItem, styles.big)} href={link}>
-        <Image
-          alt={photo}
-          src={photo}
-          layout="fill"
-          objectFit="cover"
-        />
-        <div className={styles.newsContent}>
-          <h3 className={styles.title}>
-            {name}
-          </h3>
-          <div className={styles.date}>
-            {moment(created).format('DD.MM.YYYY HH.mm')}
-          </div>
-        </div>
-      </Link>
-    )
-  }
-  return (
-    <Link className={classNames(styles.newsItem, styles.normal)} href={link}>
-      <div className={styles.newsContent}>
-        <h3 className={styles.title}>
-          {name}
-        </h3>
-        <div className={styles.row}>
-          <div className={styles.date}>
-            {moment(created).format('DD.MM.YYYY HH.mm')}
-          </div>
-          <Icon
-            type={ICONS_TYPES.arrowWithTail}
-            className={styles.arrowWithTail}
-            size={46}
-          />
-        </div>
-        <div className={styles.imageWrapper}>
-          <Image
-            alt={photo}
-            src={photo}
-            layout="fill"
-            objectFit="cover"
-          />
-        </div>
-      </div>
-    </Link>
-  )
 }
 
 const formStoreName = 'subscribe'
@@ -356,11 +303,11 @@ const Main = ({ host }) => {
               Новости
             </h2>
             <div className={styles.content}>
-              <News big data={newsArray[0]} />
+              <NewsCard big data={newsArray[0]} />
               {newsArray.length > 1 && (
                 <>
                   <div className={styles.split} />
-                  <News data={newsArray[1]} />
+                  <NewsCard data={newsArray[1]} />
                 </>
               )}
             </div>
@@ -371,7 +318,7 @@ const Main = ({ host }) => {
                   return (
                     <Fragment key={item.id}>
                       {i > 2 && (<div className={styles.split} />)}
-                      <News data={item} />
+                      <NewsCard data={item} />
                     </Fragment>
                   )
                 })}
@@ -393,7 +340,7 @@ const Main = ({ host }) => {
               {eventArray.map((item, i) => (
                 <Fragment key={item.id}>
                   {!!i && (<div className={styles.split} />)}
-                  <News data={item} />
+                  <NewsCard data={item} />
                 </Fragment>
               ))}
             </div>
