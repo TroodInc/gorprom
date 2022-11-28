@@ -31,11 +31,32 @@
 }
 
 .arrow {
+    opacity: 0;
     margin-left: auto;
+    transition: opacity 0.2s;
 }
 
 .clickable {
+    position: relative;
+    z-index: 1;
     cursor: pointer;
+}
+
+.clickable:hover:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    display: block;
+    top: -2px;
+    left: -6px;
+    width: calc(100% + 12px);
+    height: calc(100% + 4px);
+    border-radius: 8px;
+    background-color: var(--trood-background-gray-a04);
+}
+
+.clickable:hover .arrow {
+    opacity: 1;
 }
 
 .root > .category:not(:last-child) {
