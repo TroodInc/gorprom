@@ -34,11 +34,15 @@
 .placeholder,
 .value {
     margin-left: 16px;
-    color: var(--trood-text-light-gray);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
+}
+
+.placeholder {
+    color: var(--trood-text-light-gray);
+    opacity: 0.4;
 }
 
 .value {
