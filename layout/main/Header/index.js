@@ -58,7 +58,6 @@ const Header = ({
           ))}
         </div>
         <div className={styles.buttons}>
-          <Icon size={44} type={ICONS_TYPES.search} className={styles.button} />
           {authPage && (
             <Link
               href="/"
