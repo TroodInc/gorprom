@@ -1,26 +1,26 @@
 .root {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row-reverse nowrap;
     gap: 56px;
 }
 
 .left {
     margin-top: 24px;
-    flex-basis: 780px;
+    flex: 1 1 780px;
 }
 
 .right {
-    flex-basis: 300px;
     display: flex;
     flex-flow: column nowrap;
-    gap: 4px;
+    flex: 0 0 300px;
+    max-width: 300px;
 }
 
 .title {
     font-weight: 500;
     font-size: 18px;
-    line-height: 135%;
-    margin-bottom: 20px;
+    line-height: 24px;
+    margin-bottom: 24px;
 }
 
 .right .select > div {

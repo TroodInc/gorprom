@@ -7,7 +7,7 @@ import Button, { BUTTON_COLORS } from '../../components/Button'
 
 import styles from './index.module.css'
 import { ICONS_TYPES } from '../../components/Icon'
-import Link from '../../components/Link'
+import SubMenu from '../../components/SubMenu'
 import classNames from 'classnames'
 
 
@@ -45,6 +45,7 @@ const MarketLayout = ({ children }) => {
           value={form.get('data.search')}
           onChange={value => form.set('data.search', value)}
           onEnter={() => {
+            console.log(form.get('data.search'))
             if (form.get('data.search')) {
               router.push(`/market/search?type=${
                 form.get('data.type')
@@ -87,22 +88,14 @@ const MarketLayout = ({ children }) => {
                 />
               )}
             </div>
-            <div className={styles.navigation}>
-              {[
+            <SubMenu
+              className={styles.navigation}
+              items={[
                 { link: '/market/product', title: 'Товары' },
                 { link: '/market/service', title: 'Услуги' },
                 { link: '/market/company', title: 'Компании' },
-              ].map(({ title, link }) => (
-                <Link
-                  className={styles.navLink}
-                  activeClassName={styles.activeNavLink}
-                  href={link}
-                  key={link}
-                >
-                  {title}
-                </Link>
-              ))}
-            </div>
+              ]}
+            />
           </>
       }
       {children}

@@ -1,26 +1,22 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
-import classNames from 'classnames'
 import { useRouter } from 'next/router'
 
 import CompanyLayout from '../../../../layout/company'
 
-import { callGetApi, getApiPath, getFullUrl } from '../../../../helpers/fetch'
-import Button, { BUTTON_COLORS, BUTTON_TYPES } from '../../../../components/Button'
-import MarketCard from '../../../../components/MarketCard'
-import Select from '../../../../components/Select'
-
-import styles from './index.module.css'
+import { callPostApi, callGetApi, getApiPath, getFullUrl, callDeleteApi } from '../../../../helpers/fetch'
 import { humanizeNumber } from '../../../../helpers/format'
 
+import Button, { BUTTON_TYPES } from '../../../../components/Button'
+import MarketCard from '../../../../components/MarketCard'
+import CategoryFilter from '../../../../components/CategoryFilter'
 
-const TYPES = [
-  { value: 'PRODUCT', label: 'Товары' },
-  { value: 'SERVICE', label: 'Услуги' },
-]
+import styles from './index.module.css'
+
 
 const CompanyMarket = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
+  const { id: user, token } = store.authData
   const router = useRouter()
   const { query: { id, type, category, search = '', from }, pathname, push } = router
 
@@ -41,10 +37,18 @@ const CompanyMarket = ({ host }) => {
   const productCount = product.get('data.total_count') || 0
 
   const productCategoryParams = {
-    depth: 4,
+    depth: 1,
   }
   const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', { params: productCategoryParams })
   const productCategoryArray = productCategory.get('data.data') || []
+
+  const favoriteEndpoint = custodianApiPath + 'favorite'
+  const favoriteParams = {
+    q: `eq(employee,${user})`,
+    depth: 1,
+  }
+  const favorite = store.callHttpQuery(favoriteEndpoint, { params: favoriteParams })
+  const favoriteArray = favorite.get('data.data') || []
 
   return (
     <div className={styles.root}>
@@ -67,83 +71,58 @@ const CompanyMarket = ({ host }) => {
             />
           </div>
         )}
-        {productArray.map(item => (
-          <MarketCard
-            key={item.id}
-            data={item}
-            type="PRODUCT"
-            showType
-            host={host}
-          />
-        ))}
-      </div>
-      <div className={styles.right}>
-        {!search && (
-          <>
-            <div className={styles.title}>Фильтры</div>
-            <Select
-              clearable
-              className={classNames(
-                styles.select,
-                TYPES.find(c => c.value === type) && styles.active,
-              )}
-              placeholder="Тип"
-              items={TYPES}
-              values={type ? [type] : []}
-              onChange={vals => {
-                if (vals[0]) {
-                  push(`${path}?type=${vals[0]}&category=${category || ''}`)
-                } else {
-                  push(`${path}?type=&category=${category || ''}`)
-                }
+        {productArray.map(item => {
+          const fav = favoriteArray.find(f => f.product === item.id)
+          return (
+            <MarketCard
+              key={item.id}
+              data={item}
+              type="PRODUCT"
+              host={host}
+              isFav={!!fav}
+              onFav={() => {
+                callPostApi(
+                  favoriteEndpoint,
+                  {
+                    headers: {
+                      'Content-Type': 'application/json',
+                      ...(token ? { Authorization: `Token ${token}` } : {}),
+                    },
+                    body: JSON.stringify({ product: item.id }),
+                  },
+                )
+                  .then(() => store.callHttpQuery(favoriteEndpoint, {
+                    params: favoriteParams,
+                    cacheTime: 0,
+                  }))
+              }}
+              onFavRemove={() => {
+                callDeleteApi(
+                  favoriteEndpoint + '/' + fav.id,
+                  token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+                )
+                  .then(() => store.callHttpQuery(favoriteEndpoint, {
+                    params: favoriteParams,
+                    cacheTime: 0,
+                  }))
               }}
             />
-            {productCategoryArray.map(item => {
-              if (item.childs?.length) {
-                const items = [item, ...item.childs]
-                return (
-                  <Select
-                    key={item.id}
-                    clearable
-                    className={classNames(
-                      styles.select,
-                      items.find(c => c.id === +category) && styles.active,
-                    )}
-                    placeholder={item.name}
-                    items={items.map(c => ({ value: c.id, label: c.name }))}
-                    values={items.find(c => c.id === +category) ? [+category] : []}
-                    onChange={vals => {
-                      if (vals[0]) {
-                        push(`${path}?type=${type || ''}&category=${vals[0]}`)
-                      } else {
-                        push(`${path}?type=${type || ''}&category=`)
-                      }
-                    }}
-                  />
-                )
-              }
-              if (!item.parent) {
-                return (
-                  <Button
-                    key={item.id}
-                    className={styles.button}
-                    label={item.name}
-                    type={BUTTON_TYPES.border}
-                    color={item.id === +category ? BUTTON_COLORS.orange : BUTTON_COLORS.black}
-                    onClick={() => {
-                      if (item.id === +category) {
-                        push(`${path}?type=${type || ''}&category=`)
-                      } else {
-                        push(`${path}?type=${type || ''}&category=${item.id}`)
-                      }
-                    }}
-                  />
-                )
-              }
-              return null
-            })}
-          </>
-        )}
+          )
+        })}
+      </div>
+      <div className={styles.right}>
+        <div className={styles.title}>Процессы</div>
+        <CategoryFilter
+          items={productCategoryArray}
+          value={+category}
+          onChange={val => {
+            if (val) {
+              push(`${path}?category=${val}`)
+            } else {
+              push(path)
+            }
+          }}
+        />
       </div>
     </div>
   )
@@ -158,8 +137,19 @@ export async function getServerSideProps({ req, query: { id, type, category, sea
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
 
+  let user
+
+  if (token) {
+    const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
+    const verifyEndpoint = authApiPath + 'verify-token/'
+    try {
+      const { data: { data: { id } } } = await callPostApi(verifyEndpoint, { headers })
+      user = id
+    } catch {}
+  }
+
   const companyFullUrl = getFullUrl(custodianApiPath + 'company/' + id)
-  const companyResponse = await callGetApi(companyFullUrl,{ headers })
+  const companyResponse = await callGetApi(companyFullUrl,{ headers }) // QUERY FOR LAYOUT
 
   const productParams = {
     q: [
@@ -173,10 +163,29 @@ export async function getServerSideProps({ req, query: { id, type, category, sea
   const productResponse = await callGetApi(productFullUrl, { headers })
 
   const productCategoryParams = {
-    depth: 4,
+    depth: 1,
   }
   const productCategoryFullUrl = getFullUrl(custodianApiPath + 'product_category', productCategoryParams)
   const productCategoryResponse = await callGetApi(productCategoryFullUrl, { headers })
+
+  const fav = {}
+  if (user) {
+    const favoriteParams = {
+      q: `eq(employee,${user})`,
+      depth: 1,
+    }
+    const favoriteFullUrl = getFullUrl(custodianApiPath + 'favorite', favoriteParams)
+    const favoriteResponse = await callGetApi(
+      favoriteFullUrl,
+      token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+    )
+
+    fav[favoriteFullUrl] = {
+      callTime: Date.now(),
+      loaded: true,
+      response: favoriteResponse,
+    }
+  }
 
   return {
     props: {
@@ -197,6 +206,7 @@ export async function getServerSideProps({ req, query: { id, type, category, sea
             loaded: true,
             response: productCategoryResponse,
           },
+          ...fav,
         },
       },
     },

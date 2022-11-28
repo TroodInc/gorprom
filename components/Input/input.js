@@ -379,6 +379,8 @@ class Input extends PureComponent {
         } else {
           this.props.onEnter()
         }
+      } else if (this.props.onEnter) {
+        this.props.onEnter()
       }
       this.props.onSearch(value)
     }

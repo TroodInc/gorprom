@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { callGetApi, getApiPath, getFullUrl } from '../../../helpers/fetch'
 import MarketLayout from '../../../layout/market'
 import Select from '../../../components/Select'
+import CategoryFilter from '../../../components/CategoryFilter'
 import MarketCard from '../../../components/MarketCard'
 
 import styles from './index.module.css'
@@ -29,9 +30,28 @@ const Market = ({ host }) => {
 
   const workType = store.callHttpQuery(custodianApiPath + 'work_type')
   const workTypeArray = workType.get('data.data') || []
+  const workTypeByCategory = workTypeArray.reduce((memo, item, i) => {
+    const category = item.category.id
+    const categoryItems = memo[category]?.childs || []
 
-  const companyType = store.callHttpQuery(custodianApiPath + 'company_type')
-  const companyTypeArray = companyType.get('data.data') || []
+    const newItem = {
+      id: item.id,
+      name: item.name,
+    }
+
+    return {
+      ...memo,
+      [category]: {
+        name: item.category.name,
+        childs: [
+          ...categoryItems,
+          newItem,
+        ],
+      },
+    }
+  }, {})
+
+  // TODO workTypeCategory on backend
 
   return (
     <div className={styles.root}>
@@ -46,36 +66,13 @@ const Market = ({ host }) => {
         ))}
       </div>
       <div className={styles.right}>
-        <div className={styles.title}>Категории</div>
-        <Select
-          clearable
-          className={classNames(
-            styles.select,
-            query?.company_type && styles.active,
-          )}
-          placeholder="Тип организации"
-          items={companyTypeArray.map(c => ({ value: c.id, label: c.name }))}
-          values={query?.company_type ? [+query?.company_type] : []}
-          onChange={vals => {
-            if (vals[0]) {
-              push(`${pathname}?company_type=${vals[0]}`)
-            } else {
-              push(pathname)
-            }
-          }}
-        />
-        <Select
-          clearable
-          className={classNames(
-            styles.select,
-            query?.work_type && styles.active,
-          )}
-          placeholder="Тип деятельности"
-          items={workTypeArray.map(c => ({ value: c.id, label: c.name }))}
-          values={query?.work_type ? [+query?.work_type] : []}
-          onChange={vals => {
-            if (vals[0]) {
-              push(`${pathname}?work_type=${vals[0]}`)
+        <div className={styles.title}>Типы деятельности</div>
+        <CategoryFilter
+          items={Object.values(workTypeByCategory)}
+          value={query?.work_type && +query?.work_type}
+          onChange={val => {
+            if (val) {
+              push(`${pathname}?work_type=${val}`)
             } else {
               push(pathname)
             }
