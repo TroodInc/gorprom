@@ -16,6 +16,7 @@ const Modal = ({
   style,
   children,
   onClose = () => {},
+  afterClose,
   ...other
 }) => {
   useEffect(() => {
@@ -24,9 +25,14 @@ const Modal = ({
     return () => document.body.style.overflow = prevOverflow
   }, [])
 
+  useEffect(() => () => {
+    if (typeof afterClose === 'function') afterClose()
+  }, [])
+
   return (
     <ReactModal
       {...other}
+      id={undefined}
       onRequestClose={onClose}
       className={classNames(className, styles.modal, styles[type])}
       overlayClassName={classNames(overlayClassName, styles.overlay, styles[type])}

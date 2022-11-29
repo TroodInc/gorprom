@@ -22,7 +22,8 @@ const Request = ({ host }) => {
       company && `eq(target.product.company,${company}),eq(target.company.id,${company})`,
     ].filter(Boolean).join(',') + '),sort(-created)',
   }
-  const order = store.callHttpQuery(custodianApiPath + 'order', { params: orderProps })
+  const getOrder = () => store.callHttpQuery(custodianApiPath + 'order', { params: orderProps })
+  const order = getOrder()
   const orderArray = order.get('data.data') || []
 
   if (!orderArray.length) {
@@ -63,6 +64,7 @@ const Request = ({ host }) => {
                   modalComponent: 'Request',
                   props: {
                     id: item.id,
+                    afterClose: getOrder,
                   },
                   form: {
                     data: {
