@@ -67,7 +67,7 @@ const Link = ({
         className={classNames(className, linkActive && activeClassName)}
         target={absoluteUrl ? '_blank' : undefined}
         rel={absoluteUrl ? 'noreferrer' : undefined}
-        download
+        download={download}
       >
         {children}
       </a>
@@ -81,7 +81,7 @@ const Link = ({
         target={absoluteUrl ? '_blank' : undefined}
         rel={absoluteUrl ? 'noreferrer' : undefined}
         className={classNames(className, linkActive && activeClassName)}
-        download
+        download={download}
       >
         {children}
       </a>
