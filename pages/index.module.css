@@ -252,6 +252,7 @@
 .flow {
     display: flex;
     flex-flow: row nowrap;
+    height: 195px;
     gap: 46px;
     align-items: flex-start;
     margin-top: 56px;
