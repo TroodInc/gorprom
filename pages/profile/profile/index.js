@@ -113,7 +113,7 @@ const Profile = ({ host }) => {
           </div>
         </div>
         <div className={styles.mailingHeader}>
-           Подписка { !isSubscribed && 'не' } оформлена
+           Подписка на рассылку { !isSubscribed && 'не' } оформлена
         </div>
       </div>
     </div>
