@@ -7,6 +7,15 @@ const allow = 'allow'
 const any = '*'
 const defResolution = '_default_resolution'
 
+const getRegexFromResource = res => {
+  const regexStr = res
+    .replace(/\*{2}/g, '.*')
+    .replace(/\+{2}/g, '.+')
+    .replace(/([^.])\*/g, '$1[^\\/]*')
+    .replace(/([^.])\+/g, '$1[^\\/]+')
+  return new RegExp(`^${regexStr}$`)
+}
+
 export const getAbacContext = (context, account) => {
   const url = new URL(`https://${context.ctx.req.headers.host}`)
   return {
@@ -27,9 +36,9 @@ export const getPageResourceName = ({
 }) => {
   const domainRules = rules[domain] || {}
   const resources = Object.keys(domainRules).filter(key => key !== defResolution)
-  const resource = resources.find(res => {
-    const regexStr = res.replace(/\*/g, '[^\\/]*')
-    return (new RegExp(`^${regexStr}$`)).exec(path)
+  const resource = resources.sort((a, b) => b.length - a.length).find(res => {
+    const regex = getRegexFromResource(res)
+    return regex.exec(path)
   })
   return resource || null
 }
@@ -100,7 +109,7 @@ export const ruleChecker = ({
   const domainDefaultResolution = domainResources[defResolution]
   const defaultAccess = domainDefaultResolution === allow || globalDefaultResolution === allow
   const resourceKeys = Object.keys(domainResources).filter(key => {
-    const regexp = new RegExp(key.replace('*', '.*'))
+    const regexp = getRegexFromResource(key)
     return regexp.test(resource)
   }).sort().reverse()
   const resourceActions = resourceKeys.reduce((memo, curr) => ([

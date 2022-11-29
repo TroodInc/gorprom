@@ -8,6 +8,7 @@
 
 .errorCode {
     font-size: 100px;
+    color: var(--trood-orange);
 }
 
 .errorText {

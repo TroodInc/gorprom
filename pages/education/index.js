@@ -28,7 +28,7 @@ const Job = () => {
           Раздел &quot;Образование&quot; сейчас находится в разработке.
           Чтобы не пропустить дату открытия биржы, пожалуйста
         </span>
-        <Link href="/registration">
+        <Link className={styles.link} href="/registration">
           Зарегистрируйтесь
         </Link>
         <span>

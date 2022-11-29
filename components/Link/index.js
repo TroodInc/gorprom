@@ -25,7 +25,7 @@ const Link = ({
   const { asPath, query } = useRouter()
 
   if (!href) {
-    return <div className={className} onClick={onClick} {...other}>{children}</div>
+    return <span className={className} onClick={onClick} {...other}>{children}</span>
   }
 
   const absoluteUrl = href.startsWith('http')
@@ -54,7 +54,7 @@ const Link = ({
         return null
       }
       return (
-        <div className={className} onClick={onClick} {...other}>{children}</div>
+        <span className={className} onClick={onClick} {...other}>{children}</span>
       )
     }
   }

@@ -32,9 +32,9 @@ const App = ({ Component, pageProps = {}, ...other }) => {
 
   let error = statusCode
 
-  if (!pageAllow?.access) error = 403
+  if (statusCode < 400 && !pageAllow?.access) error = 403
 
-  if (statusCode >= 400) {
+  if (error >= 400) {
     return (
       <Provider store={store}>
         <AbacContext.Provider value={other}>

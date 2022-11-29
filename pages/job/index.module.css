@@ -9,11 +9,14 @@
   max-width: 610px;
 }
 
-.root a {
+.root .link {
   margin-left: 0.25em;
+}
+
+.root a.link {
   color: var(--trood-orange);
 }
 
-.root a:hover {
+.root a.link:hover {
   color: var(--trood-text);
 }
