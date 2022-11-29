@@ -73,7 +73,7 @@ const Request = ({ host }) => {
                 })
               }}>
                 <td>{item.id}</td>
-                <td>{item.name || item.target.name}</td>
+                <td>{item.name || item.target?.name}</td>
                 <td>
                   <div className={styles.lastChange}>
                     <span>{moment(lastChange).format('DD.MM.YYYY в HH.mm')}</span>

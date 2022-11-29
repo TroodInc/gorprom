@@ -103,20 +103,20 @@ const Profile = ({ host }) => {
           <div className={styles.inputs}>
             <div className={styles.column}>
               <Input
-                label="Имя"
-                value={form.get('data.profile.name')}
-                errors={form.get('errors.profile.name')}
-                onChange={(value) => form.set('data.profile.name', value)}
-                onInvalid={(value) => form.set('errors.profile.name', value)}
-                onValid={() => form.set('errors.profile.name', [])}
-              />
-              <Input
                 label="Фамилия"
                 value={form.get('data.profile.surname')}
                 errors={form.get('errors.profile.surname')}
                 onChange={(value) => form.set('data.profile.surname', value)}
                 onInvalid={(value) => form.set('errors.profile.surname', value)}
                 onValid={() => form.set('errors.profile.surname', [])}
+              />
+              <Input
+                label="Имя"
+                value={form.get('data.profile.name')}
+                errors={form.get('errors.profile.name')}
+                onChange={(value) => form.set('data.profile.name', value)}
+                onInvalid={(value) => form.set('errors.profile.name', value)}
+                onValid={() => form.set('errors.profile.name', [])}
               />
               <Input
                 label="Отчество"
