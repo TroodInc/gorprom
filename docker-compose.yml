@@ -63,8 +63,8 @@ services:
       CUSTODIAN_PROFILE_OBJECT: "employee"
       CUSTODIAN_LINK: "http://custodian:8000/custodian/"
 
-#      MAILER_TYPE: "TROOD"
-#      TROOD_MAIL_SERVICE_URL: "http://mail:8000"
+      MAILER_TYPE: "TROOD"
+      TROOD_MAIL_SERVICE_URL: "http://mail:8000"
 
     labels:
       - "traefik.enable=true"
@@ -106,8 +106,8 @@ services:
     container_name: n8n
     restart: always
     environment:
-      WEBHOOK_URL: "http://45.138.163.227/hook/"
-      VUE_APP_URL_BASE_API: "http://45.138.163.227/n8n/"
+      WEBHOOK_URL: "http://78.155.196.248/hook/"
+      VUE_APP_URL_BASE_API: "http://78.155.196.248/n8n/"
       N8N_PROTOCOL: "http"
       N8N_PORT: "8000"
       N8N_PATH: "/api/v1.0/spaces/f7307895-f827-4471-9c5f-a0fa3b0dfb15/n8n-remote/"
