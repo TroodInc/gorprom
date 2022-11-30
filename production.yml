@@ -4,11 +4,13 @@ services:
 
   traefik:
     image: traefik:v2.9
+    container_name: traefik
     command:
       - "--log.level=DEBUG"
       - "--api.insecure=true"
       - "--providers.docker"
       - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.address=:80"
       - "--certificatesresolvers.prodresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.prodresolver.acme.email=ornot.work@gmail.com"
       - "--certificatesresolvers.prodresolver.acme.storage=/letsencrypt/acme.json"
@@ -34,8 +36,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.app.loadbalancer.server.port=3000"
-      - "traefik.http.routers.app.rule=Host(`gorprom.market`) && PathPrefix(`/`)"
-      - "traefik.http.routers.app.entrypoints=websecure"
+      - "traefik.http.routers.app.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.app.entrypoints=websecure,web"
       - "traefik.http.routers.app.tls.certresolver=prodresolver"
     expose:
       - "3000"
@@ -87,6 +89,8 @@ services:
       - "traefik.http.routers.authorization.rule=PathPrefix(`/authorization`)"
       - "traefik.http.middlewares.authorization-strip.stripprefix.prefixes=/authorization"
       - "traefik.http.routers.authorization.middlewares=authorization-strip"
+      - "traefik.http.routers.authorization.entrypoints=websecure"
+      - "traefik.http.routers.authorization.tls.certresolver=prodresolver"
     expose:
       - "8000"
     networks:
@@ -111,6 +115,8 @@ services:
       - "traefik.http.routers.mail.rule=PathPrefix(`/mail`)"
       - "traefik.http.middlewares.mail-strip.stripprefix.prefixes=/mail"
       - "traefik.http.routers.mail.middlewares=mail-strip"
+      - "traefik.http.routers.mail.entrypoints=websecure"
+      - "traefik.http.routers.mail.tls.certresolver=prodresolver"
     expose:
       - "8000"
     networks:
@@ -129,7 +135,7 @@ services:
 
       AUTHENTICATION_TYPE: "TROOD"
       TROOD_AUTH_SERVICE_URL: "http://authorization:8000/"
-      FILES_BASE_URL: "http://78.155.196.248/media/"
+      FILES_BASE_URL: "https://gorprom.market/media/"
     volumes:
       - ./media:/home/src/media
     labels:
@@ -139,6 +145,8 @@ services:
       - "traefik.http.middlewares.fileservice-strip.stripprefix.prefixes=/fileservice"
       - "traefik.http.routers.fileservice.middlewares=fileservice-strip"
       - "traefik.http.middlewares.limit.buffering.memRequestBodyBytes=200000000"
+      - "traefik.http.routers.fileservice.entrypoints=websecure"
+      - "traefik.http.routers.fileservice.tls.certresolver=prodresolver"
     expose:
       - "8000"
     networks:
@@ -153,6 +161,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.services.media.loadbalancer.server.port=80"
       - "traefik.http.routers.media.rule=PathPrefix(`/media`)"
+      - "traefik.http.routers.media.entrypoints=websecure"
+      - "traefik.http.routers.media.tls.certresolver=prodresolver"
     expose:
       - "80"
     networks:
@@ -163,11 +173,11 @@ services:
     container_name: n8n
     restart: always
     environment:
-      WEBHOOK_URL: "https://gorprom.market/hook/"
-      VUE_APP_URL_BASE_API: "https://gorprom.market/n8n/"
+      WEBHOOK_URL: "http://gorprom.market/hook/"
+      VUE_APP_URL_BASE_API: "http://gorprom.market/n8n/"
       N8N_PROTOCOL: "http"
       N8N_PORT: "8000"
-      N8N_PATH: "/api/v1.0/spaces/f7307895-f827-4471-9c5f-a0fa3b0dfb15/n8n-remote/"
+      N8N_PATH: "/api/v1.0/spaces/28469ec2-ecac-4171-a3df-3421a3ee70f4/n8n-remote/"
       N8N_HOST: "n8n"
       N8N_ENCRYPTION_KEY: "4gx5bw1r649g"
       GENERIC_TIMEZONE: "Europe/Moscow"
@@ -179,6 +189,8 @@ services:
       - "traefik.http.routers.n8n.rule=PathPrefix(`/n8n`)"
       - "traefik.http.middlewares.n8n-strip.stripprefix.prefixes=/n8n"
       - "traefik.http.routers.n8n.middlewares=n8n-strip"
+      - "traefik.http.routers.n8n.entrypoints=websecure"
+      - "traefik.http.routers.n8n.tls.certresolver=prodresolver"
     expose:
       - "8000"
     networks:
@@ -202,6 +214,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.custodian.rule=PathPrefix(`/custodian`)"
       - "traefik.http.services.custodian.loadbalancer.server.port=8000"
+      - "traefik.http.routers.custodian.entrypoints=websecure"
+      - "traefik.http.routers.custodian.tls.certresolver=prodresolver"
     expose:
       - "8000"
     networks:
