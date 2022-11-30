@@ -214,7 +214,12 @@ const Form = types.model('Form', {
         }
         let globalError = error
         while (globalError && typeof globalError === 'object') {
-          globalError = globalError.error || globalError.data || globalError.detail
+          globalError =
+            globalError.error ||
+            globalError.data ||
+            globalError.detail ||
+            globalError.msg ||
+            globalError.message
         }
         if (globalError) {
           self.set('errors.globalError', globalError)
