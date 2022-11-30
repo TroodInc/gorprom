@@ -173,11 +173,11 @@ services:
     container_name: n8n
     restart: always
     environment:
-      WEBHOOK_URL: "http://gorprom.market/hook/"
-      VUE_APP_URL_BASE_API: "http://gorprom.market/n8n/"
-      N8N_PROTOCOL: "http"
+      WEBHOOK_URL: "https://gorprom.market/hook/"
+      VUE_APP_URL_BASE_API: "https://gorprom.market/n8n/"
+      N8N_PROTOCOL: "https"
       N8N_PORT: "8000"
-      N8N_PATH: "/api/v1.0/spaces/28469ec2-ecac-4171-a3df-3421a3ee70f4/n8n-remote/"
+      N8N_PATH: "/api/v1.0/spaces/66b562b8-1eae-4ebf-a0a2-c93437c7a01f/n8n-remote/"
       N8N_HOST: "n8n"
       N8N_ENCRYPTION_KEY: "4gx5bw1r649g"
       GENERIC_TIMEZONE: "Europe/Moscow"
