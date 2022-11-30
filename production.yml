@@ -27,7 +27,7 @@ services:
       - main
 
   app:
-    image: registry.tools.trood.ru/gorprom:dev
+    image: registry.tools.trood.ru/gorprom:1.0
     container_name: app
     restart: always
     environment:
