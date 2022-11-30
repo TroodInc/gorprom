@@ -45,7 +45,6 @@ const MarketLayout = ({ children }) => {
           value={form.get('data.search')}
           onChange={value => form.set('data.search', value)}
           onEnter={() => {
-            console.log(form.get('data.search'))
             if (form.get('data.search')) {
               router.push(`/market/search?type=${
                 form.get('data.type')

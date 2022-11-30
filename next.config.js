@@ -3,13 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: '45.138.163.227',
-        pathname: '/media/**',
-      },
-    ],
+    domains: (process.env.NEXT_PUBLIC_MEDIA_HOSTS || 'localhost')
+      .split(',').map(item => item.trim()),
   },
   async redirects() {
     return [

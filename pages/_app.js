@@ -1,9 +1,10 @@
-import { Provider, Observer } from 'mobx-react'
+import { Provider, Observer, observer } from 'mobx-react'
 
 import { useStore } from '../store'
 import { modalsComponents } from '../modals'
 import { callPostApi, getApiPath } from '../helpers/fetch'
 import { getPageAllow, getRules, getAbacContext } from '../helpers/abac'
+import { getCookie } from '../helpers/cookie'
 import AbacContext from '../abacContext'
 
 import Error from './_error'
@@ -15,7 +16,7 @@ import Head from 'next/head'
 
 
 const App = ({ Component, pageProps = {}, ...other }) => {
-  const { pageAllow, statusCode, initialStore } = other
+  const { pageAllow, statusCode, initialStore, abacRules, abacContext } = other
   const initData = {
     ...initialStore,
     ...pageProps.initialStore,
@@ -30,6 +31,14 @@ const App = ({ Component, pageProps = {}, ...other }) => {
     }
   }
 
+  const abacContextValue = {
+    abacContext: {
+      ...abacContext,
+      sbj: store.authData,
+    },
+    abacRules,
+  }
+
   let error = statusCode
 
   if (statusCode < 400 && !pageAllow?.access) error = 403
@@ -37,7 +46,7 @@ const App = ({ Component, pageProps = {}, ...other }) => {
   if (error >= 400) {
     return (
       <Provider store={store}>
-        <AbacContext.Provider value={other}>
+        <AbacContext.Provider value={abacContextValue}>
           <Layout {...other}>
             <Error statusCode={error} />
           </Layout>
@@ -52,7 +61,10 @@ const App = ({ Component, pageProps = {}, ...other }) => {
 
   return (
     <Provider store={store}>
-      <AbacContext.Provider value={other}>
+      <Head>
+        <title>Горпром</title>
+      </Head>
+      <AbacContext.Provider value={abacContextValue}>
         <Observer>
           {() => {
             const { formStore } = store
@@ -75,9 +87,6 @@ const App = ({ Component, pageProps = {}, ...other }) => {
             })
           }}
         </Observer>
-        <Head>
-          <title>Горпром</title>
-        </Head>
         <Layout layoutProps={layoutProps} {...other}>
           <SubLayout {...other} {...pageProps} {...subLayoutProps}>
             <Component {...other} {...pageProps} />
@@ -86,6 +95,23 @@ const App = ({ Component, pageProps = {}, ...other }) => {
       </AbacContext.Provider>
     </Provider>
   )
+}
+
+const getUserInfo = async({ token, endpoint }) => {
+  try {
+    const { data } = await callPostApi(endpoint, { headers: { Authorization: `Token ${token}` } })
+    const result = {}
+    result.account = Object.entries(data?.data || {}).reduce((memo, [key, value]) => {
+      if (['abac', 'token'].includes(key)) {
+        return memo
+      }
+      return { ...memo, [key]: value }
+    }, {})
+    result.abacRules = data?.data?.abac
+    return result
+  } catch {
+    return {}
+  }
 }
 
 App.getInitialProps = async({ ctx, router, Component }) => {
@@ -111,22 +137,17 @@ App.getInitialProps = async({ ctx, router, Component }) => {
     const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
     if (token) {
       const verifyEndpoint = authApiPath + 'verify-token/'
-      try {
-        const { data } = await callPostApi(verifyEndpoint, { headers: { Authorization: `Token ${token}` } })
-        initProps.account = Object.entries(data?.data || {}).reduce((memo, [key, value]) => {
-          if (['abac', 'token'].includes(key)) {
-            return memo
-          }
-          return { ...memo, [key]: value }
-        }, {})
-        initProps.abacRules = data?.data?.abac
-        initProps.initialStore = {
-          authData: {
-            ...initProps.account,
-            token,
-          },
-        }
-      } catch {}
+
+      const { account, abacRules } = await getUserInfo({ token, endpoint: verifyEndpoint })
+
+      initProps.account = account
+      initProps.abacRules = abacRules
+      initProps.initialStore = {
+        authData: {
+          ...account,
+          token,
+        },
+      }
     } else if (reg) {
       initProps.initialStore = {
         authData: {
@@ -177,6 +198,28 @@ App.getInitialProps = async({ ctx, router, Component }) => {
       }),
     }
 
+    const host = `${window.location.protocol}//${window.location.host}`
+    const token = getCookie(window.document.cookie, 'token')
+    const authApiPath = getApiPath(process.env.NEXT_PUBLIC_AUTH_API, host)
+
+    if (token && !window.setInitPropsByToken) {
+      const verifyEndpoint = authApiPath + 'verify-token/'
+
+      const { account, abacRules } = await getUserInfo({ token, endpoint: verifyEndpoint })
+      newContext.sbj = account
+      initProps.abacContext = newContext
+      initProps.abacRules = abacRules
+      initProps.account = account
+      initProps.pageAllow = getPageAllow({
+        rules: abacRules,
+        context: newContext,
+        path: newContext.ctx.route,
+      })
+      window.setInitPropsByToken = true
+    } else {
+      window.setInitPropsByToken = false
+    }
+
     return {
       ...getInitialProps({ ctx, router }, initProps),
       ...initProps,
@@ -184,4 +227,4 @@ App.getInitialProps = async({ ctx, router, Component }) => {
   }
 }
 
-export default App
+export default observer(App)

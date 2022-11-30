@@ -115,8 +115,8 @@ const HttpQuery = types.model('GetQuery', {
 }))
 
 const Form = types.model('Form', {
-  data: types.map(getDeepMap(5)),
-  errors: types.map(getDeepMap(5)),
+  data: types.map(getDeepMap(10)),
+  errors: types.map(getDeepMap(10)),
 }).views(self => ({
   get(path, toJSON = true) {
     if (getParent(self).detached) return undefined

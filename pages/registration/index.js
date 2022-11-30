@@ -62,15 +62,21 @@ const Registration = ({ host }) => {
           const realToken = resp.data.data.token
           callPostApi(authApiPath + 'verify-token/', { headers: { Authorization: `Token ${realToken}` } })
             .then(({ data: { data } }) => {
+              const account = Object.entries(data || {}).reduce((memo, [key, value]) => {
+                if (['abac', 'token'].includes(key)) {
+                  return memo
+                }
+                return { ...memo, [key]: value }
+              }, {})
               store.setAuthData({
-                ...data,
+                ...account,
                 token: realToken,
               })
-              form.set('data', data)
+              form.set('data', account)
             })
         })
         .catch(resp => {
-          if (resp.status >= 400) {
+          if (!company && resp.status >= 400) {
             let error = resp.error
             while (error && typeof error === 'object') {
               error = error.error || error.data
