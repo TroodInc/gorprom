@@ -11,6 +11,8 @@ services:
       - "--providers.docker"
       - "--entrypoints.websecure.address=:443"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
       - "--certificatesresolvers.prodresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.prodresolver.acme.email=ornot.work@gmail.com"
       - "--certificatesresolvers.prodresolver.acme.storage=/letsencrypt/acme.json"
