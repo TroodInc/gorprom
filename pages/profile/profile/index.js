@@ -21,10 +21,6 @@ const Profile = ({ host }) => {
     },
   })
 
-  const companyName = company?.loaded ?
-    ((company.get('data.data.ownership_type.name') || '') + ' ' + (company.get('data.data.name') || '')).trim() :
-    undefined
-
   const isSubscribed = profile.subscribe
 
   return (
@@ -107,7 +103,7 @@ const Profile = ({ host }) => {
                 Место работы (организация)
               </div>
               <div className={styles.value}>
-                {companyName}
+                {company.get('data.data.name')}
               </div>
             </div>
           </div>

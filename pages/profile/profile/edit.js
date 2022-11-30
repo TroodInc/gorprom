@@ -41,7 +41,7 @@ const Profile = ({ host }) => {
   const companies = store.callHttpQuery(custodianApiPath + 'company', {
     cacheTime: Number.MAX_SAFE_INTEGER,
     params: {
-      only: ['name', 'ownership_type', 'ownership_type.name'],
+      only: ['name'],
     },
   })
 
@@ -173,7 +173,7 @@ const Profile = ({ host }) => {
                 placeholder="Укажите организацию"
                 items={companiesArray.map(item => ({
                   value: item.id,
-                  label: item.ownership_type.name + ' ' + item.name,
+                  label: item.name,
                 }))}
                 values={form.get('data.profile.company') ? [form.get('data.profile.company')] : []}
                 errors={form.get('errors.profile.company')}

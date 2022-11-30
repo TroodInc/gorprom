@@ -52,7 +52,7 @@ const hasErrors = errors => {
 }
 
 const getPaths = (obj, root) => {
-  return Object.entries(obj).reduce((memo, [key, value]) => {
+  return Object.entries(obj || {}).reduce((memo, [key, value]) => {
     const path = [root, key].filter(Boolean).join('.')
     if (typeof value === 'object') {
       return [

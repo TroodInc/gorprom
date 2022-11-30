@@ -109,7 +109,7 @@ export const ruleChecker = ({
   const domainDefaultResolution = domainResources[defResolution]
   const defaultAccess = domainDefaultResolution === allow || globalDefaultResolution === allow
   const resourceKeys = Object.keys(domainResources).filter(key => {
-    const regexp = getRegexFromResource(key)
+    const regexp = domain === 'FRONTEND' ? getRegexFromResource(key) : new RegExp(key.replace('*', '.*'))
     return regexp.test(resource)
   }).sort().reverse()
   const resourceActions = resourceKeys.reduce((memo, curr) => ([

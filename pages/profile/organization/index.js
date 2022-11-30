@@ -8,14 +8,17 @@ import ProfileLayout from '../../../layout/profile'
 import styles from './index.module.css'
 import { getApiPath } from '../../../helpers/fetch'
 import { toPhone } from '../../../helpers/format'
+import { ruleChecker } from '../../../helpers/abac'
 import Button, { BUTTON_COLORS, BUTTON_SPECIAL_TYPES, BUTTON_TYPES } from '../../../components/Button'
 import Icon, { ICONS_TYPES } from '../../../components/Icon'
 import Link from '../../../components/Link'
+import AbacContext from '../../../abacContext'
 
 const Organization = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const { profile: { company } } = store.authData
   const { push } = useRouter()
+  const { abacContext, abacRules } = useContext(AbacContext)
 
   if (!company) {
     return (
@@ -36,16 +39,29 @@ const Organization = ({ host }) => {
   const companyAddress = companyCall.get('data.data.address') || {}
   const verify = companyData.verify
 
+  const { access } = ruleChecker({
+    rules: abacRules,
+    domain: 'CUSTODIAN',
+    resource: 'company',
+    action: 'data_PATCH',
+    values: {
+      ...abacContext,
+      obj: companyData,
+    },
+  })
+
   return (
     <>
       <div className={styles.header}>
         <h2>Профиль организации</h2>
-        <Icon
-          className={styles.pencil}
-          size={32}
-          type={ICONS_TYPES.pencil}
-          onClick={() => push('/profile/organization/edit')}
-        />
+        {access && (
+          <Icon
+            className={styles.pencil}
+            size={32}
+            type={ICONS_TYPES.pencil}
+            onClick={() => push('/profile/organization/edit')}
+          />
+        )}
       </div>
       <div className={styles.root}>
         <div className={styles.left}>
@@ -189,19 +205,21 @@ const Organization = ({ host }) => {
               </div>
             </div>
           </div>
-          <div className={styles.row}>
-            <div className={styles.block}>
-              <div className={styles.title}>
-                Веб-сайт
+          {companyData.site && (
+            <div className={styles.row}>
+              <div className={styles.block}>
+                <div className={styles.title}>
+                  Веб-сайт
+                </div>
+                <Link
+                  className={classNames(styles.value, styles.link)}
+                  href={'https://' + companyData.site}
+                >
+                  {companyData.site}
+                </Link>
               </div>
-              <Link
-                className={classNames(styles.value, styles.link)}
-                href={'https://' + companyData.site}
-              >
-                {companyData.site}
-              </Link>
             </div>
-          </div>
+          )}
           {companyData.contact_set?.map(item => (
             <div key={item.id} className={styles.row}>
               <div className={styles.block}>

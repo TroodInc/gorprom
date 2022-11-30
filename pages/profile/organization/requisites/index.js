@@ -11,12 +11,15 @@ import { getApiPath } from '../../../../helpers/fetch'
 import { toNumber } from '../../../../helpers/format'
 import Icon, { ICONS_TYPES } from '../../../../components/Icon'
 import Link from '../../../../components/Link'
+import { ruleChecker } from '../../../../helpers/abac'
+import AbacContext from '../../../../abacContext'
 
 
 const Requisites = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const { profile: { company } } = store.authData
   const { push } = useRouter()
+  const { abacContext, abacRules } = useContext(AbacContext)
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
 
@@ -25,21 +28,35 @@ const Requisites = ({ host }) => {
     exclude: ['address', 'company_types', 'contact_set', 'product_set', 'work_type'],
   }
   const companyCall = store.callHttpQuery(custodianApiPath + 'company/' + company, { params: companyParams })
+  const companyData = companyCall.get('data.data') || {}
   const logo = companyCall.get('data.data.logo')
   const legalData = companyCall.get('data.data.legal_info') || {}
   const legalAddress = companyCall.get('data.data.legal_info.legal_address') || {}
   const verify = companyCall.get('data.data.verify')
 
+  const { access } = ruleChecker({
+    rules: abacRules,
+    domain: 'CUSTODIAN',
+    resource: 'company',
+    action: 'data_PATCH',
+    values: {
+      ...abacContext,
+      obj: companyData,
+    },
+  })
+
   return (
     <>
       <div className={styles.header}>
         <h2>Финансовая информация</h2>
-        <Icon
-          className={styles.pencil}
-          size={32}
-          type={ICONS_TYPES.pencil}
-          onClick={() => push('/profile/organization/requisites/edit')}
-        />
+        {access && (
+          <Icon
+            className={styles.pencil}
+            size={32}
+            type={ICONS_TYPES.pencil}
+            onClick={() => push('/profile/organization/requisites/edit')}
+          />
+        )}
       </div>
       <div className={styles.root}>
         <div className={styles.left}>
