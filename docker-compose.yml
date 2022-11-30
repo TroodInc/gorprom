@@ -118,7 +118,7 @@ services:
 
       AUTHENTICATION_TYPE: "TROOD"
       TROOD_AUTH_SERVICE_URL: "http://authorization:8000/"
-      FILES_BASE_URL: "http://45.138.163.227/media/"
+      FILES_BASE_URL: "http://78.155.196.248/media/"
     volumes:
       - ./media:/home/src/media
     labels:
