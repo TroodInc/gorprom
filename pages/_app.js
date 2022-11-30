@@ -8,6 +8,7 @@ import { getCookie } from '../helpers/cookie'
 import AbacContext from '../abacContext'
 
 import Error from './_error'
+import UnderConstruction from './_under_construction'
 import Layout from '../layout/main'
 import '../styles/fonts.css'
 import '../styles/globals.css'
@@ -22,6 +23,11 @@ const App = ({ Component, pageProps = {}, ...other }) => {
     ...pageProps.initialStore,
   }
   const store = useStore(initData)
+
+  if (process.env.NEXT_PUBLIC_UNDER_CONSTRUCTION === 'true') {
+    return <UnderConstruction />
+  }
+
   if (typeof window !== 'undefined') {
     window.cacheInitProps = {
       ...other,
@@ -115,6 +121,9 @@ const getUserInfo = async({ token, endpoint }) => {
 }
 
 App.getInitialProps = async({ ctx, router, Component }) => {
+  if (process.env.NEXT_PUBLIC_UNDER_CONSTRUCTION === 'true') {
+    return {}
+  }
   const { getInitialProps = () => ({}) } = Component
   if (!process.browser) {
     const protocol = ctx.req.headers['x-forwarded-proto'] || ctx.req.connection.encrypted ? 'https' : 'http'

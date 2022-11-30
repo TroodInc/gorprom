@@ -14,3 +14,47 @@
 .errorText {
     font-size: 32px;
 }
+
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.logo {
+    margin-bottom: 64px;
+}
+
+.underConstruction {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 67%;
+    background-color: var(--trood-orange);
+}
+
+.top,
+.bottom {
+    height: 120px;
+    background: url("/image/under_construction.png") repeat-x;
+}
+
+.bottom {
+    background-position: 30px;
+}
+
+.center {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+.text {
+    font-size: 48px;
+    font-weight: 500;
+    padding: 16px 0;
+}
