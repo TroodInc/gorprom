@@ -17,6 +17,11 @@ services:
     image: registry.tools.trood.ru/gorprom:dev
     container_name: app
     restart: always
+    environment:
+      NEXT_PUBLIC_AUTH_API: "http://78.155.196.248/authorization/api/v1.0/"
+      NEXT_PUBLIC_CUSTODIAN_API: "http://78.155.196.248/custodian/data/"
+      NEXT_PUBLIC_FILE_API: "http://78.155.196.248/fileservice/api/v1.0/"
+      NEXT_PUBLIC_MEDIA_HOSTS: "78.155.196.248, 45.138.163.227"
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.app.loadbalancer.server.port=3000"
