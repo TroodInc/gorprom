@@ -170,7 +170,7 @@ const Requisites = ({ host }) => {
           <div className={styles.row}>
             <div className={styles.block}>
               <div className={styles.title}>
-                ОКВЄД
+                ОКВЭД
               </div>
               <div className={styles.value}>
                 {legalData.okved}
@@ -220,7 +220,7 @@ const Requisites = ({ host }) => {
           <div className={styles.row}>
             <div className={styles.block}>
               <div className={styles.title}>
-                уставной капитал
+                Уставной капитал
               </div>
               <div className={styles.value}>
                 {legalData.authorized_capital && toNumber(legalData.authorized_capital)}

@@ -240,7 +240,7 @@ const Main = ({ host }) => {
             className={classNames(styles.menuItem, howType === 'SUPPLY' && styles.active)}
             onClick={() => setHowType('SUPPLY')}
           >
-            Для поставищиков
+            Для поставщиков
           </div>
         </div>
         <div className={styles.flow}>
