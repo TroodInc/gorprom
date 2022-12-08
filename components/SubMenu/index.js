@@ -40,6 +40,7 @@ const SubMenu = ({ items, className }) => {
                       className={styles.link}
                       activeClassName={styles.active}
                       exact={subItem.exact}
+                      hideIfNotAllowed
                     >
                       <div className={styles.wrappedLink}>
                         {subItem.title}
@@ -57,7 +58,14 @@ const SubMenu = ({ items, className }) => {
           )
         }
         return (
-          <Link href={link} key={link} className={styles.link} activeClassName={styles.active} {...other}>
+          <Link
+            hideIfNotAllowed
+            href={link}
+            key={link}
+            className={styles.link}
+            activeClassName={styles.active}
+            {...other}
+          >
             {title}
           </Link>
         )
