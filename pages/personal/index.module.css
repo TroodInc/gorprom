@@ -1,0 +1,24 @@
+.root {
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    padding: 18px 0;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 64px;
+    margin-bottom: 64px;
+    padding-bottom: 34px;
+    border-bottom: 1px solid var(--trood-border-gray-dark);
+}
+
+.text {
+    font-weight: 400;
+}
+
+.text p:not(:last-child) {
+    margin-bottom: 1em;
+}

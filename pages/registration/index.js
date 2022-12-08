@@ -298,8 +298,8 @@ const Registration = ({ host }) => {
               Регистрируясь, я соглашаюсь на обработку&nbsp;
               <Link
                 className={styles.checkboxLink}
-                href={'/personal'}
-                target={'_blank'}
+                href="/personal"
+                target="_blank"
               >
                 Персональных данных
               </Link>
