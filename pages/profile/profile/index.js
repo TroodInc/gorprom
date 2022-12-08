@@ -103,7 +103,7 @@ const Profile = ({ host }) => {
                 Место работы (организация)
               </div>
               <div className={styles.value}>
-                {company.get('data.data.name')}
+                {company?.get('data.data.name')}
               </div>
             </div>
           </div>

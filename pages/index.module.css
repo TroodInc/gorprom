@@ -356,7 +356,7 @@
     margin-bottom: 24px;
 }
 
-.content {
+.fifth .content {
     display: flex;
     flex-flow: row nowrap;
     gap: 16px;
