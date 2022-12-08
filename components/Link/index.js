@@ -19,6 +19,7 @@ const Link = ({
   hideIfNotAllowed,
   onClick,
   download,
+  target,
   ...other
 }) => {
   const { abacContext, abacRules } = useContext(AbacContext)
@@ -58,6 +59,10 @@ const Link = ({
       )
     }
   }
+
+  let realTarget = absoluteUrl ? '_blank' : undefined
+  realTarget = realTarget || target
+
   if (ssr) {
     return (
       // eslint-disable-next-line react/jsx-no-target-blank
@@ -65,8 +70,8 @@ const Link = ({
         href={href}
         onClick={onClick}
         className={classNames(className, linkActive && activeClassName)}
-        target={absoluteUrl ? '_blank' : undefined}
-        rel={absoluteUrl ? 'noreferrer' : undefined}
+        target={realTarget}
+        rel={realTarget ? 'noreferrer' : undefined}
         download={download}
       >
         {children}
@@ -78,8 +83,8 @@ const Link = ({
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a
         onClick={onClick}
-        target={absoluteUrl ? '_blank' : undefined}
-        rel={absoluteUrl ? 'noreferrer' : undefined}
+        target={realTarget}
+        rel={realTarget ? 'noreferrer' : undefined}
         className={classNames(className, linkActive && activeClassName)}
         download={download}
       >

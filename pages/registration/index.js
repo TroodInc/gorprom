@@ -222,7 +222,13 @@ const Registration = ({ host }) => {
                 })
             }}
           />
-          <Link className={styles.supportLink} href={'/support'}>Написать в службу поддержки</Link>
+          <div className={styles.support}>
+            <span>Возникли проблемы?</span>
+            <span>Свяжитесь со службой поддержки</span>
+            <Link className={styles.supportLink} href="mailto:support@gorprom.market">
+              support@gorprom.market
+            </Link>
+          </div>
         </div>
       )}
       {reg && (

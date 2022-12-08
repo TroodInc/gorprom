@@ -134,10 +134,16 @@
     letter-spacing: -0.04em;
 }
 
-.supportLink {
+.support {
     font-weight: 400;
     font-size: 18px;
-    line-height: 125%;
+}
+
+.support > span {
+    margin-right: 0.25em;
+}
+
+.supportLink {
     color: var(--trood-orange);
 }
 
