@@ -10,6 +10,14 @@ import MarketCard from '../../../components/MarketCard'
 import styles from './index.module.css'
 
 
+const getAllCategory = (id, categories = []) => {
+  const category = categories.find(item => item.id === id)
+  return (category?.childs || []).reduce((memo, item) => ([
+    ...memo,
+    ...getAllCategory(item, categories),
+  ]), [id])
+}
+
 const Market = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
   const { id, token } = store.authData
@@ -18,20 +26,20 @@ const Market = ({ host }) => {
 
   const custodianApiPath = getApiPath(process.env.NEXT_PUBLIC_CUSTODIAN_API, host)
 
-  const productParams = {
-    q: [
-      'eq(type,PRODUCT)',
-      query?.category && `or(eq(category,${query?.category}),eq(category.parent,${query?.category}))`,
-    ].filter(Boolean).join(','),
-  }
-  const product = store.callHttpQuery(custodianApiPath + 'product', { params: productParams })
-  const productArray = product.get('data.data') || []
-
   const productCategoryParams = {
     depth: 1,
   }
   const productCategory = store.callHttpQuery(custodianApiPath + 'product_category', { params: productCategoryParams })
   const productCategoryArray = productCategory.get('data.data') || []
+
+  const productParams = {
+    q: [
+      'eq(type,PRODUCT)',
+      query?.category && `in(category,(${getAllCategory(+query?.category, productCategoryArray)}))`,
+    ].filter(Boolean).join(','),
+  }
+  const product = store.callHttpQuery(custodianApiPath + 'product', { params: productParams })
+  const productArray = product.get('data.data') || []
 
   const favoriteEndpoint = custodianApiPath + 'favorite'
   const favoriteParams = {
@@ -120,24 +128,24 @@ export async function getServerSideProps({ req, query }) {
     } catch {}
   }
 
-  const productParams = {
-    q: [
-      'eq(type,PRODUCT)',
-      query?.category && `or(eq(category,${query?.category}),eq(category.parent,${query?.category}))`,
-    ].filter(Boolean).join(','),
-  }
-  const productFullUrl = getFullUrl(custodianApiPath + 'product', productParams)
-  const productResponse = await callGetApi(
-    productFullUrl,
-    token ? { headers: { Authorization: `Token ${token}` } } : undefined,
-  )
-
   const productCategoryParams = {
     depth: 1,
   }
   const productCategoryFullUrl = getFullUrl(custodianApiPath + 'product_category', productCategoryParams)
   const productCategoryResponse = await callGetApi(
     productCategoryFullUrl,
+    token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+  )
+
+  const productParams = {
+    q: [
+      'eq(type,PRODUCT)',
+      query?.category && `in(category,(${getAllCategory(+query?.category, productCategoryResponse?.data?.data)}))`,
+    ].filter(Boolean).join(','),
+  }
+  const productFullUrl = getFullUrl(custodianApiPath + 'product', productParams)
+  const productResponse = await callGetApi(
+    productFullUrl,
     token ? { headers: { Authorization: `Token ${token}` } } : undefined,
   )
 
