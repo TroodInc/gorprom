@@ -70,7 +70,7 @@ const NewRequest = ({ children, onClose, host, form, store, ...other }) => {
           type={ICONS_TYPES.attachment}
           size={32}
         />
-        Прикрепит файл
+        Прикрепить файл
       </FileInput>
       {!!attachmentsSet.length && (
         <div className={styles.attachments}>

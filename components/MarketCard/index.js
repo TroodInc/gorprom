@@ -132,7 +132,7 @@ const MarketCard = ({
           {type !== 'COMPANY' && (
             <div className={styles.companyName}>
               {!onEdit && (
-                <Link className={styles.link} href={getTypeLink('COMPANY', data)}>
+                <Link className={styles.link} href={getTypeLink('COMPANY', data.company)}>
                   {data.company?.name}
                 </Link>
               )}
