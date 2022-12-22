@@ -56,6 +56,20 @@ const Service = ({ host }) => {
     { title: 'Маркетплейс', link: '/market' },
     { title: 'Услуги', link: '/market/service' },
   ]
+
+  const parentCategoryId = category?.parent?.parent
+  if (parentCategoryId) {
+    const parentCategoryEndpoint = custodianApiPath + 'product_category/' + parentCategoryId
+    const parentCategory = store.callHttpQuery(parentCategoryEndpoint)
+    const parentCategoryData = parentCategory.get('data.data') || {}
+    if (parentCategoryData?.parent) {
+      breadcrumbs.push({
+        title: parentCategoryData.parent.name,
+        link: `/market/product?service=${parentCategoryData.parent.id}`,
+      })
+    }
+    breadcrumbs.push({ title: parentCategoryData.name, link: `/market/service?category=${parentCategoryData.id}` })
+  }
   if (category?.parent) {
     breadcrumbs.push({ title: category.parent.name, link: `/market/service?category=${category.parent.id}` })
   }
@@ -227,6 +241,21 @@ export async function getServerSideProps({ req, query }) {
     token ? { headers: { Authorization: `Token ${token}` } } : undefined,
   )
 
+  const parentCategoryId = serviceResponse?.data?.data?.category?.parent?.parent
+  const parentCategory = {}
+  if (parentCategoryId) {
+    const productCategoryFullUrl = getFullUrl(custodianApiPath + 'product_category/' + parentCategoryId)
+    const productCategoryResponse = await callGetApi(
+      productCategoryFullUrl,
+      token ? { headers: { Authorization: `Token ${token}` } } : undefined,
+    )
+    parentCategory[productCategoryFullUrl] = {
+      callTime: Date.now(),
+      loaded: true,
+      response: productCategoryResponse,
+    }
+  }
+
   const fav = {}
   if (user) {
     const favoriteParams = {
@@ -255,6 +284,7 @@ export async function getServerSideProps({ req, query }) {
             loaded: true,
             response: serviceResponse,
           },
+          ...parentCategory,
           ...fav,
         },
       },
