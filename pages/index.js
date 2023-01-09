@@ -134,14 +134,20 @@ const Main = ({ host }) => {
     q: 'eq(type,NEWS),sort(-created),limit(0,5)',
     only: ['name', 'created', 'photo', 'type'],
   }
-  const news = store.callHttpQuery(custodianApiPath + 'news', { params: newsParams })
+  const news = store.callHttpQuery(custodianApiPath + 'news', {
+    params: newsParams,
+    cacheTime: 3000,
+  })
   const newsArray = news.get('data.data') || []
 
   const eventParams = {
     q: 'eq(type,EVENT),sort(-created),limit(0,3)',
     only: ['name', 'created', 'photo', 'type'],
   }
-  const event = store.callHttpQuery(custodianApiPath + 'news', { params: eventParams })
+  const event = store.callHttpQuery(custodianApiPath + 'news', {
+    params: eventParams,
+    cacheTime: 3000,
+  })
   const eventArray = event.get('data.data') || []
 
   return (
