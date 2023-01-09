@@ -174,3 +174,33 @@
 .addCompany a {
     width: auto;
 }
+
+@media (max-width: 799px) {
+    .stepText {
+        display: none;
+    }
+
+    .stepArrow {
+        display: none;
+    }
+
+    .stepText.active {
+        display: flex;
+    }
+
+    .mainRegistration {
+        width: 100%;
+    }
+
+    .verificationButton {
+        width: auto;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .controls .center {
+        width: auto;
+    }
+}

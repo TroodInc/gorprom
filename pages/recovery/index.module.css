@@ -3,7 +3,6 @@
     flex-flow: column nowrap;
     flex: 0 0 390px;
     width: 390px;
-    margin: 18px auto;
 }
 
 .login {
@@ -40,4 +39,10 @@
 
 .message:not(:last-child) {
     margin-bottom: 24px;
+}
+
+@media (max-width: 799px) {
+    .root {
+        width: auto;
+    }
 }
