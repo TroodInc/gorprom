@@ -194,8 +194,8 @@ const Main = ({ host }) => {
         <h2 className={styles.title}>Участники</h2>
         <div className={styles.companies}>
           <Icon size={128} type={ICONS_TYPES.arrow} className={styles.prev} onClick={() => setCompany(prevCompany)} />
-          {getCompanies(company, 3).map(item => (
-            <div key={item.name} className={styles.company}>
+          {getCompanies(company, 3).map((item, i) => (
+            <div key={item.name} className={classNames(styles.company, styles[`item${i}`])}>
               <h3 className={styles.companyName}>
                 {item.name}
               </h3>
@@ -249,7 +249,6 @@ const Main = ({ host }) => {
               {!!i && (
                 <Icon
                   type={ICONS_TYPES.arrowWithTail}
-                  size={50}
                   className={styles.flowArrow}
                 />
               )}

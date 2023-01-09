@@ -284,6 +284,8 @@
 .flowArrow {
     color: var(--trood-orange);
     margin-top: 116px;
+    width: 50px;
+    height: 50px;
 }
 
 .fourth {
@@ -400,7 +402,7 @@
     gap: 60px;
 }
 
-.left {
+.subscribe .left {
     width: 315px;
     font-weight: 500;
     font-size: 48px;
@@ -408,7 +410,7 @@
     color: var(--trood-orange);
 }
 
-.right {
+.subscribe .right {
     display: flex;
     flex-flow: column nowrap;
     flex: 1;
@@ -445,4 +447,120 @@
 .disclaimer a {
     margin-left: 0.3em;
     color: var(--trood-orange);
+}
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .gallery {
+        height: 480px;
+    }
+
+    .first {
+        padding: 24px 16px;
+    }
+
+    .about .title {
+        font-size: 34px;
+        margin-bottom: 24px;
+    }
+
+    .about .text {
+        font-size: 24px;
+    }
+
+    .marketTitle {
+        font-size: 28px;
+        margin-bottom: 32px;
+    }
+
+    .market .imageWrapper {
+        height: 240px;
+    }
+
+    .second {
+        padding: 24px 0;
+    }
+
+    .second .title {
+        margin: 0 16px 24px;
+        font-size: 32px;
+    }
+
+    .company.item2 {
+        display: none;
+    }
+
+    .company .imageWrapper {
+        margin: 24px 32px;
+    }
+
+    .second .buttons {
+        padding: 0 16px;
+    }
+
+    .third {
+        padding: 24px 16px;
+    }
+
+    .third .title {
+        margin-bottom: 24px;
+        font-size: 32px;
+    }
+
+    .third .menu {
+        width: 100%;
+    }
+
+    .third .flow {
+        margin-top: 32px;
+        gap: 16px;
+    }
+
+    .flowArrow {
+        width: 28px;
+        height: 28px;
+    }
+
+    .flowText {
+        font-size: 18px;
+    }
+
+    .fourth .content {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .fourth .left,
+    .fourth .right {
+        width: auto;
+        gap: 24px;
+    }
+
+    .fourth .title {
+        font-size: 32px;
+    }
+
+    .fifth {
+        padding: 0 16px;
+    }
+
+    .news .title {
+        font-size: 32px;
+    }
+
+    .subscribe {
+        flex-direction: column;
+        padding: 32px;
+        gap: 24px;
+    }
+
+    .subscribe .left {
+        width: auto;
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 799px) {
+    .main {
+        padding: 16px;
+    }
 }
