@@ -103,7 +103,7 @@ const NewsItem = ({ host }) => {
         {!!newsArray.length && (
           <div className={styles.news}>
             <h2 className={styles.title}>
-              Новости
+              Отраслевые мероприятия
             </h2>
             <div className={styles.content}>
               {newsArray.map((item, i) => (

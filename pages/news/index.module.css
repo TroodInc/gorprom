@@ -21,3 +21,26 @@
     width: 1px;
     background-color: var(--trood-border-dark);
 }
+
+@media (max-width: 799px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .split {
+        height: 1px;
+        width: 100%;
+    }
+
+    .news:empty {
+        display: none;
+    }
+
+    .news:empty ~ .split {
+        display: none;
+    }
+}

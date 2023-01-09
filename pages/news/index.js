@@ -31,11 +31,11 @@ const NewsList = ({ host }) => {
         const item3 = newsArray[i * 3 + 2]
         return (
           <div key={item1.id} className={styles.content}>
-            <NewsCard data={item1} />
+            <NewsCard className={styles.news} data={item1} />
             <div className={styles.split} />
-            <NewsCard data={item2} />
+            <NewsCard className={styles.news} data={item2} />
             <div className={styles.split} />
-            <NewsCard data={item3} />
+            <NewsCard className={styles.news} data={item3} />
           </div>
         )
       })}

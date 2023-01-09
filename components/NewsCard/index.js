@@ -6,7 +6,7 @@ import moment from 'moment'
 import Icon, { ICONS_TYPES } from '../Icon'
 
 const NewsCard = ({ className, big, data: { id, created, name, type, photo } = {} }) => {
-  if (!id) return <div className={classNames(styles.newsItem, big ? styles.big : styles.normal)} />
+  if (!id) return <div className={classNames(className, styles.newsItem, big ? styles.big : styles.normal)} />
   const link = type === 'NEWS' ?
     `/news/${id}` :
     `/events/${id}`

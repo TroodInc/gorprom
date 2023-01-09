@@ -123,7 +123,7 @@
     margin-bottom: 24px;
 }
 
-.content {
+.news .content {
     display: flex;
     flex-flow: row nowrap;
     gap: 16px;
@@ -212,4 +212,107 @@
 .disclaimer a {
     margin-left: 0.3em;
     color: var(--trood-orange);
+}
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .first {
+        padding: 24px 16px;
+    }
+
+    .second .content {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .second .left,
+    .second .right {
+        width: auto;
+        gap: 24px;
+    }
+
+    .second .title {
+        font-size: 32px;
+    }
+
+    .third {
+        padding: 0 16px;
+    }
+
+    .news .title {
+        font-size: 32px;
+    }
+
+    .subscribe {
+        flex-direction: column;
+        padding: 32px;
+        gap: 24px;
+    }
+
+    .subscribe .left {
+        width: auto;
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 799px) {
+    .first {
+        padding: 24px 16px;
+    }
+
+    .first .title {
+        font-size: 32px;
+        margin-bottom: 32px;
+    }
+
+    .first .imageWrapper {
+        position: relative;
+        height: 320px;
+    }
+
+    .second .content {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .second .left,
+    .second .right {
+        width: auto;
+        gap: 24px;
+    }
+
+    .second .title {
+        font-size: 32px;
+    }
+
+    .third {
+        padding: 0 16px;
+    }
+
+    .news .title {
+        font-size: 32px;
+    }
+
+    .news .content {
+        flex-direction: column;
+    }
+
+    .news .split {
+        height: 1px;
+        width: 100%;
+    }
+
+    .arrowButton {
+        width: 100%;
+    }
+
+    .subscribe {
+        flex-direction: column;
+        padding: 32px;
+        gap: 24px;
+    }
+
+    .subscribe .left {
+        width: auto;
+        font-size: 32px;
+    }
 }
