@@ -18,7 +18,10 @@
 }
 
 .logo {
-    flex: 0 0 312px;
+    position: relative;
+    width: 312px;
+    height: 58px;
+    flex-shrink: 0;
     margin-right: 14px;
 }
 
@@ -34,14 +37,18 @@
     letter-spacing: -0.035em;
 }
 
-.link {
+.mobileMenu {
+    display: none;
+}
+
+.menu .link {
     height: fit-content;
     order: 1;
     font-size: 18px;
     line-height: 100%;
 }
 
-.link.active {
+.menu .link.active {
     margin-right: auto;
     margin-top: 23px;
     align-self: flex-start;
@@ -60,6 +67,10 @@
     flex-flow: row nowrap;
 }
 
+.pieMenu:hover {
+    color: var(--trood-orange);
+}
+
 .button {
     background-color: var(--trood-gray);
     color: var(--trood-text-white);
@@ -70,6 +81,7 @@
     background-color: var(--trood-orange);
 }
 
+.pieMenu svg,
 .button svg {
     width: 55%;
     height: 55%;
@@ -101,12 +113,12 @@
     border-color: var(--trood-border-light);
 }
 
-.dark .link,
-.dark .link.active {
+.dark .menu .link,
+.dark .menu .link.active {
     color: var(--trood-text-white);
 }
 
-.dark .link:hover {
+.dark .menu .link:hover {
     color: var(--trood-orange);
 }
 
@@ -115,7 +127,58 @@
     color: var(--trood-text-gray);
 }
 
+.dark .pieMenu {
+    color: var(--trood-white);
+}
+
 .button:hover {
     background-color: var(--trood-orange);
     color: var(--trood-text-white);
+}
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .root {
+        padding: 16px 16px 0;
+    }
+
+    .logo {
+        width: 240px;
+        margin-right: 0;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .mobileMenu {
+        display: flex;
+    }
+
+    .pieMenu svg {
+        width: 80%;
+        height: 80%;
+    }
+}
+
+@media (max-width: 799px) {
+    .root {
+        padding: 0 16px;
+    }
+
+    .container {
+        border-top: 0;
+    }
+
+    .logo {
+        width: 160px;
+        margin-right: 0;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .mobileMenu {
+        display: flex;
+    }
 }

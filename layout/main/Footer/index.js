@@ -25,8 +25,8 @@ const Footer = ({ className, hide }) => {
             <Image
               alt="Горпром"
               src="/image/logoLight.svg"
-              width={280}
-              height={52}
+              layout="fill"
+              objectFit="contain"
             />
           </Link>
           <div className={styles.supportLabel}>Техническая поддержка</div>
@@ -38,8 +38,8 @@ const Footer = ({ className, hide }) => {
           <Image
             alt="Горнопромышленники России"
             src="/image/logoFooter.svg"
-            width={140}
-            height={140}
+            layout="fill"
+            objectFit="contain"
           />
         </div>
       </div>

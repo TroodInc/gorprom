@@ -15,13 +15,17 @@
 }
 
 .bottomRight {
-    composes: bottomLeft;
+    composes: hiddenContent;
+    top: 100%;
     left: 0;
+    margin-top: 24px;
 }
 
 .bottomCenter {
-    composes: bottomRight;
+    composes: hiddenContent;
+    top: 100%;
     left: 50%;
+    margin-top: 24px;
     transform: translateX(-50%);
 }
 
@@ -34,12 +38,17 @@
 }
 
 .topRight {
-    composes: topLeft;
+    composes: hiddenContent;
+    top: 0;
     left: 0;
+    transform: translateY(-100%);
+    padding-bottom: 24px;
 }
 
 .topCenter {
-    composes: topRight;
+    composes: hiddenContent;
+    top: 0;
     left: 50%;
+    padding-bottom: 24px;
     transform: translate(-50%, -100%);
 }

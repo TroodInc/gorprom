@@ -10,6 +10,12 @@
     font-weight: 500;
 }
 
+.logo {
+    position: relative;
+    width: 280px;
+    height: 52px;
+}
+
 .top {
     display: flex;
     flex-flow: row nowrap;
@@ -20,6 +26,12 @@
 .top .left {
     display: flex;
     flex-flow: column nowrap;
+}
+
+.top .right {
+    position: relative;
+    width: 140px;
+    height: 140px;
 }
 
 .supportLabel {
@@ -154,4 +166,91 @@
 
 .bottomLink:hover {
     color: var(--trood-orange);
+}
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .root {
+        padding: 16px;
+    }
+
+    .logo {
+        width: 200px;
+    }
+
+    .top {
+        padding-right: 0;
+    }
+
+    .supportContact {
+        font-size: 24px;
+    }
+
+    .top .right {
+        width: 100px;
+        height: 100px;
+    }
+
+    .main {
+        flex-direction: column;
+    }
+
+    .main .left {
+        flex: 1;
+        margin-right: 0;
+    }
+
+    .main .right {
+        flex: 1;
+    }
+}
+
+@media (max-width: 799px) {
+    .root {
+        padding: 16px;
+    }
+
+    .logo {
+        width: 140px;
+    }
+
+    .top {
+        padding-right: 0;
+    }
+
+    .supportContact {
+        font-size: 24px;
+    }
+
+    .top .right {
+        width: 60px;
+        height: 60px;
+    }
+
+    .main {
+        flex-direction: column;
+    }
+
+    .main .left {
+        flex: 1;
+        margin-right: 0;
+    }
+
+    .main .right {
+        flex: 1;
+        flex-direction: column;
+    }
+
+    .bottom {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+    .bottom .left {
+        flex: 1;
+    }
+
+    .bottom .right {
+        flex: 1;
+        margin-right: 0;
+    }
 }

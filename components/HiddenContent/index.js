@@ -61,4 +61,6 @@ class HiddenContent extends PureComponent {
   }
 }
 
+export { POSITION_TYPES }
+
 export default HiddenContent
