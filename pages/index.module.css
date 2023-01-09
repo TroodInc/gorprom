@@ -29,7 +29,7 @@
     position: absolute;
     bottom: 60px;
     left: 28px;
-    width: 700px;
+    max-width: 700px;
     z-index: 10;
 }
 
@@ -178,6 +178,7 @@
 
 .prev,
 .next {
+    width: 128px;
     color: var(--trood-background-gray);
 }
 
@@ -358,13 +359,17 @@
     margin-bottom: 24px;
 }
 
-.fifth .content {
+.news .content {
     display: flex;
     flex-flow: row nowrap;
     gap: 16px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--trood-border-dark);
     margin-bottom: 24px;
+}
+
+.news .content.row0 .item2 {
+    display: none;
 }
 
 .arrowButton {
@@ -459,7 +464,7 @@
     }
 
     .about .title {
-        font-size: 34px;
+        font-size: 32px;
         margin-bottom: 24px;
     }
 
@@ -560,7 +565,188 @@
 }
 
 @media (max-width: 799px) {
-    .main {
-        padding: 16px;
+    .gallery {
+        height: 400px;
+    }
+
+    .header {
+        max-width: 100%;
+        padding-right: 28px;
+    }
+
+    .header .title {
+        font-size: 32px;
+    }
+
+    .header .reg {
+        width: 100%;
+    }
+
+    .first {
+        padding: 24px 16px;
+    }
+
+    .about .title {
+        font-size: 32px;
+        margin-bottom: 24px;
+    }
+
+    .about .text {
+        font-size: 24px;
+    }
+
+    .marketTitle {
+        font-size: 28px;
+        margin-bottom: 16px;
+    }
+
+    .market {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .market .marketBlock {
+        border: none;
+        padding: 0;
+    }
+
+    .market .imageWrapper {
+        height: 220px;
+    }
+
+    .second {
+        padding: 24px 0;
+    }
+
+    .second .title {
+        margin: 0 16px 24px;
+        font-size: 32px;
+    }
+
+    .company.item1 {
+        display: none;
+    }
+
+    .company.item2 {
+        display: none;
+    }
+
+    .company .imageWrapper {
+        margin: 0;
+    }
+
+    .prev,
+    .next {
+        width: 100px;
+    }
+
+    .second .buttons {
+        padding: 0 16px;
+    }
+
+    .second .buttons > div {
+        flex-basis: 100%;
+        font-size: 20px;
+    }
+
+    .third {
+        padding: 24px 16px;
+    }
+
+    .third .title {
+        margin-bottom: 24px;
+        font-size: 32px;
+    }
+
+    .third .menu {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .menuItem {
+        font-size: 18px;
+    }
+
+    .menuItem:after {
+        display: none;
+    }
+
+    .third .flow {
+        margin-top: 32px;
+        gap: 24px;
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+    }
+
+    .flowArrow {
+        margin-top: 0;
+        width: 28px;
+        height: 28px;
+        transform: rotate(90deg);
+    }
+
+    .flowStep {
+        align-items: center;
+        gap: 8px;
+    }
+
+    .flowText {
+        font-size: 18px;
+    }
+
+    .fourth .content {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .fourth .left,
+    .fourth .right {
+        width: auto;
+        gap: 24px;
+    }
+
+    .fourth .title {
+        font-size: 32px;
+    }
+
+    .fifth {
+        padding: 0 16px;
+    }
+
+    .news .title {
+        font-size: 32px;
+    }
+
+    .news .content.row0 .item2 {
+        display: flex;
+    }
+
+    .news .content.row1 {
+        display: none;
+    }
+
+    .news .content {
+        flex-direction: column;
+    }
+
+    .news .split {
+        height: 1px;
+        width: 100%;
+    }
+
+    .arrowButton {
+        width: 100%;
+    }
+
+    .subscribe {
+        flex-direction: column;
+        padding: 32px;
+        gap: 24px;
+    }
+
+    .subscribe .left {
+        width: auto;
+        font-size: 32px;
     }
 }

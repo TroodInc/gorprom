@@ -5,14 +5,14 @@ import Image from 'next/image'
 import moment from 'moment'
 import Icon, { ICONS_TYPES } from '../Icon'
 
-const NewsCard = ({ big, data: { id, created, name, type, photo } = {} }) => {
+const NewsCard = ({ className, big, data: { id, created, name, type, photo } = {} }) => {
   if (!id) return <div className={classNames(styles.newsItem, big ? styles.big : styles.normal)} />
   const link = type === 'NEWS' ?
     `/news/${id}` :
     `/events/${id}`
   if (big) {
     return (
-      <Link className={classNames(styles.newsItem, styles.big)} href={link}>
+      <Link className={classNames(className, styles.newsItem, styles.big)} href={link}>
         <Image
           alt={photo}
           src={photo}
@@ -31,7 +31,7 @@ const NewsCard = ({ big, data: { id, created, name, type, photo } = {} }) => {
     )
   }
   return (
-    <Link className={classNames(styles.newsItem, styles.normal)} href={link}>
+    <Link className={classNames(className, styles.newsItem, styles.normal)} href={link}>
       <div className={styles.newsContent}>
         <h3 className={styles.title}>
           {name}

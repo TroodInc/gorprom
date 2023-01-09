@@ -81,3 +81,44 @@
     position: relative;
     height: 304px;
 }
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .newsItem {
+        height: 420px;
+    }
+
+    .big .title {
+        font-size: 32px;
+    }
+
+    .normal .title {
+        font-size: 24px;
+    }
+
+    .normal .imageWrapper {
+        height: 220px;
+    }
+}
+
+@media (max-width: 799px) {
+    .big,
+    .normal {
+        flex-basis: auto;
+    }
+
+    .newsItem {
+        height: 420px;
+    }
+
+    .big .title {
+        font-size: 32px;
+    }
+
+    .normal .title {
+        font-size: 24px;
+    }
+
+    .normal .imageWrapper {
+        height: 220px;
+    }
+}

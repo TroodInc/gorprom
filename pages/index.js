@@ -193,7 +193,7 @@ const Main = ({ host }) => {
       <div className={styles.second}>
         <h2 className={styles.title}>Участники</h2>
         <div className={styles.companies}>
-          <Icon size={128} type={ICONS_TYPES.arrow} className={styles.prev} onClick={() => setCompany(prevCompany)} />
+          <Icon type={ICONS_TYPES.arrow} className={styles.prev} onClick={() => setCompany(prevCompany)} />
           {getCompanies(company, 3).map((item, i) => (
             <div key={item.name} className={classNames(styles.company, styles[`item${i}`])}>
               <h3 className={styles.companyName}>
@@ -209,7 +209,7 @@ const Main = ({ host }) => {
               </div>
             </div>
           ))}
-          <Icon size={128} type={ICONS_TYPES.arrow} className={styles.next} onClick={() => setCompany(nextCompany)} />
+          <Icon type={ICONS_TYPES.arrow} className={styles.next} onClick={() => setCompany(nextCompany)} />
         </div>
         <div className={styles.buttons}>
           <Button
@@ -301,17 +301,23 @@ const Main = ({ host }) => {
             <h2 className={styles.title}>
               Новости
             </h2>
-            <div className={styles.content}>
-              <NewsCard big data={newsArray[0]} />
+            <div className={classNames(styles.content, styles.row0)}>
+              <NewsCard big data={newsArray[0]} className={styles.item0} />
               {newsArray.length > 1 && (
                 <>
                   <div className={styles.split} />
-                  <NewsCard data={newsArray[1]} />
+                  <NewsCard className={styles.item1} data={newsArray[1]} />
+                </>
+              )}
+              {newsArray.length > 2 && (
+                <>
+                  <div className={classNames(styles.split, styles.item2)} />
+                  <NewsCard className={styles.item2} data={newsArray[2]} />
                 </>
               )}
             </div>
             {newsArray.length > 2 && (
-              <div className={styles.content}>
+              <div className={classNames(styles.content, styles.row1)}>
                 {newsArray.map((item, i) => {
                   if (i < 2) return null
                   return (
