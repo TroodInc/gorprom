@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { MobXProviderContext, observer } from 'mobx-react'
+import Head from 'next/head'
 
 import NewsCard from '../../components/NewsCard'
 
@@ -22,6 +23,9 @@ const NewsList = ({ host }) => {
 
   return (
     <div className={styles.root}>
+      <Head>
+        <title>Горпром | Новости</title>
+      </Head>
       <h1 className={styles.title}>
         Новости
       </h1>

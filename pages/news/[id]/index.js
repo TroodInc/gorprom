@@ -1,6 +1,7 @@
 import { Fragment, useContext } from 'react'
 import moment from 'moment'
 import { MobXProviderContext, observer } from 'mobx-react'
+import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
@@ -39,6 +40,9 @@ const NewsItem = ({ host }) => {
 
   return (
     <div className={styles.root}>
+      <Head>
+        <title>Горпром | Новости | {newsData.name}</title>
+      </Head>
       <div className={styles.first}>
         <h1 className={styles.title}>{newsData.name}</h1>
         <div className={styles.header}>
