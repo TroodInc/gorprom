@@ -9,6 +9,7 @@ import MarketLayout from '../../../layout/market'
 import MarketCard from '../../../components/MarketCard'
 
 import styles from './index.module.css'
+import Head from 'next/head'
 
 
 const Market = ({ host }) => {
@@ -57,6 +58,9 @@ const Market = ({ host }) => {
 
   return (
     <div className={styles.root}>
+      <Head>
+        <title>Горпром | Маркетплейс | Поиск</title>
+      </Head>
       <div className={styles.left}>
         <div className={styles.header}>
           {!totalCount && (

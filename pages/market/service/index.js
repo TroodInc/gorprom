@@ -6,8 +6,11 @@ import { callPostApi, callGetApi, getApiPath, getFullUrl, callDeleteApi } from '
 import MarketLayout from '../../../layout/market'
 import CategoryFilter from '../../../components/CategoryFilter'
 import MarketCard from '../../../components/MarketCard'
+import Icon, { ICONS_TYPES } from '../../../components/Icon'
+import HiddenContent, { POSITION_TYPES } from '../../../components/HiddenContent'
 
 import styles from './index.module.css'
+import Head from 'next/head'
 
 
 const getAllCategory = (id, categories = []) => {
@@ -51,6 +54,9 @@ const Market = ({ host }) => {
 
   return (
     <div className={styles.root}>
+      <Head>
+        <title>Горпром | Маркетплейс | Услуги</title>
+      </Head>
       <div className={styles.left}>
         {productArray.map(item => {
           const fav = favoriteArray.find(f => f.product === item.id)
@@ -105,6 +111,29 @@ const Market = ({ host }) => {
           }}
         />
       </div>
+      <HiddenContent
+        className={styles.filter}
+        position={POSITION_TYPES.bottomRight}
+        ControlComponent={() => (
+          <Icon
+            size={24}
+            type={ICONS_TYPES.filter}
+            label="Процессы"
+          />)}
+      >
+        <CategoryFilter
+          className={styles.filters}
+          items={productCategoryArray}
+          value={query?.category && +query?.category}
+          onChange={val => {
+            if (val) {
+              push(`${pathname}?category=${val}`)
+            } else {
+              push(pathname)
+            }
+          }}
+        />
+      </HiddenContent>
     </div>
   )
 }

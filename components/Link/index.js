@@ -48,7 +48,7 @@ const Link = ({
     const pageAllow = getPageAllow({
       context: abacContext,
       rules: abacRules,
-      path: href,
+      path: mainPath,
     })
     if (!pageAllow.access) {
       if (hideIfNotAllowed) {

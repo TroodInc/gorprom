@@ -57,7 +57,7 @@ const MarketLayout = ({ children }) => {
         <Button
           specialType={ICONS_TYPES.search}
           color={BUTTON_COLORS.white}
-          className={classNames(styles.button, styles.searchBtn)}
+          className={classNames(styles.button, styles.searchBtn, search && styles.clearBtnActive)}
           disabled={!form.get('data.search')}
           link={`/market/search?type=${
             form.get('data.type')

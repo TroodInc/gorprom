@@ -1,15 +1,16 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
-import classNames from 'classnames'
 
 import { callGetApi, getApiPath, getFullUrl } from '../../../helpers/fetch'
 import MarketLayout from '../../../layout/market'
-import Select from '../../../components/Select'
 import CategoryFilter from '../../../components/CategoryFilter'
 import MarketCard from '../../../components/MarketCard'
+import Icon, { ICONS_TYPES } from '../../../components/Icon'
+import HiddenContent, { POSITION_TYPES } from '../../../components/HiddenContent'
 
 import styles from './index.module.css'
+import Head from 'next/head'
 
 const Market = ({ host }) => {
   const { store } = useContext(MobXProviderContext)
@@ -55,6 +56,9 @@ const Market = ({ host }) => {
 
   return (
     <div className={styles.root}>
+      <Head>
+        <title>Горпром | Маркетплейс | Компании</title>
+      </Head>
       <div className={styles.left}>
         {companyArray.map(item => (
           <MarketCard
@@ -79,6 +83,29 @@ const Market = ({ host }) => {
           }}
         />
       </div>
+      <HiddenContent
+        className={styles.filter}
+        position={POSITION_TYPES.bottomRight}
+        ControlComponent={() => (
+          <Icon
+            size={24}
+            type={ICONS_TYPES.filter}
+            label="Типы деятельности"
+          />)}
+      >
+        <CategoryFilter
+          className={styles.filters}
+          items={Object.values(workTypeByCategory)}
+          value={query?.work_type && +query?.work_type}
+          onChange={val => {
+            if (val) {
+              push(`${pathname}?work_type=${val}`)
+            } else {
+              push(pathname)
+            }
+          }}
+        />
+      </HiddenContent>
     </div>
   )
 }

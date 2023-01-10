@@ -30,8 +30,7 @@
 }
 
 .search .clearBtn {
-    padding: 0;
-    right: -40px;
+    right: -56px;
     stroke: var(--trood-white);
 }
 
@@ -79,4 +78,41 @@
 .activeNavLink {
     opacity: 1;
     color: var(--trood-text-gray);
+}
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .search .searchBtn.clearBtnActive {
+        right: 60px;
+    }
+
+    .search .clearBtn {
+        right: 2px;
+    }
+}
+
+@media (max-width: 799px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .search .searchBtn.clearBtnActive {
+        right: 60px;
+    }
+
+    .search .clearBtn {
+        right: 2px;
+    }
+
+    .header {
+        flex-direction: column;
+    }
+
+    .registrationBtn {
+        width: auto;
+        margin-top: 10px;
+    }
 }

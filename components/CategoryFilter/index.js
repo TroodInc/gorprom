@@ -1,4 +1,5 @@
 import memoizeOne from 'memoize-one'
+import classNames from 'classnames'
 
 import Category from './category'
 
@@ -24,11 +25,11 @@ const innerGetValueArray = (dict, value) => {
 
 const getValueArray = memoizeOne(innerGetValueArray)
 
-const CategoryFilter = ({ items = [], value, onChange }) => {
+const CategoryFilter = ({ className, items = [], value, onChange }) => {
   const categoryDict = getCategoryDict(items)
   const values = getValueArray(categoryDict, value)
   return (
-    <div className={styles.root}>
+    <div className={classNames(className, styles.root)}>
       {items.filter(item => !item.parent).map((item, i) => (
         <Category
           key={item.id || i}

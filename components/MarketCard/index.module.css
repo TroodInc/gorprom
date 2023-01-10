@@ -21,21 +21,18 @@
     font-weight: 500;
     font-size: 32px;
     line-height: 1.05;
-    max-height: 2em;
+    max-height: 2.1em;
     letter-spacing: -0.02em;
     overflow: hidden;
 }
 
 .link {
     cursor: pointer;
+    display: inline;
 }
 
 .link:hover {
     color: var(--trood-orange);
-}
-
-.company .title {
-    max-height: 1em;
 }
 
 .verifyIcon {
@@ -119,4 +116,32 @@
 
 .messageBox .link:hover {
     color: var(--trood-text);
+}
+
+@media (max-width: 799px) {
+    .root {
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .center {
+        align-items: center;
+        gap: 12px;
+    }
+
+    .left,
+    .right {
+        flex: 1;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .fav {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+    }
 }
