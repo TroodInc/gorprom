@@ -4,6 +4,7 @@ import { MobXProviderContext, observer } from 'mobx-react'
 import Link from '../../components/Link'
 
 import styles from './index.module.css'
+import Head from 'next/head'
 
 
 const Job = () => {
@@ -13,6 +14,9 @@ const Job = () => {
   if (id) {
     return (
       <div className={styles.root}>
+        <Head>
+          <title>Горпром | Биржа труда</title>
+        </Head>
         <div className={styles.wrapper}>
           Раздел &quot;Биржа труда&quot; сейчас находится в разработке.
           Как только раздел будет готов, мы вышлем уведомление на вашу почту.
@@ -23,10 +27,13 @@ const Job = () => {
 
   return (
     <div className={styles.root}>
+      <Head>
+        <title>Горпром | Биржа труда</title>
+      </Head>
       <div className={styles.wrapper}>
         <span>
           Раздел &quot;Биржа труда&quot; сейчас находится в разработке.
-          Чтобы не пропустить дату открытия биржы, пожалуйста
+          Чтобы не пропустить дату открытия биржы, пожалуйста{' '}
         </span>
         <Link className={styles.link} href="/registration">
           Зарегистрируйтесь

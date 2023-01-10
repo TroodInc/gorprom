@@ -9,10 +9,6 @@
   max-width: 610px;
 }
 
-.root .link {
-  margin-left: 0.25em;
-}
-
 .root a.link {
   color: var(--trood-orange);
 }

@@ -1,4 +1,5 @@
 import styles from './index.module.css'
+import Head from 'next/head'
 
 const title = 'Политика обработки персональных данных'
 const text = '1. Для целей настоящего документа используются следующие термины:\n' +
@@ -183,6 +184,9 @@ const text = '1. Для целей настоящего документа ис�
 const Personal = () => {
   return (
     <div className={styles.root}>
+      <Head>
+        <title>Горпром | {title}</title>
+      </Head>
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.text}>
         {text?.split('\n').map((item, i) => (

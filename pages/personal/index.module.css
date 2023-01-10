@@ -22,3 +22,15 @@
 .text p:not(:last-child) {
     margin-bottom: 1em;
 }
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .title {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 799px) {
+    .title {
+        font-size: 32px;
+    }
+}
