@@ -109,6 +109,7 @@
 }
 
 .link {
+    display: inline;
     color: var(--trood-orange);
 }
 
@@ -116,21 +117,28 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 8px;
+    max-width: 680px;
 }
 
 .mailingHeader {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
+    gap: 0.25em;
 }
 
-.mailingSubscribe, .mailingHeader {
+.mailingSubscribe,
+.mailingHeader {
     font-weight: 500;
     font-size: 24px;
     line-height: 105%;
 }
 
+.mailingUnsubscribe,
+.mailingSubscribe {
+    display: inline-flex;
+}
+
 .mailingText {
-    display: flex;
     font-weight: 400;
     font-size: 18px;
     line-height: 105%;
@@ -159,5 +167,41 @@
 
 .goBack a {
   justify-content: flex-start;
+}
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .root {
+        flex-direction: column;
+    }
+
+    .column.left {
+        flex: 1;
+        border-right: none;
+    }
+}
+
+@media (max-width: 799px) {
+    .root {
+        flex-direction: column;
+    }
+
+    .column.left {
+        flex: 1;
+        border-right: none;
+    }
+
+    .columns,
+    .inputs {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .column {
+        flex: 1;
+    }
+
+    .controls {
+        flex-direction: column-reverse;
+    }
 }
 

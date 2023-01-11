@@ -195,7 +195,7 @@ const Profile = ({ host }) => {
           {!isSubscribed &&
             <div className={styles.mailing}>
               <div className={styles.mailingHeader}>
-                Подписка на рассылку не оформлена.&nbsp;
+                Подписка на рассылку не оформлена.
                 <Button
                   className={styles.mailingSubscribe}
                   type={BUTTON_TYPES.text}
@@ -205,7 +205,7 @@ const Profile = ({ host }) => {
                 />
               </div>
               <div className={classNames(styles.mailingText, styles.subscribe)}>
-                Подписываясь, я соглашаюсь на получение новостных/рекламных сообщений<br/> на условиях&nbsp;
+                Подписываясь, я соглашаюсь на получение новостных/рекламных сообщений на условиях{' '}
                 <Link className={styles.link} href={'/agreement'}>
                   Пользовательского соглашения
                 </Link>
@@ -220,6 +220,7 @@ const Profile = ({ host }) => {
                 <div className={styles.mailingText}>
                   от подписки можно отписаться в любое время&nbsp;
                   <Button
+                    className={styles.mailingUnsubscribe}
                     type={BUTTON_TYPES.text}
                     color={BUTTON_COLORS.orange}
                     label='Отписаться'
