@@ -82,7 +82,7 @@
     height: 304px;
 }
 
-@media (max-width: 1280px) and (min-width: 800px) {
+@media (max-width: 1279px) and (min-width: 800px) {
     .newsItem {
         height: 420px;
     }

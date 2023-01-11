@@ -23,7 +23,7 @@
     width: 100%;
 }
 
-@media (max-width: 1280px) and (min-width: 800px) {
+@media (max-width: 1279px) and (min-width: 800px) {
     .main {
         padding: 16px;
     }

@@ -168,7 +168,7 @@
     color: var(--trood-orange);
 }
 
-@media (max-width: 1280px) and (min-width: 800px) {
+@media (max-width: 1279px) and (min-width: 800px) {
     .root {
         padding: 16px;
     }

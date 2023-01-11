@@ -55,7 +55,7 @@
     color: transparent;
 }
 
-@media (max-width: 1280px) and (min-width: 800px) {
+@media (max-width: 1279px) and (min-width: 800px) {
     .root {
         flex-wrap: wrap;
     }
