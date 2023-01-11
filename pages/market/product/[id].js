@@ -3,6 +3,7 @@ import { useContext, Fragment } from 'react'
 import classNames from 'classnames'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import Head from 'next/head'
 
 import { callDeleteApi, callGetApi, callPostApi, getApiPath, getFullUrl } from '../../../helpers/fetch'
 import Button, { BUTTON_SPECIAL_TYPES, BUTTON_TYPES, BUTTON_COLORS } from '../../../components/Button'
@@ -77,6 +78,9 @@ const Product = ({ host }) => {
 
   return (
     <div className={styles.root}>
+      <Head>
+        <title>Горпром | Маркетплейс | {productData.name}</title>
+      </Head>
       <div className={styles.breadcrumbs}>
         {breadcrumbs.map((item, i) => (
           <Fragment key={item.link}>
@@ -166,6 +170,7 @@ const Product = ({ host }) => {
         </div>
         <div className={styles.right}>
           <Button
+            className={styles.request}
             label="Отправить запрос"
             onClick={() => {
               const formStoreName = 'requestProduct' + id

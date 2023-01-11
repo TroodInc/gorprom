@@ -562,6 +562,10 @@
         width: auto;
         font-size: 32px;
     }
+
+    .disclaimer {
+        margin-right: 0;
+    }
 }
 
 @media (max-width: 799px) {
@@ -748,5 +752,9 @@
     .subscribe .left {
         width: auto;
         font-size: 32px;
+    }
+
+    .disclaimer {
+        margin-right: 0;
     }
 }

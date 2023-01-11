@@ -33,10 +33,11 @@ const Link = ({
   let linkActive
   if (!absoluteUrl) {
     const mainPath = asPath.match(/^([^?#]*)/)[1]
+    const mainHref = href.match(/^([^?#]*)/)[1]
     if (exact) {
-      linkActive = href === mainPath
+      linkActive = mainHref === mainPath
     } else {
-      linkActive = (new RegExp(`^${escapeRegExp(href)}`)).test(mainPath)
+      linkActive = (new RegExp(`^${escapeRegExp(mainHref)}`)).test(mainPath)
     }
     if (activeWithQuery.length) {
       const search = (href.match(/\?(.*)/) || [])[1]
@@ -48,7 +49,7 @@ const Link = ({
     const pageAllow = getPageAllow({
       context: abacContext,
       rules: abacRules,
-      path: mainPath,
+      path: mainHref,
     })
     if (!pageAllow.access) {
       if (hideIfNotAllowed) {
