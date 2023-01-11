@@ -54,3 +54,9 @@
 .subMenu .link:not(.active) .activeIcon {
     color: transparent;
 }
+
+@media (max-width: 799px) {
+    .root {
+        flex-wrap: wrap;
+    }
+}

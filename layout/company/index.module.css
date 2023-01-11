@@ -10,8 +10,6 @@
     color: var(--trood-orange);
 }
 
-
-
 .search {
     position: relative;
     display: flex;
@@ -94,4 +92,35 @@
 
 .menu {
     margin-bottom: 56px;
+}
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .header {
+        flex-flow: column nowrap;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 799px) {
+    .title {
+        font-size: 32px;
+        display: flex;
+        flex-flow: column-reverse nowrap;
+        gap: 8px;
+    }
+
+    .header {
+        flex-flow: column nowrap;
+        gap: 10px;
+    }
+
+    .verify {
+        position: relative;
+        width: auto;
+        margin-left: 0;
+    }
 }

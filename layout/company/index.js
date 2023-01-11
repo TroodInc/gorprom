@@ -3,7 +3,6 @@ import { Fragment, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import Input from '../../components/Input'
-import Select from '../../components/Select'
 import Button, { BUTTON_COLORS } from '../../components/Button'
 import SubMenu from '../../components/SubMenu'
 
@@ -12,6 +11,7 @@ import Link from '../../components/Link'
 import { getApiPath } from '../../helpers/fetch'
 import Icon, { ICONS_TYPES } from '../../components/Icon'
 import classNames from 'classnames'
+import Head from 'next/head'
 
 
 const formStoreName = 'companySearch'
@@ -50,6 +50,9 @@ const CompanyLayout = ({ host, children }) => {
 
   return (
     <>
+      <Head>
+        <title>Горпром | Маркетплейс | {companyName}</title>
+      </Head>
       <div className={styles.breadcrumbs}>
         {[
           { title: 'Маркетплейс', link: '/market' },
