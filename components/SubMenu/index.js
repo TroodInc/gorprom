@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import styles from './index.module.css'
 import Link from '../Link'
 import Icon, { ICONS_TYPES, LABEL_POSITION_TYPES } from '../Icon'
-import HiddenContent from '../HiddenContent'
+import HiddenContent, { POSITION_TYPES } from '../HiddenContent'
 import { useRouter } from 'next/router'
 import escapeRegExp from 'lodash/escapeRegExp'
 
@@ -19,6 +19,7 @@ const SubMenu = ({ items, className }) => {
           const active = (new RegExp(`^${escapeRegExp(link)}`)).test(asPath)
           return (
             <HiddenContent
+              position={POSITION_TYPES.bottomRight}
               key={link}
               ControlComponent={({ open }) => (
                 <Icon

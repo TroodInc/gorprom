@@ -65,4 +65,12 @@
     .root {
         flex-wrap: wrap;
     }
+
+    .subMenu {
+        font-size: 20px;
+    }
+
+    .subMenu .wrappedLink {
+        gap: 16px;
+    }
 }
