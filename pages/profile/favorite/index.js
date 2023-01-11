@@ -34,6 +34,7 @@ const Request = ({ host }) => {
           Добавляйте товары/услуги с помощью иконки «Звездочка»
         </div>
         <Button
+          className={styles.button}
           label="Перейти к поиску товаров и услуг"
           link="/market"
         />

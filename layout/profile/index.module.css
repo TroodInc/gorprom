@@ -22,3 +22,15 @@
 .menu {
     margin: 42px 0 24px;
 }
+
+@media (max-width: 1279px) and (min-width: 800px) {
+    .title {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 799px) {
+    .title {
+        font-size: 32px;
+    }
+}

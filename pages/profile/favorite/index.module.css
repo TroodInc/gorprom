@@ -70,3 +70,27 @@
     width: 520px;
     margin: 34px 0 24px;
 }
+
+@media (max-width: 1279px) and (min-width: 800px) {
+    .rootEmpty .title {
+        font-size: 32px;
+    }
+
+    .rootEmpty .text {
+        width: 100%;
+    }
+}
+
+@media (max-width: 799px) {
+    .rootEmpty .title {
+        font-size: 32px;
+    }
+
+    .rootEmpty .text {
+        width: 100%;
+    }
+
+    .rootEmpty .button * {
+        white-space: pre-wrap;
+    }
+}

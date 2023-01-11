@@ -139,7 +139,9 @@
         text-align: center;
     }
 
-    .fav {
+    .activeFav,
+    .fav,
+    .favRemove {
         position: absolute;
         top: 16px;
         right: 16px;
