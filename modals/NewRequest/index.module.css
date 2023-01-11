@@ -97,3 +97,15 @@
     text-transform: uppercase;
     color: var(--trood-text-light-gray);
 }
+
+@media (max-width: 1280px) and (min-width: 800px) {
+    .title {
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: 799px) {
+    .title {
+        margin-bottom: 16px;
+    }
+}

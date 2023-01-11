@@ -25,14 +25,15 @@ const CompanyProfile = ({ host }) => {
   return (
     <div className={styles.root}>
       <div className={styles.left}>
-        <Image
-          alt="Logo"
-          src={companyData.logo || '/image/defaultLogo.jpg'}
-          height={300}
-          width={170}
-          objectFit="contain"
-          objectPosition="top"
-        />
+        <div className={styles.imageWrapper}>
+          <Image
+            alt="Logo"
+            src={companyData.logo || '/image/defaultLogo.jpg'}
+            layout="fill"
+            objectFit="contain"
+            objectPosition="top"
+          />
+        </div>
       </div>
       <div className={styles.main}>
         <div className={styles.row}>
