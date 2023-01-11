@@ -38,7 +38,7 @@ const Modal = ({
       overlayClassName={classNames(overlayClassName, styles.overlay, styles[type])}
       style={{
         content: {
-          width,
+          width: width === 'unset' ? undefined : width,
           height,
           ...style,
         },

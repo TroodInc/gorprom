@@ -39,16 +39,7 @@ const Request = ({ onClose, host, form, ...other }) => {
       type="right"
       className={styles.root}
       overlayClassName={styles.overlay}
-      style={{
-        width: 'calc(50% - 24px)',
-        height: 'calc(75% - 48px)',
-        position: 'absolute',
-        bottom: 24,
-        right: 24,
-        alignItems: 'stretch',
-        justifyContent: 'stretch',
-        padding: 24,
-      }}
+      width="unset"
       {...other}
       onClose={undefined}
     >

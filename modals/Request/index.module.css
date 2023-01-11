@@ -1,9 +1,15 @@
 .root {
-    position: relative;
+    position: absolute;
     display: flex;
-    align-items: center;
-    justify-content: center;
     border: 1px solid var(--trood-border-dark);
+    width: calc(50% - 24px) !important;
+    height: calc(75% - 48px) !important;
+    bottom: 24px;
+    right: 24px;
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 24px;
+    margin: 0 !important;
 }
 
 .overlay {
@@ -219,4 +225,19 @@
 .footer .attachmentSize {
     text-transform: uppercase;
     color: var(--trood-text-light-gray);
+}
+
+@media (max-width: 1279px) and (min-width: 800px) {
+    .root {
+        width: calc(75% - 24px) !important;
+    }
+}
+
+@media (max-width: 799px) {
+    .root {
+        width: calc(100% - 32px) !important;
+        height: calc(100% - 32px) !important;
+        bottom: 16px;
+        right: 16px;
+    }
 }

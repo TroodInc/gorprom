@@ -36,6 +36,7 @@ const Request = ({ host }) => {
           Запрос можно отправить, нажав на кнопку «Отправить запрос» рядом с товаром/услугой
         </div>
         <Button
+          className={styles.button}
           label="Перейти к поиску товаров и услуг"
           link="/market"
         />
@@ -74,9 +75,9 @@ const Request = ({ host }) => {
                   },
                 })
               }}>
-                <td>{item.id}</td>
-                <td>{item.name || item.target?.name}</td>
-                <td>
+                <td data-label="Номер">{item.id}</td>
+                <td data-label="Запрос">{item.name || item.target?.name}</td>
+                <td data-label="Последнее изменение">
                   <div className={styles.lastChange}>
                     <span>{moment(lastChange).format('DD.MM.YYYY в HH.mm')}</span>
                     {!lastMessageMy && (

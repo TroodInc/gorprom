@@ -70,3 +70,77 @@
     width: 520px;
     margin: 34px 0 24px;
 }
+
+@media (max-width: 1279px) and (min-width: 800px) {
+    .table th:first-child {
+        width: 105px;
+    }
+
+    .table th:last-child {
+        width: 280px;
+    }
+
+    .rootEmpty .title {
+        font-size: 32px;
+    }
+
+    .rootEmpty .text {
+        width: 100%;
+    }
+}
+
+@media (max-width: 799px) {
+    .table {
+        display: flex;
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tbody {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 16px;
+        flex: 1;
+    }
+
+    .table tbody tr {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 6px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--trood-border-dark);
+    }
+
+    .table tbody td {
+        border-left: none !important;
+        padding: 0;
+    }
+
+    .table tbody td:before {
+        content: attr(data-label);
+        display: flex;
+        font-size: 16px;
+        color: var(--trood-text-light-gray);
+    }
+
+    .lastChange {
+        justify-content: flex-start;
+        gap: 24px;
+    }
+
+    .rootEmpty .title {
+        font-size: 32px;
+    }
+
+    .rootEmpty .text {
+        width: 100%;
+    }
+
+    .rootEmpty .button * {
+        white-space: pre-wrap;
+    }
+}
