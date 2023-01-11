@@ -83,7 +83,7 @@ const CompanyLayout = ({ host, children }) => {
         <Button
           specialType={ICONS_TYPES.search}
           color={BUTTON_COLORS.white}
-          className={classNames(styles.button, styles.searchBtn)}
+          className={classNames(styles.button, styles.searchBtn, form.get('data.search') && styles.clearBtnActive)}
           disabled={!form.get('data.search')}
           link={`${mainPath}?type=${
             form.get('data.type')

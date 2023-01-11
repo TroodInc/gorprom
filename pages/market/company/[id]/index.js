@@ -12,6 +12,8 @@ import MarketCard from '../../../../components/MarketCard'
 import CategoryFilter from '../../../../components/CategoryFilter'
 
 import styles from './index.module.css'
+import HiddenContent, { POSITION_TYPES } from '../../../../components/HiddenContent'
+import Icon, { ICONS_TYPES } from '../../../../components/Icon'
 
 
 const CompanyMarket = ({ host }) => {
@@ -63,12 +65,6 @@ const CompanyMarket = ({ host }) => {
                 Найдено {humanizeNumber(productCount, 'совпадение', 'совпадения', 'совпадений')}
               </div>
             )}
-            <Button
-              className={styles.button}
-              label="отменить"
-              type={BUTTON_TYPES.text}
-              onClick={() => push(from || path)}
-            />
           </div>
         )}
         {productArray.map(item => {
@@ -110,20 +106,47 @@ const CompanyMarket = ({ host }) => {
           )
         })}
       </div>
-      <div className={styles.right}>
-        <div className={styles.title}>Процессы</div>
-        <CategoryFilter
-          items={productCategoryArray}
-          value={+category}
-          onChange={val => {
-            if (val) {
-              push(`${path}?category=${val}`)
-            } else {
-              push(path)
-            }
-          }}
-        />
-      </div>
+      {!search && (
+        <>
+          <div className={styles.right}>
+            <div className={styles.title}>Процессы</div>
+            <CategoryFilter
+              items={productCategoryArray}
+              value={+category}
+              onChange={val => {
+                if (val) {
+                  push(`${path}?category=${val}`)
+                } else {
+                  push(path)
+                }
+              }}
+            />
+          </div>
+          <HiddenContent
+            className={styles.filter}
+            position={POSITION_TYPES.bottomRight}
+            ControlComponent={() => (
+              <Icon
+                size={24}
+                type={ICONS_TYPES.filter}
+                label="Процессы"
+              />)}
+          >
+            <CategoryFilter
+              className={styles.filters}
+              items={productCategoryArray}
+              value={+category}
+              onChange={val => {
+                if (val) {
+                  push(`${path}?category=${val}`)
+                } else {
+                  push(path)
+                }
+              }}
+            />
+          </HiddenContent>
+        </>
+      )}
     </div>
   )
 }
