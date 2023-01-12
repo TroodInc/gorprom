@@ -128,3 +128,47 @@
 .goBack a {
     justify-content: flex-start;
 }
+
+@media (max-width: 1279px) and (min-width: 800px) {
+    .root {
+        flex-flow: column;
+    }
+
+    .left {
+        border-right: none;
+        margin-right: 0;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 799px) {
+    .root {
+        flex-direction: column;
+    }
+
+    .left {
+        border-right: none;
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .cell {
+        width: 100%;
+    }
+
+    .cell:empty {
+        margin-top: -16px;
+    }
+
+    .block .title {
+        margin-bottom: 10px;
+    }
+
+    .controls {
+        flex-direction: column-reverse;
+    }
+}

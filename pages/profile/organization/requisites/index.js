@@ -68,16 +68,18 @@ const Requisites = ({ host }) => {
             objectFit="contain"
             objectPosition="top"
           />
-          <Icon
-            className={classNames(styles.verifyIcon, verify && styles.active)}
-            type={ICONS_TYPES.confirm}
-            size={10}
-          />
-          <div className={classNames(styles.verifyText, verify && styles.active)}>
-            {verify ? 'Верифицировано' : 'Неверифицировано'} Ассоциацией НП &laquo;Горнопромышленники России&raquo;
+          <div className={styles.verify}>
+            <Icon
+              className={classNames(styles.verifyIcon, verify && styles.active)}
+              type={ICONS_TYPES.confirm}
+              size={10}
+            />
+            <div className={classNames(styles.verifyText, verify && styles.active)}>
+              {verify ? 'Верифицировано' : 'Неверифицировано'} Ассоциацией НП &laquo;Горнопромышленники России&raquo;
+            </div>
           </div>
-          <div>
-              Подробнее про верификацию по ссылке<br/>
+          <div className={styles.verifyInfo}>
+            Подробнее про верификацию по ссылке{' '}
             <Link
               className={styles.link}
               href={'/agreement'}

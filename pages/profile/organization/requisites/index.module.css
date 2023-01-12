@@ -35,16 +35,21 @@
     line-height: 115%;
 }
 
+.verify {
+    margin: 24px 0;
+}
+
 .verifyIcon {
     align-self: flex-start;
     width: 14px;
     height: 14px;
-    margin: 23px 0 8px;
+    margin-bottom: 8px;
     padding-left: 2px;
     color: var(--trood-white);
     background-color: var(--trood-background-light-gray);
     opacity: 0.4;
     border-radius: 100%;
+    flex-shrink: 0;
 }
 
 .verifyIcon.active {
@@ -53,7 +58,6 @@
 }
 
 .verifyText {
-    margin-bottom: 24px;
     color: var(--trood-text-light-gray);
     opacity: 0.4;
 }
@@ -73,6 +77,7 @@
     flex: 1 1 67%;
     gap: 32px;
     border-left: 1px solid var(--trood-border-dark);
+    padding-left: 16px;
 }
 
 .row {
@@ -90,7 +95,6 @@
     flex-flow: column nowrap;
     flex: 1 1;
     max-width: 366px;
-    padding: 0 16px;
 }
 
 .block .title {
@@ -124,4 +128,84 @@
 .checkboxLabel {
     font-size: 18px;
     line-height: 125%;
+}
+
+@media (max-width: 1279px) and (min-width: 800px) {
+    .header {
+        font-size: 32px;
+    }
+
+    .root {
+        flex-direction: column;
+    }
+
+    .left {
+        max-width: none;
+        align-items: center;
+        margin-right: 0;
+    }
+
+    .verify {
+        display: flex;
+    }
+
+    .verifyIcon {
+        margin-bottom: 0;
+        margin-right: 0.5em;
+    }
+
+    .right {
+        border-left: none;
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 799px) {
+    .header {
+        font-size: 32px;
+    }
+
+    .root {
+        flex-direction: column;
+    }
+
+    .left {
+        max-width: none;
+        align-items: center;
+        margin-right: 0;
+    }
+
+    .verify {
+        display: inline;
+        text-align: center;
+    }
+
+    .verifyIcon {
+        margin-bottom: 0;
+        margin-right: 0.5em;
+        display: inline-flex;
+    }
+
+    .verifyText {
+        display: inline;
+    }
+
+    .verifyInfo {
+        text-align: center;
+    }
+
+    .right {
+        border-left: none;
+        padding-left: 0;
+        gap: 16px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .row.additionalGap {
+        margin-top: 16px;
+    }
 }
