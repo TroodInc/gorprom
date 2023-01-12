@@ -7,6 +7,12 @@
     justify-content: center;
 }
 
+.root .imageWrapper {
+    position: relative;
+    width: 760px;
+    height: 540px;
+}
+
 .root .button {
     position: absolute;
     top: 42px;
@@ -21,6 +27,7 @@
 .root .prev,
 .root .next {
     position: absolute;
+    z-index: 10;
     color: var(--trood-text-light-gray);
 }
 
@@ -38,4 +45,39 @@
 .root .prev:hover,
 .root .next:hover {
     color: var(--trood-orange);
+}
+
+@media (max-width: 1279px) and (min-width: 800px) {
+    .root .button {
+        top: 32px;
+        right: 32px;
+    }
+
+    .root .prev {
+        left: 60px;
+    }
+
+    .root .next {
+        right: 60px;
+    }
+}
+
+@media (max-width: 799px) {
+    .root .imageWrapper {
+        width: 100%;
+        height: 70%;
+    }
+
+    .root .button {
+        top: 32px;
+        right: 32px;
+    }
+
+    .root .prev {
+        left: 40px;
+    }
+
+    .root .next {
+        right: 40px;
+    }
 }
