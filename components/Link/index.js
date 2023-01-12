@@ -35,7 +35,7 @@ const Link = ({
     const mainPath = asPath.match(/^([^?#]*)/)[1]
     const mainHref = href.match(/^([^?#]*)/)[1]
     if (exact) {
-      linkActive = mainHref === mainPath
+      linkActive = mainHref === mainPath && !onClick
     } else {
       linkActive = (new RegExp(`^${escapeRegExp(mainHref)}`)).test(mainPath)
     }

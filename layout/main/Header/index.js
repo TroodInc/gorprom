@@ -105,7 +105,7 @@ const Header = ({
                   { link: '/profile/profile', label: 'Личный кабинет', show: isAuth },
                   { link: '/profile/favorite', label: 'Избранное', show: isAuth },
                   { link: '/profile/request', label: 'Запросы товаров/услуг', show: isAuth },
-                  { link: '/', label: 'Выход', action: store.clearAuthData, ssr: true, show: isAuth },
+                  { link: '/', label: 'Выход', action: store.clearAuthData, ssr: true, show: isAuth, exact: true },
                 ].map(({ link, label, show, action, ...other }) => {
                   if (!show) return null
                   return (
