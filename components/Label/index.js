@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import classNames from 'classnames'
 
@@ -26,8 +25,8 @@ class Label extends PureComponent {
     } = this.props
 
     return (
-      <div ref={innerRef} className={styles.root}>
-        <span className={classNames(styles.label, className)}>
+      <div ref={innerRef} className={classNames(styles.root, className)}>
+        <span className={styles.label}>
           {label}
         </span>
         {required && (

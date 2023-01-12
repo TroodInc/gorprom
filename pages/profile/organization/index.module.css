@@ -137,6 +137,7 @@
     .left {
         max-width: none;
         align-items: center;
+        margin-right: 0;
     }
 
     .verify {
@@ -166,6 +167,7 @@
     .left {
         max-width: none;
         align-items: center;
+        margin-right: 0;
     }
 
     .verify {

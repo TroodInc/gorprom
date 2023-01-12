@@ -164,8 +164,6 @@
     align-self: center;
     align-items: center;
     justify-content: center;
-    margin-top: 25px;
-    margin-left: 16px;
     width: 24px;
     height: 24px;
     border-radius: 100%;
@@ -190,4 +188,113 @@
 
 .goBack a {
     justify-content: flex-start;
+}
+
+@media (max-width: 1279px) and (min-width: 800px) {
+    .root {
+        flex-flow: column;
+    }
+
+    .left {
+        border-right: none;
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    .icon {
+        top: -6px;
+        right: 0;
+    }
+}
+
+@media (max-width: 799px) {
+    .root {
+        flex-direction: column;
+    }
+
+    .left {
+        border-right: none;
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .cell {
+        width: 100%;
+    }
+
+    .cell:empty {
+        margin-top: -16px;
+    }
+
+    .block .title {
+        margin-bottom: 10px;
+    }
+
+    .contactBlock {
+        flex-direction: column;
+        border: 1px solid var(--trood-border-light-gray);
+        border-radius: var(--trood-input-border-radius);
+        margin-top: 24px;
+    }
+
+    .icon {
+        top: -30px;
+        right: 0;
+    }
+
+    .contactBlock:before {
+        position: absolute;
+        top: -24px;
+        left: 16px;
+        content: 'Телефон';
+        display: flex;
+        flex-flow: row nowrap;
+        color: var(--trood-text-light-gray);
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    .contactBlock .cell {
+        width: 100%;
+        max-width: none;
+    }
+
+    .cell .inputLeft {
+        border: none;
+        border-bottom-right-radius: var(--trood-input-border-radius);
+        border-top-right-radius: var(--trood-input-border-radius);
+        padding: 0 16px;
+        min-height: 50px;
+    }
+
+    .cell .inputLeftLabel {
+        margin-top: 8px;
+        margin-bottom: 0;
+    }
+
+    .cell .selectRight > div:first-child {
+        margin-bottom: 0;
+    }
+
+    .cell .selectRight > div:last-child {
+        border: none;
+        border-bottom-left-radius: var(--trood-input-border-radius);
+        border-top-left-radius: var(--trood-input-border-radius);
+        height: 50px;
+    }
+
+    .contactBlock .split {
+        width: 100%;
+        height: 1px;
+        margin: -1px 0 8px;
+    }
+
+    .controls {
+        flex-direction: column-reverse;
+    }
 }

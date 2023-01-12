@@ -397,6 +397,7 @@ const Organization = ({ host }) => {
                     <div className={styles.cell}>
                       <Input
                         inputClassName={styles.inputLeft}
+                        labelClassName={styles.inputLeftLabel}
                         type={INPUT_TYPES.phoneWithExt}
                         label="Номер телефона"
                         validate={{ required: true, checkOnBlur: true }}
